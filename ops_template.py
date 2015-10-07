@@ -111,7 +111,7 @@ class POSE_OT_template_init(bpy.types.Operator):
 		template.name = "Select Only"
 		template.ops_type = 'EXE'
 		template.ops_exe   = "pose.selectonly"
-		template.icon_on  = "RESTRICT_SELECT_OFF"
+		template.icon_on  = "HAND"
 		template.ok_for_current_sel = False
 		template = bpy.context.scene.templatelist.add()  
 		template.name = "Add to selection"
@@ -133,6 +133,13 @@ class POSE_OT_template_init(bpy.types.Operator):
 		template.icon_on  = "VISIBLE_IPO_ON"
 		template.icon_off  = "VISIBLE_IPO_OFF"
 		template.ok_for_current_sel = False
+		template = bpy.context.scene.templatelist.add()  
+		template.name = "Restrict/Allow Selection"
+		template.ops_type = 'BOOL'
+		template.ops_exe   = "pose.restrict_select"
+		template.icon_on  = "RESTRICT_SELECT_OFF"
+		template.icon_off  = "RESTRICT_SELECT_ON"
+		template.ok_for_current_sel = True
 		bpy.context.scene.active_template = len(bpy.context.scene.templatelist) - 1	 
 		
 		
