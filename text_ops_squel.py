@@ -98,7 +98,7 @@ class POSE_OT_###opsclass###(Operator):
 			if bone.name not in armature.data.bones: #If bone no more exists
 				to_delete.append(idx)
 				continue
-			function_###opsclass###_(on_off, armature.bones, bone.name)
+			function_###opsclass###_(on_off, armature.pose.bones, bone.name)
 			
 		function_###opsclass###_after(on_off)
 		
