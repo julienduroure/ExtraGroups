@@ -190,9 +190,12 @@ class POSE_PT_opslist(bpy.types.Panel):
 		
 		col = row.column()
 		row = col.column(align=True)
-		row.operator("pose.ops_add", icon="ZOOMIN", text="").from_template = False
-		row.operator("pose.ops_remove", icon="ZOOMOUT", text="")
-		row.enabled = context.scene.bonegroup_devmode
+		sub = row.row(align=True)
+		sub.operator("pose.ops_add", icon="ZOOMIN", text="").from_template = False
+		sub.enabled = context.scene.bonegroup_devmode
+		sub = row.row(align=True)
+		sub.operator("pose.ops_remove", icon="ZOOMOUT", text="")
+		sub.enabled = context.scene.bonegroup_editmode
 		row = col.column(align=True)
 		row.separator()
 		row.operator("pose.operator_move", icon='TRIA_UP', text="").direction = 'UP'
