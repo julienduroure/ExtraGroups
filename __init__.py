@@ -15,29 +15,6 @@
 #  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
 #======================= END GPL LICENSE BLOCK ========================
-
-###TODO addon
-#TODO : changer l'url documentation vers une page de mon site
-#TODO : remplir le README
-#TODO : upload to github
-
-###TODO Look
-#TODO : Faire de belles icones
-
-###TODO Bugs
-
-
-###### V0.2 or next	
-#TODO : icon perso pour l'utilisateur
-#TODO : export/import avec le code, pas seulement la liste
-#TODO : create keying set from bone group
-#TODO : other default template ?
-#TODO : Create bone groups from official bone groups
-#TODO : Avoid multiple import of template by unique ID of template
-#TODO : Transform an operator into template
-#TODO : mode gestion des properties ( 0/1 ) pour FK / IK par exemple
-
-
 bl_info = {
 	"name": "Extra Groups",
 	"version": (0, 1),
