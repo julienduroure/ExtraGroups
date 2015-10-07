@@ -1,10 +1,8 @@
 ###TODO addon
-#TODO : changer l'url documentation vers une page de mon site
 #TODO : remplir le README
 
-###TODO Look
-
-###TODO Bugs
+#TODO / BUGS
+#When a new bone is assigned to a group, and for example mute is on, bone added is not muted
 
 
 ###### V0.2 or next	
