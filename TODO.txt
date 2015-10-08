@@ -1,6 +1,3 @@
-###TODO addon
-#TODO : remplir le README
-
 #TODO / BUGS
 #When a new bone is assigned to a group, and for example mute is on, bone added is not muted
 
