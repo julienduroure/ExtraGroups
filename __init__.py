@@ -17,7 +17,7 @@
 #======================= END GPL LICENSE BLOCK ========================
 bl_info = {
 	"name": "Extra Groups",
-	"version": (0, 1),
+	"version": (0, 0, 1),
 	"author": "Julien Duroure",
 	"blender": (2, 75, 0),
 	"description": "Extra Groups Tools",
