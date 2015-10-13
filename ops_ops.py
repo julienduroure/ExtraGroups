@@ -163,4 +163,5 @@ def register():
 def unregister():
 	bpy.utils.unregister_class(POSE_OT_ops_add)
 	bpy.utils.unregister_class(POSE_OT_ops_remove) 
-	bpy.utils.unregister_class(POSE_OT_operator_move) 
+	bpy.utils.unregister_class(POSE_OT_operator_move)
+	bpy.utils.unregister_class(POSE_OT_dummy)
