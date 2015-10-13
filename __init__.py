@@ -81,9 +81,8 @@ class BoneEntry(bpy.types.PropertyGroup):
 	name = bpy.props.StringProperty(name="Bone Name")
 	
 class OnOffEntry(bpy.types.PropertyGroup):
-	id = bpy.props.StringProperty(name="Id of Ops")
-	on_off = bpy.props.BoolProperty(name="On_Off")
-
+	id      = bpy.props.StringProperty(name="Id of Ops")
+	on_off  = bpy.props.BoolProperty(name="On_Off")
 
 class TemplateItem(bpy.types.PropertyGroup):
 	id   = bpy.props.StringProperty(name="Unique id")
@@ -103,6 +102,7 @@ class OpsItem(bpy.types.PropertyGroup):
 	icon_off   = bpy.props.StringProperty(name="Icon Off")
 	from_template = bpy.props.BoolProperty()
 	ok_for_current_sel = bpy.props.BoolProperty()
+	display = bpy.props.BoolProperty()
 
 class BoneGroup(bpy.types.PropertyGroup):
 	name = bpy.props.StringProperty(name="Group Name")

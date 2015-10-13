@@ -45,6 +45,8 @@ class POSE_UL_bonegroup(bpy.types.UIList):
 			#loop on ops from this group type
 			for ops in armature.grouptypelist[armature.active_grouptype].ops_ids:
 				try:
+					if ops.display == False:
+						continue
 					#retrieve on_off
 					for on_off_item in armature.grouptypelist[armature.active_grouptype].group_ids[index].on_off:
 					
@@ -77,6 +79,11 @@ class POSE_UL_opslist(bpy.types.UIList):
 		
 		if self.layout_type in {'DEFAULT', 'COMPACT'}:
 			layout.prop(item, "name", text="", emboss=False)
+			if item.display == True:
+				icon = "CHECKBOX_HLT"			
+			else:
+				icon = "CHECKBOX_DEHLT"
+			layout.prop(item, "display", text="", emboss=False,icon=icon)
 			
 		elif self.layout_type in {'GRID'}:
 			layout.alignment = 'CENTER'

@@ -84,11 +84,13 @@ class POSE_OT_ops_add(bpy.types.Operator):
 				ops.icon_off   = template.icon_off
 				ops.from_template = True
 				ops.ok_for_current_sel = template.ok_for_current_sel
+				ops.display = False
 			else:
 				ops.name = "Ops.%d" % len(opslist)
 				ops.ops_exe = "pose.ope_" + ops.id
 				ops.from_template = False
 				ops.ops_type = 'EXE'
+				ops.display = False
 				# now that id is generated, generate a new file
 				textname = ops.id + ".py"
 				if textname in bpy.data.texts:
