@@ -53,8 +53,7 @@ class POSE_PT_grouptype(bpy.types.Panel):
 class POSE_PT_template(bpy.types.Panel):
 	bl_label = "Template"
 	bl_space_type = 'VIEW_3D'
-	bl_region_type = 'TOOLS'
-	bl_category = "Extra Groups"
+	bl_region_type = 'UI'
 	
 	@classmethod
 	def poll(self, context):
@@ -167,8 +166,7 @@ class POSE_PT_bonegroup(bpy.types.Panel):
 class POSE_PT_opslist(bpy.types.Panel):
 	bl_label = "Operator List"
 	bl_space_type = 'VIEW_3D'
-	bl_region_type = 'TOOLS'
-	bl_category = "Extra Groups"
+	bl_region_type = 'UI'
 	
 	@classmethod
 	def poll(self, context):
@@ -207,8 +205,7 @@ class POSE_PT_opslist(bpy.types.Panel):
 class POSE_PT_opsdetail(bpy.types.Panel):
 	bl_label = "Operator Detail"
 	bl_space_type = 'VIEW_3D'
-	bl_region_type = 'TOOLS'
-	bl_category = "Extra Groups"
+	bl_region_type = 'UI'
 	
 	@classmethod
 	def poll(self, context):
@@ -251,8 +248,7 @@ class POSE_PT_opsdetail(bpy.types.Panel):
 class POSE_PT_templatedetail(bpy.types.Panel):
 	bl_label = "Template Detail"
 	bl_space_type = 'VIEW_3D'
-	bl_region_type = 'TOOLS'
-	bl_category = "Extra Groups"
+	bl_region_type = 'UI'
 	
 	@classmethod
 	def poll(self, context):
@@ -287,8 +283,7 @@ class POSE_PT_templatedetail(bpy.types.Panel):
 class POSE_PT_bonegroup_option(bpy.types.Panel):
 	bl_label = "Options"
 	bl_space_type = 'VIEW_3D'
-	bl_region_type = 'TOOLS'
-	bl_category = "Extra Groups"
+	bl_region_type = 'UI'
 	
 	@classmethod
 	def poll(self, context):
