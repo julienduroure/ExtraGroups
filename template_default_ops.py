@@ -51,7 +51,7 @@ class POSE_OT_changevisibility(Operator):
 		found = False
 		for ops in armature.grouptypelist[armature.active_grouptype].group_ids[self.index].on_off:
 			if ops.id == self.ops_id:
-				on_off = ops.value
+				on_off = ops.on_off
 				found = True
 				
 
@@ -87,7 +87,7 @@ class POSE_OT_changevisibility(Operator):
 		
 		for ops in armature.grouptypelist[armature.active_grouptype].group_ids[self.index].on_off:
 			if ops.id == self.ops_id:
-				ops.value = not ops.value
+				ops.on_off = not ops.on_off
 		
 		return {'FINISHED'}
 	
@@ -116,7 +116,7 @@ class POSE_OT_addtoselection(Operator):
 		found = False
 		for ops in armature.grouptypelist[armature.active_grouptype].group_ids[self.index].on_off:
 			if ops.id == self.ops_id:
-				on_off = ops.value
+				on_off = ops.on_off
 				found = True
 		
 		if found == False:
@@ -150,7 +150,7 @@ class POSE_OT_addtoselection(Operator):
 
 		for ops in armature.grouptypelist[armature.active_grouptype].group_ids[self.index].on_off:
 			if ops.id == self.ops_id:
-				ops.value = not ops.value
+				ops.on_off = not ops.on_off
 		
 		return {'FINISHED'}
 	
@@ -180,7 +180,7 @@ class POSE_OT_selectonly(Operator):
 		found = False
 		for ops in armature.grouptypelist[armature.active_grouptype].group_ids[self.index].on_off:
 			if ops.id == self.ops_id:
-				on_off = ops.value
+				on_off = ops.on_off
 				found = True
 		
 		if found == False:
@@ -218,7 +218,7 @@ class POSE_OT_selectonly(Operator):
 	
 		for ops in armature.grouptypelist[armature.active_grouptype].group_ids[self.index].on_off:
 			if ops.id == self.ops_id:
-				ops.value = not ops.value
+				ops.on_off = not ops.on_off
 		
 		return {'FINISHED'}
 	
@@ -249,7 +249,7 @@ class POSE_OT_bonemute(Operator):
 		found = False
 		for ops in armature.grouptypelist[armature.active_grouptype].group_ids[self.index].on_off:
 			if ops.id == self.ops_id:
-				on_off = ops.value
+				on_off = ops.on_off
 				found = True
 		
 		if found == False:
@@ -303,7 +303,7 @@ class POSE_OT_bonemute(Operator):
 	
 		for ops in armature.grouptypelist[armature.active_grouptype].group_ids[self.index].on_off:
 			if ops.id == self.ops_id:
-				ops.value = not ops.value
+				ops.on_off = not ops.on_off
 		
 		return {'FINISHED'}
 
@@ -331,7 +331,7 @@ class POSE_OT_restrict_select(Operator):
 		found = False
 		for ops in armature.grouptypelist[armature.active_grouptype].group_ids[self.index].on_off:
 			if ops.id == self.ops_id:
-				on_off = ops.value
+				on_off = ops.on_off
 				found = True
 		
 		if found == False:
@@ -369,7 +369,7 @@ class POSE_OT_restrict_select(Operator):
 		 #switch on/off
 		for ops in armature.grouptypelist[armature.active_grouptype].group_ids[self.index].on_off:
 			if ops.id == self.ops_id:
-				ops.value = not ops.value
+				ops.on_off = not ops.on_off
 		
 		return {'FINISHED'}
 	

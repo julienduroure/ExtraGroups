@@ -111,7 +111,7 @@ class POSE_OT_bonegroup_add(bpy.types.Operator):
 		for ops in ops_list:
 			new_ = on_off.add()
 			new_.id = ops.id
-			new_.value = True
+			new_.on_off = True
 
 		if (not keep):
 			grouptype.remove(armature.grouptypelist[armature.active_grouptype].active_bonegroup)

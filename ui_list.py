@@ -49,7 +49,7 @@ class POSE_UL_bonegroup(bpy.types.UIList):
 					for on_off_item in armature.grouptypelist[armature.active_grouptype].group_ids[index].on_off:
 					
 						if on_off_item.id == ops.id:
-							on_off = on_off_item.value
+							on_off = on_off_item.on_off
 					if ops.ops_type == 'EXE': 										#No switchable icon
 						icon = ops.icon_on
 						if icon == "":

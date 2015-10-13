@@ -108,7 +108,7 @@ class POSE_OT_ops_add(bpy.types.Operator):
 			for group in bonegroups:
 				new_ = group.on_off.add()
 				new_.id = ops.id
-				new_.value = True
+				new_.on_off = True
 	
 		return {'FINISHED'}
 	

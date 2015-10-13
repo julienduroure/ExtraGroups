@@ -82,7 +82,7 @@ class BoneEntry(bpy.types.PropertyGroup):
 	
 class OnOffEntry(bpy.types.PropertyGroup):
 	id = bpy.props.StringProperty(name="Id of Ops")
-	value = bpy.props.BoolProperty(name="Value")
+	on_off = bpy.props.BoolProperty(name="On_Off")
 
 
 class TemplateItem(bpy.types.PropertyGroup):

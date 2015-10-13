@@ -71,7 +71,7 @@ class POSE_OT_###opsclass###(Operator):
 		found = False
 		for ops in armature.grouptypelist[armature.active_grouptype].group_ids[self.index].on_off:
 			if ops.id == self.ops_id:
-				on_off = ops.value
+				on_off = ops.on_off
 				found = True
 		
 		if found == False:
@@ -110,7 +110,7 @@ class POSE_OT_###opsclass###(Operator):
 		 #switch on/off
 		for ops in armature.grouptypelist[armature.active_grouptype].group_ids[self.index].on_off:
 			if ops.id == self.ops_id:
-				ops.value = not ops.value
+				ops.on_off = not ops.on_off
 		
 		return {'FINISHED'}
 	
