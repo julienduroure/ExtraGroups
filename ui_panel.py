@@ -27,8 +27,7 @@ class POSE_PT_grouptype(bpy.types.Panel):
 	def poll(self, context):
 		return (context.object and
 				context.object.type == 'ARMATURE' and
-				context.mode == 'POSE'
-				and context.scene.bonegroup_multitype == True)
+				context.mode == 'POSE')
 				
 	def draw(self, context):
 		layout = self.layout
@@ -59,8 +58,7 @@ class POSE_PT_template(bpy.types.Panel):
 	def poll(self, context):
 		return (context.object and
 				context.object.type == 'ARMATURE' and
-				context.mode == 'POSE'
-				and context.scene.bonegroup_editmode == True)
+				context.mode == 'POSE')
 				
 	def draw(self, context):
 		layout = self.layout
@@ -87,7 +85,6 @@ class POSE_PT_template(bpy.types.Panel):
 			row = col.column(align=True)
 			row.operator("pose.template_add", icon="ZOOMIN", text="")
 			row.operator("pose.template_remove", icon="ZOOMOUT", text="")
-			row.enabled = context.scene.bonegroup_editmode == True and context.scene.bonegroup_devmode == True and context.scene.bonegroup_adminmode == True
 			row = col.column(align=True)
 			row.separator()
 			row.operator("pose.template_move", icon='TRIA_UP', text="").direction = 'UP'
@@ -101,14 +98,12 @@ class POSE_PT_template(bpy.types.Panel):
 				row.enabled = False
 				
 			row = layout.row()
-			if context.scene.bonegroup_editmode == True and context.scene.bonegroup_devmode == True and context.scene.bonegroup_adminmode == True:
-				row = layout.row()
-				row.label("Import / Export")
-				row = layout.row()
-				box = row.box()
-				box.operator("export.bonegroup_template", text="Export Templates")
-				row = box.row()
-				row.operator("imp.bonegroup_template", text="Import Templates")
+			row.label("Import / Export")
+			row = layout.row()
+			box = row.box()
+			box.operator("export.bonegroup_template", text="Export Templates")
+			row = box.row()
+			row.operator("imp.bonegroup_template", text="Import Templates")
 			
 		
 	  
@@ -155,9 +150,9 @@ class POSE_PT_bonegroup(bpy.types.Panel):
 				row.enabled = False
 		
 		
-			if context.scene.bonegroup_editmode == True:
-				row = layout.row()
-				row.operator("pose.bonegroup_add", text="Add Dynamic Selection").dyn_selection = True
+			
+			row = layout.row()
+			row.operator("pose.bonegroup_add", text="Add Dynamic Selection").dyn_selection = True
 		else:
 			row = layout.row()
 			row.operator("pose.grouptype_add", text="Init Bone Groups for this Rig")
@@ -172,8 +167,7 @@ class POSE_PT_opslist(bpy.types.Panel):
 	def poll(self, context):
 		return (context.object and
 				context.object.type == 'ARMATURE' and
-				context.mode == 'POSE' and 
-				context.scene.bonegroup_editmode == True) 
+				context.mode == 'POSE' ) 
 				
 	def draw(self, context):
 		layout = self.layout
@@ -190,10 +184,8 @@ class POSE_PT_opslist(bpy.types.Panel):
 		row = col.column(align=True)
 		sub = row.row(align=True)
 		sub.operator("pose.ops_add", icon="ZOOMIN", text="").from_template = False
-		sub.enabled = context.scene.bonegroup_devmode
 		sub = row.row(align=True)
 		sub.operator("pose.ops_remove", icon="ZOOMOUT", text="")
-		sub.enabled = context.scene.bonegroup_editmode
 		row = col.column(align=True)
 		row.separator()
 		row.operator("pose.operator_move", icon='TRIA_UP', text="").direction = 'UP'
@@ -211,9 +203,7 @@ class POSE_PT_opsdetail(bpy.types.Panel):
 	def poll(self, context):
 		return (context.object and
 				context.object.type == 'ARMATURE' and
-				context.mode == 'POSE' and
-				context.scene.bonegroup_editmode == True and
-				context.scene.bonegroup_devmode == True 
+				context.mode == 'POSE'  
 				and len(context.active_object.grouptypelist[context.active_object.active_grouptype].ops_ids) > 0)
 				
 	def draw(self, context):
@@ -257,10 +247,7 @@ class POSE_PT_templatedetail(bpy.types.Panel):
 	def poll(self, context):
 		return (context.object and
 				context.object.type == 'ARMATURE' and
-				context.mode == 'POSE' and
-				context.scene.bonegroup_editmode == True and 
-				context.scene.bonegroup_devmode == True and
-				context.scene.bonegroup_adminmode == True
+				context.mode == 'POSE'
 				and len(context.scene.templatelist) > 0)
 				
 	def draw(self, context):
@@ -303,18 +290,6 @@ class POSE_PT_bonegroup_option(bpy.types.Panel):
 		row = layout.row()
 		box = row.box()
 		box.prop(context.scene, "bonegroup_multitype", text="Multi Type")
-		row = layout.row()
-		row = layout.row()
-		row.label("Mode")
-		row = layout.row()
-		box = row.box()
-		box.prop(context.scene, "bonegroup_editmode", text="Edit Mode")
-		row = box.row()	
-		row.prop(context.scene, "bonegroup_devmode", text="Dev Mode")
-		row.enabled = context.scene.bonegroup_editmode
-		row = box.row()	
-		row.prop(context.scene, "bonegroup_adminmode", text="Admin Mode")
-		row.enabled = context.scene.bonegroup_devmode
 		row = layout.row()	
 		row = layout.row()
 		row.label("Text Management")

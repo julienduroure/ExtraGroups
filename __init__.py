@@ -140,9 +140,6 @@ def register():
 	bpy.types.Object.active_grouptype = bpy.props.IntProperty()
 	bpy.types.Scene.active_template  = bpy.props.IntProperty()
 	
-	bpy.types.Scene.bonegroup_editmode   = bpy.props.BoolProperty(default= False, update=update_editmode_func)
-	bpy.types.Scene.bonegroup_devmode	= bpy.props.BoolProperty(default= False, update=update_devmode_func)
-	bpy.types.Scene.bonegroup_adminmode  = bpy.props.BoolProperty(default= False)
 	bpy.types.Scene.bonegroup_textremove = bpy.props.BoolProperty(default= True)
 	bpy.types.Scene.bonegroup_multitype  = bpy.props.BoolProperty(default= False)
 
