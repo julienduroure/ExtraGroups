@@ -172,10 +172,7 @@ def unregister():
 	del bpy.types.Scene.templatelist
 	del bpy.types.Object.active_grouptype
 	del bpy.types.Scene.active_template
-	
-	del bpy.types.Scene.bonegroup_editmode   
-	del bpy.types.Scene.bonegroup_devmode	
-	del bpy.types.Scene.bonegroup_adminmode  
+	  
 	del bpy.types.Scene.bonegroup_textremove
 	del bpy.types.Scene.bonegroup_multitype
 
