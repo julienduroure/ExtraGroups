@@ -240,12 +240,13 @@ class POSE_PT_opsdetail(bpy.types.Panel):
 			row.prop(ops, "icon_off", text="Icon Off")
 		row = layout.row()
 		row.prop(ops, "ok_for_current_sel", text="Enabled for Current Selection")
-		if ops.from_template == False:
+		row = layout.row()
+		row.prop(ops, "display", text="Display")
+		if ops.user_defined == True:
 			row = layout.row()
 			file_ = ops.id + ".py"
 			row.operator("pose.text_display", text="Edit Source").text_id = file_
-		row = layout.row()
-		row.prop(ops, "display", text="Display")
+		
 		
 class POSE_PT_templatedetail(bpy.types.Panel):
 	bl_label = "Template Detail"

@@ -100,9 +100,10 @@ class OpsItem(bpy.types.PropertyGroup):
 	ops_type = bpy.props.EnumProperty(items=ops_type_items)
 	icon_on	= bpy.props.StringProperty(name="Icon On")
 	icon_off   = bpy.props.StringProperty(name="Icon Off")
-	from_template = bpy.props.BoolProperty()
+	from_template = bpy.props.BoolProperty() # to be deleted
 	ok_for_current_sel = bpy.props.BoolProperty()
 	display = bpy.props.BoolProperty()
+	user_defined = bpy.props.BoolProperty()
 
 class BoneGroup(bpy.types.PropertyGroup):
 	name = bpy.props.StringProperty(name="Group Name")

@@ -107,6 +107,7 @@ class POSE_OT_template_init(bpy.types.Operator):
 				context.mode == 'POSE')
 				
 	def execute(self, context):
+		#don't use it !!!! will be deleted
 		template = bpy.context.scene.templatelist.add()  
 		template.name = "Select Only"
 		template.ops_type = 'EXE'

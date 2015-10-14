@@ -62,10 +62,15 @@ class POSE_OT_grouptype_add(bpy.types.Operator):
 				
 	def execute(self, context):
 		armature = context.object
-		
+
 		grouptype = armature.grouptypelist.add()
 		grouptype.name = "GroupType.%d" % len(armature.grouptypelist)
 		armature.active_grouptype = len(armature.grouptypelist) - 1
+
+		if len(armature.grouptypelist) == 1: #in case of first initialisation
+			init(armature)
+		else:
+			copy(armature, armature.active_grouptype)
 		
 		return {'FINISHED'}
 	
@@ -89,6 +94,71 @@ class POSE_OT_grouptype_remove(bpy.types.Operator):
 		if (armature.active_grouptype > (len_ - 1) and len_ > 0):
 			armature.active_grouptype = len(armature.grouptypelist) - 1
 		return {'FINISHED'}   
+
+def copy(armature,index_grouptype):
+	for ops in armature.grouptypelist[0].ops_ids:
+		new = armature.grouptypelist[index_grouptype].ops_ids.add()
+		new.name = ops.name
+		new.id = ops.id
+		new.ops_type = ops.ops_type
+		new.ops_exe   = ops.ops_exe
+		new.icon_on  = ops.icon_on
+		new.icon_off  = ops.icon_off
+		new.ok_for_current_sel = ops.ok_for_current_sel
+		new.display = False
+		new.user_defined = ops.user_defined
+
+def init(armature):
+	print("init")
+	ops = armature.grouptypelist[0].ops_ids.add()  
+	ops.name = "Select Only"
+	ops.id = "bf258537303e41529b5adb4e3af6ed43"
+	ops.ops_type = 'EXE'
+	ops.ops_exe   = "pose.selectonly"
+	ops.icon_on  = "HAND"
+	ops.ok_for_current_sel = False
+	ops.display = False
+	ops.user_defined = False
+	ops = armature.grouptypelist[0].ops_ids.add()  
+	ops.name = "Add to selection"
+	ops.id = "fbd9a8fc639a4074bbd56f7be35e4690"
+	ops.ops_type = 'EXE'
+	ops.ops_exe   = "pose.addtoselection"
+	ops.icon_on  = "ZOOMIN"
+	ops.ok_for_current_sel = False
+	ops.display = False
+	ops.user_defined = False
+	ops = armature.grouptypelist[0].ops_ids.add()  
+	ops.name = "Mute"
+	ops.id = "f31027b2b65d4a90b610281ea09f08fb"
+	ops.ops_type = 'BOOL'
+	ops.ops_exe   = "pose.bonemute"
+	ops.icon_on  = "MUTE_IPO_OFF"
+	ops.icon_off  = "MUTE_IPO_ON"
+	ops.ok_for_current_sel = True
+	ops.display = False
+	ops.user_defined = False
+	ops = armature.grouptypelist[0].ops_ids.add()  
+	ops.name = "Toggle Visibility"
+	ops.id = "b9eac1a0a2fd4dcd94140d05a6a3af86"
+	ops.ops_type = 'BOOL'
+	ops.ops_exe   = "pose.change_visibility"
+	ops.icon_on  = "VISIBLE_IPO_ON"
+	ops.icon_off  = "VISIBLE_IPO_OFF"
+	ops.ok_for_current_sel = False
+	ops.display = False
+	ops.user_defined = False
+	ops = armature.grouptypelist[0].ops_ids.add()  
+	ops.name = "Restrict/Allow Selection"
+	ops.id = "9d5257bf3d6245afacabb452bf7a455e"
+	ops.ops_type = 'BOOL'
+	ops.ops_exe   = "pose.restrict_select"
+	ops.icon_on  = "RESTRICT_SELECT_OFF"
+	ops.icon_off  = "RESTRICT_SELECT_ON"
+	ops.ok_for_current_sel = True
+	ops.display = False
+	ops.user_defined = False
+	armature.grouptypelist[0].active_ops = len(armature.grouptypelist[0].ops_ids) - 1
 	
 def register():
 	bpy.utils.register_class(POSE_OT_grouptype_add)

@@ -57,7 +57,7 @@ class POSE_OT_ops_add(bpy.types.Operator):
 	bl_label = "Add Ops"
 	bl_options = {'REGISTER'}
 	
-	from_template = bpy.props.BoolProperty()
+	from_template = bpy.props.BoolProperty() #to delete
 
 	@classmethod
 	def poll(self, context):
@@ -82,15 +82,17 @@ class POSE_OT_ops_add(bpy.types.Operator):
 				ops.ops_type = template.ops_type
 				ops.icon_on	= template.icon_on
 				ops.icon_off   = template.icon_off
-				ops.from_template = True
+				ops.from_template = True #to delete
 				ops.ok_for_current_sel = template.ok_for_current_sel
 				ops.display = False
+				ops.user_defined = False
 			else:
 				ops.name = "Ops.%d" % len(opslist)
 				ops.ops_exe = "pose.ope_" + ops.id
 				ops.from_template = False
 				ops.ops_type = 'EXE'
 				ops.display = False
+				ops.user_defined = True
 				# now that id is generated, generate a new file
 				textname = ops.id + ".py"
 				if textname in bpy.data.texts:
