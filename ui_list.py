@@ -78,6 +78,11 @@ class POSE_UL_opslist(bpy.types.UIList):
 	def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
 		
 		if self.layout_type in {'DEFAULT', 'COMPACT'}:
+			if item.user_defined == True:
+				icon = "POSE_DATA"
+			else:
+				icon = "BLANK1"
+			layout.operator("pose.dummy", text='', emboss=False, icon=icon)
 			layout.prop(item, "name", text="", emboss=False)
 			if item.display == True:
 				icon = "CHECKBOX_HLT"			
