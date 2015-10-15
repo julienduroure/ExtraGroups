@@ -2,7 +2,10 @@
 #When a new bone is assigned to a group, and for example mute is on, bone added is not muted
 
 
-###### V0.2 or next	
+###### V0.0.2
+
+
+###### next	
 #TODO : icon perso pour l'utilisateur
 #TODO : export/import avec le code, pas seulement la liste
 #TODO : create keying set from bone group

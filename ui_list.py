@@ -26,15 +26,6 @@ class POSE_UL_grouptype(bpy.types.UIList):
 		elif self.layout_type in {'GRID'}:
 			layout.alignment = 'CENTER'
 			
-class POSE_UL_template(bpy.types.UIList):
-	def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
-		
-		if self.layout_type in {'DEFAULT', 'COMPACT'}:
-			layout.prop(item, "name", text="", emboss=False)
-			
-		elif self.layout_type in {'GRID'}:
-			layout.alignment = 'CENTER'
-			
 class POSE_UL_bonegroup(bpy.types.UIList):
 	def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
 		
@@ -43,9 +34,10 @@ class POSE_UL_bonegroup(bpy.types.UIList):
 			layout.prop(item, "name", text="", emboss=False)
 				
 			#loop on ops from this group type
-			for ops in armature.grouptypelist[armature.active_grouptype].ops_ids:
+			for ope in armature.grouptypelist[armature.active_grouptype].ops_display:
+				ops = [e for i,e in enumerate(context.scene.extragroups_ops) if e.id == ope.id][0]
 				try:
-					if ops.display == False:
+					if ope.display == False:
 						continue
 					#retrieve on_off
 					for on_off_item in armature.grouptypelist[armature.active_grouptype].group_ids[index].on_off:
@@ -77,13 +69,16 @@ class POSE_UL_bonegroup(bpy.types.UIList):
 class POSE_UL_opslist(bpy.types.UIList):
 	def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
 		
+		armature = context.object
+		active_grouptype = armature.grouptypelist[armature.active_grouptype]
+		ops = [e for i,e in enumerate(context.scene.extragroups_ops) if e.id == item.id][0]
 		if self.layout_type in {'DEFAULT', 'COMPACT'}:
-			if item.user_defined == True:
+			if ops.user_defined == True:
 				icon = "POSE_DATA"
 			else:
 				icon = "BLANK1"
 			layout.operator("pose.dummy", text='', emboss=False, icon=icon)
-			layout.prop(item, "name", text="", emboss=False)
+			layout.prop(ops, "name", text="", emboss=False)
 			if item.display == True:
 				icon = "CHECKBOX_HLT"			
 			else:
@@ -97,10 +92,8 @@ def register():
 	bpy.utils.register_class(POSE_UL_grouptype)
 	bpy.utils.register_class(POSE_UL_bonegroup) 
 	bpy.utils.register_class(POSE_UL_opslist) 
-	bpy.utils.register_class(POSE_UL_template)
 	
 def unregister():
 	bpy.utils.unregister_class(POSE_UL_grouptype)
 	bpy.utils.unregister_class(POSE_UL_bonegroup)
 	bpy.utils.unregister_class(POSE_UL_opslist)
-	bpy.utils.unregister_class(POSE_UL_template)

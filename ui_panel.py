@@ -27,7 +27,8 @@ class POSE_PT_grouptype(bpy.types.Panel):
 	def poll(self, context):
 		return (context.object and
 				context.object.type == 'ARMATURE' and
-				context.mode == 'POSE')
+				context.mode == 'POSE'
+				and context.scene.bonegroup_multitype == True )
 				
 	def draw(self, context):
 		layout = self.layout
@@ -49,63 +50,6 @@ class POSE_PT_grouptype(bpy.types.Panel):
 		if len(armature.grouptypelist) == 0:
 			row.enabled = False
 		
-class POSE_PT_template(bpy.types.Panel):
-	bl_label = "Template"
-	bl_space_type = 'VIEW_3D'
-	bl_region_type = 'UI'
-	
-	@classmethod
-	def poll(self, context):
-		return (context.object and
-				context.object.type == 'ARMATURE' and
-				context.mode == 'POSE')
-				
-	def draw(self, context):
-		layout = self.layout
-		armature = context.object
-
-		row = layout.row()
-		row.label(text="Bones mode", icon='BONE_DATA')
-		if len(context.scene.templatelist) == 0:
-			row = layout.row()
-			row.label("Initialisation")
-			row = layout.row()
-			box = row.box()
-			row = box.row()
-			row.operator("pose.template_init", text="Init Template List")
-			row = box.row()
-			row.operator("imp.bonegroup_template", text="Import templates")
-			
-		else:
-		
-			row = layout.row()
-			row.template_list("POSE_UL_template", "", context.scene, "templatelist", context.scene, "active_template")
-		
-			col = row.column()
-			row = col.column(align=True)
-			row.operator("pose.template_add", icon="ZOOMIN", text="")
-			row.operator("pose.template_remove", icon="ZOOMOUT", text="")
-			row = col.column(align=True)
-			row.separator()
-			row.operator("pose.template_move", icon='TRIA_UP', text="").direction = 'UP'
-			row.operator("pose.template_move", icon='TRIA_DOWN', text="").direction = 'DOWN'
-			if len(context.scene.templatelist) == 0:
-				row.enabled = False
-		
-			row = layout.row()
-			row.operator("pose.ops_add", text="Add to Operator List").from_template = True
-			if len(context.scene.templatelist) == 0:		
-				row.enabled = False
-				
-			row = layout.row()
-			row.label("Import / Export")
-			row = layout.row()
-			box = row.box()
-			box.operator("export.bonegroup_template", text="Export Templates")
-			row = box.row()
-			row.operator("imp.bonegroup_template", text="Import Templates")
-			
-		
 	  
 class POSE_PT_bonegroup(bpy.types.Panel):
 	bl_label = "Bone Group"
@@ -122,7 +66,7 @@ class POSE_PT_bonegroup(bpy.types.Panel):
 	def draw(self, context):
 		layout = self.layout
 		armature = context.object
-		pcoll = bpy.bonegroup_icons["bonegroup"]
+		pcoll = bpy.extragroups_icons["bonegroup"]
 		
 		row = layout.row()
 		row.label(text="Bones mode", icon='BONE_DATA')
@@ -167,7 +111,8 @@ class POSE_PT_opslist(bpy.types.Panel):
 	def poll(self, context):
 		return (context.object and
 				context.object.type == 'ARMATURE' and
-				context.mode == 'POSE' ) 
+				context.mode == 'POSE' 
+				and len(context.active_object.grouptypelist) > 0 )
 				
 	def draw(self, context):
 		layout = self.layout
@@ -178,20 +123,20 @@ class POSE_PT_opslist(bpy.types.Panel):
 		row = layout.row()
 		row.label(text="Bones mode", icon='BONE_DATA')
 		row = layout.row()
-		row.template_list("POSE_UL_opslist", "", active_grouptype, "ops_ids", active_grouptype, "active_ops")
+		row.template_list("POSE_UL_opslist", "", active_grouptype, "ops_display", active_grouptype, "active_ops")
 		
 		col = row.column()
 		row = col.column(align=True)
 		sub = row.row(align=True)
-		sub.operator("pose.ops_add", icon="ZOOMIN", text="").from_template = False
+		sub.operator("pose.ops_add", icon="ZOOMIN", text="")
 		sub = row.row(align=True)
 		sub.operator("pose.ops_remove", icon="ZOOMOUT", text="")
-		sub.enabled = armature.grouptypelist[armature.active_grouptype].ops_ids[armature.grouptypelist[armature.active_grouptype].active_ops].user_defined
+		sub.enabled = [e for i,e in enumerate(bpy.context.scene.extragroups_ops) if e.id == armature.grouptypelist[armature.active_grouptype].ops_display[armature.grouptypelist[armature.active_grouptype].active_ops].id][0].user_defined
 		row = col.column(align=True)
 		row.separator()
 		row.operator("pose.operator_move", icon='TRIA_UP', text="").direction = 'UP'
 		row.operator("pose.operator_move", icon='TRIA_DOWN', text="").direction = 'DOWN'
-		if len(armature.grouptypelist[armature.active_grouptype].ops_ids) == 0:
+		if len(armature.grouptypelist[armature.active_grouptype].ops_display) == 0:
 			row.enabled = False
 		
 		
@@ -205,25 +150,25 @@ class POSE_PT_opsdetail(bpy.types.Panel):
 		return (context.object and
 				context.object.type == 'ARMATURE' and
 				context.mode == 'POSE'  
-				and len(context.active_object.grouptypelist[context.active_object.active_grouptype].ops_ids) > 0)
+				and len(context.active_object.grouptypelist) > 0
+				and len(context.active_object.grouptypelist[context.active_object.active_grouptype].ops_display) > 0)
 				
 	def draw(self, context):
 		layout = self.layout
 		armature = context.object
 		
 		active_grouptype = armature.grouptypelist[armature.active_grouptype]
-		ops = active_grouptype.ops_ids[active_grouptype.active_ops]
+		ops = [e for i,e in enumerate(context.scene.extragroups_ops) if e.id == active_grouptype.ops_display[active_grouptype.active_ops].id][0]
+		ops_display = active_grouptype.ops_display[active_grouptype.active_ops]
 		
 		row = layout.row()
 		row.prop(ops, "name", text="Name")
 		row = layout.row()
 		row.prop(ops, "ops_type", text="Type")
+		row.enabled = ops.user_defined
 		row = layout.row()
 		row.prop(ops, "ops_exe", text="Operator")
-		if ops.from_template == True:
-			row.enabled = False 
-		if ops.from_template == True:
-			row.enabled = False
+		row.enabled = ops.user_defined
 		row = layout.row()
 		row.prop(ops, "icon_on", text="Icon On")
 		if ops.ops_type == "BOOL":
@@ -232,45 +177,12 @@ class POSE_PT_opsdetail(bpy.types.Panel):
 		row = layout.row()
 		row.prop(ops, "ok_for_current_sel", text="Enabled for Current Selection")
 		row = layout.row()
-		row.prop(ops, "display", text="Display")
+		row.prop(ops_display, "display", text="Display")
 		if ops.user_defined == True:
 			row = layout.row()
 			file_ = ops.id + ".py"
 			row.operator("pose.text_display", text="Edit Source").text_id = file_
 		
-		
-class POSE_PT_templatedetail(bpy.types.Panel):
-	bl_label = "Template Detail"
-	bl_space_type = 'VIEW_3D'
-	bl_region_type = 'UI'
-	
-	@classmethod
-	def poll(self, context):
-		return (context.object and
-				context.object.type == 'ARMATURE' and
-				context.mode == 'POSE'
-				and len(context.scene.templatelist) > 0)
-				
-	def draw(self, context):
-		layout = self.layout
-		armature = context.object
-		
-		template = context.scene.templatelist[context.scene.active_template]
-		
-		row = layout.row()
-		row.prop(template, "name", text="Name")
-		row = layout.row()
-		row.prop(template, "ops_type", text="Type")
-		row = layout.row()
-		row.prop(template, "ops_exe", text="Operator")
-		row = layout.row()
-		row.prop(template, "icon_on", text="Icon On")
-		if template.ops_type == "BOOL":
-			row = layout.row()
-			row.prop(template, "icon_off", text="Icon Off")   
-		row = layout.row()
-		row.prop(template, "ok_for_current_sel", text="Enable for Current Selection")
-			
 class POSE_PT_bonegroup_option(bpy.types.Panel):
 	bl_label = "Options"
 	bl_space_type = 'VIEW_3D'
@@ -304,8 +216,6 @@ def register():
 	bpy.utils.register_class(POSE_PT_bonegroup) 
 	bpy.utils.register_class(POSE_PT_opslist)
 	bpy.utils.register_class(POSE_PT_opsdetail)
-	bpy.utils.register_class(POSE_PT_template) 
-	bpy.utils.register_class(POSE_PT_templatedetail) 
 	bpy.utils.register_class(POSE_PT_bonegroup_option)
 	
 def unregister():
@@ -313,6 +223,4 @@ def unregister():
 	bpy.utils.unregister_class(POSE_PT_bonegroup)
 	bpy.utils.unregister_class(POSE_PT_opslist)
 	bpy.utils.unregister_class(POSE_PT_opsdetail) 
-	bpy.utils.unregister_class(POSE_PT_template)
-	bpy.utils.unregister_class(POSE_PT_templatedetail)
 	bpy.utils.unregister_class(POSE_PT_bonegroup_option)
