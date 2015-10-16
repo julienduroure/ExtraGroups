@@ -106,6 +106,8 @@ class POSE_OT_ops_add(bpy.types.Operator):
 						new_ = group.on_off.add()
 						new_.id = ops.id
 						new_.on_off = True
+
+			armature.grouptypelist[armature.active_grouptype].active_ops = len(armature.grouptypelist[armature.active_grouptype].ops_display) - 1
 	
 		return {'FINISHED'}
 	
