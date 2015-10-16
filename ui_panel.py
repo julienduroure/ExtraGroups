@@ -139,6 +139,11 @@ class POSE_PT_opslist(bpy.types.Panel):
 		if len(armature.grouptypelist[armature.active_grouptype].ops_display) == 0:
 			row.enabled = False
 		
+		row = layout.row()
+		row = layout.row()
+		row.operator("export.extragroups_ops", text="Export Operators")
+		row.operator("imp.extragroups_ops", text="Import Operators")
+		
 		
 class POSE_PT_opsdetail(bpy.types.Panel):
 	bl_label = "Operator Detail"
@@ -176,6 +181,7 @@ class POSE_PT_opsdetail(bpy.types.Panel):
 			row.prop(ops, "icon_off", text="Icon Off")
 		row = layout.row()
 		row.prop(ops, "ok_for_current_sel", text="Enabled for Current Selection")
+		row.enabled = ops.user_defined
 		row = layout.row()
 		row.prop(ops_display, "display", text="Display")
 		if ops.user_defined == True:

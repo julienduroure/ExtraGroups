@@ -3,14 +3,16 @@
 
 
 ###### V0.0.2
-
+#delete template file from git
+#option in addon pref
+#when add a new operator, add it to all armature object, not only current one (add and import)
+#removing an operator : remove it fom all armature object, not only current one 
+#remove text (when delete text is on) when operator was imported : error message. --> Add a check an error message
 
 ###### next	
 #TODO : icon perso pour l'utilisateur
 #TODO : export/import avec le code, pas seulement la liste
 #TODO : create keying set from bone group
-#TODO : other default template ?
+#TODO : other default ops ?
 #TODO : Create bone groups from official bone groups
-#TODO : Avoid multiple import of template by unique ID of template
-#TODO : Transform an operator into template
 #TODO : mode gestion des properties ( 0/1 ) pour FK / IK par exemple

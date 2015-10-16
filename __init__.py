@@ -21,7 +21,7 @@ bl_info = {
 	"author": "Julien Duroure",
 	"blender": (2, 75, 0),
 	"description": "Extra Groups Tools",
-	"location": "Toolshelf > Extra Groups Tab",
+	"location": "Toolshelf > Extra Groups Tab, and 3DView property panel",
 	"wiki_url": "http://julienduroure.com/extragroups/",
 	"tracker_url": "https://github.com/julienduroure/extragroups",
 	"category": "Animation"

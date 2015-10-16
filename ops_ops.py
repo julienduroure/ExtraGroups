@@ -17,6 +17,7 @@
 #======================= END GPL LICENSE BLOCK ========================
 import bpy
 import uuid
+import bpy_extras
 from .text_ops_squel import TEMPLATE
 
 
@@ -137,6 +138,67 @@ class POSE_OT_ops_remove(bpy.types.Operator):
 					grouptype.active_ops = len(grouptype.ops_display) - 1
 		return {'FINISHED'}
 		
+def write_operators(context, filepath):
+    f = open(filepath, 'w', encoding='utf-8')
+    f.write("import bpy\n")
+    f.write("try:\n")
+    tab = context.scene.extragroups_ops
+    for ope in tab:
+        f.write("\t#~~~~~~\n")
+        f.write("\tif \"" + ope.id + "\" not in [j.id for i,j in enumerate(bpy.context.scene.extragroups_ops)]:\n")
+        f.write("\t\tops = bpy.context.scene.extragroups_ops.add()\n")
+        f.write("\t\tops.id = \"" + ope.id + "\"\n")
+        f.write("\t\tops.name = \"" + ope.name + "\"\n")
+        f.write("\t\tops.ops_type = \"" + ope.ops_type + "\"\n")
+        f.write("\t\tops.ops_exe = \"" + ope.ops_exe + "\"\n")
+        f.write("\t\tops.icon_on = \"" + ope.icon_on + "\"\n")
+        f.write("\t\tops.icon_off = \"" + ope.icon_off + "\"\n")
+        f.write("\t\tops.ok_for_current_sel = " + str(ope.ok_for_current_sel) + "\n")
+        f.write("\t\tops.user_defined = " + str(ope.user_defined) + "\n")
+        f.write("\t\tfor grouptype in bpy.context.active_object.grouptypelist:\n")
+        f.write("\t\t\tope = grouptype.ops_display.add()\n")
+        f.write("\t\t\tope.id = ops.id\n")
+        f.write("\t\t\tope.display = False\n")
+        f.write("\telse:\n")
+        f.write("\t\tbpy.context.scene.extragroups_ops[[i for i,j in enumerate(bpy.context.scene.extragroups_ops) if j.id == \"" + ope.id + "\"][0]].name = \"" + ope.name + "\"\n")
+        f.write("\t\tbpy.context.scene.extragroups_ops[[i for i,j in enumerate(bpy.context.scene.extragroups_ops) if j.id == \"" + ope.id + "\"][0]].icon_on = \"" + ope.icon_on + "\"\n")
+        f.write("\t\tbpy.context.scene.extragroups_ops[[i for i,j in enumerate(bpy.context.scene.extragroups_ops) if j.id == \"" + ope.id + "\"][0]].icon_off = \"" + ope.icon_off + "\"\n")
+		
+    f.write("except:\n")
+    f.write("\tpass\n")
+    f.close()
+    
+    return {'FINISHED'}
+		
+class POSE_OT_ExportOps(bpy.types.Operator, bpy_extras.io_utils.ExportHelper):
+    """Export Operator list"""
+    bl_idname = "export.extragroups_ops"
+    bl_label  = "Export Operator"
+    
+    filename_ext = ".py"
+    
+    def execute(self, context):
+        return write_operators(context, self.filepath)
+		
+def read_operator(context, filepath):
+    f = open(filepath, 'r', encoding='utf-8')
+    data = f.read()
+    f.close()
+    
+    exec(data, {})
+    
+    return {'FINISHED'}
+			
+class POSE_OT_ImportOps(bpy.types.Operator, bpy_extras.io_utils.ExportHelper):
+    """Import Template list"""
+    bl_idname = "imp.extragroups_ops"
+    bl_label  = "Import Operators"
+    
+    filename_ext = ".py"
+    
+    def execute(self, context):
+        return read_operator(context, self.filepath)
+		
 class POSE_OT_dummy(bpy.types.Operator):
 	bl_idname = "pose.dummy"
 	bl_label = "Dummy"
@@ -156,10 +218,14 @@ def register():
 	bpy.utils.register_class(POSE_OT_ops_add)
 	bpy.utils.register_class(POSE_OT_ops_remove) 
 	bpy.utils.register_class(POSE_OT_operator_move)
+	bpy.utils.register_class(POSE_OT_ExportOps)
+	bpy.utils.register_class(POSE_OT_ImportOps)
 	bpy.utils.register_class(POSE_OT_dummy)
 	
 def unregister():
 	bpy.utils.unregister_class(POSE_OT_ops_add)
 	bpy.utils.unregister_class(POSE_OT_ops_remove) 
 	bpy.utils.unregister_class(POSE_OT_operator_move)
+	bpy.utils.unregister_class(POSE_OT_ExportOps)
+	bpy.utils.unregister_class(POSE_OT_ImportOps)
 	bpy.utils.unregister_class(POSE_OT_dummy)
