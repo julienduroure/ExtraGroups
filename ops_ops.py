@@ -92,18 +92,20 @@ class POSE_OT_ops_add(bpy.types.Operator):
 			
 			
 			#now add display info on each grouptype
-			for grouptype in armature.grouptypelist:
-				ope = grouptype.ops_display.add()
-				ope.id = ops.id
-				ope.display = False
+			for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
+				for grouptype in obj.grouptypelist:
+					ope = grouptype.ops_display.add()
+					ope.id = ops.id
+					ope.display = False
 		
 			#now add on/off for each existing bone group of each type
-			for grouptype in armature.grouptypelist:
-				bonegroups = grouptype.group_ids
-				for group in bonegroups:
-					new_ = group.on_off.add()
-					new_.id = ops.id
-					new_.on_off = True
+			for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
+				for grouptype in obj.grouptypelist:
+					bonegroups = grouptype.group_ids
+					for group in bonegroups:
+						new_ = group.on_off.add()
+						new_.id = ops.id
+						new_.on_off = True
 	
 		return {'FINISHED'}
 	
@@ -130,12 +132,19 @@ class POSE_OT_ops_remove(bpy.types.Operator):
 
 			bpy.context.scene.extragroups_ops.remove([i for i,e in enumerate(bpy.context.scene.extragroups_ops) if e.id == id_to_delete][0])
 			
-			for grouptype in armature.grouptypelist:
-				grouptype.ops_display.remove([i for i,e in enumerate(grouptype.ops_display) if e.id == id_to_delete][0])
+			for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
+				for grouptype in obj.grouptypelist:
+					grouptype.ops_display.remove([i for i,e in enumerate(grouptype.ops_display) if e.id == id_to_delete][0])
 				
-				len_ = len(grouptype.ops_display)
-				if (grouptype.active_ops > (len_ - 1) and len_ > 0):
-					grouptype.active_ops = len(grouptype.ops_display) - 1
+					len_ = len(grouptype.ops_display)
+					if (grouptype.active_ops > (len_ - 1) and len_ > 0):
+						grouptype.active_ops = len(grouptype.ops_display) - 1
+
+					#also remove on/off for each existing bonegroup of each type (of each armature)
+					bonegroups = grouptype.group_ids
+					for group in bonegroups:
+						group.on_off.remove([i for i,j in enumarate(group.on_off) if j.id == id_to_delete][0])
+				
 		return {'FINISHED'}
 		
 def write_operators(context, filepath):
@@ -155,10 +164,18 @@ def write_operators(context, filepath):
         f.write("\t\tops.icon_off = \"" + ope.icon_off + "\"\n")
         f.write("\t\tops.ok_for_current_sel = " + str(ope.ok_for_current_sel) + "\n")
         f.write("\t\tops.user_defined = " + str(ope.user_defined) + "\n")
-        f.write("\t\tfor grouptype in bpy.context.active_object.grouptypelist:\n")
-        f.write("\t\t\tope = grouptype.ops_display.add()\n")
-        f.write("\t\t\tope.id = ops.id\n")
-        f.write("\t\t\tope.display = False\n")
+        f.write("\t\tfor obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:\n")
+        f.write("\t\t\tfor grouptype in obj.grouptypelist:\n")
+        f.write("\t\t\t\toper = grouptype.ops_display.add()\n")
+        f.write("\t\t\t\toper.id = \"" + ope.id + "\"\n")
+        f.write("\t\t\t\toper.display = False\n")
+        f.write("\t\tfor obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:\n")
+        f.write("\t\t\tfor grouptype in obj.grouptypelist:\n")
+        f.write("\t\t\t\tbonegroups = grouptype.group_ids\n")
+        f.write("\t\t\t\tfor group in bonegroups:\n")
+        f.write("\t\t\t\t\tnew_ = group.on_off.add()\n")
+        f.write("\t\t\t\t\tnew_.id = \"" + ope.id + "\"\n")
+        f.write("\t\t\t\t\tnew_.on_off = True\n")
         f.write("\telse:\n")
         f.write("\t\tbpy.context.scene.extragroups_ops[[i for i,j in enumerate(bpy.context.scene.extragroups_ops) if j.id == \"" + ope.id + "\"][0]].name = \"" + ope.name + "\"\n")
         f.write("\t\tbpy.context.scene.extragroups_ops[[i for i,j in enumerate(bpy.context.scene.extragroups_ops) if j.id == \"" + ope.id + "\"][0]].icon_on = \"" + ope.icon_on + "\"\n")
