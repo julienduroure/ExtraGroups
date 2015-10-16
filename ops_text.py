@@ -34,6 +34,8 @@ class POSE_OT_text_display(bpy.types.Operator):
 				
 	def execute(self, context):
 		
+		if self.text_id not in bpy.data.texts:
+			return {'FINISHED'}
 		text = bpy.data.texts[self.text_id]
 		for area in bpy.context.screen.areas:
 			if area.type == 'TEXT_EDITOR':
@@ -58,6 +60,8 @@ class TEXT_OT_text_remove(bpy.types.Operator):
 				
 	def execute(self, context):
 		
+		if self.text_id not in bpy.data.texts:
+			return {'FINISHED'}
 		text = bpy.data.texts[self.text_id]
 		for area in bpy.context.screen.areas:
 			if area.type == 'TEXT_EDITOR':
@@ -70,7 +74,6 @@ class TEXT_OT_text_remove(bpy.types.Operator):
 
 				bpy.ops.text.unlink(ctx)
 				break
-		#bpy.data.texts.remove(bpy.data.texts[self.text_id])
 		
 		return {'FINISHED'}	  
 

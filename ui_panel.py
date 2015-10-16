@@ -187,7 +187,10 @@ class POSE_PT_opsdetail(bpy.types.Panel):
 		if ops.user_defined == True:
 			row = layout.row()
 			file_ = ops.id + ".py"
-			row.operator("pose.text_display", text="Edit Source").text_id = file_
+			if file_ in bpy.data.texts:
+				row.operator("pose.text_display", text="Edit Source").text_id = file_
+			else:
+				row.label("Warning : Text doesn't exist anymore", icon="ERROR")
 		
 class POSE_PT_bonegroup_option(bpy.types.Panel):
 	bl_label = "Options"
