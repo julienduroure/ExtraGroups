@@ -30,6 +30,10 @@ bl_info = {
 import importlib
 import bpy
 
+if "addon_pref" in locals():
+	importlib.reload(addon_pref)
+else:
+	from . import addon_pref
 if "ops_grouptype" in locals():	
 	importlib.reload(ops_grouptype)
 else:
@@ -131,6 +135,7 @@ def register():
 	bpy.types.Scene.bonegroup_textremove = bpy.props.BoolProperty(default= True)
 	bpy.types.Scene.bonegroup_multitype  = bpy.props.BoolProperty(default= False)
 
+	addon_pref.register()
 	ops_grouptype.register()
 	ops_bonegroup.register()
 	ops_ops.register()
@@ -163,6 +168,7 @@ def unregister():
 	del bpy.types.Scene.bonegroup_textremove
 	del bpy.types.Scene.bonegroup_multitype
 
+	addon_pref.unregister()
 	ops_grouptype.unregister()
 	ops_bonegroup.unregister()
 	ops_ops.unregister()
