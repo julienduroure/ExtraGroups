@@ -41,6 +41,8 @@ class ExtragroupsPreferences(bpy.types.AddonPreferences):
 
 	extragroups_ops = bpy.props.CollectionProperty(type=OpsItem)
 
+	scene_name = bpy.props.StringProperty() #scene name that will temporary store data for saving
+
 
 	def draw(self, context):
 		layout = self.layout
