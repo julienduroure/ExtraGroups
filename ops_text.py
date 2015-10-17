@@ -40,6 +40,12 @@ class POSE_OT_text_display(bpy.types.Operator):
 		for area in bpy.context.screen.areas:
 			if area.type == 'TEXT_EDITOR':
 				area.spaces[0].text = text 
+
+				ctx = bpy.context.copy()
+				ctx['edit_text'] = text 
+				ctx['area'] = area 
+				ctx['region'] = area.regions[-1]
+				bpy.ops.text.jump(ctx)
 		
 		return {'FINISHED'}	  
 	
