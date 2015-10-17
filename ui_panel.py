@@ -37,8 +37,6 @@ class POSE_PT_grouptype(bpy.types.Panel):
 		armature = context.object
 		
 		row = layout.row()
-		row.label(text="Bones mode", icon='BONE_DATA')
-		row = layout.row()
 		row.template_list("POSE_UL_grouptype", "", armature, "grouptypelist", armature, "active_grouptype")
 		
 		col = row.column()
@@ -70,8 +68,6 @@ class POSE_PT_bonegroup(bpy.types.Panel):
 		armature = context.object
 		pcoll = bpy.extragroups_icons["bonegroup"]
 		
-		row = layout.row()
-		row.label(text="Bones mode", icon='BONE_DATA')
 		if len(armature.grouptypelist) > 0:
 			active_grouptype = armature.grouptypelist[armature.active_grouptype]
 		
@@ -124,8 +120,6 @@ class POSE_PT_opslist(bpy.types.Panel):
 		
 		active_grouptype = armature.grouptypelist[armature.active_grouptype]
 		
-		row = layout.row()
-		row.label(text="Bones mode", icon='BONE_DATA')
 		row = layout.row()
 		row.template_list("POSE_UL_opslist", "", active_grouptype, "ops_display", active_grouptype, "active_ops")
 		
