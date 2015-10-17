@@ -4,8 +4,7 @@
 
 ###### V0.0.2
 # deduplicate declaration of OptItem
-# remove export / import from panel
-#reduplicate save_collection
+# deduplicate save_collection
 
 ###### next	
 #TODO : icon perso pour l'utilisateur
