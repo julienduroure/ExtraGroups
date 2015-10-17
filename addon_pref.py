@@ -17,12 +17,29 @@
 #======================= END GPL LICENSE BLOCK ========================
 import bpy
 
+ops_type_items = [
+	("BOOL", "On/Off", "", 1),
+	("EXE", "Exec", "", 2),
+	]
+
+class OpsItem(bpy.types.PropertyGroup):
+	id   = bpy.props.StringProperty(name="Unique id")
+	name = bpy.props.StringProperty(name="Ops Name")
+	ops_exe = bpy.props.StringProperty(name="Ops Exe")
+	ops_type = bpy.props.EnumProperty(items=ops_type_items)
+	icon_on	= bpy.props.StringProperty(name="Icon On")
+	icon_off   = bpy.props.StringProperty(name="Icon Off")
+	ok_for_current_sel = bpy.props.BoolProperty()
+	user_defined = bpy.props.BoolProperty()
+
 class ExtragroupsPreferences(bpy.types.AddonPreferences):
 	bl_idname = __package__
 
 	multitype = bpy.props.BoolProperty(default= False)
 
 	textremove = bpy.props.BoolProperty(default= True)
+
+	extragroups_ops = bpy.props.CollectionProperty(type=OpsItem)
 
 
 	def draw(self, context):
@@ -48,8 +65,10 @@ class ExtragroupsPreferences(bpy.types.AddonPreferences):
 
 
 def register():
+	bpy.utils.register_class(OpsItem)
 	bpy.utils.register_class(ExtragroupsPreferences)
 
 def unregister():
+	bpy.utils.unregister_class(OpsItem)
 	bpy.utils.unregister_class(ExtragroupsPreferences)
 

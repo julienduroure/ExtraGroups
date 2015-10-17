@@ -119,6 +119,8 @@ class POSE_PT_opslist(bpy.types.Panel):
 	def draw(self, context):
 		layout = self.layout
 		armature = context.object
+		user_preferences = bpy.context.user_preferences
+		addon_prefs = user_preferences.addons[__package__].preferences	
 		
 		active_grouptype = armature.grouptypelist[armature.active_grouptype]
 		
@@ -133,7 +135,7 @@ class POSE_PT_opslist(bpy.types.Panel):
 		sub.operator("pose.ops_add", icon="ZOOMIN", text="")
 		sub = row.row(align=True)
 		sub.operator("pose.ops_remove", icon="ZOOMOUT", text="")
-		sub.enabled = [e for i,e in enumerate(bpy.context.scene.extragroups_ops) if e.id == armature.grouptypelist[armature.active_grouptype].ops_display[armature.grouptypelist[armature.active_grouptype].active_ops].id][0].user_defined
+		sub.enabled = [e for i,e in enumerate(addon_prefs.extragroups_ops) if e.id == armature.grouptypelist[armature.active_grouptype].ops_display[armature.grouptypelist[armature.active_grouptype].active_ops].id][0].user_defined
 		row = col.column(align=True)
 		row.separator()
 		row.operator("pose.operator_move", icon='TRIA_UP', text="").direction = 'UP'
@@ -163,9 +165,11 @@ class POSE_PT_opsdetail(bpy.types.Panel):
 	def draw(self, context):
 		layout = self.layout
 		armature = context.object
-		
+		user_preferences = bpy.context.user_preferences
+		addon_prefs = user_preferences.addons[__package__].preferences	
+
 		active_grouptype = armature.grouptypelist[armature.active_grouptype]
-		ops = [e for i,e in enumerate(context.scene.extragroups_ops) if e.id == active_grouptype.ops_display[active_grouptype.active_ops].id][0]
+		ops = [e for i,e in enumerate(addon_prefs.extragroups_ops) if e.id == active_grouptype.ops_display[active_grouptype.active_ops].id][0]
 		ops_display = active_grouptype.ops_display[active_grouptype.active_ops]
 		
 		row = layout.row()

@@ -67,12 +67,14 @@ class POSE_OT_ops_add(bpy.types.Operator):
 	def execute(self, context):
 		keep = False
 		armature = context.object
+		user_preferences = context.user_preferences
+		addon_prefs = user_preferences.addons[__package__].preferences
 		
 		if len(armature.grouptypelist) > 0:
 			
-			ops = context.scene.extragroups_ops.add()
+			ops = addon_prefs.extragroups_ops.add()
 			ops.id   = uuid.uuid4().hex
-			ops.name = "Ops.%d" % len(context.scene.extragroups_ops)
+			ops.name = "Ops.%d" % len(addon_prefs.extragroups_ops)
 			ops.ops_exe = "pose.ope_" + ops.id
 			ops.ops_type = 'EXE'
 			ops.display = False
@@ -134,7 +136,7 @@ class POSE_OT_ops_remove(bpy.types.Operator):
 				file_ = id_to_delete + ".py"
 				bpy.ops.text.text_remove(text_id=file_)
 
-			bpy.context.scene.extragroups_ops.remove([i for i,e in enumerate(bpy.context.scene.extragroups_ops) if e.id == id_to_delete][0])
+			addon_prefs.extragroups_ops.remove([i for i,e in enumerate(addon_prefs.extragroups_ops) if e.id == id_to_delete][0])
 			
 			for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
 				for grouptype in obj.grouptypelist:
@@ -152,14 +154,18 @@ class POSE_OT_ops_remove(bpy.types.Operator):
 		return {'FINISHED'}
 		
 def write_operators(context, filepath):
+    user_preferences = context.user_preferences
+    addon_prefs = user_preferences.addons[__package__].preferences
     f = open(filepath, 'w', encoding='utf-8')
     f.write("import bpy\n")
+    f.write("user_preferences = bpy.context.user_preferences\n")
+    f.write("addon_prefs = user_preferences.addons[\"extragroups\"].preferences\n")
     f.write("try:\n")
-    tab = context.scene.extragroups_ops
+    tab = addon_prefs.extragroups_ops
     for ope in tab:
         f.write("\t#~~~~~~\n")
-        f.write("\tif \"" + ope.id + "\" not in [j.id for i,j in enumerate(bpy.context.scene.extragroups_ops)]:\n")
-        f.write("\t\tops = bpy.context.scene.extragroups_ops.add()\n")
+        f.write("\tif \"" + ope.id + "\" not in [j.id for i,j in enumerate(addon_prefs.extragroups_ops)]:\n")
+        f.write("\t\tops = addon_prefs.extragroups_ops.add()\n")
         f.write("\t\tops.id = \"" + ope.id + "\"\n")
         f.write("\t\tops.name = \"" + ope.name + "\"\n")
         f.write("\t\tops.ops_type = \"" + ope.ops_type + "\"\n")
@@ -181,9 +187,9 @@ def write_operators(context, filepath):
         f.write("\t\t\t\t\tnew_.id = \"" + ope.id + "\"\n")
         f.write("\t\t\t\t\tnew_.on_off = True\n")
         f.write("\telse:\n")
-        f.write("\t\tbpy.context.scene.extragroups_ops[[i for i,j in enumerate(bpy.context.scene.extragroups_ops) if j.id == \"" + ope.id + "\"][0]].name = \"" + ope.name + "\"\n")
-        f.write("\t\tbpy.context.scene.extragroups_ops[[i for i,j in enumerate(bpy.context.scene.extragroups_ops) if j.id == \"" + ope.id + "\"][0]].icon_on = \"" + ope.icon_on + "\"\n")
-        f.write("\t\tbpy.context.scene.extragroups_ops[[i for i,j in enumerate(bpy.context.scene.extragroups_ops) if j.id == \"" + ope.id + "\"][0]].icon_off = \"" + ope.icon_off + "\"\n")
+        f.write("\t\taddon_prefs.extragroups_ops[[i for i,j in enumerate(addon_prefs.extragroups_ops) if j.id == \"" + ope.id + "\"][0]].name = \"" + ope.name + "\"\n")
+        f.write("\t\taddon_prefs.extragroups_ops[[i for i,j in enumerate(addon_prefs.extragroups_ops) if j.id == \"" + ope.id + "\"][0]].icon_on = \"" + ope.icon_on + "\"\n")
+        f.write("\t\taddon_prefs.extragroups_ops[[i for i,j in enumerate(addon_prefs.extragroups_ops) if j.id == \"" + ope.id + "\"][0]].icon_off = \"" + ope.icon_off + "\"\n")
 		
     f.write("except:\n")
     f.write("\tpass\n")

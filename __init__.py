@@ -72,27 +72,12 @@ else:
 import bpy.utils.previews
 import os
 
-ops_type_items = [
-	("BOOL", "On/Off", "", 1),
-	("EXE", "Exec", "", 2),
-	]
-
 class BoneEntry(bpy.types.PropertyGroup):
 	name = bpy.props.StringProperty(name="Bone Name")
 	
 class OnOffEntry(bpy.types.PropertyGroup):
 	id      = bpy.props.StringProperty(name="Id of Ops")
 	on_off  = bpy.props.BoolProperty(name="On_Off")
-
-class OpsItem(bpy.types.PropertyGroup):
-	id   = bpy.props.StringProperty(name="Unique id")
-	name = bpy.props.StringProperty(name="Ops Name")
-	ops_exe = bpy.props.StringProperty(name="Ops Exe")
-	ops_type = bpy.props.EnumProperty(items=ops_type_items)
-	icon_on	= bpy.props.StringProperty(name="Icon On")
-	icon_off   = bpy.props.StringProperty(name="Icon Off")
-	ok_for_current_sel = bpy.props.BoolProperty()
-	user_defined = bpy.props.BoolProperty()
 
 class BoneGroup(bpy.types.PropertyGroup):
 	name = bpy.props.StringProperty(name="Group Name")
@@ -124,13 +109,11 @@ def register():
 	bpy.utils.register_class(OnOffEntry)
 	bpy.utils.register_class(BoneEntry)
 	bpy.utils.register_class(BoneGroup)
-	bpy.utils.register_class(OpsItem)
 	bpy.utils.register_class(OpsDisplay)
 	bpy.utils.register_class(GroupType)
 	
 	bpy.types.Object.grouptypelist = bpy.props.CollectionProperty(type=GroupType)
 	bpy.types.Object.active_grouptype = bpy.props.IntProperty()
-	bpy.types.Scene.extragroups_ops   = bpy.props.CollectionProperty(type=OpsItem)
 
 	addon_pref.register()
 	ops_grouptype.register()
@@ -154,13 +137,11 @@ def unregister():
 	bpy.utils.unregister_class(OnOffEntry)
 	bpy.utils.unregister_class(BoneEntry)
 	bpy.utils.unregister_class(BoneGroup)
-	bpy.utils.unregister_class(OpsItem)
 	bpy.utils.unregister_class(OpsDisplay)
 	bpy.utils.unregister_class(GroupType)
 	
 	del bpy.types.Object.grouptypelist
 	del bpy.types.Object.active_grouptype
-	del bpy.types.Scene.extragroups_ops
 
 	addon_pref.unregister()
 	ops_grouptype.unregister()
