@@ -3,8 +3,7 @@
 
 
 ###### V0.0.2
-#option in addon pref
-#BUG : when add a new operator, active line is reset to top
+#now that data are stored in addon, there are lost at save ...
 
 ###### next	
 #TODO : icon perso pour l'utilisateur
