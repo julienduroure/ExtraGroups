@@ -25,10 +25,12 @@ class POSE_PT_grouptype(bpy.types.Panel):
 	
 	@classmethod
 	def poll(self, context):
+		user_preferences = context.user_preferences
+		addon_prefs = user_preferences.addons[__package__].preferences
 		return (context.object and
 				context.object.type == 'ARMATURE' and
 				context.mode == 'POSE'
-				and context.scene.bonegroup_multitype == True )
+				and addon_prefs.multitype == True )
 				
 	def draw(self, context):
 		layout = self.layout
@@ -192,44 +194,15 @@ class POSE_PT_opsdetail(bpy.types.Panel):
 			else:
 				row.label("Warning : Text doesn't exist anymore", icon="ERROR")
 		
-class POSE_PT_bonegroup_option(bpy.types.Panel):
-	bl_label = "Options"
-	bl_space_type = 'VIEW_3D'
-	bl_region_type = 'UI'
-	
-	@classmethod
-	def poll(self, context):
-		return (context.object and
-				context.object.type == 'ARMATURE' and
-				context.mode == 'POSE')
-				
-	def draw(self, context):
-		layout = self.layout
-		armature = context.object
-		
-		row = layout.row()	
-		row.label("Display")
-		row = layout.row()
-		box = row.box()
-		box.prop(context.scene, "bonegroup_multitype", text="Multi Type")
-		row = layout.row()	
-		row = layout.row()
-		row.label("Text Management")
-		row = layout.row()
-		box = row.box()
-		box.prop(context.scene, "bonegroup_textremove", text="Text Remove")
-		
 		
 def register():
 	bpy.utils.register_class(POSE_PT_grouptype) 
 	bpy.utils.register_class(POSE_PT_bonegroup) 
 	bpy.utils.register_class(POSE_PT_opslist)
 	bpy.utils.register_class(POSE_PT_opsdetail)
-	bpy.utils.register_class(POSE_PT_bonegroup_option)
 	
 def unregister():
 	bpy.utils.unregister_class(POSE_PT_grouptype)
 	bpy.utils.unregister_class(POSE_PT_bonegroup)
 	bpy.utils.unregister_class(POSE_PT_opslist)
 	bpy.utils.unregister_class(POSE_PT_opsdetail) 
-	bpy.utils.unregister_class(POSE_PT_bonegroup_option)

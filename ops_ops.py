@@ -125,10 +125,12 @@ class POSE_OT_ops_remove(bpy.types.Operator):
 
 	def execute(self, context):
 		armature = context.object
+		user_preferences = context.user_preferences
+		addon_prefs = user_preferences.addons[__package__].preferences
 		
 		id_to_delete = armature.grouptypelist[armature.active_grouptype].ops_display[armature.grouptypelist[armature.active_grouptype].active_ops].id
 		if len(armature.grouptypelist) > 0 and len(armature.grouptypelist[armature.active_grouptype].ops_display) > 0:
-			if context.scene.bonegroup_textremove == True:
+			if addon_prefs.textremove == True:
 				file_ = id_to_delete + ".py"
 				bpy.ops.text.text_remove(text_id=file_)
 

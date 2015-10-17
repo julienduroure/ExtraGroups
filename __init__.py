@@ -131,9 +131,6 @@ def register():
 	bpy.types.Object.grouptypelist = bpy.props.CollectionProperty(type=GroupType)
 	bpy.types.Object.active_grouptype = bpy.props.IntProperty()
 	bpy.types.Scene.extragroups_ops   = bpy.props.CollectionProperty(type=OpsItem)
-	
-	bpy.types.Scene.bonegroup_textremove = bpy.props.BoolProperty(default= True)
-	bpy.types.Scene.bonegroup_multitype  = bpy.props.BoolProperty(default= False)
 
 	addon_pref.register()
 	ops_grouptype.register()
@@ -164,9 +161,6 @@ def unregister():
 	del bpy.types.Object.grouptypelist
 	del bpy.types.Object.active_grouptype
 	del bpy.types.Scene.extragroups_ops
-	  
-	del bpy.types.Scene.bonegroup_textremove
-	del bpy.types.Scene.bonegroup_multitype
 
 	addon_pref.unregister()
 	ops_grouptype.unregister()
