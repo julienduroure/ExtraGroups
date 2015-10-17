@@ -62,6 +62,7 @@ class ExtragroupsPreferences(bpy.types.AddonPreferences):
 		box = row_.box()
 		box.operator("export.extragroups_ops", text="Export Operators")
 		box.operator("imp.extragroups_ops", text="Import Operators")
+		box.enabled = (len(self.extragroups_ops) != 0)
 
 
 def register():

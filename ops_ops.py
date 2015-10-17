@@ -156,12 +156,12 @@ class POSE_OT_ops_remove(bpy.types.Operator):
 def write_operators(context, filepath):
     user_preferences = context.user_preferences
     addon_prefs = user_preferences.addons[__package__].preferences
+    tab = addon_prefs.extragroups_ops
     f = open(filepath, 'w', encoding='utf-8')
     f.write("import bpy\n")
     f.write("user_preferences = bpy.context.user_preferences\n")
     f.write("addon_prefs = user_preferences.addons[\"extragroups\"].preferences\n")
     f.write("try:\n")
-    tab = addon_prefs.extragroups_ops
     for ope in tab:
         f.write("\t#~~~~~~\n")
         f.write("\tif \"" + ope.id + "\" not in [j.id for i,j in enumerate(addon_prefs.extragroups_ops)]:\n")
@@ -208,12 +208,14 @@ class POSE_OT_ExportOps(bpy.types.Operator, bpy_extras.io_utils.ExportHelper):
         return write_operators(context, self.filepath)
 		
 def read_operator(context, filepath):
-    f = open(filepath, 'r', encoding='utf-8')
-    data = f.read()
-    f.close()
+    try:
+        f = open(filepath, 'r', encoding='utf-8')
+        data = f.read()
+        f.close()
     
-    exec(data, {})
-    
+        exec(data, {})
+    except:
+        print("Error reading / exec imported file...")
     return {'FINISHED'}
 			
 class POSE_OT_ImportOps(bpy.types.Operator, bpy_extras.io_utils.ExportHelper):
