@@ -155,10 +155,11 @@ def load_handler(dummy):
 @persistent
 def save_handler(dummy):
 	user_preferences = bpy.context.user_preferences
-	addon_prefs = user_preferences.addons[__package__].preferences	
-	if addon_prefs.scene_name == "":
-		addon_prefs.scene_name = bpy.context.scene.name
-	save_collection(addon_prefs.extragroups_ops, bpy.data.scenes[addon_prefs.scene_name].extragroups_save)
+	if __package__ in user_preferences.addons:
+		addon_prefs = user_preferences.addons[__package__].preferences	
+		if addon_prefs.scene_name == "":
+			addon_prefs.scene_name = bpy.context.scene.name
+		save_collection(addon_prefs.extragroups_ops, bpy.data.scenes[addon_prefs.scene_name].extragroups_save)
 
 def register():
 	bpy.app.handlers.load_post.append(load_handler)

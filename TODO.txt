@@ -3,7 +3,9 @@
 
 
 ###### V0.0.2
-#now that data are stored in addon, there are lost at save ...
+# deduplicate declaration of OptItem
+# remove export / import from panel
+#reduplicate save_collection
 
 ###### next	
 #TODO : icon perso pour l'utilisateur

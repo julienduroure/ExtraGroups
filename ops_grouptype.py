@@ -48,6 +48,47 @@ class POSE_OT_grouptype_move(bpy.types.Operator):
 		
 		return {'FINISHED'}
 		
+def save_collection(source, target):
+	#delete existing
+	while len(target) != 0:
+		target.remove(0)
+	#add
+	for ope in source:
+		ops = target.add()
+		ops.id = ope.id
+		ops.name = ope.name
+		ops.ops_exe = ope.ops_exe
+		ops.ops_type = ope.ops_type
+		ops.icon_on = ope.icon_on
+		ops.icon_off = ope.icon_off
+		ops.ok_for_current_sel = ope.ok_for_current_sel
+		ops.user_defined = ope.user_defined
+
+class POSE_OT_grouptype_reload(bpy.types.Operator):
+	"""Reload data after addon unregister"""
+	bl_idname = "pose.extragroups_reload"
+	bl_label = "Reload data after addon unregister"
+	bl_options = {'REGISTER'}	
+
+	@classmethod
+	def poll(self, context):
+		return (context.object and
+				context.object.type == 'ARMATURE' and
+				context.mode == 'POSE')
+
+	def execute(self, context):
+		armature = context.object
+		user_preferences = context.user_preferences
+		addon_prefs = user_preferences.addons[__package__].preferences	
+		scene_found = False	
+		for scene in bpy.data.scenes:
+			if len(scene.extragroups_save) != 0:
+				scene_found = True
+				addon_prefs.scene_name = scene.name
+				save_collection(bpy.data.scenes[addon_prefs.scene_name].extragroups_save, addon_prefs.extragroups_ops)
+				break
+		return {'FINISHED'}
+
 class POSE_OT_grouptype_add(bpy.types.Operator):
 	"""Add a new group type"""
 	bl_idname = "pose.grouptype_add"
@@ -70,7 +111,17 @@ class POSE_OT_grouptype_add(bpy.types.Operator):
 		armature.active_grouptype = len(armature.grouptypelist) - 1
 
 		if len(armature.grouptypelist) == 1 and len(addon_prefs.extragroups_ops) == 0: #in case of first initialisation
-			init(armature)
+			scene_found = False
+			for scene in bpy.data.scenes:
+				if len(scene.extragroups_save) != 0:
+					scene_found = True
+					addon_prefs.scene_name = scene.name
+					save_collection(bpy.data.scenes[addon_prefs.scene_name].extragroups_save, addon_prefs.extragroups_ops)
+					copy(armature, armature.active_grouptype)
+					break
+			if scene_found == False:
+				print("classic init")
+				init(armature)
 		else:
 			copy(armature, armature.active_grouptype)
 		
@@ -163,8 +214,10 @@ def register():
 	bpy.utils.register_class(POSE_OT_grouptype_add)
 	bpy.utils.register_class(POSE_OT_grouptype_remove) 
 	bpy.utils.register_class(POSE_OT_grouptype_move)
+	bpy.utils.register_class(POSE_OT_grouptype_reload)
 		
 def unregister():
 	bpy.utils.unregister_class(POSE_OT_grouptype_add)
 	bpy.utils.unregister_class(POSE_OT_grouptype_remove) 
 	bpy.utils.unregister_class(POSE_OT_grouptype_move) 
+	bpy.utils.unregister_class(POSE_OT_grouptype_reload)

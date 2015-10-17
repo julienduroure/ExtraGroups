@@ -27,10 +27,12 @@ class POSE_PT_grouptype(bpy.types.Panel):
 	def poll(self, context):
 		user_preferences = context.user_preferences
 		addon_prefs = user_preferences.addons[__package__].preferences
+
 		return (context.object and
 				context.object.type == 'ARMATURE' and
 				context.mode == 'POSE'
-				and addon_prefs.multitype == True )
+				and addon_prefs.multitype == True 
+				and len(addon_prefs.extragroups_ops) != 0)
 				
 	def draw(self, context):
 		layout = self.layout
@@ -66,38 +68,48 @@ class POSE_PT_bonegroup(bpy.types.Panel):
 	def draw(self, context):
 		layout = self.layout
 		armature = context.object
+		user_preferences = context.user_preferences
+		addon_prefs = user_preferences.addons[__package__].preferences
 		pcoll = bpy.extragroups_icons["bonegroup"]
 		
 		if len(armature.grouptypelist) > 0:
-			active_grouptype = armature.grouptypelist[armature.active_grouptype]
+			if len(addon_prefs.extragroups_ops) != 0:
+				active_grouptype = armature.grouptypelist[armature.active_grouptype]
 		
-			row = layout.row()
-			row.template_list("POSE_UL_bonegroup", "", active_grouptype, "group_ids", active_grouptype, "active_bonegroup", rows=6)
+				row = layout.row()
+				row.template_list("POSE_UL_bonegroup", "", active_grouptype, "group_ids", active_grouptype, "active_bonegroup", rows=6)
 		
-			col = row.column()
-			row = col.column(align=True)
-			row.operator("pose.bonegroup_add", icon="ZOOMIN", text="").dyn_selection = False
-			row.operator("pose.bonegroup_remove", icon="ZOOMOUT", text="")
-			row = col.column(align=True)
-			row.separator()
-			row.operator("pose.bonegroup_move", icon='TRIA_UP', text="").direction = 'UP'
-			row.operator("pose.bonegroup_move", icon='TRIA_DOWN', text="").direction = 'DOWN'
-			if len(armature.grouptypelist[armature.active_grouptype].group_ids) == 0:
-				row.enabled = False
-			row = col.column(align=True)
-			row.separator()
-			row.operator("pose.bonegroup_assign", icon_value=pcoll["bonegroup_assign"].icon_id, text="")
-			row.operator("pose.bonegroup_bone_remove", icon_value=pcoll["bonegroup_remove"].icon_id, text="")
-			if len(armature.grouptypelist[armature.active_grouptype].group_ids) == 0:
-				row.enabled = False
-		
-		
+				col = row.column()
+				row = col.column(align=True)
+				row.operator("pose.bonegroup_add", icon="ZOOMIN", text="").dyn_selection = False
+				row.operator("pose.bonegroup_remove", icon="ZOOMOUT", text="")
 			
-			row = layout.row()
-			row.operator("pose.bonegroup_add", text="Add Dynamic Selection").dyn_selection = True
+				row = col.column(align=True)
+				row.separator()
+				row.operator("pose.bonegroup_move", icon='TRIA_UP', text="").direction = 'UP'
+				row.operator("pose.bonegroup_move", icon='TRIA_DOWN', text="").direction = 'DOWN'
+				if len(armature.grouptypelist[armature.active_grouptype].group_ids) == 0:
+					row.enabled = False
+			
+				row = col.column(align=True)
+				row.separator()
+				row.operator("pose.bonegroup_assign", icon_value=pcoll["bonegroup_assign"].icon_id, text="")
+				row.operator("pose.bonegroup_bone_remove", icon_value=pcoll["bonegroup_remove"].icon_id, text="")
+			
+				if len(armature.grouptypelist[armature.active_grouptype].group_ids) == 0:
+					row.enabled = False
+		
+				row = layout.row()
+				row.operator("pose.bonegroup_add", text="Add Dynamic Selection").dyn_selection = True
+
+			else:
+				row = layout.row()
+				row.operator("pose.extragroups_reload", text="Reload Extragroups data")
 		else:
 			row = layout.row()
 			row.operator("pose.grouptype_add", text="Init Bone Groups for this Rig")
+
+			
 		
 		
 class POSE_PT_opslist(bpy.types.Panel):
@@ -107,10 +119,13 @@ class POSE_PT_opslist(bpy.types.Panel):
 	
 	@classmethod
 	def poll(self, context):
+		user_preferences = context.user_preferences
+		addon_prefs = user_preferences.addons[__package__].preferences
 		return (context.object and
 				context.object.type == 'ARMATURE' and
 				context.mode == 'POSE' 
-				and len(context.active_object.grouptypelist) > 0 )
+				and len(context.active_object.grouptypelist) > 0 
+				and len(addon_prefs.extragroups_ops) != 0)
 				
 	def draw(self, context):
 		layout = self.layout
@@ -150,11 +165,14 @@ class POSE_PT_opsdetail(bpy.types.Panel):
 	
 	@classmethod
 	def poll(self, context):
+		user_preferences = context.user_preferences
+		addon_prefs = user_preferences.addons[__package__].preferences
 		return (context.object and
 				context.object.type == 'ARMATURE' and
 				context.mode == 'POSE'  
 				and len(context.active_object.grouptypelist) > 0
-				and len(context.active_object.grouptypelist[context.active_object.active_grouptype].ops_display) > 0)
+				and len(context.active_object.grouptypelist[context.active_object.active_grouptype].ops_display) > 0
+				and len(addon_prefs.extragroups_ops) != 0 )
 				
 	def draw(self, context):
 		layout = self.layout
