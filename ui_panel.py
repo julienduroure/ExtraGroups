@@ -151,13 +151,7 @@ class POSE_PT_opslist(bpy.types.Panel):
 		row.operator("pose.operator_move", icon='TRIA_DOWN', text="").direction = 'DOWN'
 		if len(armature.grouptypelist[armature.active_grouptype].ops_display) == 0:
 			row.enabled = False
-		
-		row = layout.row()
-		row = layout.row()
-		row.operator("export.extragroups_ops", text="Export Operators")
-		row.operator("imp.extragroups_ops", text="Import Operators")
-		
-		
+				
 class POSE_PT_opsdetail(bpy.types.Panel):
 	bl_label = "Operator Detail"
 	bl_space_type = 'VIEW_3D'
