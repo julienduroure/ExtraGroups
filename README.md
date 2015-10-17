@@ -19,11 +19,9 @@ Initial Release
 Here is a list of feature requested or I am thinking about. Some of them will be (maybe) implemented in next version.
 
 * Use custom icons
-* Import / export of template : with source code, not only list
+* Import / export of operators : with source code, not only list
 * Create Keying set from bone group
-* Add some other default template
+* Add some other default operators
 * Create bone groups from official bone groups
-* Avoid multiple import of template by unique ID of template
-* Transform an operator into template
 * Simple way to work on property
 * enhance to object mode
