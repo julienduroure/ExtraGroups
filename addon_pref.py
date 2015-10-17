@@ -20,12 +20,31 @@ import bpy
 class ExtragroupsPreferences(bpy.types.AddonPreferences):
 	bl_idname = __package__
 
+	multitype = bpy.props.BoolProperty(default= False)
+
+	textremove = bpy.props.BoolProperty(default= True)
+
 
 	def draw(self, context):
 		layout = self.layout
-		row = layout.row()
-		col = row.column()
+		row_global = layout.row()
+
+		col = row_global.column()
+		row = col.row()
+		row.label("Options")
+		row_ = col.row()
+		box = row_.box()
+		box.prop(self, "multitype", text="Use Multitype")
+		box.prop(self, "textremove", text="Remove text when delete Operator")
+
 		
+		col = row_global.column()
+		row = col.row()
+		row.label("Import / Export")
+		row_ = col.row()
+		box = row_.box()
+		box.operator("export.extragroups_ops", text="Export Operators")
+		box.operator("imp.extragroups_ops", text="Import Operators")
 
 
 def register():
