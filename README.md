@@ -10,7 +10,7 @@ You can report bugs on [http://github.com/julienduroure/extragroups](http://gith
 
 # Version History
 
-## Version 0.1 (October 2015)
+## Version 0.0.1 (October 2015)
 
 Initial Release
 
