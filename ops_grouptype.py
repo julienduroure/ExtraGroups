@@ -120,7 +120,6 @@ class POSE_OT_grouptype_add(bpy.types.Operator):
 					copy(armature, armature.active_grouptype)
 					break
 			if scene_found == False:
-				print("classic init")
 				init(armature)
 		else:
 			copy(armature, armature.active_grouptype)
