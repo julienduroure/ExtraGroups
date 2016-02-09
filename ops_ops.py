@@ -149,7 +149,7 @@ class POSE_OT_ops_remove(bpy.types.Operator):
 					#also remove on/off for each existing bonegroup of each type (of each armature)
 					bonegroups = grouptype.group_ids
 					for group in bonegroups:
-						group.on_off.remove([i for i,j in enumarate(group.on_off) if j.id == id_to_delete][0])
+						group.on_off.remove([i for i,j in enumerate(group.on_off) if j.id == id_to_delete][0])
 				
 		return {'FINISHED'}
 		
