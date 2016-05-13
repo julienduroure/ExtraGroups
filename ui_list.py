@@ -17,7 +17,7 @@
 #======================= END GPL LICENSE BLOCK ========================
 import bpy
 
-class POSE_UL_grouptype(bpy.types.UIList):
+class POSE_UL_jueg_grouptype(bpy.types.UIList):
 	def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
 		
 		if self.layout_type in {'DEFAULT', 'COMPACT'}:
@@ -26,7 +26,7 @@ class POSE_UL_grouptype(bpy.types.UIList):
 		elif self.layout_type in {'GRID'}:
 			layout.alignment = 'CENTER'
 			
-class POSE_UL_bonegroup(bpy.types.UIList):
+class POSE_UL_jueg_bonegroup(bpy.types.UIList):
 	def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
 		
 		armature = context.object
@@ -68,7 +68,7 @@ class POSE_UL_bonegroup(bpy.types.UIList):
 		elif self.layout_type in {'GRID'}:
 			layout.alignment = 'CENTER'
 			
-class POSE_UL_opslist(bpy.types.UIList):
+class POSE_UL_jueg_opslist(bpy.types.UIList):
 	def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
 		
 		armature = context.object
@@ -93,11 +93,11 @@ class POSE_UL_opslist(bpy.types.UIList):
 			layout.alignment = 'CENTER'
 			
 def register():
-	bpy.utils.register_class(POSE_UL_grouptype)
-	bpy.utils.register_class(POSE_UL_bonegroup) 
-	bpy.utils.register_class(POSE_UL_opslist) 
+	bpy.utils.register_class(POSE_UL_jueg_grouptype)
+	bpy.utils.register_class(POSE_UL_jueg_bonegroup) 
+	bpy.utils.register_class(POSE_UL_jueg_opslist) 
 	
 def unregister():
-	bpy.utils.unregister_class(POSE_UL_grouptype)
-	bpy.utils.unregister_class(POSE_UL_bonegroup)
-	bpy.utils.unregister_class(POSE_UL_opslist)
+	bpy.utils.unregister_class(POSE_UL_jueg_grouptype)
+	bpy.utils.unregister_class(POSE_UL_jueg_bonegroup)
+	bpy.utils.unregister_class(POSE_UL_jueg_opslist)

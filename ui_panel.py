@@ -39,7 +39,7 @@ class POSE_PT_jueg_grouptype(bpy.types.Panel):
 		armature = context.object
 		
 		row = layout.row()
-		row.template_list("POSE_UL_grouptype", "", armature, "grouptypelist", armature, "active_grouptype")
+		row.template_list("POSE_UL_jueg_grouptype", "", armature, "grouptypelist", armature, "active_grouptype")
 		
 		col = row.column()
 		row = col.column(align=True)
@@ -77,7 +77,7 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 				active_grouptype = armature.grouptypelist[armature.active_grouptype]
 		
 				row = layout.row()
-				row.template_list("POSE_UL_bonegroup", "", active_grouptype, "group_ids", active_grouptype, "active_bonegroup", rows=6)
+				row.template_list("POSE_UL_jueg_bonegroup", "", active_grouptype, "group_ids", active_grouptype, "active_bonegroup", rows=6)
 		
 				col = row.column()
 				row = col.column(align=True)
@@ -136,7 +136,7 @@ class POSE_PT_jueg_opslist(bpy.types.Panel):
 		active_grouptype = armature.grouptypelist[armature.active_grouptype]
 		
 		row = layout.row()
-		row.template_list("POSE_UL_opslist", "", active_grouptype, "ops_display", active_grouptype, "active_ops")
+		row.template_list("POSE_UL_jueg_opslist", "", active_grouptype, "ops_display", active_grouptype, "active_ops")
 		
 		col = row.column()
 		row = col.column(align=True)
