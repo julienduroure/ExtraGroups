@@ -18,15 +18,12 @@
 import bpy
 from .globals import *
 
-class ExtragroupsPreferences(bpy.types.AddonPreferences):
+class jueg_AddonPreferences(bpy.types.AddonPreferences):
 	bl_idname = __package__
 
 	multitype = bpy.props.BoolProperty(default= False)
-
 	textremove = bpy.props.BoolProperty(default= True)
-
 	extragroups_ops = bpy.props.CollectionProperty(type=OpsItem)
-
 	scene_name = bpy.props.StringProperty() #scene name that will temporary store data for saving
 
 
@@ -54,8 +51,8 @@ class ExtragroupsPreferences(bpy.types.AddonPreferences):
 
 
 def register():
-	bpy.utils.register_class(ExtragroupsPreferences)
+	bpy.utils.register_class(jueg_AddonPreferences)
 
 def unregister():
-	bpy.utils.unregister_class(ExtragroupsPreferences)
+	bpy.utils.unregister_class(jueg_AddonPreferences)
 
