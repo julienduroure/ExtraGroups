@@ -56,14 +56,14 @@ class POSE_UL_bonegroup(bpy.types.UIList):
 							icon ="QUESTION" 										#if no icon, set QUESION_ICON
 					if item.current_selection == True and ops.ok_for_current_sel == False:
 						icon = 'BLANK1'												#Display nothing if ops is not enabled for current selection
-						op = layout.operator("pose.dummy", text='', emboss=False, icon=icon)
+						op = layout.operator("pose.jueg_dummy", text='', emboss=False, icon=icon)
 					else:
 						op = layout.operator(ops.ops_exe, text='', emboss=False, icon=icon)
 						op.ops_id = ops.id
 						op.index	= index
 				except:
 					icon = 'ERROR' 													#In case of error, display warning error icon
-					op = layout.operator("pose.dummy", text='', emboss=False, icon=icon)
+					op = layout.operator("pose.jueg_dummy", text='', emboss=False, icon=icon)
 			
 		elif self.layout_type in {'GRID'}:
 			layout.alignment = 'CENTER'
@@ -81,7 +81,7 @@ class POSE_UL_opslist(bpy.types.UIList):
 				icon = "POSE_DATA"
 			else:
 				icon = "BLANK1"
-			layout.operator("pose.dummy", text='', emboss=False, icon=icon)
+			layout.operator("pose.jueg_dummy", text='', emboss=False, icon=icon)
 			layout.prop(ops, "name", text="", emboss=False)
 			if item.display == True:
 				icon = "CHECKBOX_HLT"			

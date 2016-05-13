@@ -45,8 +45,8 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 		row.label("Import / Export")
 		row_ = col.row()
 		box = row_.box()
-		box.operator("export.extragroups_ops", text="Export Operators")
-		box.operator("imp.extragroups_ops", text="Import Operators")
+		box.operator("export.jueg_extragroups_ops", text="Export Operators")
+		box.operator("imp.jueg_extragroups_ops", text="Import Operators")
 		box.enabled = (len(self.extragroups_ops) != 0)
 
 

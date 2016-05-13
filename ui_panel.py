@@ -141,14 +141,14 @@ class POSE_PT_jueg_opslist(bpy.types.Panel):
 		col = row.column()
 		row = col.column(align=True)
 		sub = row.row(align=True)
-		sub.operator("pose.ops_add", icon="ZOOMIN", text="")
+		sub.operator("pose.jueg_ops_add", icon="ZOOMIN", text="")
 		sub = row.row(align=True)
-		sub.operator("pose.ops_remove", icon="ZOOMOUT", text="")
+		sub.operator("pose.jueg_ops_remove", icon="ZOOMOUT", text="")
 		sub.enabled = [e for i,e in enumerate(addon_prefs.extragroups_ops) if e.id == armature.grouptypelist[armature.active_grouptype].ops_display[armature.grouptypelist[armature.active_grouptype].active_ops].id][0].user_defined
 		row = col.column(align=True)
 		row.separator()
-		row.operator("pose.operator_move", icon='TRIA_UP', text="").direction = 'UP'
-		row.operator("pose.operator_move", icon='TRIA_DOWN', text="").direction = 'DOWN'
+		row.operator("pose.jueg_operator_move", icon='TRIA_UP', text="").direction = 'UP'
+		row.operator("pose.jueg_operator_move", icon='TRIA_DOWN', text="").direction = 'DOWN'
 		if len(armature.grouptypelist[armature.active_grouptype].ops_display) == 0:
 			row.enabled = False
 				

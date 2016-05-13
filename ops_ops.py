@@ -21,9 +21,9 @@ import bpy_extras
 from .text_ops_squel import TEMPLATE
 
 
-class POSE_OT_operator_move(bpy.types.Operator):
+class POSE_OT_jueg_operator_move(bpy.types.Operator):
 	"""Move up or down the current operator in the list"""
-	bl_idname = "pose.operator_move"
+	bl_idname = "pose.jueg_operator_move"
 	bl_label = "Move Operator"
 	bl_options = {'REGISTER'}
 	
@@ -52,9 +52,9 @@ class POSE_OT_operator_move(bpy.types.Operator):
 		
 		return {'FINISHED'}
 		
-class POSE_OT_ops_add(bpy.types.Operator):
+class POSE_OT_jueg_ops_add(bpy.types.Operator):
 	"""Add a new operator"""
-	bl_idname = "pose.ops_add"
+	bl_idname = "pose.jueg_ops_add"
 	bl_label = "Add Ops"
 	bl_options = {'REGISTER'}
 
@@ -113,9 +113,9 @@ class POSE_OT_ops_add(bpy.types.Operator):
 	
 		return {'FINISHED'}
 	
-class POSE_OT_ops_remove(bpy.types.Operator):
+class POSE_OT_jueg_ops_remove(bpy.types.Operator):
 	"""Remove the operator"""
-	bl_idname = "pose.ops_remove"
+	bl_idname = "pose.jueg_ops_remove"
 	bl_label = "Remove Ops"
 	bl_options = {'REGISTER'}
 	
@@ -197,9 +197,9 @@ def write_operators(context, filepath):
     
     return {'FINISHED'}
 		
-class POSE_OT_ExportOps(bpy.types.Operator, bpy_extras.io_utils.ExportHelper):
+class POSE_OT_jueg_ExportOps(bpy.types.Operator, bpy_extras.io_utils.ExportHelper):
     """Export Operator list"""
-    bl_idname = "export.extragroups_ops"
+    bl_idname = "export.jueg_extragroups_ops"
     bl_label  = "Export Operator"
     
     filename_ext = ".py"
@@ -218,9 +218,9 @@ def read_operator(context, filepath):
         print("Error reading / exec imported file...")
     return {'FINISHED'}
 			
-class POSE_OT_ImportOps(bpy.types.Operator, bpy_extras.io_utils.ExportHelper):
+class POSE_OT_jueg_ImportOps(bpy.types.Operator, bpy_extras.io_utils.ExportHelper):
     """Import Template list"""
-    bl_idname = "imp.extragroups_ops"
+    bl_idname = "imp.jueg_extragroups_ops"
     bl_label  = "Import Operators"
     
     filename_ext = ".py"
@@ -228,8 +228,8 @@ class POSE_OT_ImportOps(bpy.types.Operator, bpy_extras.io_utils.ExportHelper):
     def execute(self, context):
         return read_operator(context, self.filepath)
 		
-class POSE_OT_dummy(bpy.types.Operator):
-	bl_idname = "pose.dummy"
+class POSE_OT_jueg_dummy(bpy.types.Operator):
+	bl_idname = "pose.jueg_dummy"
 	bl_label = "Dummy"
 	bl_options = {'REGISTER'}  
 	
@@ -244,17 +244,17 @@ class POSE_OT_dummy(bpy.types.Operator):
 		return {'FINISHED'}  
 		
 def register():
-	bpy.utils.register_class(POSE_OT_ops_add)
-	bpy.utils.register_class(POSE_OT_ops_remove) 
-	bpy.utils.register_class(POSE_OT_operator_move)
-	bpy.utils.register_class(POSE_OT_ExportOps)
-	bpy.utils.register_class(POSE_OT_ImportOps)
-	bpy.utils.register_class(POSE_OT_dummy)
+	bpy.utils.register_class(POSE_OT_jueg_ops_add)
+	bpy.utils.register_class(POSE_OT_jueg_ops_remove) 
+	bpy.utils.register_class(POSE_OT_jueg_operator_move)
+	bpy.utils.register_class(POSE_OT_jueg_ExportOps)
+	bpy.utils.register_class(POSE_OT_jueg_ImportOps)
+	bpy.utils.register_class(POSE_OT_jueg_dummy)
 	
 def unregister():
-	bpy.utils.unregister_class(POSE_OT_ops_add)
-	bpy.utils.unregister_class(POSE_OT_ops_remove) 
-	bpy.utils.unregister_class(POSE_OT_operator_move)
-	bpy.utils.unregister_class(POSE_OT_ExportOps)
-	bpy.utils.unregister_class(POSE_OT_ImportOps)
-	bpy.utils.unregister_class(POSE_OT_dummy)
+	bpy.utils.unregister_class(POSE_OT_jueg_ops_add)
+	bpy.utils.unregister_class(POSE_OT_jueg_ops_remove) 
+	bpy.utils.unregister_class(POSE_OT_jueg_operator_move)
+	bpy.utils.unregister_class(POSE_OT_jueg_ExportOps)
+	bpy.utils.unregister_class(POSE_OT_jueg_ImportOps)
+	bpy.utils.unregister_class(POSE_OT_jueg_dummy)
