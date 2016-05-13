@@ -200,7 +200,7 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 			row = layout.row()
 			file_ = ops.id + ".py"
 			if file_ in bpy.data.texts:
-				row.operator("pose.text_display", text="Edit Source").text_id = file_
+				row.operator("pose.jueg_text_display", text="Edit Source").text_id = file_
 			else:
 				row.label("Warning : Text doesn't exist anymore", icon="ERROR")
 		

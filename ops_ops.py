@@ -134,7 +134,7 @@ class POSE_OT_jueg_ops_remove(bpy.types.Operator):
 		if len(armature.grouptypelist) > 0 and len(armature.grouptypelist[armature.active_grouptype].ops_display) > 0:
 			if addon_prefs.textremove == True:
 				file_ = id_to_delete + ".py"
-				bpy.ops.text.text_remove(text_id=file_)
+				bpy.ops.text.jueg_text_remove(text_id=file_)
 
 			addon_prefs.extragroups_ops.remove([i for i,e in enumerate(addon_prefs.extragroups_ops) if e.id == id_to_delete][0])
 			

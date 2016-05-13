@@ -18,9 +18,9 @@
 import bpy
 
 
-class POSE_OT_text_display(bpy.types.Operator):
+class POSE_OT_jueg_text_display(bpy.types.Operator):
 	"""Display current source code in text windows"""
-	bl_idname = "pose.text_display"
+	bl_idname = "pose.jueg_text_display"
 	bl_label = "Display Text"
 	bl_options = {'REGISTER'}
 	
@@ -50,9 +50,9 @@ class POSE_OT_text_display(bpy.types.Operator):
 		return {'FINISHED'}	  
 	
 	
-class TEXT_OT_text_remove(bpy.types.Operator):
+class TEXT_OT_jueg_text_remove(bpy.types.Operator):
 	"""Delete text from Blender"""
-	bl_idname = "text.text_remove"
+	bl_idname = "text.jueg_text_remove"
 	bl_label = "Remove Text"
 	bl_options = {'REGISTER'}
 	
@@ -84,9 +84,9 @@ class TEXT_OT_text_remove(bpy.types.Operator):
 		return {'FINISHED'}	  
 
 def register():
-	bpy.utils.register_class(POSE_OT_text_display)
-	bpy.utils.register_class(TEXT_OT_text_remove) 
+	bpy.utils.register_class(POSE_OT_jueg_text_display)
+	bpy.utils.register_class(TEXT_OT_jueg_text_remove) 
 	
 def unregister():
-	bpy.utils.unregister_class(POSE_OT_text_display)
-	bpy.utils.unregister_class(TEXT_OT_text_remove) 
+	bpy.utils.unregister_class(POSE_OT_jueg_text_display)
+	bpy.utils.unregister_class(TEXT_OT_jueg_text_remove) 
