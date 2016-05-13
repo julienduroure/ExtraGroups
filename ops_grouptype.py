@@ -16,6 +16,7 @@
 #
 #======================= END GPL LICENSE BLOCK ========================
 import bpy
+from .globals import *
 
 class POSE_OT_jueg_grouptype_move(bpy.types.Operator):
 	"""Move group type up or down in the list"""
@@ -47,22 +48,6 @@ class POSE_OT_jueg_grouptype_move(bpy.types.Operator):
 			armature.active_grouptype = new_index
 		
 		return {'FINISHED'}
-		
-def save_collection(source, target):
-	#delete existing
-	while len(target) != 0:
-		target.remove(0)
-	#add
-	for ope in source:
-		ops = target.add()
-		ops.id = ope.id
-		ops.name = ope.name
-		ops.ops_exe = ope.ops_exe
-		ops.ops_type = ope.ops_type
-		ops.icon_on = ope.icon_on
-		ops.icon_off = ope.icon_off
-		ops.ok_for_current_sel = ope.ok_for_current_sel
-		ops.user_defined = ope.user_defined
 
 class POSE_OT_jueg_grouptype_reload(bpy.types.Operator):
 	"""Reload data after addon unregister"""
