@@ -27,48 +27,30 @@ bl_info = {
 	"category": "Animation"
 }
 
-import importlib
-import bpy
 
-if "addon_pref" in locals():
-	importlib.reload(addon_pref)
+if "bpy" in locals():
+	import imp
+	imp.reload(addon_pref)
+	imp.reload(ops_grouptype)
+	imp.reload(ops_bonegroup)
+	imp.reload(ops_ops)
+	imp.reload(ops_text)
+	imp.reload(ui_list)
+	imp.reload(ui_panel)
+	imp.reload(template_default_ops)
+	imp.reload(text_ops_squel)
 else:
 	from . import addon_pref
-if "ops_grouptype" in locals():	
-	importlib.reload(ops_grouptype)
-else:
 	from . import ops_grouptype
-if "ops_bonegroup" in locals():
-	importlib.reload(ops_bonegroup)
-else:
 	from . import ops_bonegroup
-if "ops_ops" in locals():
-	importlib.reload(ops_ops)
-else:
 	from . import ops_ops
-if "ops_text" in locals():
-	importlib.reload(ops_text)
-else:
 	from . import ops_text
-if "ui_list" in locals():
-	importlib.reload(ui_list)
-else:
 	from . import ui_list
-if "ui_panel" in locals():
-	importlib.reload(ui_panel)
-else:
 	from . import ui_panel
-if "template_default_ops" in locals():
-	importlib.reload(template_default_ops)
-else:
 	from . import template_default_ops
-if "text_ops_squel" in locals():
-	importlib.reload(text_ops_squel)
-else:
 	from . import text_ops_squel
-
-
-
+	
+import bpy
 import bpy.utils.previews
 import os
 from bpy.app.handlers import persistent
