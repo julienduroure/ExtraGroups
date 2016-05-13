@@ -17,7 +17,7 @@
 #======================= END GPL LICENSE BLOCK ========================
 import bpy
 
-class POSE_PT_grouptype(bpy.types.Panel):
+class POSE_PT_jueg_grouptype(bpy.types.Panel):
 	bl_label = "Group Type"
 	bl_space_type = 'VIEW_3D'
 	bl_region_type = 'TOOLS'
@@ -53,7 +53,7 @@ class POSE_PT_grouptype(bpy.types.Panel):
 			row.enabled = False
 		
 	  
-class POSE_PT_bonegroup(bpy.types.Panel):
+class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 	bl_label = "Bone Group"
 	bl_space_type = 'VIEW_3D'
 	bl_region_type = 'TOOLS'
@@ -112,7 +112,7 @@ class POSE_PT_bonegroup(bpy.types.Panel):
 			
 		
 		
-class POSE_PT_opslist(bpy.types.Panel):
+class POSE_PT_jueg_opslist(bpy.types.Panel):
 	bl_label = "Operator List"
 	bl_space_type = 'VIEW_3D'
 	bl_region_type = 'UI'
@@ -152,7 +152,7 @@ class POSE_PT_opslist(bpy.types.Panel):
 		if len(armature.grouptypelist[armature.active_grouptype].ops_display) == 0:
 			row.enabled = False
 				
-class POSE_PT_opsdetail(bpy.types.Panel):
+class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 	bl_label = "Operator Detail"
 	bl_space_type = 'VIEW_3D'
 	bl_region_type = 'UI'
@@ -206,13 +206,13 @@ class POSE_PT_opsdetail(bpy.types.Panel):
 		
 		
 def register():
-	bpy.utils.register_class(POSE_PT_grouptype) 
-	bpy.utils.register_class(POSE_PT_bonegroup) 
-	bpy.utils.register_class(POSE_PT_opslist)
-	bpy.utils.register_class(POSE_PT_opsdetail)
+	bpy.utils.register_class(POSE_PT_jueg_grouptype) 
+	bpy.utils.register_class(POSE_PT_jueg_bonegroup) 
+	bpy.utils.register_class(POSE_PT_jueg_opslist)
+	bpy.utils.register_class(POSE_PT_jueg_opsdetail)
 	
 def unregister():
-	bpy.utils.unregister_class(POSE_PT_grouptype)
-	bpy.utils.unregister_class(POSE_PT_bonegroup)
-	bpy.utils.unregister_class(POSE_PT_opslist)
-	bpy.utils.unregister_class(POSE_PT_opsdetail) 
+	bpy.utils.unregister_class(POSE_PT_jueg_grouptype)
+	bpy.utils.unregister_class(POSE_PT_jueg_bonegroup)
+	bpy.utils.unregister_class(POSE_PT_jueg_opslist)
+	bpy.utils.unregister_class(POSE_PT_jueg_opsdetail) 
