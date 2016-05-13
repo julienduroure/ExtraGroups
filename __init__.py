@@ -30,8 +30,8 @@ bl_info = {
 if "bpy" in locals():
 	import imp
 	imp.reload(addon_pref)
-	imp.reload(ops_Jueg_GroupType)
-	imp.reload(ops_Jueg_BoneGroup)
+	imp.reload(ops_grouptype)
+	imp.reload(ops_bonegroup)
 	imp.reload(ops_ops)
 	imp.reload(ops_text)
 	imp.reload(ui_list)
@@ -41,8 +41,8 @@ if "bpy" in locals():
 else:
 	from .globals import *
 	from .addon_pref import *
-	from .ops_Jueg_GroupType import *
-	from .ops_Jueg_BoneGroup import *
+	from .ops_grouptype import *
+	from .ops_bonegroup import *
 	from .ops_ops import *
 	from .ops_text import *
 	from .ui_list import *
@@ -57,38 +57,38 @@ import os
 def register():
 	globals.register()
 	addon_pref.register()
-	ops_Jueg_GroupType.register()
-	ops_Jueg_BoneGroup.register()
+	ops_grouptype.register()
+	ops_bonegroup.register()
 	ops_ops.register()
 	ops_text.register()
 	ui_list.register()
 	ui_panel.register()
 	template_default_ops.register()
 	
-	bpy.types.Object.jueg_grouptypelist = bpy.props.CollectionProperty(type=Jueg_GroupType)
-	bpy.types.Object.active_jueg_grouptype = bpy.props.IntProperty()
-	bpy.types.Scene.jueg_extragroups_save = bpy.props.CollectionProperty(type=Jueg_OpsItem)
+	bpy.types.Object.grouptypelist = bpy.props.CollectionProperty(type=GroupType)
+	bpy.types.Object.active_grouptype = bpy.props.IntProperty()
+	bpy.types.Scene.extragroups_save = bpy.props.CollectionProperty(type=OpsItem)
 	
-	bpy.app.handlers.load_post.append(jueg_load_handler)
-	bpy.app.handlers.save_pre.append(jueg_save_handler)
+	bpy.app.handlers.load_post.append(load_handler)
+	bpy.app.handlers.save_pre.append(save_handler)
 
 	bpy.extragroups_icons = {}
 	
 	pcoll = bpy.utils.previews.new()
 	my_icons_dir = os.path.join(os.path.dirname(__file__), "icons")
-	pcoll.load("Jueg_BoneGroup_assign", os.path.join(my_icons_dir, "Jueg_BoneGroup_assign.png"), 'IMAGE')
-	pcoll.load("Jueg_BoneGroup_remove", os.path.join(my_icons_dir, "Jueg_BoneGroup_remove.png"), 'IMAGE')
-	bpy.extragroups_icons["Jueg_BoneGroup"] = pcoll
+	pcoll.load("bonegroup_assign", os.path.join(my_icons_dir, "bonegroup_assign.png"), 'IMAGE')
+	pcoll.load("bonegroup_remove", os.path.join(my_icons_dir, "bonegroup_remove.png"), 'IMAGE')
+	bpy.extragroups_icons["bonegroup"] = pcoll
 	
 def unregister():
-	del bpy.types.Object.jueg_grouptypelist
-	del bpy.types.Object.active_jueg_grouptype
-	del bpy.types.Scene.jueg_extragroups_save
+	del bpy.types.Object.grouptypelist
+	del bpy.types.Object.active_grouptype
+	del bpy.types.Scene.extragroups_save
 
 	globals.unregister()
 	addon_pref.unregister()
-	ops_Jueg_GroupType.unregister()
-	ops_Jueg_BoneGroup.unregister()
+	ops_grouptype.unregister()
+	ops_bonegroup.unregister()
 	ops_ops.unregister()
 	ops_text.unregister()
 	ui_list.unregister()

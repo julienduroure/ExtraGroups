@@ -18,9 +18,9 @@
 import bpy
 from .globals import *
 
-class POSE_OT_jueg_Jueg_GroupType_move(bpy.types.Operator):
+class POSE_OT_jueg_grouptype_move(bpy.types.Operator):
 	"""Move group type up or down in the list"""
-	bl_idname = "pose.jueg_Jueg_GroupType_move"
+	bl_idname = "pose.jueg_grouptype_move"
 	bl_label = "Move Group Type"
 	bl_options = {'REGISTER'}
 	
@@ -34,7 +34,7 @@ class POSE_OT_jueg_Jueg_GroupType_move(bpy.types.Operator):
 
 	def execute(self, context):
 		armature = context.object
-		index	= armature.active_jueg_grouptype
+		index	= armature.active_grouptype
 		
 		if self.direction == "UP":
 			new_index = index - 1
@@ -43,13 +43,13 @@ class POSE_OT_jueg_Jueg_GroupType_move(bpy.types.Operator):
 		else:
 			new_index = index
 			
-		if new_index < len(armature.jueg_grouptypelist) and new_index >= 0:
-			armature.jueg_grouptypelist.move(index, new_index)
-			armature.active_jueg_grouptype = new_index
+		if new_index < len(armature.grouptypelist) and new_index >= 0:
+			armature.grouptypelist.move(index, new_index)
+			armature.active_grouptype = new_index
 		
 		return {'FINISHED'}
 
-class POSE_OT_jueg_Jueg_GroupType_reload(bpy.types.Operator):
+class POSE_OT_jueg_grouptype_reload(bpy.types.Operator):
 	"""Reload data after addon unregister"""
 	bl_idname = "pose.jueg_extragroups_reload"
 	bl_label = "Reload data after addon unregister"
@@ -67,16 +67,16 @@ class POSE_OT_jueg_Jueg_GroupType_reload(bpy.types.Operator):
 		addon_prefs = user_preferences.addons[__package__].preferences	
 		scene_found = False	
 		for scene in bpy.data.scenes:
-			if len(scene.jueg_extragroups_save) != 0:
+			if len(scene.extragroups_save) != 0:
 				scene_found = True
 				addon_prefs.scene_name = scene.name
-				save_collection(bpy.data.scenes[addon_prefs.scene_name].jueg_extragroups_save, addon_prefs.extragroups_ops)
+				save_collection(bpy.data.scenes[addon_prefs.scene_name].extragroups_save, addon_prefs.extragroups_ops)
 				break
 		return {'FINISHED'}
 
-class POSE_OT_jueg_Jueg_GroupType_add(bpy.types.Operator):
+class POSE_OT_jueg_grouptype_add(bpy.types.Operator):
 	"""Add a new group type"""
-	bl_idname = "pose.jueg_Jueg_GroupType_add"
+	bl_idname = "pose.jueg_grouptype_add"
 	bl_label = "Add Group Type"
 	bl_options = {'REGISTER'}
 	
@@ -91,29 +91,29 @@ class POSE_OT_jueg_Jueg_GroupType_add(bpy.types.Operator):
 		user_preferences = context.user_preferences
 		addon_prefs = user_preferences.addons[__package__].preferences
 
-		Jueg_GroupType = armature.jueg_grouptypelist.add()
-		Jueg_GroupType.name = "Jueg_GroupType.%d" % len(armature.jueg_grouptypelist)
-		armature.active_jueg_grouptype = len(armature.jueg_grouptypelist) - 1
+		grouptype = armature.grouptypelist.add()
+		grouptype.name = "GroupType.%d" % len(armature.grouptypelist)
+		armature.active_grouptype = len(armature.grouptypelist) - 1
 
-		if len(armature.jueg_grouptypelist) == 1 and len(addon_prefs.extragroups_ops) == 0: #in case of first initialisation
+		if len(armature.grouptypelist) == 1 and len(addon_prefs.extragroups_ops) == 0: #in case of first initialisation
 			scene_found = False
 			for scene in bpy.data.scenes:
-				if len(scene.jueg_extragroups_save) != 0:
+				if len(scene.extragroups_save) != 0:
 					scene_found = True
 					addon_prefs.scene_name = scene.name
-					save_collection(bpy.data.scenes[addon_prefs.scene_name].jueg_extragroups_save, addon_prefs.extragroups_ops)
-					copy(armature, armature.active_jueg_grouptype)
+					save_collection(bpy.data.scenes[addon_prefs.scene_name].extragroups_save, addon_prefs.extragroups_ops)
+					copy(armature, armature.active_grouptype)
 					break
 			if scene_found == False:
 				init(armature)
 		else:
-			copy(armature, armature.active_jueg_grouptype)
+			copy(armature, armature.active_grouptype)
 		
 		return {'FINISHED'}
 	
-class POSE_OT_jueg_Jueg_GroupType_remove(bpy.types.Operator):
+class POSE_OT_jueg_grouptype_remove(bpy.types.Operator):
 	"""Remove the current group type"""
-	bl_idname = "pose.jueg_Jueg_GroupType_remove"
+	bl_idname = "pose.jueg_grouptype_remove"
 	bl_label = "Remove Group Type"
 	bl_options = {'REGISTER'}
 	
@@ -126,17 +126,17 @@ class POSE_OT_jueg_Jueg_GroupType_remove(bpy.types.Operator):
 	def execute(self, context):
 		armature = context.object	 
 		
-		armature.jueg_grouptypelist.remove(armature.active_jueg_grouptype)
-		len_ = len(armature.jueg_grouptypelist)
-		if (armature.active_jueg_grouptype > (len_ - 1) and len_ > 0):
-			armature.active_jueg_grouptype = len(armature.jueg_grouptypelist) - 1
+		armature.grouptypelist.remove(armature.active_grouptype)
+		len_ = len(armature.grouptypelist)
+		if (armature.active_grouptype > (len_ - 1) and len_ > 0):
+			armature.active_grouptype = len(armature.grouptypelist) - 1
 		return {'FINISHED'}   
 
-def copy(armature,index_Jueg_GroupType):
+def copy(armature,index_grouptype):
 	user_preferences = bpy.context.user_preferences
 	addon_prefs = user_preferences.addons[__package__].preferences	
 	for ops in addon_prefs.extragroups_ops:
-		new = armature.jueg_grouptypelist[index_Jueg_GroupType].ops_display.add()
+		new = armature.grouptypelist[index_grouptype].ops_display.add()
 		new.id = ops.id
 		new.display = False
 
@@ -192,16 +192,16 @@ def init(armature):
 	ops.display = False
 	ops.user_defined = False
 	copy(armature, 0)
-	armature.jueg_grouptypelist[0].active_ops = len(addon_prefs.extragroups_ops) - 1
+	armature.grouptypelist[0].active_ops = len(addon_prefs.extragroups_ops) - 1
 	
 def register():
-	bpy.utils.register_class(POSE_OT_jueg_Jueg_GroupType_add)
-	bpy.utils.register_class(POSE_OT_jueg_Jueg_GroupType_remove) 
-	bpy.utils.register_class(POSE_OT_jueg_Jueg_GroupType_move)
-	bpy.utils.register_class(POSE_OT_jueg_Jueg_GroupType_reload)
+	bpy.utils.register_class(POSE_OT_jueg_grouptype_add)
+	bpy.utils.register_class(POSE_OT_jueg_grouptype_remove) 
+	bpy.utils.register_class(POSE_OT_jueg_grouptype_move)
+	bpy.utils.register_class(POSE_OT_jueg_grouptype_reload)
 		
 def unregister():
-	bpy.utils.unregister_class(POSE_OT_jueg_Jueg_GroupType_add)
-	bpy.utils.unregister_class(POSE_OT_jueg_Jueg_GroupType_remove) 
-	bpy.utils.unregister_class(POSE_OT_jueg_Jueg_GroupType_move) 
-	bpy.utils.unregister_class(POSE_OT_jueg_Jueg_GroupType_reload)
+	bpy.utils.unregister_class(POSE_OT_jueg_grouptype_add)
+	bpy.utils.unregister_class(POSE_OT_jueg_grouptype_remove) 
+	bpy.utils.unregister_class(POSE_OT_jueg_grouptype_move) 
+	bpy.utils.unregister_class(POSE_OT_jueg_grouptype_reload)
