@@ -43,12 +43,12 @@ class POSE_PT_jueg_grouptype(bpy.types.Panel):
 		
 		col = row.column()
 		row = col.column(align=True)
-		row.operator("pose.grouptype_add", icon="ZOOMIN", text="")
-		row.operator("pose.grouptype_remove", icon="ZOOMOUT", text="")
+		row.operator("pose.jueg_grouptype_add", icon="ZOOMIN", text="")
+		row.operator("pose.jueg_grouptype_remove", icon="ZOOMOUT", text="")
 		row = col.column(align=True)
 		row.separator()
-		row.operator("pose.grouptype_move", icon='TRIA_UP', text="").direction = 'UP'
-		row.operator("pose.grouptype_move", icon='TRIA_DOWN', text="").direction = 'DOWN'
+		row.operator("pose.jueg_grouptype_move", icon='TRIA_UP', text="").direction = 'UP'
+		row.operator("pose.jueg_grouptype_move", icon='TRIA_DOWN', text="").direction = 'DOWN'
 		if len(armature.grouptypelist) == 0:
 			row.enabled = False
 		
@@ -104,10 +104,10 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 
 			else:
 				row = layout.row()
-				row.operator("pose.extragroups_reload", text="Reload Extragroups data")
+				row.operator("pose.jueg_extragroups_reload", text="Reload Extragroups data")
 		else:
 			row = layout.row()
-			row.operator("pose.grouptype_add", text="Init Bone Groups for this Rig")
+			row.operator("pose.jueg_grouptype_add", text="Init Bone Groups for this Rig")
 
 			
 		

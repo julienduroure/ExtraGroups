@@ -17,9 +17,9 @@
 #======================= END GPL LICENSE BLOCK ========================
 import bpy
 
-class POSE_OT_grouptype_move(bpy.types.Operator):
+class POSE_OT_jueg_grouptype_move(bpy.types.Operator):
 	"""Move group type up or down in the list"""
-	bl_idname = "pose.grouptype_move"
+	bl_idname = "pose.jueg_grouptype_move"
 	bl_label = "Move Group Type"
 	bl_options = {'REGISTER'}
 	
@@ -64,9 +64,9 @@ def save_collection(source, target):
 		ops.ok_for_current_sel = ope.ok_for_current_sel
 		ops.user_defined = ope.user_defined
 
-class POSE_OT_grouptype_reload(bpy.types.Operator):
+class POSE_OT_jueg_grouptype_reload(bpy.types.Operator):
 	"""Reload data after addon unregister"""
-	bl_idname = "pose.extragroups_reload"
+	bl_idname = "pose.jueg_extragroups_reload"
 	bl_label = "Reload data after addon unregister"
 	bl_options = {'REGISTER'}	
 
@@ -89,9 +89,9 @@ class POSE_OT_grouptype_reload(bpy.types.Operator):
 				break
 		return {'FINISHED'}
 
-class POSE_OT_grouptype_add(bpy.types.Operator):
+class POSE_OT_jueg_grouptype_add(bpy.types.Operator):
 	"""Add a new group type"""
-	bl_idname = "pose.grouptype_add"
+	bl_idname = "pose.jueg_grouptype_add"
 	bl_label = "Add Group Type"
 	bl_options = {'REGISTER'}
 	
@@ -126,9 +126,9 @@ class POSE_OT_grouptype_add(bpy.types.Operator):
 		
 		return {'FINISHED'}
 	
-class POSE_OT_grouptype_remove(bpy.types.Operator):
+class POSE_OT_jueg_grouptype_remove(bpy.types.Operator):
 	"""Remove the current group type"""
-	bl_idname = "pose.grouptype_remove"
+	bl_idname = "pose.jueg_grouptype_remove"
 	bl_label = "Remove Group Type"
 	bl_options = {'REGISTER'}
 	
@@ -210,13 +210,13 @@ def init(armature):
 	armature.grouptypelist[0].active_ops = len(addon_prefs.extragroups_ops) - 1
 	
 def register():
-	bpy.utils.register_class(POSE_OT_grouptype_add)
-	bpy.utils.register_class(POSE_OT_grouptype_remove) 
-	bpy.utils.register_class(POSE_OT_grouptype_move)
-	bpy.utils.register_class(POSE_OT_grouptype_reload)
+	bpy.utils.register_class(POSE_OT_jueg_grouptype_add)
+	bpy.utils.register_class(POSE_OT_jueg_grouptype_remove) 
+	bpy.utils.register_class(POSE_OT_jueg_grouptype_move)
+	bpy.utils.register_class(POSE_OT_jueg_grouptype_reload)
 		
 def unregister():
-	bpy.utils.unregister_class(POSE_OT_grouptype_add)
-	bpy.utils.unregister_class(POSE_OT_grouptype_remove) 
-	bpy.utils.unregister_class(POSE_OT_grouptype_move) 
-	bpy.utils.unregister_class(POSE_OT_grouptype_reload)
+	bpy.utils.unregister_class(POSE_OT_jueg_grouptype_add)
+	bpy.utils.unregister_class(POSE_OT_jueg_grouptype_remove) 
+	bpy.utils.unregister_class(POSE_OT_jueg_grouptype_move) 
+	bpy.utils.unregister_class(POSE_OT_jueg_grouptype_reload)
