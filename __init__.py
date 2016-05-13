@@ -19,7 +19,7 @@ bl_info = {
 	"name": "Extra Groups",
 	"version": (0, 0, 1),
 	"author": "Julien Duroure",
-	"blender": (2, 76, 0),
+	"blender": (2, 77, 0),
 	"description": "Extra Groups Tools",
 	"location": "Toolshelf > Extra Groups Tab, and 3DView property panel",
 	"wiki_url": "http://julienduroure.com/extragroups/",
@@ -187,7 +187,6 @@ def register():
 
 	bpy.extragroups_icons = {}
 	
-
 	pcoll = bpy.utils.previews.new()
 	my_icons_dir = os.path.join(os.path.dirname(__file__), "icons")
 	pcoll.load("bonegroup_assign", os.path.join(my_icons_dir, "bonegroup_assign.png"), 'IMAGE')
