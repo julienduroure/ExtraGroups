@@ -92,7 +92,7 @@ class POSE_OT_###opsclass###(Operator):
 		#retrieve on_off
 		on_off = False
 		found = False
-		for ops in armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].group_ids[self.index].on_off:
+		for ops in armature.jueg_grouptypelist[armature.active_jueg_grouptype].group_ids[self.index].on_off:
 			if ops.id == self.ops_id:
 				on_off = ops.on_off
 				found = True
@@ -101,10 +101,10 @@ class POSE_OT_###opsclass###(Operator):
 			print("error")
 		
 		#check if this is a classic group or current selection
-		current_selection = armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].group_ids[self.index].current_selection
+		current_selection = armature.jueg_grouptypelist[armature.active_jueg_grouptype].group_ids[self.index].current_selection
 		if current_selection == False:
 			#retrieve bones from group
-			bones = armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].group_ids[self.index].bone_ids
+			bones = armature.jueg_grouptypelist[armature.active_jueg_grouptype].group_ids[self.index].bone_ids
 		else:
 			#retrieve bones from current selection
 			bones = []
@@ -128,10 +128,10 @@ class POSE_OT_###opsclass###(Operator):
 		#delete bones if any
 		if len(to_delete) > 0:
 			for i in to_delete:
-				armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].group_ids[self.index].bone_ids.remove(i)
+				armature.jueg_grouptypelist[armature.active_jueg_grouptype].group_ids[self.index].bone_ids.remove(i)
 		 
 		 #switch on/off
-		for ops in armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].group_ids[self.index].on_off:
+		for ops in armature.jueg_grouptypelist[armature.active_jueg_grouptype].group_ids[self.index].on_off:
 			if ops.id == self.ops_id:
 				ops.on_off = not ops.on_off
 		

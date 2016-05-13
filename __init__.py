@@ -65,12 +65,12 @@ def register():
 	ui_panel.register()
 	template_default_ops.register()
 	
-	bpy.types.Object.Jueg_GroupTypelist = bpy.props.CollectionProperty(type=Jueg_GroupType)
-	bpy.types.Object.active_Jueg_GroupType = bpy.props.IntProperty()
-	bpy.types.Scene.extragroups_save = bpy.props.CollectionProperty(type=Jueg_OpsItem)
+	bpy.types.Object.jueg_grouptypelist = bpy.props.CollectionProperty(type=Jueg_GroupType)
+	bpy.types.Object.active_jueg_grouptype = bpy.props.IntProperty()
+	bpy.types.Scene.jueg_extragroups_save = bpy.props.CollectionProperty(type=Jueg_OpsItem)
 	
-	bpy.app.handlers.load_post.append(load_handler)
-	bpy.app.handlers.save_pre.append(save_handler)
+	bpy.app.handlers.load_post.append(jueg_load_handler)
+	bpy.app.handlers.save_pre.append(jueg_save_handler)
 
 	bpy.extragroups_icons = {}
 	
@@ -81,9 +81,9 @@ def register():
 	bpy.extragroups_icons["Jueg_BoneGroup"] = pcoll
 	
 def unregister():
-	del bpy.types.Object.Jueg_GroupTypelist
-	del bpy.types.Object.active_Jueg_GroupType
-	del bpy.types.Scene.extragroups_save
+	del bpy.types.Object.jueg_grouptypelist
+	del bpy.types.Object.active_jueg_grouptype
+	del bpy.types.Scene.jueg_extragroups_save
 
 	globals.unregister()
 	addon_pref.unregister()

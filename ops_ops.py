@@ -37,7 +37,7 @@ class POSE_OT_jueg_operator_move(bpy.types.Operator):
 
 	def execute(self, context):
 		armature = context.object
-		index	= armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].active_ops
+		index	= armature.jueg_grouptypelist[armature.active_jueg_grouptype].active_ops
 		
 		if self.direction == "UP":
 			new_index = index - 1
@@ -46,9 +46,9 @@ class POSE_OT_jueg_operator_move(bpy.types.Operator):
 		else:
 			new_index = index
 			
-		if new_index < len(armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].ops_display) and new_index >= 0:
-			armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].ops_display.move(index, new_index)
-			armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].active_ops = new_index
+		if new_index < len(armature.jueg_grouptypelist[armature.active_jueg_grouptype].ops_display) and new_index >= 0:
+			armature.jueg_grouptypelist[armature.active_jueg_grouptype].ops_display.move(index, new_index)
+			armature.jueg_grouptypelist[armature.active_jueg_grouptype].active_ops = new_index
 		
 		return {'FINISHED'}
 		
@@ -70,7 +70,7 @@ class POSE_OT_jueg_ops_add(bpy.types.Operator):
 		user_preferences = context.user_preferences
 		addon_prefs = user_preferences.addons[__package__].preferences
 		
-		if len(armature.Jueg_GroupTypelist) > 0:
+		if len(armature.jueg_grouptypelist) > 0:
 			
 			ops = addon_prefs.extragroups_ops.add()
 			ops.id   = uuid.uuid4().hex
@@ -95,21 +95,21 @@ class POSE_OT_jueg_ops_add(bpy.types.Operator):
 			
 			#now add display info on each Jueg_GroupType
 			for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
-				for Jueg_GroupType in obj.Jueg_GroupTypelist:
+				for Jueg_GroupType in obj.jueg_grouptypelist:
 					ope = Jueg_GroupType.ops_display.add()
 					ope.id = ops.id
 					ope.display = False
 		
 			#now add on/off for each existing bone group of each type
 			for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
-				for Jueg_GroupType in obj.Jueg_GroupTypelist:
+				for Jueg_GroupType in obj.jueg_grouptypelist:
 					Jueg_BoneGroups = Jueg_GroupType.group_ids
 					for group in Jueg_BoneGroups:
 						new_ = group.on_off.add()
 						new_.id = ops.id
 						new_.on_off = True
 
-			armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].active_ops = len(armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].ops_display) - 1
+			armature.jueg_grouptypelist[armature.active_jueg_grouptype].active_ops = len(armature.jueg_grouptypelist[armature.active_jueg_grouptype].ops_display) - 1
 	
 		return {'FINISHED'}
 	
@@ -130,8 +130,8 @@ class POSE_OT_jueg_ops_remove(bpy.types.Operator):
 		user_preferences = context.user_preferences
 		addon_prefs = user_preferences.addons[__package__].preferences
 		
-		id_to_delete = armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].ops_display[armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].active_ops].id
-		if len(armature.Jueg_GroupTypelist) > 0 and len(armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].ops_display) > 0:
+		id_to_delete = armature.jueg_grouptypelist[armature.active_jueg_grouptype].ops_display[armature.jueg_grouptypelist[armature.active_jueg_grouptype].active_ops].id
+		if len(armature.jueg_grouptypelist) > 0 and len(armature.jueg_grouptypelist[armature.active_jueg_grouptype].ops_display) > 0:
 			if addon_prefs.textremove == True:
 				file_ = id_to_delete + ".py"
 				bpy.ops.text.jueg_text_remove(text_id=file_)
@@ -139,7 +139,7 @@ class POSE_OT_jueg_ops_remove(bpy.types.Operator):
 			addon_prefs.extragroups_ops.remove([i for i,e in enumerate(addon_prefs.extragroups_ops) if e.id == id_to_delete][0])
 			
 			for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
-				for Jueg_GroupType in obj.Jueg_GroupTypelist:
+				for Jueg_GroupType in obj.jueg_grouptypelist:
 					Jueg_GroupType.ops_display.remove([i for i,e in enumerate(Jueg_GroupType.ops_display) if e.id == id_to_delete][0])
 				
 					len_ = len(Jueg_GroupType.ops_display)
@@ -175,12 +175,12 @@ def write_operators(context, filepath):
         f.write("\t\tops.ok_for_current_sel = " + str(ope.ok_for_current_sel) + "\n")
         f.write("\t\tops.user_defined = " + str(ope.user_defined) + "\n")
         f.write("\t\tfor obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:\n")
-        f.write("\t\t\tfor Jueg_GroupType in obj.Jueg_GroupTypelist:\n")
+        f.write("\t\t\tfor Jueg_GroupType in obj.jueg_grouptypelist:\n")
         f.write("\t\t\t\toper = Jueg_GroupType.ops_display.add()\n")
         f.write("\t\t\t\toper.id = \"" + ope.id + "\"\n")
         f.write("\t\t\t\toper.display = False\n")
         f.write("\t\tfor obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:\n")
-        f.write("\t\t\tfor Jueg_GroupType in obj.Jueg_GroupTypelist:\n")
+        f.write("\t\t\tfor Jueg_GroupType in obj.jueg_grouptypelist:\n")
         f.write("\t\t\t\tJueg_BoneGroups = Jueg_GroupType.group_ids\n")
         f.write("\t\t\t\tfor group in Jueg_BoneGroups:\n")
         f.write("\t\t\t\t\tnew_ = group.on_off.add()\n")
