@@ -18,9 +18,9 @@
 import bpy
 
 
-class POSE_OT_jueg_bonegroup_assign(bpy.types.Operator):
+class POSE_OT_jueg_Jueg_BoneGroup_assign(bpy.types.Operator):
 	"""Add selected bones to current group"""
-	bl_idname = "pose.jueg_bonegroup_assign"
+	bl_idname = "pose.jueg_Jueg_BoneGroup_assign"
 	bl_label = "Assign Bones to Bone Group"
 	bl_options = {'REGISTER'}	
 	
@@ -36,15 +36,15 @@ class POSE_OT_jueg_bonegroup_assign(bpy.types.Operator):
 		
 		for bone in pose.bones:
 				if (bone.bone.select):
-					if bone.name not in [b_.name for b_ in armature.grouptypelist[armature.active_grouptype].group_ids[armature.grouptypelist[armature.active_grouptype].active_bonegroup].bone_ids ]:
-						bone_id = armature.grouptypelist[armature.active_grouptype].group_ids[armature.grouptypelist[armature.active_grouptype].active_bonegroup].bone_ids.add()
+					if bone.name not in [b_.name for b_ in armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].group_ids[armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].active_Jueg_BoneGroup].bone_ids ]:
+						bone_id = armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].group_ids[armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].active_Jueg_BoneGroup].bone_ids.add()
 						bone_id.name = bone.name
 						
 		return {'FINISHED'}
 	
-class POSE_OT_jueg_bonegroup_bone_remove(bpy.types.Operator):
+class POSE_OT_jueg_Jueg_BoneGroup_bone_remove(bpy.types.Operator):
 	"""Remove selected bones from current group"""
-	bl_idname = "pose.jueg_bonegroup_bone_remove"
+	bl_idname = "pose.jueg_Jueg_BoneGroup_bone_remove"
 	bl_label = "Remove Bones from Bone Group"
 	bl_options = {'REGISTER'}	
 	
@@ -61,16 +61,16 @@ class POSE_OT_jueg_bonegroup_bone_remove(bpy.types.Operator):
 		for bone in pose.bones:
 				if (bone.bone.select):
 					idx = 0
-					for b_ in armature.grouptypelist[armature.active_grouptype].group_ids[armature.grouptypelist[armature.active_grouptype].active_bonegroup].bone_ids:
+					for b_ in armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].group_ids[armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].active_Jueg_BoneGroup].bone_ids:
 						if bone.name == b_.name:
-							armature.grouptypelist[armature.active_grouptype].group_ids[armature.grouptypelist[armature.active_grouptype].active_bonegroup].bone_ids.remove(idx)
+							armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].group_ids[armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].active_Jueg_BoneGroup].bone_ids.remove(idx)
 							break
 						idx = idx + 1  
 		return {'FINISHED'}
 
-class POSE_OT_jueg_bonegroup_add(bpy.types.Operator):
+class POSE_OT_jueg_Jueg_BoneGroup_add(bpy.types.Operator):
 	"""Add a new group, and assign selected bones"""
-	bl_idname = "pose.jueg_bonegroup_add"
+	bl_idname = "pose.jueg_Jueg_BoneGroup_add"
 	bl_label = "Add Bone Group"
 	bl_options = {'REGISTER'}
 	
@@ -89,42 +89,42 @@ class POSE_OT_jueg_bonegroup_add(bpy.types.Operator):
 		
 		
 		
-		grouptype = armature.grouptypelist[armature.active_grouptype].group_ids
+		Jueg_GroupType = armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].group_ids
 
-		bonegroup = grouptype.add()
-		bonegroup.name = "Group.%d" % len(grouptype)
-		armature.grouptypelist[armature.active_grouptype].active_bonegroup = len(grouptype) - 1
+		Jueg_BoneGroup = Jueg_GroupType.add()
+		Jueg_BoneGroup.name = "Group.%d" % len(Jueg_GroupType)
+		armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].active_Jueg_BoneGroup = len(Jueg_GroupType) - 1
 		if self.dyn_selection == False:
 			for bone in pose.bones:
 				if (bone.bone.select):
-					bone_id = bonegroup.bone_ids.add()
+					bone_id = Jueg_BoneGroup.bone_ids.add()
 					bone_id.name = bone.name
 					keep = True
 		else:
-			bonegroup.current_selection = True
-			bonegroup.name = "Current Selection"
+			Jueg_BoneGroup.current_selection = True
+			Jueg_BoneGroup.name = "Current Selection"
 			keep = True
 
 		#add on / off for each ops
-		on_off   = bonegroup.on_off
-		ops_list = armature.grouptypelist[armature.active_grouptype].ops_display
+		on_off   = Jueg_BoneGroup.on_off
+		ops_list = armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].ops_display
 		for ops in ops_list:
 			new_ = on_off.add()
 			new_.id = ops.id
 			new_.on_off = True
 
 		if (not keep):
-			grouptype.remove(armature.grouptypelist[armature.active_grouptype].active_bonegroup)
-			len_ = len(grouptype)
-			if (armature.grouptypelist[armature.active_grouptype].active_bonegroup > (len_ - 1) and len_ > 0):
-				armature.grouptypelist[armature.active_grouptype].active_bonegroup = len(grouptype) - 1
+			Jueg_GroupType.remove(armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].active_Jueg_BoneGroup)
+			len_ = len(Jueg_GroupType)
+			if (armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].active_Jueg_BoneGroup > (len_ - 1) and len_ > 0):
+				armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].active_Jueg_BoneGroup = len(Jueg_GroupType) - 1
 			return {'CANCELLED'}
 
 		return {'FINISHED'}
 	
-class POSE_OT_jueg_bonegroup_move(bpy.types.Operator):
+class POSE_OT_jueg_Jueg_BoneGroup_move(bpy.types.Operator):
 	"""Move group up or down in the list"""
-	bl_idname = "pose.jueg_bonegroup_move"
+	bl_idname = "pose.jueg_Jueg_BoneGroup_move"
 	bl_label = "Move Bone Group"
 	bl_options = {'REGISTER'}
 	
@@ -138,7 +138,7 @@ class POSE_OT_jueg_bonegroup_move(bpy.types.Operator):
 
 	def execute(self, context):
 		armature = context.object
-		index	= armature.grouptypelist[armature.active_grouptype].active_bonegroup
+		index	= armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].active_Jueg_BoneGroup
 		
 		if self.direction == "UP":
 			new_index = index - 1
@@ -147,15 +147,15 @@ class POSE_OT_jueg_bonegroup_move(bpy.types.Operator):
 		else:
 			new_index = index
 			
-		if new_index < len(armature.grouptypelist[armature.active_grouptype].group_ids) and new_index >= 0:
-			armature.grouptypelist[armature.active_grouptype].group_ids.move(index, new_index)
-			armature.grouptypelist[armature.active_grouptype].active_bonegroup = new_index
+		if new_index < len(armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].group_ids) and new_index >= 0:
+			armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].group_ids.move(index, new_index)
+			armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].active_Jueg_BoneGroup = new_index
 		
 		return {'FINISHED'}
 		
-class POSE_OT_jueg_bonegroup_remove(bpy.types.Operator):
+class POSE_OT_jueg_Jueg_BoneGroup_remove(bpy.types.Operator):
 	"""Remove group"""
-	bl_idname = "pose.bonegroup_remove"
+	bl_idname = "pose.Jueg_BoneGroup_remove"
 	bl_label = "Remove Bone Group"
 	bl_options = {'REGISTER'}
 	
@@ -168,22 +168,22 @@ class POSE_OT_jueg_bonegroup_remove(bpy.types.Operator):
 	def execute(self, context):
 		armature = context.object
 
-		armature.grouptypelist[armature.active_grouptype].group_ids.remove(armature.grouptypelist[armature.active_grouptype].active_bonegroup)
-		len_ = len(armature.grouptypelist[armature.active_grouptype].group_ids)
-		if (armature.grouptypelist[armature.active_grouptype].active_bonegroup > (len_ - 1) and len_ > 0):
-			armature.grouptypelist[armature.active_grouptype].active_bonegroup = len(armature.grouptypelist[armature.active_grouptype].group_ids) - 1
+		armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].group_ids.remove(armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].active_Jueg_BoneGroup)
+		len_ = len(armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].group_ids)
+		if (armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].active_Jueg_BoneGroup > (len_ - 1) and len_ > 0):
+			armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].active_Jueg_BoneGroup = len(armature.Jueg_GroupTypelist[armature.active_Jueg_GroupType].group_ids) - 1
 		return {'FINISHED'}
 		
 def register():
-	bpy.utils.register_class(POSE_OT_jueg_bonegroup_add)
-	bpy.utils.register_class(POSE_OT_jueg_bonegroup_remove) 
-	bpy.utils.register_class(POSE_OT_jueg_bonegroup_move)
-	bpy.utils.register_class(POSE_OT_jueg_bonegroup_assign)
-	bpy.utils.register_class(POSE_OT_jueg_bonegroup_bone_remove)
+	bpy.utils.register_class(POSE_OT_jueg_Jueg_BoneGroup_add)
+	bpy.utils.register_class(POSE_OT_jueg_Jueg_BoneGroup_remove) 
+	bpy.utils.register_class(POSE_OT_jueg_Jueg_BoneGroup_move)
+	bpy.utils.register_class(POSE_OT_jueg_Jueg_BoneGroup_assign)
+	bpy.utils.register_class(POSE_OT_jueg_Jueg_BoneGroup_bone_remove)
 	
 def unregister():
-	bpy.utils.unregister_class(POSE_OT_jueg_bonegroup_add)
-	bpy.utils.unregister_class(POSE_OT_jueg_bonegroup_remove)
-	bpy.utils.unregister_class(POSE_OT_jueg_bonegroup_move)
-	bpy.utils.unregister_class(POSE_OT_jueg_bonegroup_assign)
-	bpy.utils.unregister_class(POSE_OT_jueg_bonegroup_bone_remove)
+	bpy.utils.unregister_class(POSE_OT_jueg_Jueg_BoneGroup_add)
+	bpy.utils.unregister_class(POSE_OT_jueg_Jueg_BoneGroup_remove)
+	bpy.utils.unregister_class(POSE_OT_jueg_Jueg_BoneGroup_move)
+	bpy.utils.unregister_class(POSE_OT_jueg_Jueg_BoneGroup_assign)
+	bpy.utils.unregister_class(POSE_OT_jueg_Jueg_BoneGroup_bone_remove)

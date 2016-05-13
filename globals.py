@@ -1,49 +1,49 @@
 import bpy
 from bpy.app.handlers import persistent
 
-class BoneEntry(bpy.types.PropertyGroup):
+class Jueg_BoneEntry(bpy.types.PropertyGroup):
 	name = bpy.props.StringProperty(name="Bone Name")
 	
-class OnOffEntry(bpy.types.PropertyGroup):
+class Jueg_OnOffEntry(bpy.types.PropertyGroup):
 	id      = bpy.props.StringProperty(name="Id of Ops")
 	on_off  = bpy.props.BoolProperty(name="On_Off")
 
-class BoneGroup(bpy.types.PropertyGroup):
+class Jueg_BoneGroup(bpy.types.PropertyGroup):
 	name = bpy.props.StringProperty(name="Group Name")
-	bone_ids = bpy.props.CollectionProperty(type=BoneEntry)
-	on_off = bpy.props.CollectionProperty(type=OnOffEntry)
+	bone_ids = bpy.props.CollectionProperty(type=Jueg_BoneEntry)
+	on_off = bpy.props.CollectionProperty(type=Jueg_OnOffEntry)
 	current_selection = bpy.props.BoolProperty()
 	
-class OpsDisplay(bpy.types.PropertyGroup):
+class Jueg_OpsDisplay(bpy.types.PropertyGroup):
 	id   = bpy.props.StringProperty(name="Unique id")
 	display = bpy.props.BoolProperty()
 
-class GroupType(bpy.types.PropertyGroup):
+class Jueg_GroupType(bpy.types.PropertyGroup):
 	name = bpy.props.StringProperty(name="Group Type Name")
-	group_ids = bpy.props.CollectionProperty(type=BoneGroup)
-	active_bonegroup = bpy.props.IntProperty()
-	ops_display = bpy.props.CollectionProperty(type=OpsDisplay)
+	group_ids = bpy.props.CollectionProperty(type=Jueg_BoneGroup)
+	active_Jueg_BoneGroup = bpy.props.IntProperty()
+	ops_display = bpy.props.CollectionProperty(type=Jueg_OpsDisplay)
 	active_ops = bpy.props.IntProperty()
 	
 def update_editmode_func(self, context):
-	if context.scene.bonegroup_editmode == False:
-		context.scene.bonegroup_devmode = False
-		context.scene.bonegroup_adminmode = False
+	if context.scene.Jueg_BoneGroup_editmode == False:
+		context.scene.Jueg_BoneGroup_devmode = False
+		context.scene.Jueg_BoneGroup_adminmode = False
 		
 def update_devmode_func(self, context):
-	if context.scene.bonegroup_devmode == False:
-		context.scene.bonegroup_adminmode = False
+	if context.scene.Jueg_BoneGroup_devmode == False:
+		context.scene.Jueg_BoneGroup_adminmode = False
 
-ops_type_items = [
+jueg_ops_type_items = [
 	("BOOL", "On/Off", "", 1),
 	("EXE", "Exec", "", 2),
 	]
 
-class OpsItem(bpy.types.PropertyGroup):
+class Jueg_OpsItem(bpy.types.PropertyGroup):
 	id   = bpy.props.StringProperty(name="Unique id")
 	name = bpy.props.StringProperty(name="Ops Name")
 	ops_exe = bpy.props.StringProperty(name="Ops Exe")
-	ops_type = bpy.props.EnumProperty(items=ops_type_items)
+	ops_type = bpy.props.EnumProperty(items=jueg_ops_type_items)
 	icon_on	= bpy.props.StringProperty(name="Icon On")
 	icon_off   = bpy.props.StringProperty(name="Icon Off")
 	ok_for_current_sel = bpy.props.BoolProperty()
@@ -90,17 +90,17 @@ def save_handler(dummy):
 		save_collection(addon_prefs.extragroups_ops, bpy.data.scenes[addon_prefs.scene_name].extragroups_save)
 
 def register():
-	bpy.utils.register_class(OnOffEntry)
-	bpy.utils.register_class(BoneEntry)
-	bpy.utils.register_class(BoneGroup)
-	bpy.utils.register_class(OpsDisplay)
-	bpy.utils.register_class(GroupType)
-	bpy.utils.register_class(OpsItem)
+	bpy.utils.register_class(Jueg_OnOffEntry)
+	bpy.utils.register_class(Jueg_BoneEntry)
+	bpy.utils.register_class(Jueg_BoneGroup)
+	bpy.utils.register_class(Jueg_OpsDisplay)
+	bpy.utils.register_class(Jueg_GroupType)
+	bpy.utils.register_class(Jueg_OpsItem)
 	
 def unregister():
-	bpy.utils.unregister_class(OnOffEntry)
-	bpy.utils.unregister_class(BoneEntry)
-	bpy.utils.unregister_class(BoneGroup)
-	bpy.utils.unregister_class(OpsDisplay)
-	bpy.utils.unregister_class(GroupType)
-	bpy.utils.unregister_class(OpsItem)
+	bpy.utils.unregister_class(Jueg_OnOffEntry)
+	bpy.utils.unregister_class(Jueg_BoneEntry)
+	bpy.utils.unregister_class(Jueg_BoneGroup)
+	bpy.utils.unregister_class(Jueg_OpsDisplay)
+	bpy.utils.unregister_class(Jueg_GroupType)
+	bpy.utils.unregister_class(Jueg_OpsItem)

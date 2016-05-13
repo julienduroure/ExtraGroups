@@ -23,7 +23,7 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 
 	multitype = bpy.props.BoolProperty(default= False)
 	textremove = bpy.props.BoolProperty(default= True)
-	extragroups_ops = bpy.props.CollectionProperty(type=OpsItem)
+	extragroups_ops = bpy.props.CollectionProperty(type=Jueg_OpsItem)
 	scene_name = bpy.props.StringProperty() #scene name that will temporary store data for saving
 
 
