@@ -81,26 +81,26 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 		
 				col = row.column()
 				row = col.column(align=True)
-				row.operator("pose.bonegroup_add", icon="ZOOMIN", text="").dyn_selection = False
+				row.operator("pose.jueg_bonegroup_add", icon="ZOOMIN", text="").dyn_selection = False
 				row.operator("pose.bonegroup_remove", icon="ZOOMOUT", text="")
 			
 				row = col.column(align=True)
 				row.separator()
-				row.operator("pose.bonegroup_move", icon='TRIA_UP', text="").direction = 'UP'
-				row.operator("pose.bonegroup_move", icon='TRIA_DOWN', text="").direction = 'DOWN'
+				row.operator("pose.jueg_bonegroup_move", icon='TRIA_UP', text="").direction = 'UP'
+				row.operator("pose.jueg_bonegroup_move", icon='TRIA_DOWN', text="").direction = 'DOWN'
 				if len(armature.grouptypelist[armature.active_grouptype].group_ids) == 0:
 					row.enabled = False
 			
 				row = col.column(align=True)
 				row.separator()
-				row.operator("pose.bonegroup_assign", icon_value=pcoll["bonegroup_assign"].icon_id, text="")
-				row.operator("pose.bonegroup_bone_remove", icon_value=pcoll["bonegroup_remove"].icon_id, text="")
+				row.operator("pose.jueg_bonegroup_assign", icon_value=pcoll["bonegroup_assign"].icon_id, text="")
+				row.operator("pose.jueg_bonegroup_bone_remove", icon_value=pcoll["bonegroup_remove"].icon_id, text="")
 			
 				if len(armature.grouptypelist[armature.active_grouptype].group_ids) == 0:
 					row.enabled = False
 		
 				row = layout.row()
-				row.operator("pose.bonegroup_add", text="Add Dynamic Selection").dyn_selection = True
+				row.operator("pose.jueg_bonegroup_add", text="Add Dynamic Selection").dyn_selection = True
 
 			else:
 				row = layout.row()

@@ -18,9 +18,9 @@
 import bpy
 
 
-class POSE_OT_bonegroup_assign(bpy.types.Operator):
+class POSE_OT_jueg_bonegroup_assign(bpy.types.Operator):
 	"""Add selected bones to current group"""
-	bl_idname = "pose.bonegroup_assign"
+	bl_idname = "pose.jueg_bonegroup_assign"
 	bl_label = "Assign Bones to Bone Group"
 	bl_options = {'REGISTER'}	
 	
@@ -42,9 +42,9 @@ class POSE_OT_bonegroup_assign(bpy.types.Operator):
 						
 		return {'FINISHED'}
 	
-class POSE_OT_bonegroup_bone_remove(bpy.types.Operator):
+class POSE_OT_jueg_bonegroup_bone_remove(bpy.types.Operator):
 	"""Remove selected bones from current group"""
-	bl_idname = "pose.bonegroup_bone_remove"
+	bl_idname = "pose.jueg_bonegroup_bone_remove"
 	bl_label = "Remove Bones from Bone Group"
 	bl_options = {'REGISTER'}	
 	
@@ -68,9 +68,9 @@ class POSE_OT_bonegroup_bone_remove(bpy.types.Operator):
 						idx = idx + 1  
 		return {'FINISHED'}
 
-class POSE_OT_bonegroup_add(bpy.types.Operator):
+class POSE_OT_jueg_bonegroup_add(bpy.types.Operator):
 	"""Add a new group, and assign selected bones"""
-	bl_idname = "pose.bonegroup_add"
+	bl_idname = "pose.jueg_bonegroup_add"
 	bl_label = "Add Bone Group"
 	bl_options = {'REGISTER'}
 	
@@ -122,9 +122,9 @@ class POSE_OT_bonegroup_add(bpy.types.Operator):
 
 		return {'FINISHED'}
 	
-class POSE_OT_bonegroup_move(bpy.types.Operator):
+class POSE_OT_jueg_bonegroup_move(bpy.types.Operator):
 	"""Move group up or down in the list"""
-	bl_idname = "pose.bonegroup_move"
+	bl_idname = "pose.jueg_bonegroup_move"
 	bl_label = "Move Bone Group"
 	bl_options = {'REGISTER'}
 	
@@ -153,7 +153,7 @@ class POSE_OT_bonegroup_move(bpy.types.Operator):
 		
 		return {'FINISHED'}
 		
-class POSE_OT_bonegroup_remove(bpy.types.Operator):
+class POSE_OT_jueg_bonegroup_remove(bpy.types.Operator):
 	"""Remove group"""
 	bl_idname = "pose.bonegroup_remove"
 	bl_label = "Remove Bone Group"
@@ -175,15 +175,15 @@ class POSE_OT_bonegroup_remove(bpy.types.Operator):
 		return {'FINISHED'}
 		
 def register():
-	bpy.utils.register_class(POSE_OT_bonegroup_add)
-	bpy.utils.register_class(POSE_OT_bonegroup_remove) 
-	bpy.utils.register_class(POSE_OT_bonegroup_move)
-	bpy.utils.register_class(POSE_OT_bonegroup_assign)
-	bpy.utils.register_class(POSE_OT_bonegroup_bone_remove)
+	bpy.utils.register_class(POSE_OT_jueg_bonegroup_add)
+	bpy.utils.register_class(POSE_OT_jueg_bonegroup_remove) 
+	bpy.utils.register_class(POSE_OT_jueg_bonegroup_move)
+	bpy.utils.register_class(POSE_OT_jueg_bonegroup_assign)
+	bpy.utils.register_class(POSE_OT_jueg_bonegroup_bone_remove)
 	
 def unregister():
-	bpy.utils.unregister_class(POSE_OT_bonegroup_add)
-	bpy.utils.unregister_class(POSE_OT_bonegroup_remove)
-	bpy.utils.unregister_class(POSE_OT_bonegroup_move)
-	bpy.utils.unregister_class(POSE_OT_bonegroup_assign)
-	bpy.utils.unregister_class(POSE_OT_bonegroup_bone_remove)
+	bpy.utils.unregister_class(POSE_OT_jueg_bonegroup_add)
+	bpy.utils.unregister_class(POSE_OT_jueg_bonegroup_remove)
+	bpy.utils.unregister_class(POSE_OT_jueg_bonegroup_move)
+	bpy.utils.unregister_class(POSE_OT_jueg_bonegroup_assign)
+	bpy.utils.unregister_class(POSE_OT_jueg_bonegroup_bone_remove)
