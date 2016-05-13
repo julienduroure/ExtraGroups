@@ -27,9 +27,9 @@ from bpy.types import (
 	Operator,
 )
 
-class POSE_OT_changevisibility(Operator):
+class POSE_OT_jueg_changevisibility(Operator):
 	"""Change visibility"""
-	bl_idname = "pose.change_visibility"
+	bl_idname = "pose.jueg_change_visibility"
 	bl_label = "Change visibility"
 	bl_options = {'UNDO', 'REGISTER'}
 	
@@ -91,9 +91,9 @@ class POSE_OT_changevisibility(Operator):
 		
 		return {'FINISHED'}
 	
-class POSE_OT_addtoselection(Operator):
+class POSE_OT_jueg_addtoselection(Operator):
 	"""Add to selection"""
-	bl_idname = "pose.addtoselection"
+	bl_idname = "pose.jueg_addtoselection"
 	bl_label = "Add to selection"
 	bl_options = {'UNDO', 'REGISTER'}
 	
@@ -155,9 +155,9 @@ class POSE_OT_addtoselection(Operator):
 		return {'FINISHED'}
 	
 	
-class POSE_OT_selectonly(Operator):
+class POSE_OT_jueg_selectonly(Operator):
 	"""Toggle selected bones"""
-	bl_idname = "pose.selectonly"
+	bl_idname = "pose.jueg_selectonly"
 	bl_label = "Toggle selection"
 	bl_options = {'UNDO', 'REGISTER'}
 	
@@ -225,9 +225,9 @@ class POSE_OT_selectonly(Operator):
 		
 	
 	
-class POSE_OT_bonemute(Operator):
+class POSE_OT_jueg_bonemute(Operator):
 	"""Mute action of bones"""
-	bl_idname = "pose.bonemute"
+	bl_idname = "pose.jueg_bonemute"
 	bl_label = "Mute bones"
 	bl_options = {'UNDO', 'REGISTER'}
 	
@@ -307,9 +307,9 @@ class POSE_OT_bonemute(Operator):
 		
 		return {'FINISHED'}
 
-class POSE_OT_restrict_select(Operator):
+class POSE_OT_jueg_restrict_select(Operator):
 	"""Restrict/Allow selection"""
-	bl_idname = "pose.restrict_select"
+	bl_idname = "pose.jueg_restrict_select"
 	bl_label = "Restrict Select"
 	bl_options = {'UNDO', 'REGISTER'}
 	
@@ -374,19 +374,19 @@ class POSE_OT_restrict_select(Operator):
 		return {'FINISHED'}
 	
 def register():
-	bpy.utils.register_class(POSE_OT_changevisibility)
-	bpy.utils.register_class(POSE_OT_addtoselection)
-	bpy.utils.register_class(POSE_OT_selectonly)
-	bpy.utils.register_class(POSE_OT_bonemute)
-	bpy.utils.register_class(POSE_OT_restrict_select)
+	bpy.utils.register_class(POSE_OT_jueg_changevisibility)
+	bpy.utils.register_class(POSE_OT_jueg_addtoselection)
+	bpy.utils.register_class(POSE_OT_jueg_selectonly)
+	bpy.utils.register_class(POSE_OT_jueg_bonemute)
+	bpy.utils.register_class(POSE_OT_jueg_restrict_select)
 	
 	
 def unregister():
-	bpy.utils.unregister_class(POSE_OT_changevisibility)
-	bpy.utils.unregister_class(POSE_OT_addtoselection)
-	bpy.utils.unregister_class(POSE_OT_selectonly)
-	bpy.utils.unregister_class(POSE_OT_bonemute)
-	bpy.utils.unregister_class(POSE_OT_restrict_select)
+	bpy.utils.unregister_class(POSE_OT_jueg_changevisibility)
+	bpy.utils.unregister_class(POSE_OT_jueg_addtoselection)
+	bpy.utils.unregister_class(POSE_OT_jueg_selectonly)
+	bpy.utils.unregister_class(POSE_OT_jueg_bonemute)
+	bpy.utils.unregister_class(POSE_OT_jueg_restrict_select)
 	
 	
 	

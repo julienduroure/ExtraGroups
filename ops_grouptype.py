@@ -147,7 +147,7 @@ def init(armature):
 	ops.name = "Select Only"
 	ops.id = "bf258537303e41529b5adb4e3af6ed43"
 	ops.ops_type = 'EXE'
-	ops.ops_exe   = "pose.selectonly"
+	ops.ops_exe   = "pose.jueg_selectonly"
 	ops.icon_on  = "HAND"
 	ops.ok_for_current_sel = False
 	ops.display = False
@@ -156,7 +156,7 @@ def init(armature):
 	ops.name = "Add to selection"
 	ops.id = "fbd9a8fc639a4074bbd56f7be35e4690"
 	ops.ops_type = 'EXE'
-	ops.ops_exe   = "pose.addtoselection"
+	ops.ops_exe   = "pose.jueg_addtoselection"
 	ops.icon_on  = "ZOOMIN"
 	ops.ok_for_current_sel = False
 	ops.display = False
@@ -165,7 +165,7 @@ def init(armature):
 	ops.name = "Mute"
 	ops.id = "f31027b2b65d4a90b610281ea09f08fb"
 	ops.ops_type = 'BOOL'
-	ops.ops_exe   = "pose.bonemute"
+	ops.ops_exe   = "pose.jueg_bonemute"
 	ops.icon_on  = "MUTE_IPO_OFF"
 	ops.icon_off  = "MUTE_IPO_ON"
 	ops.ok_for_current_sel = True
@@ -175,7 +175,7 @@ def init(armature):
 	ops.name = "Toggle Visibility"
 	ops.id = "b9eac1a0a2fd4dcd94140d05a6a3af86"
 	ops.ops_type = 'BOOL'
-	ops.ops_exe   = "pose.change_visibility"
+	ops.ops_exe   = "pose.jueg_change_visibility"
 	ops.icon_on  = "VISIBLE_IPO_ON"
 	ops.icon_off  = "VISIBLE_IPO_OFF"
 	ops.ok_for_current_sel = False
@@ -185,7 +185,7 @@ def init(armature):
 	ops.name = "Restrict/Allow Selection"
 	ops.id = "9d5257bf3d6245afacabb452bf7a455e"
 	ops.ops_type = 'BOOL'
-	ops.ops_exe   = "pose.restrict_select"
+	ops.ops_exe   = "pose.jueg_restrict_select"
 	ops.icon_on  = "RESTRICT_SELECT_OFF"
 	ops.icon_off  = "RESTRICT_SELECT_ON"
 	ops.ok_for_current_sel = True
