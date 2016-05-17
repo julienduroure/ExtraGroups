@@ -67,7 +67,7 @@ def register():
 	
 	bpy.types.Object.jueg_grouptypelist = bpy.props.CollectionProperty(type=Jueg_GroupType)
 	bpy.types.Object.jueg_active_grouptype = bpy.props.IntProperty()
-	bpy.types.Scene.jueg_extragroups_save = bpy.props.CollectionProperty(type=OpsItem)
+	bpy.types.Scene.jueg_extragroups_save = bpy.props.CollectionProperty(type=Jueg_OpsItem)
 	
 	bpy.app.handlers.load_post.append(load_handler)
 	bpy.app.handlers.save_pre.append(save_handler)
