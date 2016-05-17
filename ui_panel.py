@@ -195,8 +195,6 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 		row = layout.row()
 		row.prop(ops, "ok_for_current_sel", text="Enabled for Current Selection")
 		row.enabled = ops.user_defined
-		row = layout.row()
-		row.prop(ops_display, "display", text="Display")
 		if ops.user_defined == True:
 			row = layout.row()
 			file_ = ops.id + ".py"
