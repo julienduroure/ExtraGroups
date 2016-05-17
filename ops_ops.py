@@ -67,14 +67,12 @@ class POSE_OT_jueg_ops_add(bpy.types.Operator):
 	def execute(self, context):
 		keep = False
 		armature = context.object
-		user_preferences = context.user_preferences
-		addon_prefs = user_preferences.addons[__package__].preferences
 		
 		if len(armature.jueg_grouptypelist) > 0:
 			
-			ops = addon_prefs.extragroups_ops.add()
+			ops = addonpref().extragroups_ops.add()
 			ops.id   = uuid.uuid4().hex
-			ops.name = "Ops.%d" % len(addon_prefs.extragroups_ops)
+			ops.name = "Ops.%d" % len(addonpref().extragroups_ops)
 			ops.ops_exe = "pose.ope_" + ops.id
 			ops.ops_type = 'EXE'
 			ops.display = False
@@ -127,16 +125,14 @@ class POSE_OT_jueg_ops_remove(bpy.types.Operator):
 
 	def execute(self, context):
 		armature = context.object
-		user_preferences = context.user_preferences
-		addon_prefs = user_preferences.addons[__package__].preferences
 		
 		id_to_delete = armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_ops].id
 		if len(armature.jueg_grouptypelist) > 0 and len(armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display) > 0:
-			if addon_prefs.textremove == True:
+			if addonpref().textremove == True:
 				file_ = id_to_delete + ".py"
 				bpy.ops.text.jueg_text_remove(text_id=file_)
 
-			addon_prefs.extragroups_ops.remove([i for i,e in enumerate(addon_prefs.extragroups_ops) if e.id == id_to_delete][0])
+			addonpref().extragroups_ops.remove([i for i,e in enumerate(addonpref().extragroups_ops) if e.id == id_to_delete][0])
 			
 			for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
 				for grouptype in obj.jueg_grouptypelist:
@@ -154,18 +150,16 @@ class POSE_OT_jueg_ops_remove(bpy.types.Operator):
 		return {'FINISHED'}
 		
 def write_operators(context, filepath):
-    user_preferences = context.user_preferences
-    addon_prefs = user_preferences.addons[__package__].preferences
-    tab = addon_prefs.extragroups_ops
+    tab = addonpref().extragroups_ops
     f = open(filepath, 'w', encoding='utf-8')
     f.write("import bpy\n")
     f.write("user_preferences = bpy.context.user_preferences\n")
-    f.write("addon_prefs = user_preferences.addons[\"extragroups\"].preferences\n")
+    f.write("addonpref() = user_preferences.addons[\"extragroups\"].preferences\n")
     f.write("try:\n")
     for ope in tab:
         f.write("\t#~~~~~~\n")
-        f.write("\tif \"" + ope.id + "\" not in [j.id for i,j in enumerate(addon_prefs.extragroups_ops)]:\n")
-        f.write("\t\tops = addon_prefs.extragroups_ops.add()\n")
+        f.write("\tif \"" + ope.id + "\" not in [j.id for i,j in enumerate(addonpref().extragroups_ops)]:\n")
+        f.write("\t\tops = addonpref().extragroups_ops.add()\n")
         f.write("\t\tops.id = \"" + ope.id + "\"\n")
         f.write("\t\tops.name = \"" + ope.name + "\"\n")
         f.write("\t\tops.ops_type = \"" + ope.ops_type + "\"\n")
@@ -187,9 +181,9 @@ def write_operators(context, filepath):
         f.write("\t\t\t\t\tnew_.id = \"" + ope.id + "\"\n")
         f.write("\t\t\t\t\tnew_.on_off = True\n")
         f.write("\telse:\n")
-        f.write("\t\taddon_prefs.extragroups_ops[[i for i,j in enumerate(addon_prefs.extragroups_ops) if j.id == \"" + ope.id + "\"][0]].name = \"" + ope.name + "\"\n")
-        f.write("\t\taddon_prefs.extragroups_ops[[i for i,j in enumerate(addon_prefs.extragroups_ops) if j.id == \"" + ope.id + "\"][0]].icon_on = \"" + ope.icon_on + "\"\n")
-        f.write("\t\taddon_prefs.extragroups_ops[[i for i,j in enumerate(addon_prefs.extragroups_ops) if j.id == \"" + ope.id + "\"][0]].icon_off = \"" + ope.icon_off + "\"\n")
+        f.write("\t\taddonpref().extragroups_ops[[i for i,j in enumerate(addonpref().extragroups_ops) if j.id == \"" + ope.id + "\"][0]].name = \"" + ope.name + "\"\n")
+        f.write("\t\taddonpref().extragroups_ops[[i for i,j in enumerate(addonpref().extragroups_ops) if j.id == \"" + ope.id + "\"][0]].icon_on = \"" + ope.icon_on + "\"\n")
+        f.write("\t\taddonpref().extragroups_ops[[i for i,j in enumerate(addonpref().extragroups_ops) if j.id == \"" + ope.id + "\"][0]].icon_off = \"" + ope.icon_off + "\"\n")
 		
     f.write("except:\n")
     f.write("\tpass\n")

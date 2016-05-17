@@ -30,14 +30,12 @@ class POSE_UL_jueg_bonegroup(bpy.types.UIList):
 	def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
 		
 		armature = context.object
-		user_preferences = bpy.context.user_preferences
-		addon_prefs = user_preferences.addons[__package__].preferences	
 		if self.layout_type in {'DEFAULT', 'COMPACT'}:
 			layout.prop(item, "name", text="", emboss=False)
 				
 			#loop on ops from this group type
 			for ope in armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display:
-				ops = [e for i,e in enumerate(addon_prefs.extragroups_ops) if e.id == ope.id][0]
+				ops = [e for i,e in enumerate(addonpref().extragroups_ops) if e.id == ope.id][0]
 				try:
 					if ope.display == False:
 						continue
@@ -72,10 +70,8 @@ class POSE_UL_jueg_opslist(bpy.types.UIList):
 	def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
 		
 		armature = context.object
-		user_preferences = bpy.context.user_preferences
-		addon_prefs = user_preferences.addons[__package__].preferences	
 		jueg_active_grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype]
-		ops = [e for i,e in enumerate(addon_prefs.extragroups_ops) if e.id == item.id][0]
+		ops = [e for i,e in enumerate(addonpref().extragroups_ops) if e.id == item.id][0]
 		if self.layout_type in {'DEFAULT', 'COMPACT'}:
 			if ops.user_defined == True:
 				icon = "POSE_DATA"

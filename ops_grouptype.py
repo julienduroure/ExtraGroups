@@ -62,15 +62,12 @@ class POSE_OT_jueg_grouptype_reload(bpy.types.Operator):
 				context.mode == 'POSE')
 
 	def execute(self, context):
-		armature = context.object
-		user_preferences = context.user_preferences
-		addon_prefs = user_preferences.addons[__package__].preferences	
 		scene_found = False	
 		for scene in bpy.data.scenes:
 			if len(scene.jueg_extragroups_save) != 0:
 				scene_found = True
-				addon_prefs.scene_name = scene.name
-				save_collection(bpy.data.scenes[addon_prefs.scene_name].jueg_extragroups_save, addon_prefs.extragroups_ops)
+				addonpref().scene_name = scene.name
+				save_collection(bpy.data.scenes[addonpref().scene_name].jueg_extragroups_save, addonpref().extragroups_ops)
 				break
 		return {'FINISHED'}
 
@@ -88,20 +85,18 @@ class POSE_OT_jueg_grouptype_add(bpy.types.Operator):
 				
 	def execute(self, context):
 		armature = context.object
-		user_preferences = context.user_preferences
-		addon_prefs = user_preferences.addons[__package__].preferences
 
 		grouptype = armature.jueg_grouptypelist.add()
 		grouptype.name = "GroupType.%d" % len(armature.jueg_grouptypelist)
 		armature.jueg_active_grouptype = len(armature.jueg_grouptypelist) - 1
 
-		if len(armature.jueg_grouptypelist) == 1 and len(addon_prefs.extragroups_ops) == 0: #in case of first initialisation
+		if len(armature.jueg_grouptypelist) == 1 and len(addonpref().extragroups_ops) == 0: #in case of first initialisation
 			scene_found = False
 			for scene in bpy.data.scenes:
 				if len(scene.jueg_extragroups_save) != 0:
 					scene_found = True
-					addon_prefs.scene_name = scene.name
-					save_collection(bpy.data.scenes[addon_prefs.scene_name].jueg_extragroups_save, addon_prefs.extragroups_ops)
+					addonpref().scene_name = scene.name
+					save_collection(bpy.data.scenes[addonpref().scene_name].jueg_extragroups_save, addonpref().extragroups_ops)
 					copy(armature, armature.jueg_active_grouptype)
 					break
 			if scene_found == False:
@@ -133,17 +128,13 @@ class POSE_OT_jueg_grouptype_remove(bpy.types.Operator):
 		return {'FINISHED'}   
 
 def copy(armature,index_grouptype):
-	user_preferences = bpy.context.user_preferences
-	addon_prefs = user_preferences.addons[__package__].preferences	
-	for ops in addon_prefs.extragroups_ops:
+	for ops in addonpref().extragroups_ops:
 		new = armature.jueg_grouptypelist[index_grouptype].ops_display.add()
 		new.id = ops.id
 		new.display = False
 
 def init(armature):
-	user_preferences = bpy.context.user_preferences
-	addon_prefs = user_preferences.addons[__package__].preferences	
-	ops = addon_prefs.extragroups_ops.add()  
+	ops = addonpref().extragroups_ops.add()  
 	ops.name = "Select Only"
 	ops.id = "bf258537303e41529b5adb4e3af6ed43"
 	ops.ops_type = 'EXE'
@@ -152,7 +143,7 @@ def init(armature):
 	ops.ok_for_current_sel = False
 	ops.display = False
 	ops.user_defined = False
-	ops = addon_prefs.extragroups_ops.add() 
+	ops = addonpref().extragroups_ops.add() 
 	ops.name = "Add to selection"
 	ops.id = "fbd9a8fc639a4074bbd56f7be35e4690"
 	ops.ops_type = 'EXE'
@@ -161,7 +152,7 @@ def init(armature):
 	ops.ok_for_current_sel = False
 	ops.display = False
 	ops.user_defined = False
-	ops = addon_prefs.extragroups_ops.add()  
+	ops = addonpref().extragroups_ops.add()  
 	ops.name = "Mute"
 	ops.id = "f31027b2b65d4a90b610281ea09f08fb"
 	ops.ops_type = 'BOOL'
@@ -171,7 +162,7 @@ def init(armature):
 	ops.ok_for_current_sel = True
 	ops.display = False
 	ops.user_defined = False
-	ops = addon_prefs.extragroups_ops.add()   
+	ops = addonpref().extragroups_ops.add()   
 	ops.name = "Toggle Visibility"
 	ops.id = "b9eac1a0a2fd4dcd94140d05a6a3af86"
 	ops.ops_type = 'BOOL'
@@ -181,7 +172,7 @@ def init(armature):
 	ops.ok_for_current_sel = False
 	ops.display = False
 	ops.user_defined = False
-	ops = addon_prefs.extragroups_ops.add()   
+	ops = addonpref().extragroups_ops.add()   
 	ops.name = "Restrict/Allow Selection"
 	ops.id = "9d5257bf3d6245afacabb452bf7a455e"
 	ops.ops_type = 'BOOL'
@@ -192,7 +183,7 @@ def init(armature):
 	ops.display = False
 	ops.user_defined = False
 	copy(armature, 0)
-	armature.jueg_grouptypelist[0].active_ops = len(addon_prefs.extragroups_ops) - 1
+	armature.jueg_grouptypelist[0].active_ops = len(addonpref().extragroups_ops) - 1
 	
 def register():
 	bpy.utils.register_class(POSE_OT_jueg_grouptype_add)

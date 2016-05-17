@@ -40,6 +40,11 @@ class Jueg_OpsItem(bpy.types.PropertyGroup):
 	ok_for_current_sel = bpy.props.BoolProperty()
 	user_defined = bpy.props.BoolProperty()
 	
+#shortcut to prefs
+def addonpref():
+	user_preferences = bpy.context.user_preferences
+	return user_preferences.addons[__package__].preferences
+	
 def save_collection(source, target):
 	#delete existing
 	while len(target) != 0:
@@ -59,15 +64,13 @@ def save_collection(source, target):
 @persistent
 def load_handler(dummy):
 	#check if data is already saved in a scene
-	user_preferences = bpy.context.user_preferences
-	addon_prefs = user_preferences.addons[__package__].preferences
-	if addon_prefs.scene_name != "":
-		save_collection(bpy.data.scenes[addon_prefs.scene_name].jueg_extragroups_save, addon_prefs.extragroups_ops)
+	if addonpref().scene_name != "":
+		save_collection(bpy.data.scenes[addonpref().scene_name].jueg_extragroups_save, addonpref().extragroups_ops)
 	else:
 		for scene in bpy.data.scenes:
 			if len(scene.jueg_extragroups_save) != 0:
-				addon_prefs.scene_name = scene.name
-				save_collection(bpy.data.scenes[addon_prefs.scene_name].jueg_extragroups_save, addon_prefs.extragroups_ops)
+				addonpref().scene_name = scene.name
+				save_collection(bpy.data.scenes[addonpref().scene_name].jueg_extragroups_save, addonpref().extragroups_ops)
 				break
 
 
@@ -75,10 +78,9 @@ def load_handler(dummy):
 def save_handler(dummy):
 	user_preferences = bpy.context.user_preferences
 	if __package__ in user_preferences.addons:
-		addon_prefs = user_preferences.addons[__package__].preferences	
-		if addon_prefs.scene_name == "":
-			addon_prefs.scene_name = bpy.context.scene.name
-		save_collection(addon_prefs.extragroups_ops, bpy.data.scenes[addon_prefs.scene_name].jueg_extragroups_save)
+		if addonpref().scene_name == "":
+			addonpref().scene_name = bpy.context.scene.name
+		save_collection(addonpref().extragroups_ops, bpy.data.scenes[addonpref().scene_name].jueg_extragroups_save)
 
 def register():
 	bpy.utils.register_class(Jueg_OnOffEntry)
