@@ -16,6 +16,7 @@
 #
 #======================= END GPL LICENSE BLOCK ========================
 import bpy
+from .globals import *
 
 class POSE_UL_jueg_grouptype(bpy.types.UIList):
 	def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
