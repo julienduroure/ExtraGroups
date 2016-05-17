@@ -118,7 +118,8 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 class POSE_PT_jueg_opslist(bpy.types.Panel):
 	bl_label = "Operator List"
 	bl_space_type = 'VIEW_3D'
-	bl_region_type = 'UI'
+	bl_region_type = 'TOOLS'
+	bl_category = "Extra Groups"
 	
 	@classmethod
 	def poll(self, context):
@@ -127,7 +128,8 @@ class POSE_PT_jueg_opslist(bpy.types.Panel):
 				context.object.type == 'ARMATURE' and
 				context.mode == 'POSE' 
 				and len(context.active_object.jueg_grouptypelist) > 0 
-				and len(armature.jueg_extragroups_ops) != 0)
+				and len(armature.jueg_extragroups_ops) != 0
+				and addonpref().edit_mode == True)
 				
 	def draw(self, context):
 		layout = self.layout
@@ -155,7 +157,8 @@ class POSE_PT_jueg_opslist(bpy.types.Panel):
 class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 	bl_label = "Operator Detail"
 	bl_space_type = 'VIEW_3D'
-	bl_region_type = 'UI'
+	bl_region_type = 'TOOLS'
+	bl_category = "Extra Groups"
 	
 	@classmethod
 	def poll(self, context):
@@ -165,7 +168,8 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 				context.mode == 'POSE'  
 				and len(context.active_object.jueg_grouptypelist) > 0
 				and len(context.active_object.jueg_grouptypelist[context.active_object.jueg_active_grouptype].ops_display) > 0
-				and len(armature.jueg_extragroups_ops) != 0 )
+				and len(armature.jueg_extragroups_ops) != 0 
+				and addonpref().edit_mode == True)
 				
 	def draw(self, context):
 		layout = self.layout

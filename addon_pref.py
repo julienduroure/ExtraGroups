@@ -26,13 +26,21 @@ from .globals import *
 class jueg_AddonPreferences(bpy.types.AddonPreferences):
 	bl_idname = __package__
 
-	multitype = bpy.props.BoolProperty(default= False)
+	multitype  = bpy.props.BoolProperty(default= False)
 	textremove = bpy.props.BoolProperty(default= True)
-
+	edit_mode  = bpy.props.BoolProperty(default= False)
+	
 	def draw(self, context):
 		layout = self.layout
 		row_global = layout.row()
 
+		col = row_global.column()
+		row = col.row()
+		row.label("Mode")
+		row_ = col.row()
+		box = row_.box()
+		box.prop(self, "edit_mode", text="Edit Mode")
+		
 		col = row_global.column()
 		row = col.row()
 		row.label("Options")
