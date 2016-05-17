@@ -21,6 +21,7 @@
 #
 ##########################################################################################
 import bpy
+from .globals import *
 
 
 class POSE_OT_jueg_bonegroup_assign(bpy.types.Operator):
@@ -92,7 +93,11 @@ class POSE_OT_jueg_bonegroup_add(bpy.types.Operator):
 		armature = context.object
 		pose = armature.pose
 		
-		
+		if len(armature.jueg_grouptypelist) == 0:
+			grouptype = armature.jueg_grouptypelist.add()
+			grouptype.name = "GroupType.%d" % len(armature.jueg_grouptypelist)
+			armature.jueg_active_grouptype = len(armature.jueg_grouptypelist) - 1
+			init_default_ops(armature)
 		
 		grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids
 

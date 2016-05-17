@@ -76,11 +76,12 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 		pcoll = bpy.extragroups_icons["bonegroup"]
 		
 		if len(armature.jueg_grouptypelist) > 0:
+		
 			jueg_active_grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype]
-	
+
 			row = layout.row()
 			row.template_list("POSE_UL_jueg_bonegroup", "", jueg_active_grouptype, "group_ids", jueg_active_grouptype, "active_bonegroup", rows=6)
-	
+
 			col = row.column()
 			row = col.column(align=True)
 			row.operator("pose.jueg_bonegroup_add", icon="ZOOMIN", text="").dyn_selection = False
@@ -100,16 +101,19 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 		
 			if len(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids) == 0:
 				row.enabled = False
-	
+
 			row = layout.row()
 			row.operator("pose.jueg_bonegroup_add", text="Add Dynamic Selection").dyn_selection = True
-
-		else:
-			row = layout.row()
-			row.operator("pose.jueg_grouptype_add", text="Init Bone Groups for this Rig")
-
 			
+		else:
+			#Not initialized yet. Display "false" List and + operator to be able to create data
+			row = layout.row()
+			row.template_list("POSE_UL_jueg_grouptype", "", armature, "jueg_grouptypelist", armature, "jueg_active_grouptype")
 		
+			col = row.column()
+			row = col.column(align=True)
+			row.operator("pose.jueg_bonegroup_add", icon="ZOOMIN", text="").dyn_selection = False
+
 		
 class POSE_PT_jueg_opslist(bpy.types.Panel):
 	bl_label = "Operator List"
