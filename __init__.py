@@ -65,7 +65,7 @@ def register():
 	ui_panel.register()
 	template_default_ops.register()
 	
-	bpy.types.Object.grouptypelist = bpy.props.CollectionProperty(type=GroupType)
+	bpy.types.Object.grouptypelist = bpy.props.CollectionProperty(type=Jueg_GroupType)
 	bpy.types.Object.active_grouptype = bpy.props.IntProperty()
 	bpy.types.Scene.extragroups_save = bpy.props.CollectionProperty(type=OpsItem)
 	
