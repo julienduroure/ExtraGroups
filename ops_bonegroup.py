@@ -105,11 +105,10 @@ class POSE_OT_jueg_bonegroup_add(bpy.types.Operator):
 		bonegroup.name = "Group.%d" % len(grouptype)
 		armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup = len(grouptype) - 1
 		if self.dyn_selection == False:
-			for bone in pose.bones:
-				if (bone.bone.select):
-					bone_id = bonegroup.bone_ids.add()
-					bone_id.name = bone.name
-					keep = True
+			for bone in context.selected_pose_bones:
+				bone_id = bonegroup.bone_ids.add()
+				bone_id.name = bone.name
+				keep = True
 		else:
 			bonegroup.current_selection = True
 			bonegroup.name = "Current Selection"
