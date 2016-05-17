@@ -24,15 +24,6 @@ class Jueg_GroupType(bpy.types.PropertyGroup):
 	active_bonegroup = bpy.props.IntProperty()
 	ops_display = bpy.props.CollectionProperty(type=Jueg_OpsDisplay)
 	active_ops = bpy.props.IntProperty()
-	
-def update_editmode_func(self, context):
-	if context.scene.bonegroup_editmode == False:
-		context.scene.bonegroup_devmode = False
-		context.scene.bonegroup_adminmode = False
-		
-def update_devmode_func(self, context):
-	if context.scene.bonegroup_devmode == False:
-		context.scene.bonegroup_adminmode = False
 
 jueg_ops_type_items = [
 	("BOOL", "On/Off", "", 1),
