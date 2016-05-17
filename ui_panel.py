@@ -32,12 +32,12 @@ class POSE_PT_jueg_grouptype(bpy.types.Panel):
 	
 	@classmethod
 	def poll(self, context):
-
+		armature = context.object
 		return (context.object and
 				context.object.type == 'ARMATURE' and
 				context.mode == 'POSE'
 				and addonpref().multitype == True 
-				and len(addonpref().extragroups_ops) != 0)
+				and len(armature.extragroups_ops) != 0)
 				
 	def draw(self, context):
 		layout = self.layout
@@ -76,38 +76,34 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 		pcoll = bpy.extragroups_icons["bonegroup"]
 		
 		if len(armature.jueg_grouptypelist) > 0:
-			if len(addonpref().extragroups_ops) != 0:
-				jueg_active_grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype]
+			jueg_active_grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype]
+	
+			row = layout.row()
+			row.template_list("POSE_UL_jueg_bonegroup", "", jueg_active_grouptype, "group_ids", jueg_active_grouptype, "active_bonegroup", rows=6)
+	
+			col = row.column()
+			row = col.column(align=True)
+			row.operator("pose.jueg_bonegroup_add", icon="ZOOMIN", text="").dyn_selection = False
+			row.operator("pose.bonegroup_remove", icon="ZOOMOUT", text="")
 		
-				row = layout.row()
-				row.template_list("POSE_UL_jueg_bonegroup", "", jueg_active_grouptype, "group_ids", jueg_active_grouptype, "active_bonegroup", rows=6)
+			row = col.column(align=True)
+			row.separator()
+			row.operator("pose.jueg_bonegroup_move", icon='TRIA_UP', text="").direction = 'UP'
+			row.operator("pose.jueg_bonegroup_move", icon='TRIA_DOWN', text="").direction = 'DOWN'
+			if len(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids) == 0:
+				row.enabled = False
 		
-				col = row.column()
-				row = col.column(align=True)
-				row.operator("pose.jueg_bonegroup_add", icon="ZOOMIN", text="").dyn_selection = False
-				row.operator("pose.bonegroup_remove", icon="ZOOMOUT", text="")
-			
-				row = col.column(align=True)
-				row.separator()
-				row.operator("pose.jueg_bonegroup_move", icon='TRIA_UP', text="").direction = 'UP'
-				row.operator("pose.jueg_bonegroup_move", icon='TRIA_DOWN', text="").direction = 'DOWN'
-				if len(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids) == 0:
-					row.enabled = False
-			
-				row = col.column(align=True)
-				row.separator()
-				row.operator("pose.jueg_bonegroup_assign", icon_value=pcoll["bonegroup_assign"].icon_id, text="")
-				row.operator("pose.jueg_bonegroup_bone_remove", icon_value=pcoll["bonegroup_remove"].icon_id, text="")
-			
-				if len(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids) == 0:
-					row.enabled = False
+			row = col.column(align=True)
+			row.separator()
+			row.operator("pose.jueg_bonegroup_assign", icon_value=pcoll["bonegroup_assign"].icon_id, text="")
+			row.operator("pose.jueg_bonegroup_bone_remove", icon_value=pcoll["bonegroup_remove"].icon_id, text="")
 		
-				row = layout.row()
-				row.operator("pose.jueg_bonegroup_add", text="Add Dynamic Selection").dyn_selection = True
+			if len(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids) == 0:
+				row.enabled = False
+	
+			row = layout.row()
+			row.operator("pose.jueg_bonegroup_add", text="Add Dynamic Selection").dyn_selection = True
 
-			else:
-				row = layout.row()
-				row.operator("pose.jueg_extragroups_reload", text="Reload Extragroups data")
 		else:
 			row = layout.row()
 			row.operator("pose.jueg_grouptype_add", text="Init Bone Groups for this Rig")
@@ -122,11 +118,12 @@ class POSE_PT_jueg_opslist(bpy.types.Panel):
 	
 	@classmethod
 	def poll(self, context):
+		armature = context.object
 		return (context.object and
 				context.object.type == 'ARMATURE' and
 				context.mode == 'POSE' 
 				and len(context.active_object.jueg_grouptypelist) > 0 
-				and len(addonpref().extragroups_ops) != 0)
+				and len(armature.extragroups_ops) != 0)
 				
 	def draw(self, context):
 		layout = self.layout
@@ -143,7 +140,7 @@ class POSE_PT_jueg_opslist(bpy.types.Panel):
 		sub.operator("pose.jueg_ops_add", icon="ZOOMIN", text="")
 		sub = row.row(align=True)
 		sub.operator("pose.jueg_ops_remove", icon="ZOOMOUT", text="")
-		sub.enabled = [e for i,e in enumerate(addonpref().extragroups_ops) if e.id == armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_ops].id][0].user_defined
+		sub.enabled = [e for i,e in enumerate(armature.extragroups_ops) if e.id == armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_ops].id][0].user_defined
 		row = col.column(align=True)
 		row.separator()
 		row.operator("pose.jueg_operator_move", icon='TRIA_UP', text="").direction = 'UP'
@@ -158,19 +155,20 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 	
 	@classmethod
 	def poll(self, context):
+		armature = context.object
 		return (context.object and
 				context.object.type == 'ARMATURE' and
 				context.mode == 'POSE'  
 				and len(context.active_object.jueg_grouptypelist) > 0
 				and len(context.active_object.jueg_grouptypelist[context.active_object.jueg_active_grouptype].ops_display) > 0
-				and len(addonpref().extragroups_ops) != 0 )
+				and len(armature.extragroups_ops) != 0 )
 				
 	def draw(self, context):
 		layout = self.layout
 		armature = context.object
 
 		jueg_active_grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype]
-		ops = [e for i,e in enumerate(addonpref().extragroups_ops) if e.id == jueg_active_grouptype.ops_display[jueg_active_grouptype.active_ops].id][0]
+		ops = [e for i,e in enumerate(armature.extragroups_ops) if e.id == jueg_active_grouptype.ops_display[jueg_active_grouptype.active_ops].id][0]
 		ops_display = jueg_active_grouptype.ops_display[jueg_active_grouptype.active_ops]
 		
 		row = layout.row()

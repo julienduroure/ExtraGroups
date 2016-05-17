@@ -54,28 +54,6 @@ class POSE_OT_jueg_grouptype_move(bpy.types.Operator):
 		
 		return {'FINISHED'}
 
-class POSE_OT_jueg_grouptype_reload(bpy.types.Operator):
-	"""Reload data after addon unregister"""
-	bl_idname = "pose.jueg_extragroups_reload"
-	bl_label = "Reload data after addon unregister"
-	bl_options = {'REGISTER'}	
-
-	@classmethod
-	def poll(self, context):
-		return (context.object and
-				context.object.type == 'ARMATURE' and
-				context.mode == 'POSE')
-
-	def execute(self, context):
-		scene_found = False	
-		for scene in bpy.data.scenes:
-			if len(scene.jueg_extragroups_save) != 0:
-				scene_found = True
-				addonpref().scene_name = scene.name
-				save_collection(bpy.data.scenes[addonpref().scene_name].jueg_extragroups_save, addonpref().extragroups_ops)
-				break
-		return {'FINISHED'}
-
 class POSE_OT_jueg_grouptype_add(bpy.types.Operator):
 	"""Add a new group type"""
 	bl_idname = "pose.jueg_grouptype_add"
@@ -95,20 +73,11 @@ class POSE_OT_jueg_grouptype_add(bpy.types.Operator):
 		grouptype.name = "GroupType.%d" % len(armature.jueg_grouptypelist)
 		armature.jueg_active_grouptype = len(armature.jueg_grouptypelist) - 1
 
-		if len(armature.jueg_grouptypelist) == 1 and len(addonpref().extragroups_ops) == 0: #in case of first initialisation
-			scene_found = False
-			for scene in bpy.data.scenes:
-				if len(scene.jueg_extragroups_save) != 0:
-					scene_found = True
-					addonpref().scene_name = scene.name
-					save_collection(bpy.data.scenes[addonpref().scene_name].jueg_extragroups_save, addonpref().extragroups_ops)
-					copy(armature, armature.jueg_active_grouptype)
-					break
-			if scene_found == False:
-				init(armature)
+		if len(armature.jueg_grouptypelist) == 1 and len(armature.extragroups_ops) == 0: #in case of first initialisation
+			init(armature)
 		else:
 			copy(armature, armature.jueg_active_grouptype)
-		
+	
 		return {'FINISHED'}
 	
 class POSE_OT_jueg_grouptype_remove(bpy.types.Operator):
@@ -133,13 +102,13 @@ class POSE_OT_jueg_grouptype_remove(bpy.types.Operator):
 		return {'FINISHED'}   
 
 def copy(armature,index_grouptype):
-	for ops in addonpref().extragroups_ops:
+	for ops in armature.extragroups_ops:
 		new = armature.jueg_grouptypelist[index_grouptype].ops_display.add()
 		new.id = ops.id
 		new.display = False
-
+		
 def init(armature):
-	ops = addonpref().extragroups_ops.add()  
+	ops = armature.extragroups_ops.add()  
 	ops.name = "Select Only"
 	ops.id = "bf258537303e41529b5adb4e3af6ed43"
 	ops.ops_type = 'EXE'
@@ -148,7 +117,7 @@ def init(armature):
 	ops.ok_for_current_sel = False
 	ops.display = False
 	ops.user_defined = False
-	ops = addonpref().extragroups_ops.add() 
+	ops = armature.extragroups_ops.add() 
 	ops.name = "Add to selection"
 	ops.id = "fbd9a8fc639a4074bbd56f7be35e4690"
 	ops.ops_type = 'EXE'
@@ -157,7 +126,7 @@ def init(armature):
 	ops.ok_for_current_sel = False
 	ops.display = False
 	ops.user_defined = False
-	ops = addonpref().extragroups_ops.add()  
+	ops = armature.extragroups_ops.add()  
 	ops.name = "Mute"
 	ops.id = "f31027b2b65d4a90b610281ea09f08fb"
 	ops.ops_type = 'BOOL'
@@ -167,7 +136,7 @@ def init(armature):
 	ops.ok_for_current_sel = True
 	ops.display = False
 	ops.user_defined = False
-	ops = addonpref().extragroups_ops.add()   
+	ops = armature.extragroups_ops.add()   
 	ops.name = "Toggle Visibility"
 	ops.id = "b9eac1a0a2fd4dcd94140d05a6a3af86"
 	ops.ops_type = 'BOOL'
@@ -177,7 +146,7 @@ def init(armature):
 	ops.ok_for_current_sel = False
 	ops.display = False
 	ops.user_defined = False
-	ops = addonpref().extragroups_ops.add()   
+	ops = armature.extragroups_ops.add()   
 	ops.name = "Restrict/Allow Selection"
 	ops.id = "9d5257bf3d6245afacabb452bf7a455e"
 	ops.ops_type = 'BOOL'
@@ -188,16 +157,14 @@ def init(armature):
 	ops.display = False
 	ops.user_defined = False
 	copy(armature, 0)
-	armature.jueg_grouptypelist[0].active_ops = len(addonpref().extragroups_ops) - 1
+	armature.jueg_grouptypelist[0].active_ops = len(armature.extragroups_ops) - 1 #TODO
 	
 def register():
 	bpy.utils.register_class(POSE_OT_jueg_grouptype_add)
 	bpy.utils.register_class(POSE_OT_jueg_grouptype_remove) 
 	bpy.utils.register_class(POSE_OT_jueg_grouptype_move)
-	bpy.utils.register_class(POSE_OT_jueg_grouptype_reload)
 		
 def unregister():
 	bpy.utils.unregister_class(POSE_OT_jueg_grouptype_add)
 	bpy.utils.unregister_class(POSE_OT_jueg_grouptype_remove) 
 	bpy.utils.unregister_class(POSE_OT_jueg_grouptype_move) 
-	bpy.utils.unregister_class(POSE_OT_jueg_grouptype_reload)

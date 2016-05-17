@@ -71,12 +71,9 @@ def register():
 	template_default_ops.register()
 	
 	bpy.types.Object.jueg_grouptypelist = bpy.props.CollectionProperty(type=Jueg_GroupType)
+	bpy.types.Object.extragroups_ops = bpy.props.CollectionProperty(type=Jueg_OpsItem)
 	bpy.types.Object.jueg_active_grouptype = bpy.props.IntProperty()
-	bpy.types.Scene.jueg_extragroups_save = bpy.props.CollectionProperty(type=Jueg_OpsItem)
 	
-	bpy.app.handlers.load_post.append(load_handler)
-	bpy.app.handlers.save_pre.append(save_handler)
-
 	bpy.extragroups_icons = {}
 	
 	pcoll = bpy.utils.previews.new()

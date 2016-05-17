@@ -28,7 +28,6 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 
 	multitype = bpy.props.BoolProperty(default= False)
 	textremove = bpy.props.BoolProperty(default= True)
-	extragroups_ops = bpy.props.CollectionProperty(type=Jueg_OpsItem)
 	scene_name = bpy.props.StringProperty() #scene name that will temporary store data for saving
 
 
@@ -43,17 +42,6 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 		box = row_.box()
 		box.prop(self, "multitype", text="Use Multitype")
 		box.prop(self, "textremove", text="Remove text when delete Operator")
-
-		
-		col = row_global.column()
-		row = col.row()
-		row.label("Import / Export")
-		row_ = col.row()
-		box = row_.box()
-		box.operator("export.jueg_extragroups_ops", text="Export Operators")
-		box.operator("imp.jueg_extragroups_ops", text="Import Operators")
-		box.enabled = (len(self.extragroups_ops) != 0)
-
 
 def register():
 	bpy.utils.register_class(jueg_AddonPreferences)
