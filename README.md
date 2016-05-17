@@ -10,18 +10,10 @@ You can report bugs on [http://github.com/julienduroure/extragroups](http://gith
 
 # Version History
 
-## Version 0.0.1 (October 2015)
+## Version x.y.z (Date)
 
 Initial Release
 
 # Future Plans
 
-Here is a list of feature requested or I am thinking about. Some of them will be (maybe) implemented in next version.
-
-* Use custom icons
-* Import / export of operators : with source code, not only list
-* Create Keying set from bone group
-* Add some other default operators
-* Create bone groups from official bone groups
-* Simple way to work on property
-* enhance to object mode
+Too early to speak about future :)
