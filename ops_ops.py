@@ -76,9 +76,9 @@ class POSE_OT_jueg_ops_add(bpy.types.Operator):
 		
 		if len(armature.jueg_grouptypelist) > 0:
 			
-			ops = armature.extragroups_ops.add()
+			ops = armature.jueg_extragroups_ops.add()
 			ops.id   = uuid.uuid4().hex
-			ops.name = "Ops.%d" % len(armature.extragroups_ops)
+			ops.name = "Ops.%d" % len(armature.jueg_extragroups_ops)
 			ops.ops_exe = "pose.ope_" + ops.id
 			ops.ops_type = 'EXE'
 			ops.display = False
@@ -138,7 +138,7 @@ class POSE_OT_jueg_ops_remove(bpy.types.Operator):
 				file_ = id_to_delete + ".py"
 				bpy.ops.text.jueg_text_remove(text_id=file_)
 
-			armature.extragroups_ops.remove([i for i,e in enumerate(armature.extragroups_ops) if e.id == id_to_delete][0])
+			armature.jueg_extragroups_ops.remove([i for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == id_to_delete][0])
 			
 			for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
 				for grouptype in obj.jueg_grouptypelist:
@@ -157,7 +157,7 @@ class POSE_OT_jueg_ops_remove(bpy.types.Operator):
 		
 def write_operators(context, filepath):
     armature = bpy.context.active_object
-    tab = armature.extragroups_ops
+    tab = armature.jueg_extragroups_ops
     f = open(filepath, 'w', encoding='utf-8')
     f.write("import bpy\n")
     f.write("user_preferences = bpy.context.user_preferences\n")
@@ -165,8 +165,8 @@ def write_operators(context, filepath):
     f.write("try:\n")
     for ope in tab:
         f.write("\t#~~~~~~\n")
-        f.write("\tif \"" + ope.id + "\" not in [j.id for i,j in enumerate(armature.extragroups_ops)]:\n")
-        f.write("\t\tops = armature.extragroups_ops.add()\n")
+        f.write("\tif \"" + ope.id + "\" not in [j.id for i,j in enumerate(armature.jueg_extragroups_ops)]:\n")
+        f.write("\t\tops = armature.jueg_extragroups_ops.add()\n")
         f.write("\t\tops.id = \"" + ope.id + "\"\n")
         f.write("\t\tops.name = \"" + ope.name + "\"\n")
         f.write("\t\tops.ops_type = \"" + ope.ops_type + "\"\n")
@@ -188,9 +188,9 @@ def write_operators(context, filepath):
         f.write("\t\t\t\t\tnew_.id = \"" + ope.id + "\"\n")
         f.write("\t\t\t\t\tnew_.on_off = True\n")
         f.write("\telse:\n")
-        f.write("\t\tarmature.extragroups_ops[[i for i,j in enumerate(armature.extragroups_ops) if j.id == \"" + ope.id + "\"][0]].name = \"" + ope.name + "\"\n")
-        f.write("\t\tarmature.extragroups_ops[[i for i,j in enumerate(armature.extragroups_ops) if j.id == \"" + ope.id + "\"][0]].icon_on = \"" + ope.icon_on + "\"\n")
-        f.write("\t\tarmature.extragroups_ops[[i for i,j in enumerate(armature.extragroups_ops) if j.id == \"" + ope.id + "\"][0]].icon_off = \"" + ope.icon_off + "\"\n")
+        f.write("\t\tarmature.jueg_extragroups_ops[[i for i,j in enumerate(armature.jueg_extragroups_ops) if j.id == \"" + ope.id + "\"][0]].name = \"" + ope.name + "\"\n")
+        f.write("\t\tarmature.jueg_extragroups_ops[[i for i,j in enumerate(armature.jueg_extragroups_ops) if j.id == \"" + ope.id + "\"][0]].icon_on = \"" + ope.icon_on + "\"\n")
+        f.write("\t\tarmature.jueg_extragroups_ops[[i for i,j in enumerate(armature.jueg_extragroups_ops) if j.id == \"" + ope.id + "\"][0]].icon_off = \"" + ope.icon_off + "\"\n")
 		
     f.write("except:\n")
     f.write("\tpass\n")
@@ -200,7 +200,7 @@ def write_operators(context, filepath):
 		
 class POSE_OT_jueg_ExportOps(bpy.types.Operator, bpy_extras.io_utils.ExportHelper):
     """Export Operator list"""
-    bl_idname = "export.jueg_extragroups_ops"
+    bl_idname = "export.jueg_jueg_extragroups_ops"
     bl_label  = "Export Operator"
     
     filename_ext = ".py"
@@ -221,7 +221,7 @@ def read_operator(context, filepath):
 			
 class POSE_OT_jueg_ImportOps(bpy.types.Operator, bpy_extras.io_utils.ExportHelper):
     """Import Template list"""
-    bl_idname = "imp.jueg_extragroups_ops"
+    bl_idname = "imp.jueg_jueg_extragroups_ops"
     bl_label  = "Import Operators"
     
     filename_ext = ".py"

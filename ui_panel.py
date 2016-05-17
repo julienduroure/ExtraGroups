@@ -37,7 +37,7 @@ class POSE_PT_jueg_grouptype(bpy.types.Panel):
 				context.object.type == 'ARMATURE' and
 				context.mode == 'POSE'
 				and addonpref().multitype == True 
-				and len(armature.extragroups_ops) != 0)
+				and len(armature.jueg_extragroups_ops) != 0)
 				
 	def draw(self, context):
 		layout = self.layout
@@ -123,7 +123,7 @@ class POSE_PT_jueg_opslist(bpy.types.Panel):
 				context.object.type == 'ARMATURE' and
 				context.mode == 'POSE' 
 				and len(context.active_object.jueg_grouptypelist) > 0 
-				and len(armature.extragroups_ops) != 0)
+				and len(armature.jueg_extragroups_ops) != 0)
 				
 	def draw(self, context):
 		layout = self.layout
@@ -140,7 +140,7 @@ class POSE_PT_jueg_opslist(bpy.types.Panel):
 		sub.operator("pose.jueg_ops_add", icon="ZOOMIN", text="")
 		sub = row.row(align=True)
 		sub.operator("pose.jueg_ops_remove", icon="ZOOMOUT", text="")
-		sub.enabled = [e for i,e in enumerate(armature.extragroups_ops) if e.id == armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_ops].id][0].user_defined
+		sub.enabled = [e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_ops].id][0].user_defined
 		row = col.column(align=True)
 		row.separator()
 		row.operator("pose.jueg_operator_move", icon='TRIA_UP', text="").direction = 'UP'
@@ -161,14 +161,14 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 				context.mode == 'POSE'  
 				and len(context.active_object.jueg_grouptypelist) > 0
 				and len(context.active_object.jueg_grouptypelist[context.active_object.jueg_active_grouptype].ops_display) > 0
-				and len(armature.extragroups_ops) != 0 )
+				and len(armature.jueg_extragroups_ops) != 0 )
 				
 	def draw(self, context):
 		layout = self.layout
 		armature = context.object
 
 		jueg_active_grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype]
-		ops = [e for i,e in enumerate(armature.extragroups_ops) if e.id == jueg_active_grouptype.ops_display[jueg_active_grouptype.active_ops].id][0]
+		ops = [e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == jueg_active_grouptype.ops_display[jueg_active_grouptype.active_ops].id][0]
 		ops_display = jueg_active_grouptype.ops_display[jueg_active_grouptype.active_ops]
 		
 		row = layout.row()

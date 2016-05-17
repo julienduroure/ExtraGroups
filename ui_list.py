@@ -41,7 +41,7 @@ class POSE_UL_jueg_bonegroup(bpy.types.UIList):
 				
 			#loop on ops from this group type
 			for ope in armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display:
-				ops = [e for i,e in enumerate(armature.extragroups_ops) if e.id == ope.id][0]
+				ops = [e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == ope.id][0]
 				try:
 					if ope.display == False:
 						continue
@@ -77,7 +77,7 @@ class POSE_UL_jueg_opslist(bpy.types.UIList):
 		
 		armature = context.object
 		jueg_active_grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype]
-		ops = [e for i,e in enumerate(armature.extragroups_ops) if e.id == item.id][0]
+		ops = [e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == item.id][0]
 		if self.layout_type in {'DEFAULT', 'COMPACT'}:
 			if ops.user_defined == True:
 				icon = "POSE_DATA"

@@ -71,7 +71,7 @@ def register():
 	template_default_ops.register()
 	
 	bpy.types.Object.jueg_grouptypelist = bpy.props.CollectionProperty(type=Jueg_GroupType)
-	bpy.types.Object.extragroups_ops = bpy.props.CollectionProperty(type=Jueg_OpsItem)
+	bpy.types.Object.jueg_extragroups_ops = bpy.props.CollectionProperty(type=Jueg_OpsItem)
 	bpy.types.Object.jueg_active_grouptype = bpy.props.IntProperty()
 	
 	bpy.extragroups_icons = {}
@@ -85,7 +85,7 @@ def register():
 def unregister():
 	del bpy.types.Object.jueg_grouptypelist
 	del bpy.types.Object.jueg_active_grouptype
-	del bpy.types.Scene.jueg_extragroups_save
+	del bpy.types.Object.jueg_extragroups_ops
 
 	globals.unregister()
 	addon_pref.unregister()

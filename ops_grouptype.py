@@ -73,7 +73,7 @@ class POSE_OT_jueg_grouptype_add(bpy.types.Operator):
 		grouptype.name = "GroupType.%d" % len(armature.jueg_grouptypelist)
 		armature.jueg_active_grouptype = len(armature.jueg_grouptypelist) - 1
 
-		if len(armature.jueg_grouptypelist) == 1 and len(armature.extragroups_ops) == 0: #in case of first initialisation
+		if len(armature.jueg_grouptypelist) == 1 and len(armature.jueg_extragroups_ops) == 0: #in case of first initialisation
 			init(armature)
 		else:
 			copy(armature, armature.jueg_active_grouptype)
@@ -102,13 +102,13 @@ class POSE_OT_jueg_grouptype_remove(bpy.types.Operator):
 		return {'FINISHED'}   
 
 def copy(armature,index_grouptype):
-	for ops in armature.extragroups_ops:
+	for ops in armature.jueg_extragroups_ops:
 		new = armature.jueg_grouptypelist[index_grouptype].ops_display.add()
 		new.id = ops.id
 		new.display = False
 		
 def init(armature):
-	ops = armature.extragroups_ops.add()  
+	ops = armature.jueg_extragroups_ops.add()  
 	ops.name = "Select Only"
 	ops.id = "bf258537303e41529b5adb4e3af6ed43"
 	ops.ops_type = 'EXE'
@@ -117,7 +117,7 @@ def init(armature):
 	ops.ok_for_current_sel = False
 	ops.display = False
 	ops.user_defined = False
-	ops = armature.extragroups_ops.add() 
+	ops = armature.jueg_extragroups_ops.add() 
 	ops.name = "Add to selection"
 	ops.id = "fbd9a8fc639a4074bbd56f7be35e4690"
 	ops.ops_type = 'EXE'
@@ -126,7 +126,7 @@ def init(armature):
 	ops.ok_for_current_sel = False
 	ops.display = False
 	ops.user_defined = False
-	ops = armature.extragroups_ops.add()  
+	ops = armature.jueg_extragroups_ops.add()  
 	ops.name = "Mute"
 	ops.id = "f31027b2b65d4a90b610281ea09f08fb"
 	ops.ops_type = 'BOOL'
@@ -136,7 +136,7 @@ def init(armature):
 	ops.ok_for_current_sel = True
 	ops.display = False
 	ops.user_defined = False
-	ops = armature.extragroups_ops.add()   
+	ops = armature.jueg_extragroups_ops.add()   
 	ops.name = "Toggle Visibility"
 	ops.id = "b9eac1a0a2fd4dcd94140d05a6a3af86"
 	ops.ops_type = 'BOOL'
@@ -146,7 +146,7 @@ def init(armature):
 	ops.ok_for_current_sel = False
 	ops.display = False
 	ops.user_defined = False
-	ops = armature.extragroups_ops.add()   
+	ops = armature.jueg_extragroups_ops.add()   
 	ops.name = "Restrict/Allow Selection"
 	ops.id = "9d5257bf3d6245afacabb452bf7a455e"
 	ops.ops_type = 'BOOL'
@@ -157,7 +157,7 @@ def init(armature):
 	ops.display = False
 	ops.user_defined = False
 	copy(armature, 0)
-	armature.jueg_grouptypelist[0].active_ops = len(armature.extragroups_ops) - 1 #TODO
+	armature.jueg_grouptypelist[0].active_ops = len(armature.jueg_extragroups_ops) - 1
 	
 def register():
 	bpy.utils.register_class(POSE_OT_jueg_grouptype_add)
