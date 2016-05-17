@@ -74,7 +74,6 @@ class POSE_OT_###opsclass###(Operator):
 	"""User defined Operator"""
 	bl_idname = "pose.ope_###opsclass###"
 	bl_label = "###opsclass###"
-	bl_options = {'UNDO', 'REGISTER'}
 	
 	
 	ops_id		 = StringProperty()

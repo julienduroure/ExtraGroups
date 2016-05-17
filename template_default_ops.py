@@ -31,7 +31,6 @@ class POSE_OT_jueg_changevisibility(Operator):
 	"""Change visibility"""
 	bl_idname = "pose.jueg_change_visibility"
 	bl_label = "Change visibility"
-	bl_options = {'UNDO', 'REGISTER'}
 	
 	
 	ops_id		 = StringProperty()
@@ -95,7 +94,6 @@ class POSE_OT_jueg_addtoselection(Operator):
 	"""Add to selection"""
 	bl_idname = "pose.jueg_addtoselection"
 	bl_label = "Add to selection"
-	bl_options = {'UNDO', 'REGISTER'}
 	
 	
 	ops_id		 = StringProperty()
@@ -159,7 +157,6 @@ class POSE_OT_jueg_selectonly(Operator):
 	"""Toggle selected bones"""
 	bl_idname = "pose.jueg_selectonly"
 	bl_label = "Toggle selection"
-	bl_options = {'UNDO', 'REGISTER'}
 	
 	
 	ops_id		 = StringProperty()
@@ -229,7 +226,6 @@ class POSE_OT_jueg_bonemute(Operator):
 	"""Mute action of bones"""
 	bl_idname = "pose.jueg_bonemute"
 	bl_label = "Mute bones"
-	bl_options = {'UNDO', 'REGISTER'}
 	
 	
 	ops_id		 = StringProperty()
@@ -311,7 +307,6 @@ class POSE_OT_jueg_restrict_select(Operator):
 	"""Restrict/Allow selection"""
 	bl_idname = "pose.jueg_restrict_select"
 	bl_label = "Restrict Select"
-	bl_options = {'UNDO', 'REGISTER'}
 	
 	
 	ops_id		 = StringProperty()
