@@ -71,12 +71,12 @@ def load_handler(dummy):
 	user_preferences = bpy.context.user_preferences
 	addon_prefs = user_preferences.addons[__package__].preferences
 	if addon_prefs.scene_name != "":
-		save_collection(bpy.data.scenes[addon_prefs.scene_name].extragroups_save, addon_prefs.extragroups_ops)
+		save_collection(bpy.data.scenes[addon_prefs.scene_name].jueg_extragroups_save, addon_prefs.extragroups_ops)
 	else:
 		for scene in bpy.data.scenes:
-			if len(scene.extragroups_save) != 0:
+			if len(scene.jueg_extragroups_save) != 0:
 				addon_prefs.scene_name = scene.name
-				save_collection(bpy.data.scenes[addon_prefs.scene_name].extragroups_save, addon_prefs.extragroups_ops)
+				save_collection(bpy.data.scenes[addon_prefs.scene_name].jueg_extragroups_save, addon_prefs.extragroups_ops)
 				break
 
 
@@ -87,7 +87,7 @@ def save_handler(dummy):
 		addon_prefs = user_preferences.addons[__package__].preferences	
 		if addon_prefs.scene_name == "":
 			addon_prefs.scene_name = bpy.context.scene.name
-		save_collection(addon_prefs.extragroups_ops, bpy.data.scenes[addon_prefs.scene_name].extragroups_save)
+		save_collection(addon_prefs.extragroups_ops, bpy.data.scenes[addon_prefs.scene_name].jueg_extragroups_save)
 
 def register():
 	bpy.utils.register_class(Jueg_OnOffEntry)

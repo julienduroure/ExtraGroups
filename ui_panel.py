@@ -39,7 +39,7 @@ class POSE_PT_jueg_grouptype(bpy.types.Panel):
 		armature = context.object
 		
 		row = layout.row()
-		row.template_list("POSE_UL_jueg_grouptype", "", armature, "grouptypelist", armature, "active_grouptype")
+		row.template_list("POSE_UL_jueg_grouptype", "", armature, "jueg_grouptypelist", armature, "jueg_active_grouptype")
 		
 		col = row.column()
 		row = col.column(align=True)
@@ -49,7 +49,7 @@ class POSE_PT_jueg_grouptype(bpy.types.Panel):
 		row.separator()
 		row.operator("pose.jueg_grouptype_move", icon='TRIA_UP', text="").direction = 'UP'
 		row.operator("pose.jueg_grouptype_move", icon='TRIA_DOWN', text="").direction = 'DOWN'
-		if len(armature.grouptypelist) == 0:
+		if len(armature.jueg_grouptypelist) == 0:
 			row.enabled = False
 		
 	  
@@ -72,12 +72,12 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 		addon_prefs = user_preferences.addons[__package__].preferences
 		pcoll = bpy.extragroups_icons["bonegroup"]
 		
-		if len(armature.grouptypelist) > 0:
+		if len(armature.jueg_grouptypelist) > 0:
 			if len(addon_prefs.extragroups_ops) != 0:
-				active_grouptype = armature.grouptypelist[armature.active_grouptype]
+				jueg_active_grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype]
 		
 				row = layout.row()
-				row.template_list("POSE_UL_jueg_bonegroup", "", active_grouptype, "group_ids", active_grouptype, "active_bonegroup", rows=6)
+				row.template_list("POSE_UL_jueg_bonegroup", "", jueg_active_grouptype, "group_ids", jueg_active_grouptype, "active_bonegroup", rows=6)
 		
 				col = row.column()
 				row = col.column(align=True)
@@ -88,7 +88,7 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 				row.separator()
 				row.operator("pose.jueg_bonegroup_move", icon='TRIA_UP', text="").direction = 'UP'
 				row.operator("pose.jueg_bonegroup_move", icon='TRIA_DOWN', text="").direction = 'DOWN'
-				if len(armature.grouptypelist[armature.active_grouptype].group_ids) == 0:
+				if len(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids) == 0:
 					row.enabled = False
 			
 				row = col.column(align=True)
@@ -96,7 +96,7 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 				row.operator("pose.jueg_bonegroup_assign", icon_value=pcoll["bonegroup_assign"].icon_id, text="")
 				row.operator("pose.jueg_bonegroup_bone_remove", icon_value=pcoll["bonegroup_remove"].icon_id, text="")
 			
-				if len(armature.grouptypelist[armature.active_grouptype].group_ids) == 0:
+				if len(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids) == 0:
 					row.enabled = False
 		
 				row = layout.row()
@@ -124,7 +124,7 @@ class POSE_PT_jueg_opslist(bpy.types.Panel):
 		return (context.object and
 				context.object.type == 'ARMATURE' and
 				context.mode == 'POSE' 
-				and len(context.active_object.grouptypelist) > 0 
+				and len(context.active_object.jueg_grouptypelist) > 0 
 				and len(addon_prefs.extragroups_ops) != 0)
 				
 	def draw(self, context):
@@ -133,10 +133,10 @@ class POSE_PT_jueg_opslist(bpy.types.Panel):
 		user_preferences = bpy.context.user_preferences
 		addon_prefs = user_preferences.addons[__package__].preferences	
 		
-		active_grouptype = armature.grouptypelist[armature.active_grouptype]
+		jueg_active_grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype]
 		
 		row = layout.row()
-		row.template_list("POSE_UL_jueg_opslist", "", active_grouptype, "ops_display", active_grouptype, "active_ops")
+		row.template_list("POSE_UL_jueg_opslist", "", jueg_active_grouptype, "ops_display", jueg_active_grouptype, "active_ops")
 		
 		col = row.column()
 		row = col.column(align=True)
@@ -144,12 +144,12 @@ class POSE_PT_jueg_opslist(bpy.types.Panel):
 		sub.operator("pose.jueg_ops_add", icon="ZOOMIN", text="")
 		sub = row.row(align=True)
 		sub.operator("pose.jueg_ops_remove", icon="ZOOMOUT", text="")
-		sub.enabled = [e for i,e in enumerate(addon_prefs.extragroups_ops) if e.id == armature.grouptypelist[armature.active_grouptype].ops_display[armature.grouptypelist[armature.active_grouptype].active_ops].id][0].user_defined
+		sub.enabled = [e for i,e in enumerate(addon_prefs.extragroups_ops) if e.id == armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_ops].id][0].user_defined
 		row = col.column(align=True)
 		row.separator()
 		row.operator("pose.jueg_operator_move", icon='TRIA_UP', text="").direction = 'UP'
 		row.operator("pose.jueg_operator_move", icon='TRIA_DOWN', text="").direction = 'DOWN'
-		if len(armature.grouptypelist[armature.active_grouptype].ops_display) == 0:
+		if len(armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display) == 0:
 			row.enabled = False
 				
 class POSE_PT_jueg_opsdetail(bpy.types.Panel):
@@ -164,8 +164,8 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 		return (context.object and
 				context.object.type == 'ARMATURE' and
 				context.mode == 'POSE'  
-				and len(context.active_object.grouptypelist) > 0
-				and len(context.active_object.grouptypelist[context.active_object.active_grouptype].ops_display) > 0
+				and len(context.active_object.jueg_grouptypelist) > 0
+				and len(context.active_object.jueg_grouptypelist[context.active_object.jueg_active_grouptype].ops_display) > 0
 				and len(addon_prefs.extragroups_ops) != 0 )
 				
 	def draw(self, context):
@@ -174,9 +174,9 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 		user_preferences = bpy.context.user_preferences
 		addon_prefs = user_preferences.addons[__package__].preferences	
 
-		active_grouptype = armature.grouptypelist[armature.active_grouptype]
-		ops = [e for i,e in enumerate(addon_prefs.extragroups_ops) if e.id == active_grouptype.ops_display[active_grouptype.active_ops].id][0]
-		ops_display = active_grouptype.ops_display[active_grouptype.active_ops]
+		jueg_active_grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype]
+		ops = [e for i,e in enumerate(addon_prefs.extragroups_ops) if e.id == jueg_active_grouptype.ops_display[jueg_active_grouptype.active_ops].id][0]
+		ops_display = jueg_active_grouptype.ops_display[jueg_active_grouptype.active_ops]
 		
 		row = layout.row()
 		row.prop(ops, "name", text="Name")

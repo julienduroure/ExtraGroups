@@ -36,13 +36,13 @@ class POSE_UL_jueg_bonegroup(bpy.types.UIList):
 			layout.prop(item, "name", text="", emboss=False)
 				
 			#loop on ops from this group type
-			for ope in armature.grouptypelist[armature.active_grouptype].ops_display:
+			for ope in armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display:
 				ops = [e for i,e in enumerate(addon_prefs.extragroups_ops) if e.id == ope.id][0]
 				try:
 					if ope.display == False:
 						continue
 					#retrieve on_off
-					for on_off_item in armature.grouptypelist[armature.active_grouptype].group_ids[index].on_off:
+					for on_off_item in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[index].on_off:
 					
 						if on_off_item.id == ops.id:
 							on_off = on_off_item.on_off
@@ -74,7 +74,7 @@ class POSE_UL_jueg_opslist(bpy.types.UIList):
 		armature = context.object
 		user_preferences = bpy.context.user_preferences
 		addon_prefs = user_preferences.addons[__package__].preferences	
-		active_grouptype = armature.grouptypelist[armature.active_grouptype]
+		jueg_active_grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype]
 		ops = [e for i,e in enumerate(addon_prefs.extragroups_ops) if e.id == item.id][0]
 		if self.layout_type in {'DEFAULT', 'COMPACT'}:
 			if ops.user_defined == True:
