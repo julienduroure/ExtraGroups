@@ -27,7 +27,7 @@ bl_info = {
 	"blender": (2, 77, 0),
 	"description": "Extra Groups Tools",
 	"location": "Toolshelf > Extra Groups Tab",
-	"wiki_url": "http://julienduroure.com/extragroups/",
+	"wiki_url": "http://blerifa.com/tools/ExtraGroups/",
 	"tracker_url": "https://github.com/julienduroure/extragroups",
 	"category": "Animation"
 }
@@ -103,3 +103,4 @@ def unregister():
 	
 if __name__ == "__main__":
     register()
+
