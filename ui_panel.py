@@ -94,13 +94,14 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 			if len(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids) == 0:
 				row.enabled = False
 		
-			row = col.column(align=True)
-			row.separator()
-			row.operator("pose.jueg_bonegroup_assign", icon_value=pcoll["bonegroup_assign"].icon_id, text="")
-			row.operator("pose.jueg_bonegroup_bone_remove", icon_value=pcoll["bonegroup_remove"].icon_id, text="")
+			if armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup].current_selection == False:
+				row = col.column(align=True)
+				row.separator()
+				row.operator("pose.jueg_bonegroup_assign", icon_value=pcoll["bonegroup_assign"].icon_id, text="")
+				row.operator("pose.jueg_bonegroup_bone_remove", icon_value=pcoll["bonegroup_remove"].icon_id, text="")
 		
-			if len(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids) == 0:
-				row.enabled = False
+				if len(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids) == 0:
+					row.enabled = False
 
 			row = layout.row()
 			row.operator("pose.jueg_bonegroup_add", text="Add Dynamic Selection").dyn_selection = True
