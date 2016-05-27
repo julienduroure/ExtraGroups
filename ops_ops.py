@@ -166,6 +166,52 @@ class POSE_OT_jueg_ops_remove(bpy.types.Operator):
 		return {'FINISHED'}
 		
 		
+class POSE_OT_jueg_update_to_new_addon_version(bpy.types.Operator):
+	"""Update data to new addon version"""
+	bl_idname = "pose.jueg_update_new_addon_version"
+	bl_label = "Update data to new addon version"
+	bl_options = {'REGISTER'}	
+
+	@classmethod
+	def poll(self, context):
+		return (context.object and
+			context.object.type == 'ARMATURE' and
+			context.mode == 'POSE'
+			and check_new_default_ops_in_new_addon_version() == True)
+			
+	def execute(self, context):
+		for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
+			if len(obj.jueg_extragroups_ops) > 0:
+				for id in get_default_ops_id().keys():
+					if id not in [ops.id for ops in obj.jueg_extragroups_ops if ops.user_defined == False]:
+						new_ops = obj.jueg_extragroups_ops.add()
+						new_ops.name     = get_default_ops_id()[id]["name"]
+						new_ops.id       = id
+						new_ops.ops_type = get_default_ops_id()[id]["ops_type"]
+						new_ops.ops_exe  = get_default_ops_id()[id]["ops_exe"]
+						new_ops.icon_on = get_default_ops_id()[id]["icon_on"]
+						new_ops.icon_off = get_default_ops_id()[id]["icon_off"]
+						new_ops.ok_for_current_sel = get_default_ops_id()[id]["ok_for_current_sel"]
+						new_ops.display = get_default_ops_id()[id]["display"]
+						new_ops.user_defined = get_default_ops_id()[id]["user_defined"]
+						
+						
+						#now add display info on each grouptype
+						for grouptype in obj.jueg_grouptypelist:
+							ope = grouptype.ops_display.add()
+							ope.id = new_ops.id
+							ope.display = False
+		
+						#now add on/off for each existing bone group of each type
+						for grouptype in obj.jueg_grouptypelist:
+							bonegroups = grouptype.group_ids
+							for group in bonegroups:
+								new_ = group.on_off.add()
+								new_.id = new_ops.id
+								new_.on_off = True
+								
+		return {'FINISHED'}
+		
 class POSE_OT_jueg_reload_linked_data(bpy.types.Operator):
 	"""Reload data from linked armature"""
 	bl_idname = "pose.jueg_reload_linked_data"
@@ -339,6 +385,7 @@ def register():
 	bpy.utils.register_class(POSE_OT_jueg_ImportOps)
 	bpy.utils.register_class(POSE_OT_jueg_dummy)
 	bpy.utils.register_class(POSE_OT_jueg_reload_linked_data)
+	bpy.utils.register_class(POSE_OT_jueg_update_to_new_addon_version)
 	
 def unregister():
 	bpy.utils.unregister_class(POSE_OT_jueg_ops_add)
@@ -348,3 +395,4 @@ def unregister():
 	bpy.utils.unregister_class(POSE_OT_jueg_ImportOps)
 	bpy.utils.unregister_class(POSE_OT_jueg_dummy)
 	bpy.utils.unregister_class(POSE_OT_jueg_reload_linked_data)
+	bpy.utils.unregister_class(POSE_OT_jueg_update_to_new_addon_version)

@@ -92,7 +92,7 @@ def check_new_default_ops_in_new_addon_version():
 			for def_ops in get_default_ops_id().keys():
 				if def_ops not in [ops.id for ops in obj.jueg_extragroups_ops if ops.user_defined == False]:
 					return True
-				
+
 			return False
 	
 def get_default_ops_id():
@@ -148,15 +148,15 @@ def get_default_ops_id():
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['display'] = False
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['user_defined'] = False
 	
-	dict_['9d5257bf3d6245afacabb452bf7a455e'] = {}
-	dict_['9d5257bf3d6245afacabb452bf7a455e']['name'] = "Magic Select"
-	dict_['9d5257bf3d6245afacabb452bf7a455e']['ops_type'] = 'EXE'
-	dict_['9d5257bf3d6245afacabb452bf7a455e']['ops_exe'] = "pose.jueg_magic_select"
-	dict_['9d5257bf3d6245afacabb452bf7a455e']['icon_on'] = "HAND"
-	dict_['9d5257bf3d6245afacabb452bf7a455e']['icon_off'] = ""
-	dict_['9d5257bf3d6245afacabb452bf7a455e']['ok_for_current_sel'] = False
-	dict_['9d5257bf3d6245afacabb452bf7a455e']['display'] = False
-	dict_['9d5257bf3d6245afacabb452bf7a455e']['user_defined'] = False
+	dict_['8102ad699e6d4af8a8f511e1283b995e'] = {}
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['name'] = "Magic Select"
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['ops_type'] = 'EXE'
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['ops_exe'] = "pose.jueg_magic_select"
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['icon_on'] = "HAND"
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['icon_off'] = ""
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['ok_for_current_sel'] = False
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['display'] = False
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['user_defined'] = False
 	
 	return dict_
 		
