@@ -97,6 +97,16 @@ class POSE_OT_jueg_ops_add(bpy.types.Operator):
 				exec(script.as_string() + "\nregister()\n", {})
 			
 			
+			#now add ops info on each object
+			for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
+				new_ops = obj.jueg_extragroups_ops.add()
+				new_ops.id = ops.id
+				new_ops.name = ops.name
+				new_ops.ops_exe = ops.ops_exe
+				new_ops.ops_type = ops.ops_type
+				new_ops.display = ops.display
+				new_ops.user_defined = ops.user_defined
+			
 			#now add display info on each grouptype
 			for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
 				for grouptype in obj.jueg_grouptypelist:
