@@ -238,4 +238,4 @@ def unregister():
 	bpy.utils.unregister_class(POSE_PT_jueg_bonegroup)
 	bpy.utils.unregister_class(POSE_PT_jueg_opslist)
 	bpy.utils.unregister_class(POSE_PT_jueg_opsdetail)
-	bpy.utils.unegister_class(POSE_PT_jueg_reloaddata)
+	bpy.utils.unregister_class(POSE_PT_jueg_reloaddata)
