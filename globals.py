@@ -91,7 +91,6 @@ def check_new_default_ops_in_new_addon_version():
 		if len(obj.jueg_extragroups_ops) > 0:
 			for def_ops in get_default_ops_id():
 				if def_ops not in [ops.id for ops in obj.jueg_extragroups_ops if ops.user_defined == False]:
-					print("New!")
 					return True
 				
 			return False
@@ -110,10 +109,8 @@ def init_default_ops(armature):
 
 	#first check if some objects have already data
 	for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
-		print("check in object " + obj.name)
 		if obj.jueg_extragroups_ops and len(obj.jueg_extragroups_ops) > 0:
 			for ops_src in obj.jueg_extragroups_ops:
-				print("add " + ops_src.name)
 				ops = armature.jueg_extragroups_ops.add()
 				ops.id   = ops_src.id 
 				ops.name = ops_src.name
@@ -128,7 +125,6 @@ def init_default_ops(armature):
 			return True
 		
 	#if no data found, init with default ops
-	print("nothing found")
 	ops = armature.jueg_extragroups_ops.add()
 	ops.name = "Select Only"
 	ops.id = "bf258537303e41529b5adb4e3af6ed43"
