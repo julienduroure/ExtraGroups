@@ -80,7 +80,7 @@ def check_if_current_selection_exists():
 	return False
 	
 def lib_proxy_armature():
-	if bpy.context.object.data.library == None:
+	if bpy.context.object and bpy.context.object.data.library == None:
 		return False, ""
 	else:
 		return True, bpy.context.object.data.library.filepath
