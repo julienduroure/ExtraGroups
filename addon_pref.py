@@ -35,11 +35,13 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 		row_global = layout.row()
 
 		col = row_global.column()
-		row = col.row()
-		row.label("Mode")
 		row_ = col.row()
 		box = row_.box()
-		box.prop(self, "edit_mode", text="Edit Mode")
+		row = box.row()
+		row.prop(self, "edit_mode", text="Edit Mode")
+		row = box.row()
+		if check_new_default_ops_in_new_addon_version() == True:
+			row.label("Need update")
 		
 		col = row_global.column()
 		row = col.row()

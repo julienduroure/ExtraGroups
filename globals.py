@@ -86,6 +86,26 @@ def lib_proxy_armature():
 	else:
 		return True, bpy.context.active_object.data.library.filepath
 		
+def check_new_default_ops_in_new_addon_version():
+	for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
+		if len(obj.jueg_extragroups_ops) > 0:
+			for def_ops in get_default_ops_id():
+				if def_ops not in [ops.id for ops in obj.jueg_extragroups_ops if ops.user_defined == False]:
+					print("New!")
+					return True
+				
+			return False
+	
+def get_default_ops_id():
+	return [
+'bf258537303e41529b5adb4e3af6ed43',
+'fbd9a8fc639a4074bbd56f7be35e4690',
+'f31027b2b65d4a90b610281ea09f08fb',
+'b9eac1a0a2fd4dcd94140d05a6a3af86',
+'9d5257bf3d6245afacabb452bf7a455e',
+'c0750ec87f8d41a99255ea2c664651e4',
+]
+		
 def init_default_ops(armature):
 
 	#first check if some objects have already data
