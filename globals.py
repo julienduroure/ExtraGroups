@@ -89,21 +89,76 @@ def lib_proxy_armature():
 def check_new_default_ops_in_new_addon_version():
 	for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
 		if len(obj.jueg_extragroups_ops) > 0:
-			for def_ops in get_default_ops_id():
+			for def_ops in get_default_ops_id().keys():
 				if def_ops not in [ops.id for ops in obj.jueg_extragroups_ops if ops.user_defined == False]:
 					return True
 				
 			return False
 	
 def get_default_ops_id():
-	return [
-'bf258537303e41529b5adb4e3af6ed43',
-'fbd9a8fc639a4074bbd56f7be35e4690',
-'f31027b2b65d4a90b610281ea09f08fb',
-'b9eac1a0a2fd4dcd94140d05a6a3af86',
-'9d5257bf3d6245afacabb452bf7a455e',
-'c0750ec87f8d41a99255ea2c664651e4',
-]
+
+	dict_ = {}
+	dict_['bf258537303e41529b5adb4e3af6ed43'] = {}
+	dict_['bf258537303e41529b5adb4e3af6ed43']['name'] = "Select Only"
+	dict_['bf258537303e41529b5adb4e3af6ed43']['ops_type'] = 'EXE'
+	dict_['bf258537303e41529b5adb4e3af6ed43']['ops_exe'] = "pose.jueg_selectonly"
+	dict_['bf258537303e41529b5adb4e3af6ed43']['icon_on'] = "HAND"
+	dict_['bf258537303e41529b5adb4e3af6ed43']['icon_off'] = ""
+	dict_['bf258537303e41529b5adb4e3af6ed43']['ok_for_current_sel'] = False
+	dict_['bf258537303e41529b5adb4e3af6ed43']['display'] = False
+	dict_['bf258537303e41529b5adb4e3af6ed43']['user_defined'] = False
+	
+	dict_['fbd9a8fc639a4074bbd56f7be35e4690'] = {}
+	dict_['fbd9a8fc639a4074bbd56f7be35e4690']['name'] = "Add to selection"
+	dict_['fbd9a8fc639a4074bbd56f7be35e4690']['ops_type'] = 'EXE'
+	dict_['fbd9a8fc639a4074bbd56f7be35e4690']['ops_exe'] = "pose.jueg_selectonly"
+	dict_['fbd9a8fc639a4074bbd56f7be35e4690']['icon_on'] = "HAND"
+	dict_['fbd9a8fc639a4074bbd56f7be35e4690']['icon_off'] = ""
+	dict_['fbd9a8fc639a4074bbd56f7be35e4690']['ok_for_current_sel'] = False
+	dict_['fbd9a8fc639a4074bbd56f7be35e4690']['display'] = False
+	dict_['fbd9a8fc639a4074bbd56f7be35e4690']['user_defined'] = False
+	
+	dict_['f31027b2b65d4a90b610281ea09f08fb'] = {}
+	dict_['f31027b2b65d4a90b610281ea09f08fb']['name'] = "Mute"
+	dict_['f31027b2b65d4a90b610281ea09f08fb']['ops_type'] = 'BOOL'
+	dict_['f31027b2b65d4a90b610281ea09f08fb']['ops_exe'] = "pose.jueg_bonemute"
+	dict_['f31027b2b65d4a90b610281ea09f08fb']['icon_on'] = "MUTE_IPO_OFF"
+	dict_['f31027b2b65d4a90b610281ea09f08fb']['icon_off'] = "MUTE_IPO_ON"
+	dict_['f31027b2b65d4a90b610281ea09f08fb']['ok_for_current_sel'] = True
+	dict_['f31027b2b65d4a90b610281ea09f08fb']['display'] = False
+	dict_['f31027b2b65d4a90b610281ea09f08fb']['user_defined'] = False
+	
+	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86'] = {}
+	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['name'] = "Toggle Visibility"
+	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['ops_type'] = 'BOOL'
+	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['ops_exe'] = "pose.jueg_change_visibility"
+	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['icon_on'] = "VISIBLE_IPO_ON"
+	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['icon_off'] = "VISIBLE_IPO_OFF"
+	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['ok_for_current_sel'] = False
+	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['display'] = False
+	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['user_defined'] = False
+	
+	dict_['9d5257bf3d6245afacabb452bf7a455e'] = {}
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['name'] = "Restrict/Allow Selection"
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['ops_type'] = 'BOOL'
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['ops_exe'] = "pose.jueg_restrict_select"
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['icon_on'] = "RESTRICT_SELECT_OFF"
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['icon_off'] = "RESTRICT_SELECT_ON"
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['ok_for_current_sel'] = True
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['display'] = False
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['user_defined'] = False
+	
+	dict_['9d5257bf3d6245afacabb452bf7a455e'] = {}
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['name'] = "Magic Select"
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['ops_type'] = 'EXE'
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['ops_exe'] = "pose.jueg_magic_select"
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['icon_on'] = "HAND"
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['icon_off'] = ""
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['ok_for_current_sel'] = False
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['display'] = False
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['user_defined'] = False
+	
+	return dict_
 		
 def init_default_ops(armature):
 
@@ -125,67 +180,19 @@ def init_default_ops(armature):
 			return True
 		
 	#if no data found, init with default ops
-	ops = armature.jueg_extragroups_ops.add()
-	ops.name = "Select Only"
-	ops.id = "bf258537303e41529b5adb4e3af6ed43"
-	ops.ops_type = 'EXE'
-	ops.ops_exe   = "pose.jueg_selectonly"
-	ops.icon_on  = "HAND"
-	ops.ok_for_current_sel = False
-	ops.display = False
-	ops.user_defined = False
-	ops = armature.jueg_extragroups_ops.add() 
-	ops.name = "Add to selection"
-	ops.id = "fbd9a8fc639a4074bbd56f7be35e4690"
-	ops.ops_type = 'EXE'
-	ops.ops_exe   = "pose.jueg_addtoselection"
-	ops.icon_on  = "ZOOMIN"
-	ops.ok_for_current_sel = False
-	ops.display = False
-	ops.user_defined = False
-	ops = armature.jueg_extragroups_ops.add()  
-	ops.name = "Mute"
-	ops.id = "f31027b2b65d4a90b610281ea09f08fb"
-	ops.ops_type = 'BOOL'
-	ops.ops_exe   = "pose.jueg_bonemute"
-	ops.icon_on  = "MUTE_IPO_OFF"
-	ops.icon_off  = "MUTE_IPO_ON"
-	ops.ok_for_current_sel = True
-	ops.display = False
-	ops.user_defined = False
-	ops = armature.jueg_extragroups_ops.add()   
-	ops.name = "Toggle Visibility"
-	ops.id = "b9eac1a0a2fd4dcd94140d05a6a3af86"
-	ops.ops_type = 'BOOL'
-	ops.ops_exe   = "pose.jueg_change_visibility"
-	ops.icon_on  = "VISIBLE_IPO_ON"
-	ops.icon_off  = "VISIBLE_IPO_OFF"
-	ops.ok_for_current_sel = False
-	ops.display = False
-	ops.user_defined = False
-	ops = armature.jueg_extragroups_ops.add()   
-	ops.name = "Restrict/Allow Selection"
-	ops.id = "9d5257bf3d6245afacabb452bf7a455e"
-	ops.ops_type = 'BOOL'
-	ops.ops_exe   = "pose.jueg_restrict_select"
-	ops.icon_on  = "RESTRICT_SELECT_OFF"
-	ops.icon_off  = "RESTRICT_SELECT_ON"
-	ops.ok_for_current_sel = True
-	ops.display = False
-	ops.user_defined = False
-	copy_data_ops(armature, 0)
-	ops = armature.jueg_extragroups_ops.add()   
-	ops.name = "Magic Select"
-	ops.id = "c0750ec87f8d41a99255ea2c664651e4"
-	ops.ops_type = 'EXE'
-	ops.ops_exe   = "pose.jueg_magic_select"
-	ops.icon_on  = "HAND"
-	ops.icon_off  = "HAND"
-	ops.ok_for_current_sel = False
-	ops.display = False
-	ops.user_defined = False
-	copy_data_ops(armature, 0)
-	
+	for id in get_default_ops_id().keys():
+		ops = armature.jueg_extragroups_ops.add()
+		ops.name     = get_default_ops_id()[id]["name"]
+		ops.id       = id
+		ops.ops_type = get_default_ops_id()[id]["ops_type"]
+		ops.ops_exe  = get_default_ops_id()[id]["ops_exe"]
+		ops.icon_on = get_default_ops_id()[id]["icon_on"]
+		ops.icon_off = get_default_ops_id()[id]["icon_off"]
+		ops.ok_for_current_sel = get_default_ops_id()[id]["ok_for_current_sel"]
+		ops.display = get_default_ops_id()[id]["display"]
+		ops.user_defined = get_default_ops_id()[id]["user_defined"]
+
+	copy_data_ops(armature,0)
 	armature.jueg_grouptypelist[0].active_ops = len(armature.jueg_extragroups_ops) - 1
 
 def register():
