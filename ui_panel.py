@@ -213,8 +213,12 @@ class POSE_PT_jueg_reloaddata(bpy.types.Panel):
 	
 	@classmethod
 	def poll(self, context):
-		armature = context.object
-		linked, filepath = lib_proxy_armature()
+		armature = context.active_object
+		try:
+			linked, filepath = lib_proxy_armature()
+		except:
+			linked = False
+
 		return (context.object and
 				context.object.type == 'ARMATURE' and
 				context.mode == 'POSE'  
