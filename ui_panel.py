@@ -205,15 +205,37 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 			else:
 				row.label("Warning : Text doesn't exist anymore", icon="ERROR")
 		
-		
+class POSE_PT_jueg_reloaddata(bpy.types.Panel):
+	bl_label = "Reload Data"
+	bl_space_type = 'VIEW_3D'
+	bl_region_type = 'TOOLS'
+	bl_category = "Extra Groups"
+	
+	@classmethod
+	def poll(self, context):
+		armature = context.object
+		linked, filepath = lib_proxy_armature()
+		return (context.object and
+				context.object.type == 'ARMATURE' and
+				context.mode == 'POSE'  
+				and addonpref().edit_mode == True
+				and linked == True)
+				
+	def draw(self, context):
+		layout = self.layout
+		row = layout.row()
+		row.operator("pose.jueg_reload_linked_data", text="Reload data from library")
+			
 def register():
 	bpy.utils.register_class(POSE_PT_jueg_grouptype) 
 	bpy.utils.register_class(POSE_PT_jueg_bonegroup) 
 	bpy.utils.register_class(POSE_PT_jueg_opslist)
 	bpy.utils.register_class(POSE_PT_jueg_opsdetail)
+	bpy.utils.register_class(POSE_PT_jueg_reloaddata)
 	
 def unregister():
 	bpy.utils.unregister_class(POSE_PT_jueg_grouptype)
 	bpy.utils.unregister_class(POSE_PT_jueg_bonegroup)
 	bpy.utils.unregister_class(POSE_PT_jueg_opslist)
-	bpy.utils.unregister_class(POSE_PT_jueg_opsdetail) 
+	bpy.utils.unregister_class(POSE_PT_jueg_opsdetail)
+	bpy.utils.unegister_class(POSE_PT_jueg_reloaddata)

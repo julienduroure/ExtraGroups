@@ -78,6 +78,12 @@ def check_if_current_selection_exists():
 		if group.current_selection == True:
 			return True
 	return False
+	
+def lib_proxy_armature():
+	if bpy.context.object.data.library == None:
+		return False, ""
+	else:
+		return True, bpy.context.object.data.library.filepath
 		
 def init_default_ops(armature):
 	ops = armature.jueg_extragroups_ops.add()  
