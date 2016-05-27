@@ -69,9 +69,10 @@ def addonpref():
 	
 def copy_data_ops(armature,index_grouptype):
 	for ops in armature.jueg_extragroups_ops:
-		new = armature.jueg_grouptypelist[index_grouptype].ops_display.add()
-		new.id = ops.id
-		new.display = False
+		if ops.id not in [display.id for display in armature.jueg_grouptypelist[index_grouptype].ops_display]:
+			new = armature.jueg_grouptypelist[index_grouptype].ops_display.add()
+			new.id = ops.id
+			new.display = False
 		
 def check_if_current_selection_exists():
 	for group in bpy.context.object.jueg_grouptypelist[bpy.context.object.jueg_active_grouptype].group_ids:
@@ -86,7 +87,29 @@ def lib_proxy_armature():
 		return True, bpy.context.object.data.library.filepath
 		
 def init_default_ops(armature):
-	ops = armature.jueg_extragroups_ops.add()  
+
+	#first check if some objects have already data
+	for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
+		print("check in object " + obj.name)
+		if obj.jueg_extragroups_ops and len(obj.jueg_extragroups_ops) > 0:
+			for ops_src in obj.jueg_extragroups_ops:
+				print("add " + ops_src.name)
+				ops = armature.jueg_extragroups_ops.add()
+				ops.id   = ops_src.id 
+				ops.name = ops_src.name
+				ops.ops_exe = ops_src.ops_exe
+				ops.ops_type = ops_src.ops_type
+				ops.icon_on	= ops_src.icon_on
+				ops.icon_off   = ops_src.icon_off
+				ops.ok_for_current_sel = ops_src.ok_for_current_sel
+				ops.user_defined = ops_src.user_defined
+			copy_data_ops(armature, 0)
+			armature.jueg_grouptypelist[0].active_ops = len(armature.jueg_extragroups_ops) - 1
+			return True
+		
+	#if no data found, init with default ops
+	print("nothing found")
+	ops = armature.jueg_extragroups_ops.add()
 	ops.name = "Select Only"
 	ops.id = "bf258537303e41529b5adb4e3af6ed43"
 	ops.ops_type = 'EXE'
