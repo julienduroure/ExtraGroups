@@ -73,6 +73,12 @@ def copy_data_ops(armature,index_grouptype):
 		new.id = ops.id
 		new.display = False
 		
+def check_if_current_selection_exists():
+	for group in bpy.context.object.jueg_grouptypelist[bpy.context.object.jueg_active_grouptype].group_ids:
+		if group.current_selection == True:
+			return True
+	return False
+		
 def init_default_ops(armature):
 	ops = armature.jueg_extragroups_ops.add()  
 	ops.name = "Select Only"
