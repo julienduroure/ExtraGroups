@@ -372,6 +372,82 @@ class POSE_OT_jueg_restrict_select(Operator):
 				ops.on_off = not ops.on_off
 		
 		return {'FINISHED'}
+		
+		
+class POSE_OT_jueg_magic_select(Operator):
+	"""Selection : Use Shift for adding, Alt for removing, simple click to toogle selection"""
+	bl_idname = "pose.jueg_magic_select"
+	bl_label = "Magic Select"
+	
+	
+	ops_id  	 = StringProperty()
+	index   		= IntProperty()
+	
+	@classmethod
+	def poll(self, context):
+		return (context.object and
+				context.object.type == 'ARMATURE' and
+				context.mode == 'POSE')
+				
+	def invoke(self, context, event):
+		armature = context.object
+		
+		#retrieve on_off
+		on_off = False
+		found = False
+		for ops in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].on_off:
+			if ops.id == self.ops_id:
+				on_off = ops.on_off
+				found = True
+		
+		if found == False:
+			print("error")
+		
+		#check if this is a classic group or current selection
+		current_selection = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].current_selection
+		if current_selection == False:
+			#retrieve bones from group
+			bones = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].bone_ids
+		else:
+			#retrieve bones from current selection
+			bones = []
+			for bone in armature.pose.bones:
+				if bone.bone.select == True:
+					bones.append(bone)  	
+
+		type = "REPLACE"
+		if event.shift:
+			type = "ADD"
+		if event.alt:
+			type = "REMOVE"
+		
+		if type == "REPLACE":
+			for bone in armature.pose.bones:
+				bone.bone.select = False
+		
+		to_delete = []
+		idx = -1
+		for bone in bones:
+			idx = idx + 1
+			if bone.name not in armature.data.bones: #If bone no more exists
+				to_delete.append(idx)
+				continue
+			if type == "REPLACE" or type == "ADD":
+				armature.data.bones[bone.name].select = True
+			elif type == "REMOVE":
+				armature.data.bones[bone.name].select = False
+				
+		#delete bones if any
+		if len(to_delete) > 0:
+			for i in to_delete:
+				armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].bone_ids.remove(i)
+		 
+		 #switch on/off
+		for ops in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].on_off:
+			if ops.id == self.ops_id:
+				ops.on_off = not ops.on_off
+		
+		return {'FINISHED'}
 	
 def register():
 	bpy.utils.register_class(POSE_OT_jueg_changevisibility)
@@ -379,6 +455,7 @@ def register():
 	bpy.utils.register_class(POSE_OT_jueg_selectonly)
 	bpy.utils.register_class(POSE_OT_jueg_bonemute)
 	bpy.utils.register_class(POSE_OT_jueg_restrict_select)
+	bpy.utils.register_class(POSE_OT_jueg_magic_select)
 	
 	
 def unregister():
@@ -387,6 +464,7 @@ def unregister():
 	bpy.utils.unregister_class(POSE_OT_jueg_selectonly)
 	bpy.utils.unregister_class(POSE_OT_jueg_bonemute)
 	bpy.utils.unregister_class(POSE_OT_jueg_restrict_select)
+	bpy.utils.unregister_class(POSE_OT_jueg_magic_select)
 	
 	
 	

@@ -135,6 +135,18 @@ def init_default_ops(armature):
 	ops.display = False
 	ops.user_defined = False
 	copy_data_ops(armature, 0)
+	ops = armature.jueg_extragroups_ops.add()   
+	ops.name = "Magic Select"
+	ops.id = "c0750ec87f8d41a99255ea2c664651e4"
+	ops.ops_type = 'EXE'
+	ops.ops_exe   = "pose.jueg_magic_select"
+	ops.icon_on  = "HAND"
+	ops.icon_off  = "HAND"
+	ops.ok_for_current_sel = False
+	ops.display = False
+	ops.user_defined = False
+	copy_data_ops(armature, 0)
+	
 	armature.jueg_grouptypelist[0].active_ops = len(armature.jueg_extragroups_ops) - 1
 
 def register():
