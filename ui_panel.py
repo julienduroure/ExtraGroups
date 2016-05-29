@@ -190,10 +190,26 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 		row.prop(ops, "ops_exe", text="Operator")
 		row.enabled = ops.user_defined
 		row = layout.row()
-		row.prop(ops, "icon_on", text="Icon On")
+		col = row.column()
+		row_ = col.row()
+		row_.prop(ops, "icon_on", text="Icon On")
+		col = row.column()
+		row_ = col.row()
+		try:
+			row_.label(text="", icon=ops.icon_on)
+		except:
+			row_.label(text="", icon='QUESTION')
 		if ops.ops_type == "BOOL":
 			row = layout.row()
-			row.prop(ops, "icon_off", text="Icon Off")
+			col = row.column()
+			row_ = col.row()
+			row_.prop(ops, "icon_off", text="Icon Off")
+			col = row.column()
+			row_ = col.row()
+			try:
+				row_.label(text="", icon=ops.icon_off)
+			except:
+				row_.label(text="", icon='QUESTION')
 		row = layout.row()
 		row.prop(ops, "ok_for_current_sel", text="Enabled for Current Selection")
 		row.enabled = ops.user_defined
