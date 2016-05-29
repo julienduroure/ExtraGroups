@@ -361,6 +361,32 @@ class POSE_OT_jueg_ImportOps(bpy.types.Operator, bpy_extras.io_utils.ExportHelpe
     
     def execute(self, context):
         return read_operator(context, self.filepath)
+
+class POSE_OT_jueg_select_icon(bpy.types.Operator):
+	"""Select icon"""
+	bl_idname = "jueg.select_icon"
+	bl_label  = "Select Icon"
+
+	icon_type = bpy.props.StringProperty(name="icon on or off")
+	icon      = bpy.props.StringProperty(name="icon")
+	
+	@classmethod
+	def poll(self, context):
+		return True
+
+	def execute(self, context):
+		armature = context.object
+		jueg_active_grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype]
+		ops = [e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == jueg_active_grouptype.ops_display[jueg_active_grouptype.active_ops].id][0]
+
+		if self.icon_type == "icon_on":
+			ops.icon_on =  self.icon
+			ops.icons.icon_on.expand = False
+		elif self.icon_type == "icon_off":
+			ops.icon_off =  self.icon
+			ops.icons.icon_off.expand = False
+
+		return {'FINISHED'}
 		
 class POSE_OT_jueg_dummy(bpy.types.Operator):
 	bl_idname = "pose.jueg_dummy"
@@ -386,6 +412,7 @@ def register():
 	bpy.utils.register_class(POSE_OT_jueg_dummy)
 	bpy.utils.register_class(POSE_OT_jueg_reload_linked_data)
 	bpy.utils.register_class(POSE_OT_jueg_update_to_new_addon_version)
+	bpy.utils.register_class(POSE_OT_jueg_select_icon)
 	
 def unregister():
 	bpy.utils.unregister_class(POSE_OT_jueg_ops_add)
@@ -396,3 +423,4 @@ def unregister():
 	bpy.utils.unregister_class(POSE_OT_jueg_dummy)
 	bpy.utils.unregister_class(POSE_OT_jueg_reload_linked_data)
 	bpy.utils.unregister_class(POSE_OT_jueg_update_to_new_addon_version)
+	bpy.utils.unregister_class(POSE_OT_jueg_select_icon)

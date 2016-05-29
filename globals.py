@@ -52,6 +52,15 @@ jueg_ops_type_items = [
 	("EXE", "Exec", "", 2),
 	]
 
+class OpsDetails_IconProp(bpy.types.PropertyGroup):
+	expand = bpy.props.BoolProperty(name="Expand", description="Expand, to display all icons at once", default=False)
+	search = bpy.props.StringProperty(name="Search", description="Search for icons by name", default="")
+
+class OpsDetails_DisplayProp(bpy.types.PropertyGroup):
+	icon_on  = bpy.props.PointerProperty(type=OpsDetails_IconProp)
+	icon_off = bpy.props.PointerProperty(type=OpsDetails_IconProp)
+	amount   = bpy.props.IntProperty(default=10)
+
 class Jueg_OpsItem(bpy.types.PropertyGroup):
 	id   = bpy.props.StringProperty(name="Unique id")
 	name = bpy.props.StringProperty(name="Ops Name")
@@ -61,6 +70,9 @@ class Jueg_OpsItem(bpy.types.PropertyGroup):
 	icon_off   = bpy.props.StringProperty(name="Icon Off")
 	ok_for_current_sel = bpy.props.BoolProperty()
 	user_defined = bpy.props.BoolProperty()
+	icons = bpy.props.PointerProperty(type=OpsDetails_DisplayProp)
+
+
 	
 #shortcut to prefs
 def addonpref():
@@ -195,13 +207,30 @@ def init_default_ops(armature):
 	copy_data_ops(armature,0)
 	armature.jueg_grouptypelist[0].active_ops = len(armature.jueg_extragroups_ops) - 1
 
+def get_all_icons():
+	icons = bpy.types.UILayout.bl_rna.functions['prop'].parameters['icon'].enum_items.keys()
+	icons.remove("NONE")
+	return icons
+
+def get_filter_icons(search):
+	icons = get_all_icons()
+	if search == "":
+		pass
+	else:
+		icons = [key for key in icons if search in key.lower()]
+
+	return icons
+
 def register():
 	bpy.utils.register_class(Jueg_OnOffEntry)
 	bpy.utils.register_class(Jueg_BoneEntry)
 	bpy.utils.register_class(Jueg_BoneGroup)
 	bpy.utils.register_class(Jueg_OpsDisplay)
 	bpy.utils.register_class(Jueg_GroupType)
+	bpy.utils.register_class(OpsDetails_IconProp)
+	bpy.utils.register_class(OpsDetails_DisplayProp)
 	bpy.utils.register_class(Jueg_OpsItem)
+
 	
 def unregister():
 	bpy.utils.unregister_class(Jueg_OnOffEntry)
@@ -210,3 +239,5 @@ def unregister():
 	bpy.utils.unregister_class(Jueg_OpsDisplay)
 	bpy.utils.unregister_class(Jueg_GroupType)
 	bpy.utils.unregister_class(Jueg_OpsItem)
+	bpy.utils.unregister_class(OpsDetails_IconProp)
+	bpy.utils.unregister_class(OpsDetails_DisplayProp)

@@ -196,24 +196,58 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 		row = box.row()
 		col = row.column()
 		row_ = col.row()
-		row_.prop(ops, "icon_on", text="Icon On")
-		col = row.column()
-		row_ = col.row()
-		try:
-			row_.label(text="", icon=ops.icon_on)
-		except:
-			row_.label(text="", icon='QUESTION')
+		if ops.icons.icon_on.expand == False:
+			row_.prop(ops.icons.icon_on, "expand", icon="TRIA_RIGHT", icon_only=True, emboss=False)
+			row_.prop(ops, "icon_on", text="Icon On")
+			col = row.column()
+			row_ = col.row()
+			try:
+				row_.label(text="", icon=ops.icon_on)
+			except:
+				row_.label(text="", icon='QUESTION')
+		else:
+			row_.prop(ops.icons.icon_on, "expand", icon="TRIA_DOWN", icon_only=True, emboss=False)
+			row_.prop(ops.icons.icon_on, "search", icon="VIEWZOOM", text="")
+			row_ = col.row()
+			if len(get_filter_icons(ops.icons.icon_on.search)) == 0:
+				row_.label("No icons found")
+			else:
+				for i, icon in enumerate(get_filter_icons(ops.icons.icon_on.search)):
+					if i % ops.icons.amount == 0:
+						row_ = col.row()
+					op = row_.operator("jueg.select_icon", text=" ", icon=icon, emboss=False)
+					op.icon_type = "icon_on"
+					op.icon = icon
+				for i in range(ops.icons.amount - len(get_filter_icons(ops.icons.icon_on.search)) % ops.icons.amount):
+					row_.label("")
 		if ops.ops_type == "BOOL":
 			row = box.row()
 			col = row.column()
 			row_ = col.row()
-			row_.prop(ops, "icon_off", text="Icon Off")
-			col = row.column()
-			row_ = col.row()
-			try:
-				row_.label(text="", icon=ops.icon_off)
-			except:
-				row_.label(text="", icon='QUESTION')
+			if ops.icons.icon_off.expand == False:
+				row_.prop(ops.icons.icon_off, "expand", icon="TRIA_RIGHT", icon_only=True, emboss=False)
+				row_.prop(ops, "icon_off", text="Icon Off")
+				col = row.column()
+				row_ = col.row()
+				try:
+					row_.label(text="", icon=ops.icon_off)
+				except:
+					row_.label(text="", icon='QUESTION')
+			else:
+				row_.prop(ops.icons.icon_off, "expand", icon="TRIA_DOWN", icon_only=True, emboss=False)
+				row_.prop(ops.icons.icon_off, "search", icon="VIEWZOOM", text="")
+				row_ = col.row()
+				if len(get_filter_icons(ops.icons.icon_off.search)) == 0:
+					row_.label("No icons found")
+				else:
+					for i, icon in enumerate(get_filter_icons(ops.icons.icon_off.search)):
+						if i % ops.icons.amount == 0:
+							row_ = col.row()
+						op = row_.operator("jueg.select_icon", text=" ", icon=icon, emboss=False)
+						op.icon_type = "icon_off"
+						op.icon = icon
+					for i in range(ops.icons.amount - len(get_filter_icons(ops.icons.icon_off.search)) % ops.icons.amount):
+						row_.label("")
 		row_global = layout.row()
 		row_global.prop(ops, "ok_for_current_sel", text="Enabled for 'Dynamic Selection'")
 		row_global.enabled = ops.user_defined
