@@ -181,15 +181,19 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 		ops = [e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == jueg_active_grouptype.ops_display[jueg_active_grouptype.active_ops].id][0]
 		ops_display = jueg_active_grouptype.ops_display[jueg_active_grouptype.active_ops]
 		
-		row = layout.row()
+		row_global = layout.row()
+		box = row_global.box()
+		row = box.row()
 		row.prop(ops, "name", text="Name")
-		row = layout.row()
+		row = box.row()
 		row.prop(ops, "ops_type", text="Type")
 		row.enabled = ops.user_defined
-		row = layout.row()
+		row = box.row()
 		row.prop(ops, "ops_exe", text="Operator")
 		row.enabled = ops.user_defined
-		row = layout.row()
+		row_global = layout.row()
+		box = row_global.box()
+		row = box.row()
 		col = row.column()
 		row_ = col.row()
 		row_.prop(ops, "icon_on", text="Icon On")
@@ -200,7 +204,7 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 		except:
 			row_.label(text="", icon='QUESTION')
 		if ops.ops_type == "BOOL":
-			row = layout.row()
+			row = box.row()
 			col = row.column()
 			row_ = col.row()
 			row_.prop(ops, "icon_off", text="Icon Off")
@@ -210,16 +214,16 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 				row_.label(text="", icon=ops.icon_off)
 			except:
 				row_.label(text="", icon='QUESTION')
-		row = layout.row()
-		row.prop(ops, "ok_for_current_sel", text="Enabled for Current Selection")
-		row.enabled = ops.user_defined
+		row_global = layout.row()
+		row_global.prop(ops, "ok_for_current_sel", text="Enabled for 'Dynamic Selection'")
+		row_global.enabled = ops.user_defined
 		if ops.user_defined == True:
-			row = layout.row()
+			row_global = layout.row()
 			file_ = ops.id + ".py"
 			if file_ in bpy.data.texts:
-				row.operator("pose.jueg_text_display", text="Edit Source").text_id = file_
+				row_global.operator("pose.jueg_text_display", text="Edit Source").text_id = file_
 			else:
-				row.label("Warning : Text doesn't exist anymore", icon="ERROR")
+				row_global.label("Warning : Text doesn't exist anymore", icon="ERROR")
 		
 class POSE_PT_jueg_reloaddata(bpy.types.Panel):
 	bl_label = "Reload Data"
