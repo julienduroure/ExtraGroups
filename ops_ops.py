@@ -199,22 +199,60 @@ class POSE_OT_jueg_update_to_new_addon_version(bpy.types.Operator):
 
 						#now add display info on each grouptype
 						for grouptype in obj.jueg_grouptypelist:
+							print("\t\t" +grouptype.name)
 							ope = grouptype.ops_display.add()
 							ope.id = new_ops.id
 							ope.display = False
 
 						#now add on/off for each existing bone group of each type
 						for grouptype in obj.jueg_grouptypelist:
+							print("\t\t" +grouptype.name)
 							bonegroups = grouptype.group_ids
 							for group in bonegroups:
+								print("\t\t\t" +group.name)
 								new_ = group.on_off.add()
 								new_.id = new_ops.id
 								new_.on_off = True
 
+				to_delete = []
 				for ope in [ops for ops in obj.jueg_extragroups_ops if ops.user_defined == False]:
 					if ope.id not in get_default_ops_id().keys():
 						#This operator is now deleted, remove data
-						pass #TODO
+						for grouptype in obj.jueg_grouptypelist:
+							context.scene.display_save.clear()
+							for ops_display in grouptype.ops_display:
+								new_ = context.scene.display_save.add()
+								new_.id = ops_display.id
+								new_.display = ops_display.display
+							grouptype.ops_display.clear()
+							for disp in context.scene.display_save:
+								if disp.id != ope.id:
+									new_ = grouptype.ops_display.add()
+									new_.id = disp.id
+									new_.display = disp.display
+							context.scene.display_save.clear()
+							grouptype.active_ops = 0
+
+						for grouptype in obj.jueg_grouptypelist:
+							bonegroups = grouptype.group_ids
+							for group in bonegroups:
+								context.scene.on_off_save.clear()
+								for on_off in group.on_off:
+									new_ = context.scene.on_off_save.add()
+									new_.id = on_off.id
+									new_.on_off = on_off.on_off
+								group.on_off.clear()
+								for on_off in context.scene.on_off_save:
+									if on_off.id != ope.id:
+										new_ = group.on_off.add()
+										new_.id = on_off.id
+										new_.on_off = on_off.on_off
+								context.scene.on_off_save.clear()
+
+						to_delete.append(ope.name)
+
+				for del_ in to_delete:
+					obj.jueg_extragroups_ops.remove(obj.jueg_extragroups_ops.find(del_))
 
 		return {'FINISHED'}
 
