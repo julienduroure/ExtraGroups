@@ -95,137 +95,6 @@ class POSE_OT_jueg_changevisibility(Operator):
 
 		return {'FINISHED'}
 
-class POSE_OT_jueg_addtoselection(Operator):
-	"""Add to selection"""
-	bl_idname = "pose.jueg_addtoselection"
-	bl_label = "Add to selection"
-
-
-	ops_id		 = StringProperty()
-	index			= IntProperty()
-
-	@classmethod
-	def poll(self, context):
-		return (context.object and
-				context.object.type == 'ARMATURE' and
-				context.mode == 'POSE')
-
-	def execute(self, context):
-		armature = context.object
-
-
-		#retrieve on_off
-		on_off = False
-		found = False
-		for ops in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].on_off:
-			if ops.id == self.ops_id:
-				on_off = ops.on_off
-				found = True
-
-		if found == False:
-			print("error")
-
-		current_selection = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].current_selection
-		if current_selection == False:
-			bones = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].bone_ids
-		else:
-			bones = []
-			for bone in armature.pose.bones:
-				if bone.bone.select == True:
-					bones.append(bone)
-
-		to_deleted = []
-		idx = -1
-		for bone in bones:
-			idx = idx + 1
-			if bone.name not in armature.data.bones:
-				to_deleted.append(idx)
-				continue
-################################## Insert your code here ##########################
-			if on_off == True:
-				armature.data.bones[bone.name].select = True
-			else:
-				armature.data.bones[bone.name].select = True
-###################################################################################
-		if len(to_deleted) > 0:
-			for i in to_deleted:
-				armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].bone_ids.remove(i)
-
-		for ops in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].on_off:
-			if ops.id == self.ops_id:
-				ops.on_off = not ops.on_off
-
-		return {'FINISHED'}
-
-
-class POSE_OT_jueg_selectonly(Operator):
-	"""Toggle selected bones"""
-	bl_idname = "pose.jueg_selectonly"
-	bl_label = "Toggle selection"
-
-
-	ops_id		 = StringProperty()
-	index			= IntProperty()
-
-	@classmethod
-	def poll(self, context):
-		return (context.object and
-				context.object.type == 'ARMATURE' and
-				context.mode == 'POSE')
-
-	def execute(self, context):
-		armature = context.object
-
-
-		#retrieve on_off
-		on_off = False
-		found = False
-		for ops in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].on_off:
-			if ops.id == self.ops_id:
-				on_off = ops.on_off
-				found = True
-
-		if found == False:
-			print("error")
-
-		current_selection = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].current_selection
-		if current_selection == False:
-			bones = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].bone_ids
-		else:
-			bones = []
-			for bone in armature.pose.bones:
-				if bone.bone.select == True:
-					bones.append(bone)
-
-#############
-		for bone in armature.pose.bones:
-			bone.bone.select = False
-#############
-		to_deleted = []
-		idx = -1
-		for bone in bones:
-			idx = idx + 1
-			if bone.name not in armature.data.bones:
-				to_deleted.append(idx)
-				continue
-################################## Insert your code here ##########################
-			if on_off == True:
-				armature.data.bones[bone.name].select = True
-			else:
-				armature.data.bones[bone.name].select = True
-###################################################################################
-		if len(to_deleted) > 0:
-			for i in to_deleted:
-				armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].bone_ids.remove(i)
-
-		for ops in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].on_off:
-			if ops.id == self.ops_id:
-				ops.on_off = not ops.on_off
-
-		return {'FINISHED'}
-
-
-
 
 class POSE_OT_jueg_bonemute(Operator):
 	"""Mute action of bones"""
@@ -486,8 +355,6 @@ class POSE_OT_jueg_magic_select(Operator):
 
 def register():
 	bpy.utils.register_class(POSE_OT_jueg_changevisibility)
-	bpy.utils.register_class(POSE_OT_jueg_addtoselection)
-	bpy.utils.register_class(POSE_OT_jueg_selectonly)
 	bpy.utils.register_class(POSE_OT_jueg_bonemute)
 	bpy.utils.register_class(POSE_OT_jueg_restrict_select)
 	bpy.utils.register_class(POSE_OT_jueg_magic_select)
@@ -495,8 +362,6 @@ def register():
 
 def unregister():
 	bpy.utils.unregister_class(POSE_OT_jueg_changevisibility)
-	bpy.utils.unregister_class(POSE_OT_jueg_addtoselection)
-	bpy.utils.unregister_class(POSE_OT_jueg_selectonly)
 	bpy.utils.unregister_class(POSE_OT_jueg_bonemute)
 	bpy.utils.unregister_class(POSE_OT_jueg_restrict_select)
 	bpy.utils.unregister_class(POSE_OT_jueg_magic_select)
