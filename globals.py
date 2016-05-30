@@ -21,7 +21,6 @@
 #
 ##########################################################################################
 import bpy
-from bpy.app.handlers import persistent
 
 class Jueg_BoneEntry(bpy.types.PropertyGroup):
 	name = bpy.props.StringProperty(name="Bone Name")
