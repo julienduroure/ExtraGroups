@@ -91,6 +91,7 @@ class Jueg_OpsItem(bpy.types.PropertyGroup):
 	user_defined = bpy.props.BoolProperty()
 	event_manage = bpy.props.BoolProperty(default=False)
 	events = bpy.props.CollectionProperty(type=Jueg_EventData)
+	active_event = bpy.props.IntProperty(default=0)
 	icons = bpy.props.PointerProperty(type=OpsDetails_DisplayProp)
 
 
@@ -200,7 +201,7 @@ def get_default_ops_id():
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['ok_for_current_sel'] = False
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['display'] = False
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['user_defined'] = False
-	dict_['8102ad699e6d4af8a8f511e1283b995e']['event_manage'] = False
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['event_manage'] = True
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'] = []
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['REPLACE', 'NONE'])
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['ADD', 'SHIFT'])

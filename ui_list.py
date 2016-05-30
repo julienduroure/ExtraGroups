@@ -25,20 +25,29 @@ from .globals import *
 
 class POSE_UL_jueg_grouptype(bpy.types.UIList):
 	def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
-		
+
 		if self.layout_type in {'DEFAULT', 'COMPACT'}:
 			layout.prop(item, "name", text="", emboss=False)
-			
+
 		elif self.layout_type in {'GRID'}:
 			layout.alignment = 'CENTER'
-			
+
+class POSE_UL_jueg_events(bpy.types.UIList):
+	def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
+
+		if self.layout_type in {'DEFAULT', 'COMPACT'}:
+			layout.prop(item, "mode", text="", emboss=False)
+
+		elif self.layout_type in {'GRID'}:
+			layout.alignment = 'CENTER'
+
 class POSE_UL_jueg_bonegroup(bpy.types.UIList):
 	def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
-		
+
 		armature = context.object
 		if self.layout_type in {'DEFAULT', 'COMPACT'}:
 			layout.prop(item, "name", text="", emboss=False)
-				
+
 			#loop on ops from this group type
 			for ope in armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display:
 				ops = [e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == ope.id][0]
@@ -47,7 +56,7 @@ class POSE_UL_jueg_bonegroup(bpy.types.UIList):
 						continue
 					#retrieve on_off
 					for on_off_item in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[index].on_off:
-					
+
 						if on_off_item.id == ops.id:
 							on_off = on_off_item.on_off
 					if ops.ops_type == 'EXE': 										#No switchable icon
@@ -68,13 +77,13 @@ class POSE_UL_jueg_bonegroup(bpy.types.UIList):
 				except:
 					icon = 'ERROR' 													#In case of error, display warning error icon
 					op = layout.operator("pose.jueg_dummy", text='', emboss=False, icon=icon)
-			
+
 		elif self.layout_type in {'GRID'}:
 			layout.alignment = 'CENTER'
-			
+
 class POSE_UL_jueg_opslist(bpy.types.UIList):
 	def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
-		
+
 		armature = context.object
 		jueg_active_grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype]
 		ops = [e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == item.id][0]
@@ -86,20 +95,22 @@ class POSE_UL_jueg_opslist(bpy.types.UIList):
 			layout.operator("pose.jueg_dummy", text='', emboss=False, icon=icon)
 			layout.prop(ops, "name", text="", emboss=False)
 			if item.display == True:
-				icon = "CHECKBOX_HLT"			
+				icon = "CHECKBOX_HLT"
 			else:
 				icon = "CHECKBOX_DEHLT"
 			layout.prop(item, "display", text="", emboss=False,icon=icon)
-			
+
 		elif self.layout_type in {'GRID'}:
 			layout.alignment = 'CENTER'
-			
+
 def register():
 	bpy.utils.register_class(POSE_UL_jueg_grouptype)
-	bpy.utils.register_class(POSE_UL_jueg_bonegroup) 
-	bpy.utils.register_class(POSE_UL_jueg_opslist) 
-	
+	bpy.utils.register_class(POSE_UL_jueg_bonegroup)
+	bpy.utils.register_class(POSE_UL_jueg_opslist)
+	bpy.utils.register_class(POSE_UL_jueg_events)
+
 def unregister():
 	bpy.utils.unregister_class(POSE_UL_jueg_grouptype)
 	bpy.utils.unregister_class(POSE_UL_jueg_bonegroup)
 	bpy.utils.unregister_class(POSE_UL_jueg_opslist)
+	bpy.utils.unregister_class(POSE_UL_jueg_events)
