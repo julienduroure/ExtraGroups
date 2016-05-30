@@ -51,6 +51,17 @@ jueg_ops_type_items = [
 	("EXE", "Exec", "", 2),
 	]
 
+jueg_event_modif = [
+	("NONE", "None", "", 1),
+	("SHIFT", "Shift", "", 2),
+	("ALT", "Alt", "", 3),
+	("CTRL", "Ctrl", "", 4),
+	("SHIFT_ALT", "Shift+Alt", "", 5),
+	("SHIFT_CTRL", "Shift+Alt", "", 6),
+	("CTRL_ALT", "Ctrl+Alt", "", 7),
+	("CTRL_Shift_ALT", "Ctrl+Shift+Alt", "", 8),
+]
+
 class OpsDetails_IconProp(bpy.types.PropertyGroup):
 	expand = bpy.props.BoolProperty(name="Expand", description="Expand, to display all icons at once", default=False)
 	search = bpy.props.StringProperty(name="Search", description="Search for icons by name", default="")
@@ -59,6 +70,15 @@ class OpsDetails_DisplayProp(bpy.types.PropertyGroup):
 	icon_on  = bpy.props.PointerProperty(type=OpsDetails_IconProp)
 	icon_off = bpy.props.PointerProperty(type=OpsDetails_IconProp)
 	amount   = bpy.props.IntProperty(default=10)
+
+class Jueg_EventData(bpy.types.PropertyGroup):
+	mode = bpy.props.StringProperty(name="mode")
+	event = bpy.props.EnumProperty(items=jueg_event_modif)
+
+#Dev note :
+#Any new data needs update in
+	# init_default_ops ( 2 times )
+	# POSE_OT_jueg_reload_linked_data
 
 class Jueg_OpsItem(bpy.types.PropertyGroup):
 	id   = bpy.props.StringProperty(name="Unique id")
@@ -69,6 +89,8 @@ class Jueg_OpsItem(bpy.types.PropertyGroup):
 	icon_off   = bpy.props.StringProperty(name="Icon Off")
 	ok_for_current_sel = bpy.props.BoolProperty()
 	user_defined = bpy.props.BoolProperty()
+	event_manage = bpy.props.BoolProperty(default=False)
+	events = bpy.props.CollectionProperty(type=Jueg_EventData)
 	icons = bpy.props.PointerProperty(type=OpsDetails_DisplayProp)
 
 
@@ -118,6 +140,8 @@ def get_default_ops_id():
 	dict_['bf258537303e41529b5adb4e3af6ed43']['ok_for_current_sel'] = False
 	dict_['bf258537303e41529b5adb4e3af6ed43']['display'] = False
 	dict_['bf258537303e41529b5adb4e3af6ed43']['user_defined'] = False
+	dict_['bf258537303e41529b5adb4e3af6ed43']['event_manage'] = False
+	dict_['bf258537303e41529b5adb4e3af6ed43']['events'] = []
 
 	dict_['fbd9a8fc639a4074bbd56f7be35e4690'] = {}
 	dict_['fbd9a8fc639a4074bbd56f7be35e4690']['name'] = "Add to selection"
@@ -128,6 +152,8 @@ def get_default_ops_id():
 	dict_['fbd9a8fc639a4074bbd56f7be35e4690']['ok_for_current_sel'] = False
 	dict_['fbd9a8fc639a4074bbd56f7be35e4690']['display'] = False
 	dict_['fbd9a8fc639a4074bbd56f7be35e4690']['user_defined'] = False
+	dict_['fbd9a8fc639a4074bbd56f7be35e4690']['event_manage'] = False
+	dict_['fbd9a8fc639a4074bbd56f7be35e4690']['events'] = []
 
 	dict_['f31027b2b65d4a90b610281ea09f08fb'] = {}
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['name'] = "Mute"
@@ -138,6 +164,8 @@ def get_default_ops_id():
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['ok_for_current_sel'] = True
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['display'] = False
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['user_defined'] = False
+	dict_['f31027b2b65d4a90b610281ea09f08fb']['event_manage'] = False
+	dict_['f31027b2b65d4a90b610281ea09f08fb']['events'] = []
 
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86'] = {}
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['name'] = "Toggle Visibility"
@@ -148,6 +176,8 @@ def get_default_ops_id():
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['ok_for_current_sel'] = False
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['display'] = False
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['user_defined'] = False
+	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['event_manage'] = False
+	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['events'] = []
 
 	dict_['9d5257bf3d6245afacabb452bf7a455e'] = {}
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['name'] = "Restrict/Allow Selection"
@@ -158,6 +188,8 @@ def get_default_ops_id():
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['ok_for_current_sel'] = True
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['display'] = False
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['user_defined'] = False
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['event_manage'] = False
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['events'] = []
 
 	dict_['8102ad699e6d4af8a8f511e1283b995e'] = {}
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['name'] = "Magic Select"
@@ -168,6 +200,11 @@ def get_default_ops_id():
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['ok_for_current_sel'] = False
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['display'] = False
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['user_defined'] = False
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['event_manage'] = False
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'] = []
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['REPLACE', 'NONE'])
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['ADD', 'SHIFT'])
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['REMOVE', 'ALT'])
 
 	return dict_
 
@@ -186,6 +223,13 @@ def init_default_ops(armature):
 				ops.icon_off   = ops_src.icon_off
 				ops.ok_for_current_sel = ops_src.ok_for_current_sel
 				ops.user_defined = ops_src.user_defined
+				ops.event_manage = ops_src.event_manage
+
+				for src_ev in ops_src.events:
+					dst_ev = ops.events.add()
+					dst_ev.mode  = src_ev.mode
+					dst_ev.event = src_ev.event
+
 			copy_data_ops(armature, 0)
 			armature.jueg_grouptypelist[0].active_ops = len(armature.jueg_extragroups_ops) - 1
 			return True
@@ -202,6 +246,12 @@ def init_default_ops(armature):
 		ops.ok_for_current_sel = get_default_ops_id()[id]["ok_for_current_sel"]
 		ops.display = get_default_ops_id()[id]["display"]
 		ops.user_defined = get_default_ops_id()[id]["user_defined"]
+		ops.event_manage = get_default_ops_id()[id]["event_manage"]
+
+		for src_ev in get_default_ops_id()[id]["events"]:
+			dst_ev = ops.events.add()
+			dst_ev.mode  = src_ev[0]
+			dst_ev.event = src_ev[1]
 
 	copy_data_ops(armature,0)
 	armature.jueg_grouptypelist[0].active_ops = len(armature.jueg_extragroups_ops) - 1
@@ -248,6 +298,7 @@ def register():
 	bpy.utils.register_class(Jueg_GroupType)
 	bpy.utils.register_class(OpsDetails_IconProp)
 	bpy.utils.register_class(OpsDetails_DisplayProp)
+	bpy.utils.register_class(Jueg_EventData)
 	bpy.utils.register_class(Jueg_OpsItem)
 
 
@@ -257,6 +308,7 @@ def unregister():
 	bpy.utils.unregister_class(Jueg_BoneGroup)
 	bpy.utils.unregister_class(Jueg_OpsDisplay)
 	bpy.utils.unregister_class(Jueg_GroupType)
+	bpy.utils.unregister_class(Jueg_EventData)
 	bpy.utils.unregister_class(Jueg_OpsItem)
 	bpy.utils.unregister_class(OpsDetails_IconProp)
 	bpy.utils.unregister_class(OpsDetails_DisplayProp)
