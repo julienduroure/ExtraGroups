@@ -57,9 +57,9 @@ jueg_event_modif = [
 	("ALT", "Alt", "", 3),
 	("CTRL", "Ctrl", "", 4),
 	("SHIFT_ALT", "Shift+Alt", "", 5),
-	("SHIFT_CTRL", "Shift+Alt", "", 6),
+	("SHIFT_CTRL", "Shift+Ctrl", "", 6),
 	("CTRL_ALT", "Ctrl+Alt", "", 7),
-	("CTRL_Shift_ALT", "Ctrl+Shift+Alt", "", 8),
+	("CTRL_SHIFT_ALT", "Ctrl+Shift+Alt", "", 8),
 ]
 
 class Jueg_OpsDetails_IconProp(bpy.types.PropertyGroup):
