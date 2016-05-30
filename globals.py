@@ -62,13 +62,13 @@ jueg_event_modif = [
 	("CTRL_Shift_ALT", "Ctrl+Shift+Alt", "", 8),
 ]
 
-class OpsDetails_IconProp(bpy.types.PropertyGroup):
+class Jueg_OpsDetails_IconProp(bpy.types.PropertyGroup):
 	expand = bpy.props.BoolProperty(name="Expand", description="Expand, to display all icons at once", default=False)
 	search = bpy.props.StringProperty(name="Search", description="Search for icons by name", default="")
 
-class OpsDetails_DisplayProp(bpy.types.PropertyGroup):
-	icon_on  = bpy.props.PointerProperty(type=OpsDetails_IconProp)
-	icon_off = bpy.props.PointerProperty(type=OpsDetails_IconProp)
+class Jueg_OpsDetails_DisplayProp(bpy.types.PropertyGroup):
+	icon_on  = bpy.props.PointerProperty(type=Jueg_OpsDetails_IconProp)
+	icon_off = bpy.props.PointerProperty(type=Jueg_OpsDetails_IconProp)
 	amount   = bpy.props.IntProperty(default=10)
 
 class Jueg_EventData(bpy.types.PropertyGroup):
@@ -92,7 +92,7 @@ class Jueg_OpsItem(bpy.types.PropertyGroup):
 	event_manage = bpy.props.BoolProperty(default=False)
 	events = bpy.props.CollectionProperty(type=Jueg_EventData)
 	active_event = bpy.props.IntProperty(default=0)
-	icons = bpy.props.PointerProperty(type=OpsDetails_DisplayProp)
+	icons = bpy.props.PointerProperty(type=Jueg_OpsDetails_DisplayProp)
 
 
 
@@ -297,8 +297,8 @@ def register():
 	bpy.utils.register_class(Jueg_BoneGroup)
 	bpy.utils.register_class(Jueg_OpsDisplay)
 	bpy.utils.register_class(Jueg_GroupType)
-	bpy.utils.register_class(OpsDetails_IconProp)
-	bpy.utils.register_class(OpsDetails_DisplayProp)
+	bpy.utils.register_class(Jueg_OpsDetails_IconProp)
+	bpy.utils.register_class(Jueg_OpsDetails_DisplayProp)
 	bpy.utils.register_class(Jueg_EventData)
 	bpy.utils.register_class(Jueg_OpsItem)
 
@@ -311,5 +311,5 @@ def unregister():
 	bpy.utils.unregister_class(Jueg_GroupType)
 	bpy.utils.unregister_class(Jueg_EventData)
 	bpy.utils.unregister_class(Jueg_OpsItem)
-	bpy.utils.unregister_class(OpsDetails_IconProp)
-	bpy.utils.unregister_class(OpsDetails_DisplayProp)
+	bpy.utils.unregister_class(Jueg_OpsDetails_IconProp)
+	bpy.utils.unregister_class(Jueg_OpsDetails_DisplayProp)
