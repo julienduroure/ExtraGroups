@@ -34,9 +34,16 @@ class POSE_UL_jueg_grouptype(bpy.types.UIList):
 
 class POSE_UL_jueg_events(bpy.types.UIList):
 	def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
+		armature = context.object
+		jueg_active_grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype]
+		ops = [e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == jueg_active_grouptype.ops_display[jueg_active_grouptype.active_ops].id][0]
+		user_defined = ops.user_defined
 
 		if self.layout_type in {'DEFAULT', 'COMPACT'}:
-			layout.label(item.mode, translate=False)
+			if user_defined == False:
+				layout.label(item.mode, translate=False)
+			else:
+				layout.prop(item, "mode", text="", emboss=False)
 
 		elif self.layout_type in {'GRID'}:
 			layout.alignment = 'CENTER'

@@ -260,6 +260,7 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 				row_global.label("Warning : Text doesn't exist anymore", icon="ERROR")
 		row_global = layout.row()
 		row_global.prop(ops, "event_manage", text="Event Manage")
+		row_global.enabled = ops.user_defined
 		if ops.event_manage == True:
 			row_global = layout.row()
 			box = row_global.box()
