@@ -36,7 +36,7 @@ class POSE_UL_jueg_events(bpy.types.UIList):
 	def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
 
 		if self.layout_type in {'DEFAULT', 'COMPACT'}:
-			layout.prop(item, "mode", text="", emboss=False)
+			layout.label(item.mode, translate=False)
 
 		elif self.layout_type in {'GRID'}:
 			layout.alignment = 'CENTER'
