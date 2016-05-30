@@ -177,13 +177,14 @@ class POSE_OT_jueg_update_to_new_addon_version(bpy.types.Operator):
 		return (context.object and
 			context.object.type == 'ARMATURE' and
 			context.mode == 'POSE'
-			and check_new_default_ops_in_new_addon_version() == True)
+			and check_addon_update_needed() == True)
 
 	def execute(self, context):
 		for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
 			if len(obj.jueg_extragroups_ops) > 0:
 				for id in get_default_ops_id().keys():
 					if id not in [ops.id for ops in obj.jueg_extragroups_ops if ops.user_defined == False]:
+						#A new operator is available, create it
 						new_ops = obj.jueg_extragroups_ops.add()
 						new_ops.name     = get_default_ops_id()[id]["name"]
 						new_ops.id       = id
@@ -209,6 +210,11 @@ class POSE_OT_jueg_update_to_new_addon_version(bpy.types.Operator):
 								new_ = group.on_off.add()
 								new_.id = new_ops.id
 								new_.on_off = True
+
+				for ope in [ops for ops in obj.jueg_extragroups_ops if ops.user_defined == False]:
+					if ope.id not in get_default_ops_id().keys():
+						#This operator is now deleted, remove data
+						pass #TODO
 
 		return {'FINISHED'}
 

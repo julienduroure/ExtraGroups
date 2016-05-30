@@ -126,8 +126,18 @@ def check_new_default_ops_in_new_addon_version():
 			for def_ops in get_default_ops_id().keys():
 				if def_ops not in [ops.id for ops in obj.jueg_extragroups_ops if ops.user_defined == False]:
 					return True
-
 			return False
+
+def check_ops_removed_in_new_addon_version():
+	for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
+		if len(obj.jueg_extragroups_ops) > 0:
+			for ope in [ops for ops in obj.jueg_extragroups_ops if ops.user_defined == False]:
+				if ope.id not in get_default_ops_id().keys():
+					return True
+			return False
+
+def check_addon_update_needed():
+	return check_new_default_ops_in_new_addon_version() or check_ops_removed_in_new_addon_version()
 
 def get_default_ops_id():
 

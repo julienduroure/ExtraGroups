@@ -44,7 +44,7 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 		row = box.row()
 		row.prop(self, "edit_mode", text="Edit Mode")
 		row = box.row()
-		if check_new_default_ops_in_new_addon_version() == True:
+		if check_addon_update_needed() == True:
 			row.operator("pose.jueg_update_new_addon_version", text="Update data to new addon version")
 
 		col = row_global.column()
