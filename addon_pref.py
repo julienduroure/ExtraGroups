@@ -29,7 +29,9 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 	multitype  = bpy.props.BoolProperty(default= False)
 	textremove = bpy.props.BoolProperty(default= True)
 	edit_mode  = bpy.props.BoolProperty(default= False)
-	
+
+	category = bpy.props.StringProperty(name="Category", default="AutoRefSpace", update=update_panel)
+
 	def draw(self, context):
 		layout = self.layout
 		row_global = layout.row()
@@ -38,11 +40,13 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 		row_ = col.row()
 		box = row_.box()
 		row = box.row()
+		row.prop(self, "category", text="Addon tab")
+		row = box.row()
 		row.prop(self, "edit_mode", text="Edit Mode")
 		row = box.row()
 		if check_new_default_ops_in_new_addon_version() == True:
 			row.operator("pose.jueg_update_new_addon_version", text="Update data to new addon version")
-		
+
 		col = row_global.column()
 		row = col.row()
 		row.label("Options")
@@ -56,4 +60,3 @@ def register():
 
 def unregister():
 	bpy.utils.unregister_class(jueg_AddonPreferences)
-
