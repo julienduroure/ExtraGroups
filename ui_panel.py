@@ -108,6 +108,10 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 				row = layout.row()
 				row.operator("pose.jueg_bonegroup_add", text="Add Dynamic Selection").dyn_selection = True
 
+			if addonpref().use_color == True and addonpref().edit_mode == True:
+				row = layout.row()
+				row.prop(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup], "color", text='')
+
 		else:
 			#Not initialized yet. Display "false" List and + operator to be able to create data
 			row = layout.row()

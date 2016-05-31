@@ -54,7 +54,15 @@ class POSE_UL_jueg_bonegroup(bpy.types.UIList):
 
 		armature = context.object
 		if self.layout_type in {'DEFAULT', 'COMPACT'}:
-			layout.prop(item, "name", text="", emboss=False)
+			if addonpref().use_color == False:
+				row = layout.row()
+				row.prop(item, "name", text="", emboss=False)
+			else:
+				split = layout.split(percentage=addonpref().use_color_perc/100, align=True)
+				row = split.row(align=True)
+				row.prop(item, "color", text="")
+				split.prop(item, "name", text="", emboss=False)
+				row = split.row(align=True)
 
 			#loop on ops from this group type
 			for ope in armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display:
@@ -77,14 +85,14 @@ class POSE_UL_jueg_bonegroup(bpy.types.UIList):
 							icon ="QUESTION" 										#if no icon, set QUESION_ICON
 					if item.current_selection == True and ops.ok_for_current_sel == False:
 						icon = 'BLANK1'												#Display nothing if ops is not enabled for current selection
-						op = layout.operator("pose.jueg_dummy", text='', emboss=False, icon=icon)
+						op = row.operator("pose.jueg_dummy", text='', emboss=False, icon=icon)
 					else:
-						op = layout.operator(ops.ops_exe, text='', emboss=False, icon=icon)
+						op = row.operator(ops.ops_exe, text='', emboss=False, icon=icon)
 						op.ops_id = ops.id
 						op.index	= index
 				except:
 					icon = 'ERROR' 													#In case of error, display warning error icon
-					op = layout.operator("pose.jueg_dummy", text='', emboss=False, icon=icon)
+					op = row.operator("pose.jueg_dummy", text='', emboss=False, icon=icon)
 
 		elif self.layout_type in {'GRID'}:
 			layout.alignment = 'CENTER'

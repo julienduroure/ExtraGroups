@@ -26,9 +26,11 @@ from .globals import *
 class jueg_AddonPreferences(bpy.types.AddonPreferences):
 	bl_idname = __package__
 
-	multitype  = bpy.props.BoolProperty(default= False)
-	textremove = bpy.props.BoolProperty(default= True)
-	edit_mode  = bpy.props.BoolProperty(default= False)
+	multitype      = bpy.props.BoolProperty(default= False)
+	textremove     = bpy.props.BoolProperty(default= True)
+	edit_mode      = bpy.props.BoolProperty(default= False)
+	use_color      = bpy.props.BoolProperty(default= False)
+	use_color_perc = bpy.props.FloatProperty(subtype='PERCENTAGE', min=0.0, max=100.0, default=20.0)
 
 	category = bpy.props.StringProperty(name="Category", default="AutoRefSpace", update=update_panel)
 
@@ -43,6 +45,10 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 		row.prop(self, "category", text="Addon tab")
 		row = box.row()
 		row.prop(self, "edit_mode", text="Edit Mode")
+		row = box.row()
+		row.prop(self, "use_color", text="Use color")
+		if self.use_color == True:
+			row.prop(self, "use_color_perc", text="Display length")
 		row = box.row()
 		if check_addon_update_needed() == True:
 			row.operator("pose.jueg_update_new_addon_version", text="Update data to new addon version")

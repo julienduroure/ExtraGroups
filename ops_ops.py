@@ -309,9 +309,10 @@ class POSE_OT_jueg_reload_linked_data(bpy.types.Operator):
 					dst_grouptype.name = lib_grouptype.name
 
 					for lib_bonegroup in lib_grouptype.group_ids:
-						dst_bonegroup = dst_grouptype.group_ids.add()
-						dst_bonegroup.name = lib_bonegroup.name
+						dst_bonegroup                   = dst_grouptype.group_ids.add()
+						dst_bonegroup.name              = lib_bonegroup.name
 						dst_bonegroup.current_selection = lib_bonegroup.current_selection
+						dst_bonegroup.color             = lib_bonegroup.color
 
 						for lib_bone in lib_bonegroup.bone_ids:
 							dst_bone = dst_bonegroup.bone_ids.add()
