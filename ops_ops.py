@@ -251,6 +251,10 @@ class POSE_OT_jueg_update_to_new_addon_version(bpy.types.Operator):
 								context.scene.on_off_save.clear()
 
 						to_delete.append(ope.name)
+					else:
+						if ope.update_nb != get_default_ops_id()[ope.id]['update_nb']:
+							#Operator needs to be updated
+							pass #TODO
 
 				for del_ in to_delete:
 					obj.jueg_extragroups_ops.remove(obj.jueg_extragroups_ops.find(del_))
@@ -330,6 +334,7 @@ class POSE_OT_jueg_reload_linked_data(bpy.types.Operator):
 					dst_ops.ok_for_current_sel = lib_ops.ok_for_current_sel
 					dst_ops.user_defined = lib_ops.user_defined
 					dst_ops.event_manage = lib_ops.event_manage
+					dst_ops.update_nb    = lib_ops.update_nb
 
 					for ev in lib_ops.events:
 						dst_ev = dst_ops.events.add()
