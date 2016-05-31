@@ -254,7 +254,17 @@ class POSE_OT_jueg_update_to_new_addon_version(bpy.types.Operator):
 					else:
 						if ope.update_nb != get_default_ops_id()[ope.id]['update_nb']:
 							#Operator needs to be updated
-							pass #TODO
+							#Update only not editable fields
+							ope.update_nb          = get_default_ops_id()[ope.id]['update_nb']
+							ope.ops_type           = get_default_ops_id()[ope.id]['ops_type']
+							ope.ops_exe            = get_default_ops_id()[ope.id]['ops_exe']
+							ope.ok_for_current_sel = get_default_ops_id()[ope.id]['ok_for_current_sel']
+							ope.event_manage       = get_default_ops_id()[ope.id]['event_manage']
+							ope.events.clear()
+							for ev in get_default_ops_id()[ope.id]['events']:
+								new_ = ope.events.add()
+								new_.mode  = ev[0]
+								new_.event = ev[1]
 
 				for del_ in to_delete:
 					obj.jueg_extragroups_ops.remove(obj.jueg_extragroups_ops.find(del_))
