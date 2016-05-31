@@ -60,7 +60,8 @@ class POSE_OT_jueg_changevisibility(Operator):
 
 
 		if found == False:
-			print("error")
+			self.report({'ERROR'}, "Error retrieving data on_off")
+			return {'CANCELLED'}
 
 		current_selection = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].current_selection
 		if current_selection == False:
@@ -123,7 +124,8 @@ class POSE_OT_jueg_bonemute(Operator):
 				found = True
 
 		if found == False:
-			print("error")
+			self.report({'ERROR'}, "Error retrieving data on_off")
+			return {'CANCELLED'}
 
 		current_selection = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].current_selection
 		if current_selection == False:
@@ -204,7 +206,8 @@ class POSE_OT_jueg_restrict_select(Operator):
 				found = True
 
 		if found == False:
-			print("error")
+			self.report({'ERROR'}, "Error retrieving data on_off")
+			return {'CANCELLED'}
 
 		#check if this is a classic group or current selection
 		current_selection = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].current_selection
@@ -291,7 +294,8 @@ class POSE_OT_jueg_magic_select(Operator):
 				found = True
 
 		if found == False:
-			print("error")
+			self.report({'ERROR'}, "Error retrieving events")
+			return {'CANCELLED'}
 
 		#retrieve mode used
 		mode = ""
@@ -303,7 +307,8 @@ class POSE_OT_jueg_magic_select(Operator):
 			mode = "REPLACE"
 
 		if mode == "":
-			print("error")
+			self.report({'ERROR'}, "No event assigned")
+			return {'CANCELLED'}
 
 
 		#retrieve on_off
@@ -315,7 +320,8 @@ class POSE_OT_jueg_magic_select(Operator):
 				found = True
 
 		if found == False:
-			print("error")
+			self.report({'ERROR'}, "Error retrieving data on_off")
+			return {'CANCELLED'}
 
 		#check if this is a classic group or current selection
 		current_selection = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].current_selection
