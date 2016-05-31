@@ -23,6 +23,7 @@
 import bpy
 
 from .globals import *
+from .utils import *
 
 class POSE_PT_jueg_grouptype(bpy.types.Panel):
 	bl_label = "Group Type"

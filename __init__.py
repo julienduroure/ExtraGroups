@@ -34,6 +34,8 @@ bl_info = {
 
 if "bpy" in locals():
 	import imp
+	imp.reload(globals)
+	imp.reload(utils)
 	imp.reload(addon_pref)
 	imp.reload(ops_grouptype)
 	imp.reload(ops_bonegroup)
@@ -46,6 +48,7 @@ if "bpy" in locals():
 	imp.reload(text_ops_squel)
 else:
 	from .globals import *
+	from .utils import *
 	from .addon_pref import *
 	from .ops_grouptype import *
 	from .ops_bonegroup import *

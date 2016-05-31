@@ -22,6 +22,7 @@
 ##########################################################################################
 import bpy
 from .globals import *
+from .utils import *
 
 class POSE_OT_jueg_event_move(bpy.types.Operator):
 	"""Move event up or down in the list"""
