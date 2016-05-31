@@ -31,29 +31,6 @@ def addonpref():
 def get_default_ops_id():
 
 	dict_ = {}
-	# dict_['bf258537303e41529b5adb4e3af6ed43'] = {}
-	# dict_['bf258537303e41529b5adb4e3af6ed43']['name'] = "Select Only"
-	# dict_['bf258537303e41529b5adb4e3af6ed43']['ops_type'] = 'EXE'
-	# dict_['bf258537303e41529b5adb4e3af6ed43']['ops_exe'] = "pose.jueg_selectonly"
-	# dict_['bf258537303e41529b5adb4e3af6ed43']['icon_on'] = "HAND"
-	# dict_['bf258537303e41529b5adb4e3af6ed43']['icon_off'] = ""
-	# dict_['bf258537303e41529b5adb4e3af6ed43']['ok_for_current_sel'] = False
-	# dict_['bf258537303e41529b5adb4e3af6ed43']['display'] = False
-	# dict_['bf258537303e41529b5adb4e3af6ed43']['user_defined'] = False
-	# dict_['bf258537303e41529b5adb4e3af6ed43']['event_manage'] = False
-	# dict_['bf258537303e41529b5adb4e3af6ed43']['events'] = []
-
-	# dict_['fbd9a8fc639a4074bbd56f7be35e4690'] = {}
-	# dict_['fbd9a8fc639a4074bbd56f7be35e4690']['name'] = "Add to selection"
-	# dict_['fbd9a8fc639a4074bbd56f7be35e4690']['ops_type'] = 'EXE'
-	# dict_['fbd9a8fc639a4074bbd56f7be35e4690']['ops_exe'] = "pose.jueg_selectonly"
-	# dict_['fbd9a8fc639a4074bbd56f7be35e4690']['icon_on'] = "HAND"
-	# dict_['fbd9a8fc639a4074bbd56f7be35e4690']['icon_off'] = ""
-	# dict_['fbd9a8fc639a4074bbd56f7be35e4690']['ok_for_current_sel'] = False
-	# dict_['fbd9a8fc639a4074bbd56f7be35e4690']['display'] = False
-	# dict_['fbd9a8fc639a4074bbd56f7be35e4690']['user_defined'] = False
-	# dict_['fbd9a8fc639a4074bbd56f7be35e4690']['event_manage'] = False
-	# dict_['fbd9a8fc639a4074bbd56f7be35e4690']['events'] = []
 
 	dict_['f31027b2b65d4a90b610281ea09f08fb'] = {}
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['update_nb'] = 1
