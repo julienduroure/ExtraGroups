@@ -244,7 +244,7 @@ class POSE_OT_jueg_restrict_select(Operator):
 
 
 class POSE_OT_jueg_magic_select(Operator):
-	"""Selection : Use Shift for adding, Alt for removing, simple click to toogle selection"""
+	"""Selection : See Event Management for more info"""
 	bl_idname = "pose.jueg_magic_select"
 	bl_label = "Magic Select"
 
