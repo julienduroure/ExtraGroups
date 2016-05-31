@@ -73,9 +73,9 @@ def get_default_ops_id():
 
 	dict_['8102ad699e6d4af8a8f511e1283b995e'] = {}
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['update_nb'] = 1
-	dict_['8102ad699e6d4af8a8f511e1283b995e']['name'] = "Magic Select"
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['name'] = "Select"
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['ops_type'] = 'EXE'
-	dict_['8102ad699e6d4af8a8f511e1283b995e']['ops_exe'] = "pose.jueg_magic_select"
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['ops_exe'] = "pose.jueg_select"
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['icon_on'] = "HAND"
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['icon_off'] = ""
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['ok_for_current_sel'] = False

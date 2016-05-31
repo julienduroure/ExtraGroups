@@ -246,9 +246,9 @@ class POSE_OT_jueg_restrict_select(Operator):
 		return {'FINISHED'}
 
 
-class POSE_OT_jueg_magic_select(Operator):
+class POSE_OT_jueg_select(Operator):
 	"""Selection : See Event Management for more info"""
-	bl_idname = "pose.jueg_magic_select"
+	bl_idname = "pose.jueg_select"
 	bl_label = "Magic Select"
 
 
@@ -368,14 +368,14 @@ def register():
 	bpy.utils.register_class(POSE_OT_jueg_changevisibility)
 	bpy.utils.register_class(POSE_OT_jueg_bonemute)
 	bpy.utils.register_class(POSE_OT_jueg_restrict_select)
-	bpy.utils.register_class(POSE_OT_jueg_magic_select)
+	bpy.utils.register_class(POSE_OT_jueg_select)
 
 
 def unregister():
 	bpy.utils.unregister_class(POSE_OT_jueg_changevisibility)
 	bpy.utils.unregister_class(POSE_OT_jueg_bonemute)
 	bpy.utils.unregister_class(POSE_OT_jueg_restrict_select)
-	bpy.utils.unregister_class(POSE_OT_jueg_magic_select)
+	bpy.utils.unregister_class(POSE_OT_jueg_select)
 
 
 
