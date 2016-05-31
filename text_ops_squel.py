@@ -60,15 +60,15 @@ from bpy.types import (
 )
 
 ############################################################ Before change bones ##################################
-def function_###opsclass###_before(on_off):
+def function_###opsclass###_before(on_off, mode):
 	pass
 
 ############################################################ After change bones ###################################
-def function_###opsclass###_after(on_off):
+def function_###opsclass###_after(on_off, mode):
 	pass
 
 ############################################################ Change bones #########################################
-def function_###opsclass###_(on_off,bone_tab,bonename):
+def function_###opsclass###_(on_off,bone_tab,bonename, mode):
 	pass
 
 
@@ -79,20 +79,70 @@ class POSE_OT_###opsclass###(Operator):
 	"""User defined Operator"""
 	bl_idname = "pose.ope_###opsclass###"
 	bl_label = "###opsclass###"
-	
-	
+
+
 	ops_id		 = StringProperty()
 	index			= IntProperty()
-	
+
 	@classmethod
 	def poll(self, context):
 		return (context.object and
 				context.object.type == 'ARMATURE' and
 				context.mode == 'POSE')
-				
-	def execute(self, context):
+
+	def invoke(self, context, event):
 		armature = context.object
-		
+
+		#retrieve event
+		internal_event = ""
+		if not event.shift and not event.alt and not event.ctrl:
+			internal_event = "NONE"
+		if event.shift and not event.alt and not event.ctrl:
+			internal_event = "SHIFT"
+		if not event.shift and event.alt and not event.ctrl:
+			internal_event = "ALT"
+		if not event.shift and not event.alt and event.ctrl:
+			internal_event = "CTRL"
+		if event.shift and event.alt and not event.ctrl:
+			internal_event = "SHIFT_ALT"
+		if event.shift and not event.alt and event.ctrl:
+			internal_event = "SHIFT_CTRL"
+		if not event.shift and event.alt and event.ctrl:
+			internal_event = "CTRL_ALT"
+		if event.shift and event.alt and event.ctrl:
+			internal_event = "CTRL_SHIFT_ALT"
+
+		#retrieve events
+		found = False
+		events = []
+		use_event = False
+		for ops in armature.jueg_extragroups_ops:
+			if ops.id == self.ops_id:
+				events = ops.events
+				use_event = ops.event_manage
+				found = True
+				break
+
+		if found == False:
+			self.report({'ERROR'}, "Error retrieving events")
+			return {'CANCELLED'}
+
+		#retrieve mode used
+		mode = ""
+		if use_event == True:
+			for ev in events:
+				if ev.event == internal_event:
+					mode = ev.mode
+		else:
+			mode = "JUEG_DUMMY"
+
+		if mode == "":
+			self.report({'ERROR'}, "No event assigned")
+			return {'CANCELLED'}
+
+		if mode == "JUEG_DUMMY":
+			mode = ""
+
 		#retrieve on_off
 		on_off = False
 		found = False
@@ -100,10 +150,12 @@ class POSE_OT_###opsclass###(Operator):
 			if ops.id == self.ops_id:
 				on_off = ops.on_off
 				found = True
-		
+				break
+
 		if found == False:
-			print("error")
-		
+			self.report({'ERROR'}, "Error retrieving data on_off")
+			return {'CANCELLED'}
+
 		#check if this is a classic group or current selection
 		current_selection = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].current_selection
 		if current_selection == False:
@@ -114,10 +166,10 @@ class POSE_OT_###opsclass###(Operator):
 			bones = []
 			for bone in armature.pose.bones:
 				if bone.bone.select == True:
-					bones.append(bone)		
-		
-		function_###opsclass###_before(on_off)
-		
+					bones.append(bone)
+
+		function_###opsclass###_before(on_off, mode)
+
 		to_delete = []
 		idx = -1
 		for bone in bones:
@@ -125,28 +177,28 @@ class POSE_OT_###opsclass###(Operator):
 			if bone.name not in armature.data.bones: #If bone no more exists
 				to_delete.append(idx)
 				continue
-			function_###opsclass###_(on_off, armature.pose.bones, bone.name)
-			
-		function_###opsclass###_after(on_off)
-		
+			function_###opsclass###_(on_off, armature.pose.bones, bone.name, mode)
+
+		function_###opsclass###_after(on_off, mode)
+
 		#delete bones if any
 		if len(to_delete) > 0:
 			for i in to_delete:
 				armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].bone_ids.remove(i)
-		 
+
 		 #switch on/off
 		for ops in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].on_off:
 			if ops.id == self.ops_id:
 				ops.on_off = not ops.on_off
-		
+
 		return {'FINISHED'}
-	
+
 def register():
 	bpy.utils.register_class(POSE_OT_###opsclass###)
-	
+
 def unregister():
 	bpy.utils.unregister_class(POSE_OT_###opsclass###)
-	
+
 if __name__ == "__main__":
-	register()	
+	register()
 '''
