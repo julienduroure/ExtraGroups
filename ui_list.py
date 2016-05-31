@@ -58,11 +58,9 @@ class POSE_UL_jueg_bonegroup(bpy.types.UIList):
 				row = layout.row()
 				row.prop(item, "name", text="", emboss=False)
 			else:
-				split = layout.split(percentage=addonpref().use_color_perc/100, align=True)
-				row = split.row(align=True)
+				row = layout.row()
 				row.prop(item, "color", text="")
-				split.prop(item, "name", text="", emboss=False)
-				row = split.row(align=True)
+				row.prop(item, "name", text="", emboss=False)
 
 			#loop on ops from this group type
 			for ope in armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display:
