@@ -283,9 +283,11 @@ class POSE_OT_jueg_magic_select(Operator):
 		#retrieve events
 		found = False
 		events = []
+		use_event = False
 		for ops in armature.jueg_extragroups_ops:
 			if ops.id == self.ops_id:
 				events = ops.events
+				use_event = ops.event_manage
 				found = True
 
 		if found == False:
@@ -293,9 +295,12 @@ class POSE_OT_jueg_magic_select(Operator):
 
 		#retrieve mode used
 		mode = ""
-		for ev in events:
-			if ev.event == internal_event:
-				mode = ev.mode
+		if use_event == True:
+			for ev in events:
+				if ev.event == internal_event:
+					mode = ev.mode
+		else:
+			mode = "REPLACE"
 
 		if mode == "":
 			print("error")
