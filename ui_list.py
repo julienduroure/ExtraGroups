@@ -70,24 +70,54 @@ class POSE_UL_jueg_bonegroup(bpy.types.UIList):
 						continue
 					#retrieve on_off
 					for on_off_item in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[index].on_off:
-
 						if on_off_item.id == ops.id:
 							on_off = on_off_item.on_off
+
+					#retrieve if solo mode exist
+					solo_somewhere  = False
+					solo_me         = False
+					for solo_item in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[index].solo:
+						if solo_item.id == ops.id:
+							solo_me  = solo_item.on_off
+
+					index_group = 0
+					for other_groups in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids:
+						if index_group != index:
+							for solo_other in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[index_group].solo:
+								if solo_other.id == ops.id:
+									if solo_other.on_off == True:
+										solo_somewhere = True
+						index_group = index_group + 1
+
 					if ops.ops_type == 'EXE': 										#No switchable icon
 						icon = ops.icon_on
 						if icon == "":
 							icon ="QUESTION" 										#if no icon, set QUESION_ICON
 					else: 															#switchable icon
-						icon = ops.icon_on if on_off == True else ops.icon_off 		#set icon, depend on on_off
+						if solo_somewhere == False:
+							icon = ops.icon_on if on_off == True else ops.icon_off 		#set icon, depend on on_off
+						else:
+							if solo_me == True:
+								icon = ops.icon_on if on_off == True else ops.icon_off 		#set icon, depend on on_off
+							else:
+								icon = 'SOLO_OFF'
 						if icon == "":
 							icon ="QUESTION" 										#if no icon, set QUESION_ICON
 					if item.current_selection == True and ops.ok_for_current_sel == False:
 						icon = 'BLANK1'												#Display nothing if ops is not enabled for current selection
 						op = row.operator("pose.jueg_dummy", text='', emboss=False, icon=icon)
 					else:
-						op = row.operator(ops.ops_exe, text='', emboss=False, icon=icon)
-						op.ops_id = ops.id
-						op.index	= index
+						if solo_somewhere == False:
+							op = row.operator(ops.ops_exe, text='', emboss=False, icon=icon)
+							op.ops_id = ops.id
+							op.index	= index
+						else:
+							if solo_me == True:
+								op = row.operator(ops.ops_exe, text='', emboss=False, icon=icon)
+								op.ops_id = ops.id
+								op.index	= index
+							else:
+								op = row.operator("pose.jueg_dummy_solo", text='', emboss=False, icon=icon)
 				except:
 					icon = 'ERROR' 													#In case of error, display warning error icon
 					op = row.operator("pose.jueg_dummy", text='', emboss=False, icon=icon)
