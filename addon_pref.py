@@ -33,30 +33,35 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 
 	category = bpy.props.StringProperty(name="Category", default="AutoRefSpace", update=update_panel)
 
+	tab1 = bpy.props.BoolProperty(default=False)
+	tab2 = bpy.props.BoolProperty(default=False)
+
 	def draw(self, context):
 		layout = self.layout
 		row_global = layout.row()
-
-		col = row_global.column()
-		row_ = col.row()
-		box = row_.box()
-		row = box.row()
-		row.prop(self, "category", text="Addon tab")
-		row = box.row()
-		row.prop(self, "edit_mode", text="Edit Mode")
-		row = box.row()
-		row.prop(self, "use_color", text="Use color")
-		row = box.row()
 		if check_addon_update_needed() == True:
-			row.operator("pose.jueg_update_new_addon_version", text="Update data to new addon version")
+			row_global.operator("pose.jueg_update_new_addon_version", text="Update data to new addon version")
+		row_global = layout.row()
+		row_global.prop(self, "edit_mode", text="Edit Mode")
+		row_global = layout.row()
+		row_global.prop(self, "tab1", text="Options", icon='SOLO_ON')
+		if self.tab1 == True:
+			row_global = layout.row()
+			row_global.prop(self, "multitype", text="Use Multitype")
+			row_global = layout.row()
+			row_global.prop(self, "textremove", text="Remove text when delete Operator")
 
-		col = row_global.column()
-		row = col.row()
-		row.label("Options")
-		row_ = col.row()
-		box = row_.box()
-		box.prop(self, "multitype", text="Use Multitype")
-		box.prop(self, "textremove", text="Remove text when delete Operator")
+
+		row_global = layout.row()
+		row_global.prop(self, "tab2", text="Display", icon='SOLO_ON')
+		if self.tab2 == True:
+			row_global = layout.row()
+			col = row_global.column()
+			row = col.row()
+			row.prop(self, "category", text="Addon tab")
+			row = col.row()
+			row.prop(self, "use_color", text="Use color")
+
 
 def register():
 	bpy.utils.register_class(jueg_AddonPreferences)
