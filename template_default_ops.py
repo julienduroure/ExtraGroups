@@ -154,7 +154,7 @@ class POSE_OT_jueg_changevisibility(Operator):
 
 
 class POSE_OT_jueg_bonemute(Operator):
-	"""Mute action of bones"""
+	"""Mute action of bones / solo action (set event for detail)"""
 	bl_idname = "pose.jueg_bonemute"
 	bl_label = "Mute bones"
 
