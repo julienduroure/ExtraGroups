@@ -399,7 +399,7 @@ class POSE_OT_jueg_bonemute(Operator):
 		return {'FINISHED'}
 
 class POSE_OT_jueg_restrict_select(Operator):
-	"""Restrict/Allow selection"""
+	"""Restrict/Allow selection / solo mode (see event)"""
 	bl_idname = "pose.jueg_restrict_select"
 	bl_label = "Restrict Select"
 
@@ -519,9 +519,20 @@ class POSE_OT_jueg_restrict_select(Operator):
 				to_delete.append(idx)
 				continue
 ################################################################################
-			armature.pose.bones[bone.name].bone.hide_select = on_off
+			if solo == False:
+				armature.pose.bones[bone.name].bone.hide_select = on_off
+			else:
+				armature.pose.bones[bone.name].bone.hide_select = False
 ################################################################################
-		#No after
+		if solo == True:
+			for bone in armature.pose.bones:
+				if bone.name not in [b.name for b in bones]:
+					if solo_already == True:
+						armature.pose.bones[bone.name].bone.hide_select = False
+					else:
+						armature.pose.bones[bone.name].bone.hide_select = True
+################################################################################
+
 		#delete bones if any
 		if len(to_delete) > 0:
 			for i in to_delete:

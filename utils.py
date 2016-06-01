@@ -72,8 +72,10 @@ def get_default_ops_id():
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['ok_for_current_sel'] = True
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['display'] = False
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['user_defined'] = False
-	dict_['9d5257bf3d6245afacabb452bf7a455e']['event_manage'] = False
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['event_manage'] = True
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['events'] = []
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['events'].append(['TOGGLE', 'NONE', False])
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['events'].append(['SOLO', 'CTRL', True])
 
 	dict_['8102ad699e6d4af8a8f511e1283b995e'] = {}
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['update_nb'] = 1
