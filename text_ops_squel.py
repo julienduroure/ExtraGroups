@@ -129,10 +129,12 @@ class POSE_OT_###opsclass###(Operator):
 
 		#retrieve mode used
 		mode = ""
+		solo = False
 		if use_event == True:
 			for ev in events:
 				if ev.event == internal_event:
 					mode = ev.mode
+					solo = ev.solo
 		else:
 			mode = "JUEG_DUMMY"
 

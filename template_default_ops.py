@@ -50,6 +50,57 @@ class POSE_OT_jueg_changevisibility(Operator):
 	def execute(self, context):
 		armature = context.object
 
+		#retrieve event
+		internal_event = ""
+		if not event.shift and not event.alt and not event.ctrl:
+			internal_event = "NONE"
+		if event.shift and not event.alt and not event.ctrl:
+			internal_event = "SHIFT"
+		if not event.shift and event.alt and not event.ctrl:
+			internal_event = "ALT"
+		if not event.shift and not event.alt and event.ctrl:
+			internal_event = "CTRL"
+		if event.shift and event.alt and not event.ctrl:
+			internal_event = "SHIFT_ALT"
+		if event.shift and not event.alt and event.ctrl:
+			internal_event = "SHIFT_CTRL"
+		if not event.shift and event.alt and event.ctrl:
+			internal_event = "CTRL_ALT"
+		if event.shift and event.alt and event.ctrl:
+			internal_event = "CTRL_SHIFT_ALT"
+
+		#retrieve events
+		found = False
+		events = []
+		use_event = False
+		for ops in armature.jueg_extragroups_ops:
+			if ops.id == self.ops_id:
+				events = ops.events
+				use_event = ops.event_manage
+				found = True
+
+		if found == False:
+			self.report({'ERROR'}, "Error retrieving events")
+			return {'CANCELLED'}
+
+		#retrieve mode used
+		mode = ""
+		solo = False
+		if use_event == True:
+			for ev in events:
+				if ev.event == internal_event:
+					mode = ev.mode
+					solo = ev.solo
+		else:
+			mode = "JUEG_DUMMY"
+
+		if mode == "":
+			self.report({'ERROR'}, "No event assigned")
+			return {'CANCELLED'}
+
+		if mode == "JUEG_DUMMY":
+			mode = ""
+
 		#retrieve on_off
 		on_off = False
 		found = False
@@ -72,6 +123,8 @@ class POSE_OT_jueg_changevisibility(Operator):
 				if bone.bone.select == True:
 					bones.append(bone)
 
+		#No Before
+
 		to_deleted = []
 		idx = -1
 		for bone in bones:
@@ -85,6 +138,9 @@ class POSE_OT_jueg_changevisibility(Operator):
 			else:
 				armature.data.bones[bone.name].hide = False
 ###################################################################################
+
+		#No after
+
 		if len(to_deleted) > 0:
 			for i in to_deleted:
 				armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].bone_ids.remove(i)
@@ -115,6 +171,57 @@ class POSE_OT_jueg_bonemute(Operator):
 	def execute(self, context):
 		armature = context.object
 
+		#retrieve event
+		internal_event = ""
+		if not event.shift and not event.alt and not event.ctrl:
+			internal_event = "NONE"
+		if event.shift and not event.alt and not event.ctrl:
+			internal_event = "SHIFT"
+		if not event.shift and event.alt and not event.ctrl:
+			internal_event = "ALT"
+		if not event.shift and not event.alt and event.ctrl:
+			internal_event = "CTRL"
+		if event.shift and event.alt and not event.ctrl:
+			internal_event = "SHIFT_ALT"
+		if event.shift and not event.alt and event.ctrl:
+			internal_event = "SHIFT_CTRL"
+		if not event.shift and event.alt and event.ctrl:
+			internal_event = "CTRL_ALT"
+		if event.shift and event.alt and event.ctrl:
+			internal_event = "CTRL_SHIFT_ALT"
+
+		#retrieve events
+		found = False
+		events = []
+		use_event = False
+		for ops in armature.jueg_extragroups_ops:
+			if ops.id == self.ops_id:
+				events = ops.events
+				use_event = ops.event_manage
+				found = True
+
+		if found == False:
+			self.report({'ERROR'}, "Error retrieving events")
+			return {'CANCELLED'}
+
+		#retrieve mode used
+		mode = ""
+		solo = False
+		if use_event == True:
+			for ev in events:
+				if ev.event == internal_event:
+					mode = ev.mode
+					solo = ev.solo
+		else:
+			mode = "JUEG_DUMMY"
+
+		if mode == "":
+			self.report({'ERROR'}, "No event assigned")
+			return {'CANCELLED'}
+
+		if mode == "JUEG_DUMMY":
+			mode = ""
+
 		#retrieve on_off
 		on_off = False
 		found = False
@@ -135,6 +242,8 @@ class POSE_OT_jueg_bonemute(Operator):
 			for bone in armature.pose.bones:
 				if bone.bone.select == True:
 					bones.append(bone)
+
+		#No before
 
 		to_deleted = []
 		idx = -1
@@ -169,6 +278,7 @@ class POSE_OT_jueg_bonemute(Operator):
 								if bone.name == bone_name:
 									fc.mute = False
 ###################################################################################
+		#No after
 		if len(to_deleted) > 0:
 			for i in to_deleted:
 				armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].bone_ids.remove(i)
@@ -197,6 +307,57 @@ class POSE_OT_jueg_restrict_select(Operator):
 	def execute(self, context):
 		armature = context.object
 
+		#retrieve event
+		internal_event = ""
+		if not event.shift and not event.alt and not event.ctrl:
+			internal_event = "NONE"
+		if event.shift and not event.alt and not event.ctrl:
+			internal_event = "SHIFT"
+		if not event.shift and event.alt and not event.ctrl:
+			internal_event = "ALT"
+		if not event.shift and not event.alt and event.ctrl:
+			internal_event = "CTRL"
+		if event.shift and event.alt and not event.ctrl:
+			internal_event = "SHIFT_ALT"
+		if event.shift and not event.alt and event.ctrl:
+			internal_event = "SHIFT_CTRL"
+		if not event.shift and event.alt and event.ctrl:
+			internal_event = "CTRL_ALT"
+		if event.shift and event.alt and event.ctrl:
+			internal_event = "CTRL_SHIFT_ALT"
+
+		#retrieve events
+		found = False
+		events = []
+		use_event = False
+		for ops in armature.jueg_extragroups_ops:
+			if ops.id == self.ops_id:
+				events = ops.events
+				use_event = ops.event_manage
+				found = True
+
+		if found == False:
+			self.report({'ERROR'}, "Error retrieving events")
+			return {'CANCELLED'}
+
+		#retrieve mode used
+		mode = ""
+		solo = False
+		if use_event == True:
+			for ev in events:
+				if ev.event == internal_event:
+					mode = ev.mode
+					solo = ev.solo
+		else:
+			mode = "JUEG_DUMMY"
+
+		if mode == "":
+			self.report({'ERROR'}, "No event assigned")
+			return {'CANCELLED'}
+
+		if mode == "JUEG_DUMMY":
+			mode = ""
+
 		#retrieve on_off
 		on_off = False
 		found = False
@@ -221,6 +382,7 @@ class POSE_OT_jueg_restrict_select(Operator):
 				if bone.bone.select == True:
 					bones.append(bone)
 
+		#No before
 
 		to_delete = []
 		idx = -1
@@ -229,10 +391,10 @@ class POSE_OT_jueg_restrict_select(Operator):
 			if bone.name not in armature.data.bones: #If bone no more exists
 				to_delete.append(idx)
 				continue
+################################################################################
 			armature.pose.bones[bone.name].bone.hide_select = on_off
-
-
-
+################################################################################
+		#No after
 		#delete bones if any
 		if len(to_delete) > 0:
 			for i in to_delete:
@@ -299,17 +461,21 @@ class POSE_OT_jueg_select(Operator):
 
 		#retrieve mode used
 		mode = ""
+		solo = False
 		if use_event == True:
 			for ev in events:
 				if ev.event == internal_event:
 					mode = ev.mode
+					solo = ev.solo
 		else:
-			mode = "REPLACE"
+			mode = "JUEG_DUMMY"
 
 		if mode == "":
 			self.report({'ERROR'}, "No event assigned")
 			return {'CANCELLED'}
 
+		if mode == "JUEG_DUMMY":
+			mode = ""
 
 		#retrieve on_off
 		on_off = False
@@ -335,11 +501,11 @@ class POSE_OT_jueg_select(Operator):
 				if bone.bone.select == True:
 					bones.append(bone)
 
-
+########################### Before ##############################
 		if mode == "REPLACE":
 			for bone in armature.pose.bones:
 				bone.bone.select = False
-
+########################### End Before ##########################
 		to_delete = []
 		idx = -1
 		for bone in bones:
@@ -347,10 +513,13 @@ class POSE_OT_jueg_select(Operator):
 			if bone.name not in armature.data.bones: #If bone no more exists
 				to_delete.append(idx)
 				continue
+################################################################################
 			if mode == "REPLACE" or mode == "ADD":
 				armature.data.bones[bone.name].select = True
 			elif mode == "REMOVE":
 				armature.data.bones[bone.name].select = False
+################################################################################
+		#No after
 
 		#delete bones if any
 		if len(to_delete) > 0:
