@@ -35,7 +35,7 @@ class Jueg_BoneGroup(bpy.types.PropertyGroup):
 	bone_ids          = bpy.props.CollectionProperty(type=Jueg_BoneEntry)
 	on_off            = bpy.props.CollectionProperty(type=Jueg_OnOffEntry)
 	current_selection = bpy.props.BoolProperty()
-	color             = bpy.props.FloatVectorProperty(name="Color", subtype='COLOR', default=[0.0,0.0,0.0])
+	color             = bpy.props.FloatVectorProperty(name="Color", subtype='COLOR', default=[0.0,0.0,0.0], min=0.0, max=1.0)
 
 class Jueg_OpsDisplay(bpy.types.PropertyGroup):
 	id   = bpy.props.StringProperty(name="Unique id")
