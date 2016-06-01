@@ -42,8 +42,10 @@ def get_default_ops_id():
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['ok_for_current_sel'] = True
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['display'] = False
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['user_defined'] = False
-	dict_['f31027b2b65d4a90b610281ea09f08fb']['event_manage'] = False
+	dict_['f31027b2b65d4a90b610281ea09f08fb']['event_manage'] = True
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['events'] = []
+	dict_['f31027b2b65d4a90b610281ea09f08fb']['events'].append(['MUTE', 'NONE', False])
+	dict_['f31027b2b65d4a90b610281ea09f08fb']['events'].append(['SOLO', 'CTRL', True])
 
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86'] = {}
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['update_nb'] = 1
@@ -183,7 +185,7 @@ def init_default_ops(armature):
 			dst_ev = ops.events.add()
 			dst_ev.mode  = src_ev[0]
 			dst_ev.event = src_ev[1]
-			dst_ev.solor = src_ev[2]
+			dst_ev.solo  = src_ev[2]
 
 	copy_data_ops(armature,0)
 	armature.jueg_grouptypelist[0].active_ops = len(armature.jueg_extragroups_ops) - 1

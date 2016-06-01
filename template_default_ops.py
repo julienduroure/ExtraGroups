@@ -47,7 +47,7 @@ class POSE_OT_jueg_changevisibility(Operator):
 				context.object.type == 'ARMATURE' and
 				context.mode == 'POSE')
 
-	def execute(self, context):
+	def invoke(self, context, event):
 		armature = context.object
 
 		#retrieve event
@@ -168,7 +168,42 @@ class POSE_OT_jueg_bonemute(Operator):
 				context.object.type == 'ARMATURE' and
 				context.mode == 'POSE')
 
-	def execute(self, context):
+	def mute(self, bone, on_off, solo, solo_already):
+		armature = bpy.context.object
+		if solo == False:
+			muting = on_off
+		else:
+			if solo_already == False:
+				muting = False
+			else:
+				muting = False
+
+		if on_off == True:
+			if armature.animation_data and bone.name in armature.animation_data.action.groups:
+				for channel in armature.animation_data.action.groups[bone.name].channels:
+					channel.mute = muting
+			if armature.animation_data:
+				for fc in armature.animation_data.action.fcurves:
+					if not fc.group:
+						if fc.data_path.startswith("pose.bones"):
+							tmp = fc.data_path.split("[", maxsplit=1)[1].split("]", maxsplit=1)
+							bone_name = tmp[0][1:-1]
+							if bone.name == bone_name:
+								fc.mute = muting
+		else:
+			if armature.animation_data and bone.name in armature.animation_data.action.groups:
+				for channel in armature.animation_data.action.groups[bone.name].channels:
+					channel.mute = muting
+			if armature.animation_data:
+				for fc in armature.animation_data.action.fcurves:
+					if not fc.group:
+						if fc.data_path.startswith("pose.bones"):
+							tmp = fc.data_path.split("[", maxsplit=1)[1].split("]", maxsplit=1)
+							bone_name = tmp[0][1:-1]
+							if bone.name == bone_name:
+								fc.mute = muting
+
+	def invoke(self, context, event):
 		armature = context.object
 
 		#retrieve event
@@ -234,6 +269,24 @@ class POSE_OT_jueg_bonemute(Operator):
 			self.report({'ERROR'}, "Error retrieving data on_off")
 			return {'CANCELLED'}
 
+		solo_already = False
+		found = False
+		#add solo data if not exist already
+		if len(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].solo) == 0:
+			for ops in armatuer.jueg_extragroups_ops:
+				new_ = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].solo.add()
+				new_.id = ops.id
+				new_.on_off = False
+
+		for ops in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].solo:
+			if ops.id == self.ops_id:
+				solo_already = ops.on_off
+				found = True
+
+		if found == False:
+			self.report({'ERROR'}, "Error retrieving data Solo")
+			return {'CANCELLED'}
+
 		current_selection = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].current_selection
 		if current_selection == False:
 			bones = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].bone_ids
@@ -253,39 +306,46 @@ class POSE_OT_jueg_bonemute(Operator):
 				to_deleted.append(idx)
 				continue
 ################################## Insert your code here ##########################
-			if on_off == True:
-				if armature.animation_data and bone.name in armature.animation_data.action.groups:
-					for channel in armature.animation_data.action.groups[bone.name].channels:
-						channel.mute = True
-				if armature.animation_data:
-					for fc in armature.animation_data.action.fcurves:
-						if not fc.group:
-							if fc.data_path.startswith("pose.bones"):
-								tmp = fc.data_path.split("[", maxsplit=1)[1].split("]", maxsplit=1)
-								bone_name = tmp[0][1:-1]
-								if bone.name == bone_name:
-									fc.mute = True
-			else:
-				if armature.animation_data and bone.name in armature.animation_data.action.groups:
-					for channel in armature.animation_data.action.groups[bone.name].channels:
-						channel.mute = False
-				if armature.animation_data:
-					for fc in armature.animation_data.action.fcurves:
-						if not fc.group:
-							if fc.data_path.startswith("pose.bones"):
-								tmp = fc.data_path.split("[", maxsplit=1)[1].split("]", maxsplit=1)
-								bone_name = tmp[0][1:-1]
-								if bone.name == bone_name:
-									fc.mute = False
+			self.mute(bone, on_off, solo, solo_already)
 ###################################################################################
-		#No after
+# After
+		if solo == True:
+			for bone in armature.pose.bones:
+				if bone.name not in [b.name for b in bones]:
+					if solo_already == True:
+						self.mute(bone, False, False, False)
+					else:
+						self.mute(bone, True, False, False)
+###################################################################################
 		if len(to_deleted) > 0:
 			for i in to_deleted:
 				armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].bone_ids.remove(i)
 
 		for ops in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].on_off:
 			if ops.id == self.ops_id:
-				ops.on_off = not ops.on_off
+				if solo == False:
+					ops.on_off = not ops.on_off
+				else:
+					ops.on_off = True #TODO
+
+		if solo == True:
+
+			#Toggle solo info
+			for ops in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].solo:
+				if ops.id == self.ops_id:
+					ops.on_off = not ops.on_off
+
+			#Toggle on_off info for other groups
+			index = 0
+			for bonegroup in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids:
+				if index != self.index:
+					for ops in bonegroup.on_off:
+						if ops.id == self.ops_id:
+							if solo_already == False:
+								ops.on_off = False #TODO
+							else:
+								ops.on_off = True #TODO
+				index = index + 1
 
 		return {'FINISHED'}
 
@@ -304,7 +364,7 @@ class POSE_OT_jueg_restrict_select(Operator):
 				context.object.type == 'ARMATURE' and
 				context.mode == 'POSE')
 
-	def execute(self, context):
+	def invoke(self, context, event):
 		armature = context.object
 
 		#retrieve event

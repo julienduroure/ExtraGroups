@@ -81,6 +81,7 @@ def register():
 	bpy.types.Object.jueg_active_grouptype = bpy.props.IntProperty()
 
 	bpy.types.Scene.on_off_save = bpy.props.CollectionProperty(type=Jueg_OnOffEntry)  #used only temp for update addon
+	bpy.types.Scene.solo_save = bpy.props.CollectionProperty(type=Jueg_OnOffEntry)    #used only temp for update addon
 	bpy.types.Scene.display_save = bpy.props.CollectionProperty(type=Jueg_OpsDisplay) #used only temp for update addon
 
 	bpy.extragroups_icons = {}

@@ -124,6 +124,15 @@ class POSE_OT_jueg_ops_add(bpy.types.Operator):
 						new_.id = ops.id
 						new_.on_off = True
 
+			#now add solo for each existing bone group of each type
+			for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
+				for grouptype in obj.jueg_grouptypelist:
+					bonegroups = grouptype.group_ids
+					for group in bonegroups:
+						new_ = group.solo.add()
+						new_.id = ops.id
+						new_.on_off = False
+
 			armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_ops = len(armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display) - 1
 
 		return {'FINISHED'}
@@ -163,6 +172,11 @@ class POSE_OT_jueg_ops_remove(bpy.types.Operator):
 					bonegroups = grouptype.group_ids
 					for group in bonegroups:
 						group.on_off.remove([i for i,j in enumerate(group.on_off) if j.id == id_to_delete][0])
+
+					#also remove solo for each existing bonegroup of each type (of each armature)
+					bonegroups = grouptype.group_ids
+					for group in bonegroups:
+						group.solo.remove([i for i,j in enumerate(group.solo) if j.id == id_to_delete][0])
 
 		return {'FINISHED'}
 
@@ -215,6 +229,16 @@ class POSE_OT_jueg_update_to_new_addon_version(bpy.types.Operator):
 								new_.id = new_ops.id
 								new_.on_off = True
 
+						#now add solo for each existing bone group of each type
+						for grouptype in obj.jueg_grouptypelist:
+							print("\t\t" +grouptype.name)
+							bonegroups = grouptype.group_ids
+							for group in bonegroups:
+								print("\t\t\t" +group.name)
+								new_ = group.solo.add()
+								new_.id = new_ops.id
+								new_.on_off = False
+
 				to_delete = []
 				for ope in [ops for ops in obj.jueg_extragroups_ops if ops.user_defined == False]:
 					if ope.id not in get_default_ops_id().keys():
@@ -250,6 +274,19 @@ class POSE_OT_jueg_update_to_new_addon_version(bpy.types.Operator):
 										new_.on_off = on_off.on_off
 								context.scene.on_off_save.clear()
 
+								context.scene.solo_save.clear()
+								for solo in group.solo:
+									new_ = context.scene.solo_save.add()
+									new_.id = solo.id
+									new_.on_off = solo.on_off
+								group.solo.clear()
+								for solo in context.scene.solo_save:
+									if solo.id != ope.id:
+										new_ = groupsolo.add()
+										new_.id = solo.id
+										new_.on_off = solo.on_off
+								context.scene.solo_save.clear()
+
 						to_delete.append(ope.name)
 					else:
 						if ope.update_nb != get_default_ops_id()[ope.id]['update_nb']:
@@ -265,6 +302,7 @@ class POSE_OT_jueg_update_to_new_addon_version(bpy.types.Operator):
 								new_ = ope.events.add()
 								new_.mode  = ev[0]
 								new_.event = ev[1]
+								new_.solo  = ev[2]
 
 				for del_ in to_delete:
 					obj.jueg_extragroups_ops.remove(obj.jueg_extragroups_ops.find(del_))
@@ -322,6 +360,11 @@ class POSE_OT_jueg_reload_linked_data(bpy.types.Operator):
 							dst_on_off = dst_bonegroup.on_off.add()
 							dst_on_off.id = lib_on_off.id
 							dst_on_off.on_off = lib_on_off.on_off
+
+						for lib_solo in lib_bonegroup.solo:
+							dst_solo        = dst_bonegroup.solo.add()
+							dst_solo.id     = lib_solo.id
+							dst_solo.on_off = lib_solo.on_off
 
 					dst_grouptype.active_bonegroup = lib_grouptype.active_bonegroup
 
