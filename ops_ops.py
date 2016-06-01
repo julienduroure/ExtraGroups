@@ -399,79 +399,6 @@ class POSE_OT_jueg_reload_linked_data(bpy.types.Operator):
 			break
 		return {'FINISHED'}
 
-def write_operators(context, filepath):
-    armature = bpy.context.active_object
-    tab = armature.jueg_extragroups_ops
-    f = open(filepath, 'w', encoding='utf-8')
-    f.write("import bpy\n")
-    f.write("user_preferences = bpy.context.user_preferences\n")
-    f.write("addonpref() = user_preferences.addons[\"extragroups\"].preferences\n")
-    f.write("try:\n")
-    for ope in tab:
-        f.write("\t#~~~~~~\n")
-        f.write("\tif \"" + ope.id + "\" not in [j.id for i,j in enumerate(armature.jueg_extragroups_ops)]:\n")
-        f.write("\t\tops = armature.jueg_extragroups_ops.add()\n")
-        f.write("\t\tops.id = \"" + ope.id + "\"\n")
-        f.write("\t\tops.name = \"" + ope.name + "\"\n")
-        f.write("\t\tops.ops_type = \"" + ope.ops_type + "\"\n")
-        f.write("\t\tops.ops_exe = \"" + ope.ops_exe + "\"\n")
-        f.write("\t\tops.icon_on = \"" + ope.icon_on + "\"\n")
-        f.write("\t\tops.icon_off = \"" + ope.icon_off + "\"\n")
-        f.write("\t\tops.ok_for_current_sel = " + str(ope.ok_for_current_sel) + "\n")
-        f.write("\t\tops.user_defined = " + str(ope.user_defined) + "\n")
-        f.write("\t\tfor obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:\n")
-        f.write("\t\t\tfor grouptype in obj.jueg_grouptypelist:\n")
-        f.write("\t\t\t\toper = grouptype.ops_display.add()\n")
-        f.write("\t\t\t\toper.id = \"" + ope.id + "\"\n")
-        f.write("\t\t\t\toper.display = False\n")
-        f.write("\t\tfor obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:\n")
-        f.write("\t\t\tfor grouptype in obj.jueg_grouptypelist:\n")
-        f.write("\t\t\t\tbonegroups = grouptype.group_ids\n")
-        f.write("\t\t\t\tfor group in bonegroups:\n")
-        f.write("\t\t\t\t\tnew_ = group.on_off.add()\n")
-        f.write("\t\t\t\t\tnew_.id = \"" + ope.id + "\"\n")
-        f.write("\t\t\t\t\tnew_.on_off = True\n")
-        f.write("\telse:\n")
-        f.write("\t\tarmature.jueg_extragroups_ops[[i for i,j in enumerate(armature.jueg_extragroups_ops) if j.id == \"" + ope.id + "\"][0]].name = \"" + ope.name + "\"\n")
-        f.write("\t\tarmature.jueg_extragroups_ops[[i for i,j in enumerate(armature.jueg_extragroups_ops) if j.id == \"" + ope.id + "\"][0]].icon_on = \"" + ope.icon_on + "\"\n")
-        f.write("\t\tarmature.jueg_extragroups_ops[[i for i,j in enumerate(armature.jueg_extragroups_ops) if j.id == \"" + ope.id + "\"][0]].icon_off = \"" + ope.icon_off + "\"\n")
-
-    f.write("except:\n")
-    f.write("\tpass\n")
-    f.close()
-
-    return {'FINISHED'}
-
-class POSE_OT_jueg_ExportOps(bpy.types.Operator, bpy_extras.io_utils.ExportHelper):
-    """Export Operator list"""
-    bl_idname = "export.jueg_jueg_extragroups_ops"
-    bl_label  = "Export Operator"
-
-    filename_ext = ".py"
-
-    def execute(self, context):
-        return write_operators(context, self.filepath)
-
-def read_operator(context, filepath):
-    try:
-        f = open(filepath, 'r', encoding='utf-8')
-        data = f.read()
-        f.close()
-
-        exec(data, {})
-    except:
-        print("Error reading / exec imported file...")
-    return {'FINISHED'}
-
-class POSE_OT_jueg_ImportOps(bpy.types.Operator, bpy_extras.io_utils.ExportHelper):
-    """Import Template list"""
-    bl_idname = "imp.jueg_jueg_extragroups_ops"
-    bl_label  = "Import Operators"
-
-    filename_ext = ".py"
-
-    def execute(self, context):
-        return read_operator(context, self.filepath)
 
 class POSE_OT_jueg_select_icon(bpy.types.Operator):
 	"""Select icon"""
@@ -535,8 +462,6 @@ def register():
 	bpy.utils.register_class(POSE_OT_jueg_ops_add)
 	bpy.utils.register_class(POSE_OT_jueg_ops_remove)
 	bpy.utils.register_class(POSE_OT_jueg_operator_move)
-	bpy.utils.register_class(POSE_OT_jueg_ExportOps)
-	bpy.utils.register_class(POSE_OT_jueg_ImportOps)
 	bpy.utils.register_class(POSE_OT_jueg_dummy)
 	bpy.utils.register_class(POSE_OT_jueg_dummy_solo)
 	bpy.utils.register_class(POSE_OT_jueg_reload_linked_data)
@@ -547,8 +472,6 @@ def unregister():
 	bpy.utils.unregister_class(POSE_OT_jueg_ops_add)
 	bpy.utils.unregister_class(POSE_OT_jueg_ops_remove)
 	bpy.utils.unregister_class(POSE_OT_jueg_operator_move)
-	bpy.utils.unregister_class(POSE_OT_jueg_ExportOps)
-	bpy.utils.unregister_class(POSE_OT_jueg_ImportOps)
 	bpy.utils.unregister_class(POSE_OT_jueg_dummy)
 	bpy.utils.unregister_class(POSE_OT_jueg_dummy_solo)
 	bpy.utils.unregister_class(POSE_OT_jueg_reload_linked_data)
