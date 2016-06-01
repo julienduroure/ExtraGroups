@@ -326,7 +326,7 @@ class POSE_OT_jueg_bonemute(Operator):
 				if solo == False:
 					ops.on_off = not ops.on_off
 				else:
-					ops.on_off = True #TODO
+					ops.on_off = True # Inversed mute ?
 
 		if solo == True:
 
@@ -342,9 +342,9 @@ class POSE_OT_jueg_bonemute(Operator):
 					for ops in bonegroup.on_off:
 						if ops.id == self.ops_id:
 							if solo_already == False:
-								ops.on_off = False #TODO
+								ops.on_off = False # Inversed solo ?
 							else:
-								ops.on_off = True #TODO
+								ops.on_off = True # Inversed solo ?
 				index = index + 1
 
 		return {'FINISHED'}
