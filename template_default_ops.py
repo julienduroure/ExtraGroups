@@ -33,7 +33,7 @@ from bpy.types import (
 )
 
 class POSE_OT_jueg_changevisibility(Operator):
-	"""Change visibility"""
+	"""Change visibility / solo (see events)"""
 	bl_idname = "pose.jueg_change_visibility"
 	bl_label = "Change visibility"
 
@@ -151,13 +151,22 @@ class POSE_OT_jueg_changevisibility(Operator):
 				to_deleted.append(idx)
 				continue
 ################################## Insert your code here ##########################
-			if on_off == True:
-				armature.data.bones[bone.name].hide = True
+			if solo == False:
+				if on_off == True:
+					armature.data.bones[bone.name].hide = True
+				else:
+					armature.data.bones[bone.name].hide = False
 			else:
 				armature.data.bones[bone.name].hide = False
 ###################################################################################
-
-		#No after
+		if solo == True:
+			for bone in armature.pose.bones:
+				if bone.name not in [b.name for b in bones]:
+					if solo_already == True:
+						armature.data.bones[bone.name].hide = False
+					else:
+						armature.data.bones[bone.name].hide = True
+###################################################################################
 
 		if len(to_deleted) > 0:
 			for i in to_deleted:
