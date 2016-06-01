@@ -76,6 +76,7 @@ class Jueg_OpsDetails_DisplayProp(bpy.types.PropertyGroup):
 class Jueg_EventData(bpy.types.PropertyGroup):
 	mode = bpy.props.StringProperty(name="mode")
 	event = bpy.props.EnumProperty(items=jueg_event_modif)
+	solo  = bpy.props.BoolProperty()
 
 #Dev note :
 #Any new data needs update in

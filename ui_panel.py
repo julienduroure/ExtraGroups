@@ -289,6 +289,9 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 			row = box.row()
 			if len(ops.events) > 0:
 				row.prop(ops.events[ops.active_event], "event")
+				row = box.row()
+				row.prop(ops.events[ops.active_event], "solo")
+				row.enabled = ops.user_defined
 
 
 class POSE_PT_jueg_reloaddata(bpy.types.Panel):

@@ -351,6 +351,7 @@ class POSE_OT_jueg_reload_linked_data(bpy.types.Operator):
 						dst_ev = dst_ops.events.add()
 						dst_ev.mode  = ev.mode
 						dst_ev.event = ev.event
+						dst_ev.solo  = ev.solo
 
 			break
 		return {'FINISHED'}

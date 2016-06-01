@@ -83,9 +83,9 @@ def get_default_ops_id():
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['user_defined'] = False
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['event_manage'] = True
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'] = []
-	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['REPLACE', 'NONE'])
-	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['ADD', 'SHIFT'])
-	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['REMOVE', 'ALT'])
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['REPLACE', 'NONE', False])
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['ADD', 'SHIFT', False])
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['REMOVE', 'ALT', False])
 
 	return dict_
 
@@ -158,6 +158,7 @@ def init_default_ops(armature):
 					dst_ev = ops.events.add()
 					dst_ev.mode  = src_ev.mode
 					dst_ev.event = src_ev.event
+					dst_ev.solo  = src_ev.solo
 
 			copy_data_ops(armature, 0)
 			armature.jueg_grouptypelist[0].active_ops = len(armature.jueg_extragroups_ops) - 1
@@ -182,6 +183,7 @@ def init_default_ops(armature):
 			dst_ev = ops.events.add()
 			dst_ev.mode  = src_ev[0]
 			dst_ev.event = src_ev[1]
+			dst_ev.solor = src_ev[2]
 
 	copy_data_ops(armature,0)
 	armature.jueg_grouptypelist[0].active_ops = len(armature.jueg_extragroups_ops) - 1
