@@ -33,7 +33,7 @@ from bpy.types import (
 )
 
 class POSE_OT_jueg_changevisibility(Operator):
-	"""Change visibility / solo (see events)"""
+	"""Change visibility / solo mode (see events for more info)"""
 	bl_idname = "pose.jueg_change_visibility"
 	bl_label = "Change visibility"
 
@@ -203,7 +203,7 @@ class POSE_OT_jueg_changevisibility(Operator):
 
 
 class POSE_OT_jueg_bonemute(Operator):
-	"""Mute action of bones / solo action (set event for detail)"""
+	"""Mute action of bones / solo mode (set events for more info)"""
 	bl_idname = "pose.jueg_bonemute"
 	bl_label = "Mute bones"
 
@@ -399,7 +399,7 @@ class POSE_OT_jueg_bonemute(Operator):
 		return {'FINISHED'}
 
 class POSE_OT_jueg_restrict_select(Operator):
-	"""Restrict/Allow selection / solo mode (see event)"""
+	"""Restrict/Allow selection / solo mode (see events for more info)"""
 	bl_idname = "pose.jueg_restrict_select"
 	bl_label = "Restrict Select"
 
@@ -568,7 +568,7 @@ class POSE_OT_jueg_restrict_select(Operator):
 
 
 class POSE_OT_jueg_select(Operator):
-	"""Selection : See Event Management for more info"""
+	"""Selection (See events for more info)"""
 	bl_idname = "pose.jueg_select"
 	bl_label = "Magic Select"
 
