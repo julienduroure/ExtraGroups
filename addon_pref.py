@@ -35,6 +35,7 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 
 	tab1 = bpy.props.BoolProperty(default=False)
 	tab2 = bpy.props.BoolProperty(default=False)
+	tab3 = bpy.props.BoolProperty(default=False)
 
 	def draw(self, context):
 		layout = self.layout
@@ -62,6 +63,15 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 			row = col.row()
 			row.prop(self, "use_color", text="Use color")
 
+		row_global = layout.row()
+		row_global.prop(self, "tab3", text="Danger Zone", icon='SOLO_ON')
+		if self.tab3 == True:
+			row_global = layout.row()
+			row_global.label("In case addon goes wrong, you can delete all data of this addon")
+			row_global = layout.row()
+			row_global.label("I repeat : THIS WILL ERASE ALL THIS ADDON DATA")
+			row_global = layout.row()
+			row_global.operator("pose.jueg_erase_data", text="ERASE ALL", icon="ERROR")
 
 def register():
 	bpy.utils.register_class(jueg_AddonPreferences)

@@ -426,6 +426,28 @@ class POSE_OT_jueg_select_icon(bpy.types.Operator):
 
 		return {'FINISHED'}
 
+class POSE_OT_jueg_erase_data(bpy.types.Operator):
+	bl_idname = "pose.jueg_erase_data"
+	bl_label  = "Erase data"
+	bl_options = {'REGISTER'}
+
+	@classmethod
+	def poll(self, context):
+		return True
+
+	def execute(self, context):
+		for scene in bpy.data.scenes:
+			scene.on_off_save.clear()
+			scene.solo_save.clear()
+			scene.display_save.clear()
+
+		for obj in bpy.data.objects:
+			obj.jueg_grouptypelist.clear()
+			obj.jueg_extragroups_ops.clear()
+			obj.jueg_active_grouptype = 0
+
+		return {'FINISHED'}
+
 class POSE_OT_jueg_dummy(bpy.types.Operator):
 	bl_idname = "pose.jueg_dummy"
 	bl_label = "Dummy"
@@ -467,6 +489,7 @@ def register():
 	bpy.utils.register_class(POSE_OT_jueg_reload_linked_data)
 	bpy.utils.register_class(POSE_OT_jueg_update_to_new_addon_version)
 	bpy.utils.register_class(POSE_OT_jueg_select_icon)
+	bpy.utils.register_class(POSE_OT_jueg_erase_data)
 
 def unregister():
 	bpy.utils.unregister_class(POSE_OT_jueg_ops_add)
@@ -477,3 +500,4 @@ def unregister():
 	bpy.utils.unregister_class(POSE_OT_jueg_reload_linked_data)
 	bpy.utils.unregister_class(POSE_OT_jueg_update_to_new_addon_version)
 	bpy.utils.unregister_class(POSE_OT_jueg_select_icon)
+	bpy.utils.unregister_class(POSE_OT_jueg_erase_data)
