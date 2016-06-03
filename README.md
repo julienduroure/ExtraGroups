@@ -6,7 +6,7 @@ ExtraGroups can be used by beginner developers to develop simple script, and gen
 
 # How to report bugs
 
-You can report bugs on [http://github.com/julienduroure/extragroups](http://github.com/julienduroure/extragroups) or on [http://julienduroure.com](http://julienduroure.com).
+You can report bugs on [http://github.com/julienduroure/extragroups](http://github.com/julienduroure/ExtraGroups).
 
 # Version History
 
