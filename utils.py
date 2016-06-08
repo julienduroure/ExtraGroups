@@ -78,7 +78,7 @@ def get_default_ops_id():
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['events'].append(['SOLO', 'CTRL', True])
 
 	dict_['8102ad699e6d4af8a8f511e1283b995e'] = {}
-	dict_['8102ad699e6d4af8a8f511e1283b995e']['update_nb'] = 1
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['update_nb'] = 2
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['name'] = "Select"
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['ops_type'] = 'EXE'
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['ops_exe'] = "pose.jueg_select"
@@ -114,6 +114,19 @@ def lib_proxy_armature():
 	else:
 		return True, bpy.context.active_object.data.library.filepath
 
+def check_ops_doubles():
+	for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
+		if len(obj.jueg_extragroups_ops) > 0:
+			doubles = {}
+			for ope in [ops for ops in obj.jueg_extragroups_ops]:
+				if ope.id not in doubles.keys():
+					doubles[ope.id] = 1
+				else:
+					doubles[ope.id] = doubles[ope.id] + 1
+			for id_ in doubles.keys():
+				if doubles[id_] != 1:
+					return True
+
 def check_ops_updated_in_new_addon_version():
 	for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
 		if len(obj.jueg_extragroups_ops) > 0:
@@ -140,7 +153,7 @@ def check_ops_removed_in_new_addon_version():
 			return False
 
 def check_addon_update_needed():
-	return check_new_default_ops_in_new_addon_version() or check_ops_removed_in_new_addon_version() or check_ops_updated_in_new_addon_version()
+	return check_new_default_ops_in_new_addon_version() or check_ops_removed_in_new_addon_version() or check_ops_updated_in_new_addon_version() or check_ops_doubles()
 
 def init_default_ops(armature):
 

@@ -292,6 +292,7 @@ class POSE_OT_jueg_update_to_new_addon_version(bpy.types.Operator):
 						if ope.update_nb != get_default_ops_id()[ope.id]['update_nb']:
 							#Operator needs to be updated
 							#Update only not editable fields
+							ope.name               = get_default_ops_id()[ope.id]['name']
 							ope.update_nb          = get_default_ops_id()[ope.id]['update_nb']
 							ope.ops_type           = get_default_ops_id()[ope.id]['ops_type']
 							ope.ops_exe            = get_default_ops_id()[ope.id]['ops_exe']
@@ -304,8 +305,76 @@ class POSE_OT_jueg_update_to_new_addon_version(bpy.types.Operator):
 								new_.event = ev[1]
 								new_.solo  = ev[2]
 
+				for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
+					if len(obj.jueg_extragroups_ops) > 0:
+						doubles = {}
+						for ope in [ops for ops in obj.jueg_extragroups_ops]:
+							if ope.id not in doubles.keys():
+								doubles[ope.id] = 1
+							else:
+								#remove this
+								for grouptype in obj.jueg_grouptypelist:
+									context.scene.display_save.clear()
+									for ops_display in grouptype.ops_display:
+										new_ = context.scene.display_save.add()
+										new_.id = ops_display.id
+										new_.display = ops_display.display
+									grouptype.ops_display.clear()
+									already_found = False
+									for disp in context.scene.display_save:
+										if disp.id != ope.id or (disp.id == ope.id and already_found == True):
+											new_ = grouptype.ops_display.add()
+											new_.id = disp.id
+											new_.display = disp.display
+										else:
+											already_found = True
+									context.scene.display_save.clear()
+									grouptype.active_ops = 0
+
+								for grouptype in obj.jueg_grouptypelist:
+									bonegroups = grouptype.group_ids
+									for group in bonegroups:
+										context.scene.on_off_save.clear()
+										for on_off in group.on_off:
+											new_ = context.scene.on_off_save.add()
+											new_.id = on_off.id
+											new_.on_off = on_off.on_off
+										group.on_off.clear()
+										already_found = False
+										for on_off in context.scene.on_off_save:
+											if on_off.id != ope.id or (on_off.id == ope.id and already_found == True):
+												new_ = group.on_off.add()
+												new_.id = on_off.id
+												new_.on_off = on_off.on_off
+											else:
+												already_found = True
+										context.scene.on_off_save.clear()
+
+										context.scene.solo_save.clear()
+										for solo in group.solo:
+											new_ = context.scene.solo_save.add()
+											new_.id = solo.id
+											new_.on_off = solo.on_off
+										group.solo.clear()
+										already_found = False
+										for solo in context.scene.solo_save:
+											if solo.id != ope.id or (solo.id == ope.id and already_found == True):
+												new_ = groupsolo.add()
+												new_.id = solo.id
+												new_.on_off = solo.on_off
+											else:
+												already_found = True
+										context.scene.solo_save.clear()
+
+								to_delete.append(ope.name)
+								print("delete " + ope.name)
+								del doubles[ope.id]
+
 				for del_ in to_delete:
 					obj.jueg_extragroups_ops.remove(obj.jueg_extragroups_ops.find(del_))
+
+
+
 
 		return {'FINISHED'}
 
