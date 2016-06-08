@@ -126,6 +126,7 @@ def check_ops_doubles():
 			for id_ in doubles.keys():
 				if doubles[id_] != 1:
 					return True
+			return False
 
 def check_ops_updated_in_new_addon_version():
 	for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
@@ -228,15 +229,19 @@ def update_panel(self, context):
 	bpy.utils.unregister_class(POSE_PT_jueg_opslist)
 	bpy.utils.unregister_class(POSE_PT_jueg_opsdetail)
 	bpy.utils.unregister_class(POSE_PT_jueg_reloaddata)
+	bpy.utils.unregister_class(POSE_PT_jueg_update_addon)
+
 
 	POSE_PT_jueg_grouptype.bl_category = addonpref().category
 	POSE_PT_jueg_bonegroup.bl_category = addonpref().category
 	POSE_PT_jueg_opslist.bl_category = addonpref().category
 	POSE_PT_jueg_opsdetail.bl_category = addonpref().category
 	POSE_PT_jueg_reloaddata.bl_category = addonpref().category
+	POSE_PT_jueg_update_addon.bl_category = addonpref().category
 
 	bpy.utils.register_class(POSE_PT_jueg_grouptype)
 	bpy.utils.register_class(POSE_PT_jueg_bonegroup)
 	bpy.utils.register_class(POSE_PT_jueg_opslist)
 	bpy.utils.register_class(POSE_PT_jueg_opsdetail)
 	bpy.utils.register_class(POSE_PT_jueg_reloaddata)
+	bpy.utils.register_class(POSE_PT_jueg_update_addon)

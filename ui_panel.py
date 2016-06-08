@@ -38,7 +38,8 @@ class POSE_PT_jueg_grouptype(bpy.types.Panel):
 				context.object.type == 'ARMATURE' and
 				context.mode == 'POSE'
 				and addonpref().multitype == True
-				and len(armature.jueg_extragroups_ops) != 0)
+				and len(armature.jueg_extragroups_ops) != 0
+				and check_addon_update_needed() == False)
 
 	def draw(self, context):
 		layout = self.layout
@@ -69,7 +70,8 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 	def poll(self, context):
 		return (context.object and
 				context.object.type == 'ARMATURE' and
-				context.mode == 'POSE')
+				context.mode == 'POSE'
+				and check_addon_update_needed() == False)
 
 	def draw(self, context):
 		layout = self.layout
@@ -136,7 +138,8 @@ class POSE_PT_jueg_opslist(bpy.types.Panel):
 				context.mode == 'POSE'
 				and len(context.active_object.jueg_grouptypelist) > 0
 				and len(armature.jueg_extragroups_ops) != 0
-				and addonpref().edit_mode == True)
+				and addonpref().edit_mode == True
+				and check_addon_update_needed() == False)
 
 	def draw(self, context):
 		layout = self.layout
@@ -176,7 +179,8 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 				and len(context.active_object.jueg_grouptypelist) > 0
 				and len(context.active_object.jueg_grouptypelist[context.active_object.jueg_active_grouptype].ops_display) > 0
 				and len(armature.jueg_extragroups_ops) != 0
-				and addonpref().edit_mode == True)
+				and addonpref().edit_mode == True
+				and check_addon_update_needed() == False)
 
 	def draw(self, context):
 		layout = self.layout
@@ -311,13 +315,41 @@ class POSE_PT_jueg_reloaddata(bpy.types.Panel):
 		return (context.object and
 				context.object.type == 'ARMATURE' and
 				context.mode == 'POSE'
-				and addonpref().edit_mode == True
+				and (addonpref().edit_mode == True or check_addon_update_needed() == True)
 				and linked == True)
 
 	def draw(self, context):
 		layout = self.layout
 		row = layout.row()
 		row.operator("pose.jueg_reload_linked_data", text="Reload data from library")
+		if check_addon_update_needed() == True:
+			row = layout.row()
+			row.label("Be sure to update your library file first", icon="ERROR")
+
+class POSE_PT_jueg_update_addon(bpy.types.Panel):
+	bl_label = "Update Data"
+	bl_space_type = 'VIEW_3D'
+	bl_region_type = 'TOOLS'
+	bl_category = "Extra Groups"
+
+	@classmethod
+	def poll(self, context):
+		armature = context.active_object
+		try:
+			linked, filepath = lib_proxy_armature()
+		except:
+			linked = False
+
+		return (context.object and
+				context.object.type == 'ARMATURE' and
+				context.mode == 'POSE'
+				and check_addon_update_needed() == True
+				and linked == False)
+
+	def draw(self, context):
+		layout = self.layout
+		row = layout.row()
+		row.operator("pose.jueg_update_new_addon_version", text="Update data to new addon version")
 
 def register():
 	bpy.utils.register_class(POSE_PT_jueg_grouptype)
@@ -325,6 +357,7 @@ def register():
 	bpy.utils.register_class(POSE_PT_jueg_opslist)
 	bpy.utils.register_class(POSE_PT_jueg_opsdetail)
 	bpy.utils.register_class(POSE_PT_jueg_reloaddata)
+	bpy.utils.register_class(POSE_PT_jueg_update_addon)
 
 def unregister():
 	bpy.utils.unregister_class(POSE_PT_jueg_grouptype)
@@ -332,3 +365,4 @@ def unregister():
 	bpy.utils.unregister_class(POSE_PT_jueg_opslist)
 	bpy.utils.unregister_class(POSE_PT_jueg_opsdetail)
 	bpy.utils.unregister_class(POSE_PT_jueg_reloaddata)
+	bpy.utils.unregister_class(POSE_PT_jueg_update_addon)
