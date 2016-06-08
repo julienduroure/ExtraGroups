@@ -337,7 +337,7 @@ class POSE_OT_jueg_reload_linked_data(bpy.types.Operator):
 
 		#load linked data
 		with bpy.data.libraries.load(filepath, link=True) as (data_from, data_to):
-			data_to.objects = [data for data in data_from.objects if data == bpy.context.object.data.name]
+			data_to.objects = data_from.objects
 
 		#refill local data with linked data
 		for obj in data_to.objects:
@@ -396,7 +396,7 @@ class POSE_OT_jueg_reload_linked_data(bpy.types.Operator):
 						dst_ev.event = ev.event
 						dst_ev.solo  = ev.solo
 
-			break
+				break
 		return {'FINISHED'}
 
 
