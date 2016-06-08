@@ -28,7 +28,7 @@ bl_info = {
 	"description": "Extra Groups Tools",
 	"location": "Toolshelf > Extra Groups Tab",
 	"wiki_url": "http://blerifa.com/tools/ExtraGroups/",
-	"tracker_url": "https://github.com/julienduroure/ExtraGroups",
+	"tracker_url": "https://github.com/julienduroure/ExtraGroups/issues/",
 	"category": "Animation"
 }
 
