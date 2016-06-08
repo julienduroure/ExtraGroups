@@ -118,7 +118,7 @@ class POSE_OT_jueg_changevisibility(Operator):
 		found = False
 		#add solo data if not exist already
 		if len(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].solo) == 0:
-			for ops in armatuer.jueg_extragroups_ops:
+			for ops in armature.jueg_extragroups_ops:
 				new_ = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].solo.add()
 				new_.id = ops.id
 				new_.on_off = False
@@ -322,7 +322,7 @@ class POSE_OT_jueg_bonemute(Operator):
 		found = False
 		#add solo data if not exist already
 		if len(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].solo) == 0:
-			for ops in armatuer.jueg_extragroups_ops:
+			for ops in armature.jueg_extragroups_ops:
 				new_ = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].solo.add()
 				new_.id = ops.id
 				new_.on_off = False
@@ -483,7 +483,7 @@ class POSE_OT_jueg_restrict_select(Operator):
 		found = False
 		#add solo data if not exist already
 		if len(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].solo) == 0:
-			for ops in armatuer.jueg_extragroups_ops:
+			for ops in armature.jueg_extragroups_ops:
 				new_ = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].solo.add()
 				new_.id = ops.id
 				new_.on_off = False
@@ -652,7 +652,7 @@ class POSE_OT_jueg_select(Operator):
 		found = False
 		#add solo data if not exist already
 		if len(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].solo) == 0:
-			for ops in armatuer.jueg_extragroups_ops:
+			for ops in armature.jueg_extragroups_ops:
 				new_ = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].solo.add()
 				new_.id = ops.id
 				new_.on_off = False
