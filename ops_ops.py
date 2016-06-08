@@ -99,7 +99,7 @@ class POSE_OT_jueg_ops_add(bpy.types.Operator):
 
 
 			#now add ops info on each object
-			for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
+			for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE' and j.name != armature.name]:
 				new_ops = obj.jueg_extragroups_ops.add()
 				new_ops.id = ops.id
 				new_ops.name = ops.name
