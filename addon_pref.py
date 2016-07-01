@@ -38,10 +38,21 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 	tab3 = bpy.props.BoolProperty(default=False)
 
 	def draw(self, context):
+		armature = context.active_object
+		try:
+			linked, filepath = lib_proxy_armature()
+		except:
+			linked = False
+
 		layout = self.layout
 		row_global = layout.row()
-		if check_addon_update_needed() == True:
+		if check_addon_update_needed() == True and linked == False:
 			row_global.operator("pose.jueg_update_new_addon_version", text="Update data to new addon version")
+		elif check_addon_update_needed() == True and linked == True:
+			row_global.operator("pose.jueg_reload_linked_data", text="Reload data from library")
+			row_global = layout.row()
+			row_global.label("Be sure to update your library file first", icon="ERROR")
+			
 		row_global = layout.row()
 		row_global.prop(self, "edit_mode", text="Edit Mode")
 		row_global = layout.row()
