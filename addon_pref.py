@@ -30,6 +30,7 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 	textremove     = bpy.props.BoolProperty(default= True)
 	edit_mode      = bpy.props.BoolProperty(default= False)
 	use_color      = bpy.props.BoolProperty(default= False)
+	use_keyingset  = bpy.props.BoolProperty(default= False)
 
 	category = bpy.props.StringProperty(name="Category", default="AutoRefSpace", update=update_panel)
 
@@ -52,7 +53,7 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 			row_global.operator("pose.jueg_reload_linked_data", text="Reload data from library")
 			row_global = layout.row()
 			row_global.label("Be sure to update your library file first", icon="ERROR")
-			
+
 		row_global = layout.row()
 		row_global.prop(self, "edit_mode", text="Edit Mode")
 		row_global = layout.row()
@@ -60,6 +61,8 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 		if self.tab1 == True:
 			row_global = layout.row()
 			row_global.prop(self, "multitype", text="Use Multitype")
+			row_global = layout.row()
+			row_global.prop(self, "use_keyingset", text="KeyingSet Management")
 			row_global = layout.row()
 			row_global.prop(self, "textremove", text="Remove text when delete Operator")
 
