@@ -127,6 +127,7 @@ def check_ops_doubles():
 				if doubles[id_] != 1:
 					return True
 			return False
+	return False
 
 def check_ops_updated_in_new_addon_version():
 	for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
@@ -136,6 +137,7 @@ def check_ops_updated_in_new_addon_version():
 					if ope.update_nb != get_default_ops_id()[ope.id]['update_nb']:
 						return True
 			return False
+	return False
 
 def check_new_default_ops_in_new_addon_version():
 	for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
@@ -144,6 +146,7 @@ def check_new_default_ops_in_new_addon_version():
 				if def_ops not in [ops.id for ops in obj.jueg_extragroups_ops if ops.user_defined == False]:
 					return True
 			return False
+	return False
 
 def check_ops_removed_in_new_addon_version():
 	for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
@@ -152,6 +155,7 @@ def check_ops_removed_in_new_addon_version():
 				if ope.id not in get_default_ops_id().keys():
 					return True
 			return False
+	return False
 
 def check_addon_update_needed():
 	return check_new_default_ops_in_new_addon_version() or check_ops_removed_in_new_addon_version() or check_ops_updated_in_new_addon_version() or check_ops_doubles()
