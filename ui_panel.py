@@ -114,7 +114,7 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 				if addonpref().use_color == True:
 					row = layout.row()
 					row.prop(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup], "color", text='')
-				if addonpref().use_keyingset == True:
+				if addonpref().use_keyingset == True and armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup].current_selection == False:
 					row = layout.row()
 					row.prop_search(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup], "keying", bpy.context.scene, "keying_sets", text="")
 
