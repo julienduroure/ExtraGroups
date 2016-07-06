@@ -95,6 +95,32 @@ def get_default_ops_id():
 
 	return dict_
 
+def merge_keyingset(ks1_, ks2_):
+    index = bpy.context.scene.keying_sets.find(addonpref().internal_keyingset)
+    ks1 = bpy.context.scene.keying_sets.find(ks1_)
+    ks2 = bpy.context.scene.keying_sets.find(ks2_)
+
+    if index != -1:
+        bpy.context.scene.keying_sets.active_index = index
+        bpy.ops.anim.keying_set_remove()
+    ks = bpy.context.scene.keying_sets.new("KeyingSet", addonpref().internal_keyingset)
+
+    if ks1 != -1:
+        print('ok')
+        for path in bpy.context.scene.keying_sets[ks1].paths:
+            print(path.data_path)
+            if path.use_entire_array == True:
+                ksp = ks.paths.add(path.id, path.data_path, index=-1)
+            else:
+                ksp = ks.paths.add(path.id, path.data_path, index=path.array_index)
+    if ks2 != -1:
+        for path in bpy.context.scene.keying_sets[ks2].paths:
+            if path.use_entire_array == True:
+                ksp = ks.paths.add(path.id, path.data_path, index=-1)
+            else:
+                ksp = ks.paths.add(path.id, path.data_path, index=path.array_index)
+
+
 def copy_data_ops(armature,index_grouptype):
 	for ops in armature.jueg_extragroups_ops:
 		if ops.id not in [display.id for display in armature.jueg_grouptypelist[index_grouptype].ops_display]:

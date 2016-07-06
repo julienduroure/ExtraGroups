@@ -697,15 +697,18 @@ class POSE_OT_jueg_select(Operator):
 			elif mode == "REMOVE":
 				armature.data.bones[bone.name].select = False
 
-			# KeyingSet
-			if addonpref().use_keyingset == True:
-				if mode == "REPLACE":
-					if armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].keying != "":
-						bpy.context.scene.keying_sets.active_index = bpy.context.scene.keying_sets.find(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].keying)
-					else:
-						bpy.context.scene.keying_sets.active_index = -1
 ################################################################################
-		#No after
+		#after
+		# KeyingSet
+		if addonpref().use_keyingset == True:
+			if mode == "REPLACE":
+				if armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].keying != "":
+					bpy.context.scene.keying_sets.active_index = bpy.context.scene.keying_sets.find(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].keying)
+				else:
+					bpy.context.scene.keying_sets.active_index = -1
+			if mode == "ADD":
+				merge_keyingset(bpy.context.scene.keying_sets_all.active.bl_label, armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].keying )
+				bpy.context.scene.keying_sets.active_index = bpy.context.scene.keying_sets.find(addonpref().internal_keyingset)
 
 		#delete bones if any
 		if len(to_delete) > 0:
