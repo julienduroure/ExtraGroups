@@ -21,6 +21,7 @@
 #
 ##########################################################################################
 import bpy
+from .utils import *
 
 from bpy.props import (
 	BoolProperty,
@@ -695,6 +696,14 @@ class POSE_OT_jueg_select(Operator):
 				armature.data.bones[bone.name].select = True
 			elif mode == "REMOVE":
 				armature.data.bones[bone.name].select = False
+
+			# KeyingSet
+			if addonpref().use_keyingset == True:
+				if mode == "REPLACE":
+					if armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].keying != "":
+						bpy.context.scene.keying_sets.active_index = bpy.context.scene.keying_sets.find(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].keying)
+					else:
+						bpy.context.scene.keying_sets.active_index = -1
 ################################################################################
 		#No after
 
