@@ -210,7 +210,7 @@ class POSE_OT_jueg_update_to_new_addon_version(bpy.types.Operator):
 						new_ops.ok_for_current_sel = get_default_ops_id()[id]["ok_for_current_sel"]
 						new_ops.display = get_default_ops_id()[id]["display"]
 						new_ops.user_defined = get_default_ops_id()[id]["user_defined"]
-						new_ops.update_nb          = get_default_ops_id()[ope.id]['update_nb']
+						new_ops.magic_nb          = get_default_ops_id()[ope.id]['magic_nb']
 
 						#now add display info on each grouptype
 						for grouptype in obj.jueg_grouptypelist:
@@ -289,11 +289,11 @@ class POSE_OT_jueg_update_to_new_addon_version(bpy.types.Operator):
 
 						to_delete.append(ope.name)
 					else:
-						if ope.update_nb != get_default_ops_id()[ope.id]['update_nb']:
+						if ope.magic_nb != get_default_ops_id()[ope.id]['magic_nb']:
 							#Operator needs to be updated
 							#Update only not editable fields
 							ope.name               = get_default_ops_id()[ope.id]['name']
-							ope.update_nb          = get_default_ops_id()[ope.id]['update_nb']
+							ope.magic_nb          = get_default_ops_id()[ope.id]['magic_nb']
 							ope.ops_type           = get_default_ops_id()[ope.id]['ops_type']
 							ope.ops_exe            = get_default_ops_id()[ope.id]['ops_exe']
 							ope.ok_for_current_sel = get_default_ops_id()[ope.id]['ok_for_current_sel']
@@ -457,7 +457,7 @@ class POSE_OT_jueg_reload_linked_data(bpy.types.Operator):
 					dst_ops.ok_for_current_sel = lib_ops.ok_for_current_sel
 					dst_ops.user_defined = lib_ops.user_defined
 					dst_ops.event_manage = lib_ops.event_manage
-					dst_ops.update_nb    = lib_ops.update_nb
+					dst_ops.magic_nb    = lib_ops.magic_nb
 
 					for ev in lib_ops.events:
 						dst_ev = dst_ops.events.add()

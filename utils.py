@@ -33,7 +33,7 @@ def get_default_ops_id():
 	dict_ = {}
 
 	dict_['f31027b2b65d4a90b610281ea09f08fb'] = {}
-	dict_['f31027b2b65d4a90b610281ea09f08fb']['update_nb'] = 1
+	dict_['f31027b2b65d4a90b610281ea09f08fb']['magic_nb'] = 1
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['name'] = "Mute"
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['ops_type'] = 'BOOL'
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['ops_exe'] = "pose.jueg_bonemute"
@@ -48,7 +48,7 @@ def get_default_ops_id():
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['events'].append(['SOLO', 'CTRL', True])
 
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86'] = {}
-	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['update_nb'] = 1
+	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['magic_nb'] = 1
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['name'] = "Toggle Visibility"
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['ops_type'] = 'BOOL'
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['ops_exe'] = "pose.jueg_change_visibility"
@@ -63,7 +63,7 @@ def get_default_ops_id():
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['events'].append(['SOLO', 'CTRL', True])
 
 	dict_['9d5257bf3d6245afacabb452bf7a455e'] = {}
-	dict_['9d5257bf3d6245afacabb452bf7a455e']['update_nb'] = 1
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['magic_nb'] = 1
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['name'] = "Restrict/Allow Selection"
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['ops_type'] = 'BOOL'
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['ops_exe'] = "pose.jueg_restrict_select"
@@ -78,7 +78,7 @@ def get_default_ops_id():
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['events'].append(['SOLO', 'CTRL', True])
 
 	dict_['8102ad699e6d4af8a8f511e1283b995e'] = {}
-	dict_['8102ad699e6d4af8a8f511e1283b995e']['update_nb'] = 2
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['magic_nb'] = 2
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['name'] = "Select"
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['ops_type'] = 'EXE'
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['ops_exe'] = "pose.jueg_select"
@@ -160,7 +160,7 @@ def check_ops_updated_in_new_addon_version():
 		if len(obj.jueg_extragroups_ops) > 0:
 			for ope in [ops for ops in obj.jueg_extragroups_ops if ops.user_defined == False]:
 				if ope.id in get_default_ops_id().keys():
-					if ope.update_nb != get_default_ops_id()[ope.id]['update_nb']:
+					if ope.magic_nb != get_default_ops_id()[ope.id]['magic_nb']:
 						return True
 			return False
 	return False
@@ -202,7 +202,7 @@ def init_default_ops(armature):
 				ops.ok_for_current_sel = ops_src.ok_for_current_sel
 				ops.user_defined = ops_src.user_defined
 				ops.event_manage = ops_src.event_manage
-				ops.update_nb    = ops_src.update_nb
+				ops.magic_nb    = ops_src.magic_nb
 
 				for src_ev in ops_src.events:
 					dst_ev = ops.events.add()
@@ -219,7 +219,7 @@ def init_default_ops(armature):
 		ops = armature.jueg_extragroups_ops.add()
 		ops.name     = get_default_ops_id()[id]["name"]
 		ops.id       = id
-		ops.update_nb = get_default_ops_id()[id]["update_nb"]
+		ops.magic_nb = get_default_ops_id()[id]["magic_nb"]
 		ops.ops_type = get_default_ops_id()[id]["ops_type"]
 		ops.ops_exe  = get_default_ops_id()[id]["ops_exe"]
 		ops.icon_on = get_default_ops_id()[id]["icon_on"]

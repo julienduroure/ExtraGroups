@@ -98,7 +98,7 @@ class Jueg_OpsItem(bpy.types.PropertyGroup):
 	events = bpy.props.CollectionProperty(type=Jueg_EventData)
 	active_event = bpy.props.IntProperty(default=0)
 	icons = bpy.props.PointerProperty(type=Jueg_OpsDetails_DisplayProp)
-	update_nb = bpy.props.IntProperty(default=0)
+	magic_nb = bpy.props.IntProperty(default=0)
 
 def register():
 	bpy.utils.register_class(Jueg_OnOffEntry)
