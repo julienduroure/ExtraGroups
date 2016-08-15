@@ -21,7 +21,7 @@
 #
 ##########################################################################################
 import bpy
-from .globals import *
+from .globs import *
 from .utils import *
 
 

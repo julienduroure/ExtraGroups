@@ -34,7 +34,7 @@ bl_info = {
 
 if "bpy" in locals():
 	import imp
-	imp.reload(globals)
+	imp.reload(globs)
 	imp.reload(utils)
 	imp.reload(addon_pref)
 	imp.reload(ops_grouptype)
@@ -47,7 +47,7 @@ if "bpy" in locals():
 	imp.reload(template_default_ops)
 	imp.reload(text_ops_squel)
 else:
-	from .globals import *
+	from .globs import *
 	from .utils import *
 	from .addon_pref import *
 	from .ops_grouptype import *
@@ -65,7 +65,7 @@ import bpy.utils.previews
 import os
 
 def register():
-	globals.register()
+	globs.register()
 	addon_pref.register()
 	ops_grouptype.register()
 	ops_bonegroup.register()
@@ -97,7 +97,7 @@ def unregister():
 	del bpy.types.Object.jueg_active_grouptype
 	del bpy.types.Object.jueg_extragroups_ops
 
-	globals.unregister()
+	globs.unregister()
 	addon_pref.unregister()
 	ops_grouptype.unregister()
 	ops_bonegroup.unregister()

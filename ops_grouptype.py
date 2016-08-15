@@ -21,7 +21,7 @@
 #
 ##########################################################################################
 import bpy
-from .globals import *
+from .globs import *
 from .utils import *
 
 class POSE_OT_jueg_grouptype_move(bpy.types.Operator):

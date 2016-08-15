@@ -24,7 +24,7 @@ import bpy
 import uuid
 import bpy_extras
 from .text_ops_squel import TEMPLATE
-from .globals import *
+from .globs import *
 from .utils import *
 
 

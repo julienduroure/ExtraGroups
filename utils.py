@@ -21,7 +21,7 @@
 #
 ##########################################################################################
 import bpy
-from .globals import *
+from .globs import *
 
 #shortcut to prefs
 def addonpref():

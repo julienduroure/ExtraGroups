@@ -21,7 +21,7 @@
 #
 ##########################################################################################
 import bpy
-from .globals import *
+from .globs import *
 from .utils import *
 
 class POSE_UL_jueg_grouptype(bpy.types.UIList):

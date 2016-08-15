@@ -21,7 +21,7 @@
 #
 ##########################################################################################
 import bpy
-from .globals import *
+from .globs import *
 
 class jueg_AddonPreferences(bpy.types.AddonPreferences):
 	bl_idname = __package__
