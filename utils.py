@@ -40,7 +40,7 @@ def get_default_ops_id():
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['icon_on'] = "MUTE_IPO_OFF"
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['icon_off'] = "MUTE_IPO_ON"
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['ok_for_current_sel'] = True
-	dict_['f31027b2b65d4a90b610281ea09f08fb']['ops_context'] = 'EXEC_DEFAULT'
+	dict_['f31027b2b65d4a90b610281ea09f08fb']['ops_context'] = 'INVOKE_DEFAULT'
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['display'] = False
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['user_defined'] = False
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['event_manage'] = True
@@ -56,7 +56,7 @@ def get_default_ops_id():
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['icon_on'] = "VISIBLE_IPO_ON"
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['icon_off'] = "VISIBLE_IPO_OFF"
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['ok_for_current_sel'] = False
-	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['ops_context'] = 'EXEC_DEFAULT'
+	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['ops_context'] = 'INVOKE_DEFAULT'
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['display'] = False
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['user_defined'] = False
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['event_manage'] = True
@@ -72,7 +72,7 @@ def get_default_ops_id():
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['icon_on'] = "RESTRICT_SELECT_OFF"
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['icon_off'] = "RESTRICT_SELECT_ON"
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['ok_for_current_sel'] = True
-	dict_['9d5257bf3d6245afacabb452bf7a455e']['ops_context'] = 'EXEC_DEFAULT'
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['ops_context'] = 'INVOKE_DEFAULT'
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['display'] = False
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['user_defined'] = False
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['event_manage'] = True
@@ -88,7 +88,7 @@ def get_default_ops_id():
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['icon_on'] = "HAND"
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['icon_off'] = ""
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['ok_for_current_sel'] = False
-	dict_['8102ad699e6d4af8a8f511e1283b995e']['ops_context'] = 'EXEC_DEFAULT'
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['ops_context'] = 'INVOKE_DEFAULT'
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['display'] = False
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['user_defined'] = False
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['event_manage'] = True
@@ -96,6 +96,20 @@ def get_default_ops_id():
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['REPLACE', 'NONE', False])
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['ADD', 'SHIFT', False])
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['REMOVE', 'ALT', False])
+
+	dict_['baeadde2d0594c5abfe083808b80d995'] = {}
+	dict_['baeadde2d0594c5abfe083808b80d995']['magic_nb'] = 1
+	dict_['baeadde2d0594c5abfe083808b80d995']['name'] = "Props"
+	dict_['baeadde2d0594c5abfe083808b80d995']['ops_type'] = 'EXE'
+	dict_['baeadde2d0594c5abfe083808b80d995']['ops_exe'] = "pose.jueg_props_change"
+	dict_['baeadde2d0594c5abfe083808b80d995']['icon_on'] = "ANIM"
+	dict_['baeadde2d0594c5abfe083808b80d995']['icon_off'] = ""
+	dict_['baeadde2d0594c5abfe083808b80d995']['ok_for_current_sel'] = True
+	dict_['baeadde2d0594c5abfe083808b80d995']['ops_context'] = 'INVOKE_DEFAULT'
+	dict_['baeadde2d0594c5abfe083808b80d995']['display'] = False
+	dict_['baeadde2d0594c5abfe083808b80d995']['user_defined'] = False
+	dict_['baeadde2d0594c5abfe083808b80d995']['event_manage'] = False
+	dict_['baeadde2d0594c5abfe083808b80d995']['events'] = []
 
 	return dict_
 

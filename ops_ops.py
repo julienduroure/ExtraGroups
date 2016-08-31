@@ -211,7 +211,7 @@ class POSE_OT_jueg_update_to_new_addon_version(bpy.types.Operator):
 						new_ops.ops_context = get_default_ops_id()[id]["ops_context"]
 						new_ops.display = get_default_ops_id()[id]["display"]
 						new_ops.user_defined = get_default_ops_id()[id]["user_defined"]
-						new_ops.magic_nb          = get_default_ops_id()[ope.id]['magic_nb']
+						new_ops.magic_nb          = get_default_ops_id()[id]['magic_nb']
 
 						#now add display info on each grouptype
 						for grouptype in obj.jueg_grouptypelist:

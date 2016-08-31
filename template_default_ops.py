@@ -568,6 +568,66 @@ class POSE_OT_jueg_restrict_select(Operator):
 		return {'FINISHED'}
 
 
+class POSE_OT_jueg_props_change(Operator):
+	"""Change Custom Properties"""
+	bl_idname = "pose.jueg_props_change"
+	bl_label = "Props"
+
+
+	ops_id		 = StringProperty()
+	index			= IntProperty()
+
+	@classmethod
+	def poll(self, context):
+		return (context.object and
+				context.object.type == 'ARMATURE' and
+				context.mode == 'POSE')
+
+	def invoke(self, context, event):
+		wm = context.window_manager
+		return wm.invoke_props_dialog(self)
+
+	def draw(self, context):
+		layout = self.layout
+
+		armature = context.object
+		#check if this is a classic group or current selection
+		current_selection = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].current_selection
+		if current_selection == False:
+			#retrieve bones from group
+			bones = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].bone_ids
+		else:
+			#retrieve bones from current selection
+			bones = []
+			for bone in armature.pose.bones:
+				if bone.bone.select == True:
+					bones.append(bone)
+
+		global_found = False
+		for bone in bones:
+			#check if there is a prop for this bone
+			found = False
+			for prop in armature.pose.bones[bone.name].keys():
+				if prop != "_RNA_UI":
+					found = True
+					global_found = True
+					break
+			if found == True:
+				row_ = layout.row()
+				box = row_.box()
+				row = box.row()
+				row.label(bone.name)
+				for prop in armature.pose.bones[bone.name].keys():
+					if prop != "_RNA_UI":
+						row = box.row()
+						row.prop(armature.pose.bones[bone.name], '["' + prop + '"]')
+		if global_found == False:
+			layout.label("No custom properties")
+
+	def execute(self, context):
+		return {'FINISHED'}
+
+
 class POSE_OT_jueg_select(Operator):
 	"""Selection (See events for more info)"""
 	bl_idname = "pose.jueg_select"
@@ -748,6 +808,7 @@ def register():
 	bpy.utils.register_class(POSE_OT_jueg_bonemute)
 	bpy.utils.register_class(POSE_OT_jueg_restrict_select)
 	bpy.utils.register_class(POSE_OT_jueg_select)
+	bpy.utils.register_class(POSE_OT_jueg_props_change)
 
 
 def unregister():
@@ -755,6 +816,7 @@ def unregister():
 	bpy.utils.unregister_class(POSE_OT_jueg_bonemute)
 	bpy.utils.unregister_class(POSE_OT_jueg_restrict_select)
 	bpy.utils.unregister_class(POSE_OT_jueg_select)
+	bpy.utils.unregister_class(POSE_OT_jueg_props_change)
 
 
 
