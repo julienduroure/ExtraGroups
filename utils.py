@@ -33,13 +33,14 @@ def get_default_ops_id():
 	dict_ = {}
 
 	dict_['f31027b2b65d4a90b610281ea09f08fb'] = {}
-	dict_['f31027b2b65d4a90b610281ea09f08fb']['magic_nb'] = 1
+	dict_['f31027b2b65d4a90b610281ea09f08fb']['magic_nb'] = 2
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['name'] = "Mute"
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['ops_type'] = 'BOOL'
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['ops_exe'] = "pose.jueg_bonemute"
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['icon_on'] = "MUTE_IPO_OFF"
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['icon_off'] = "MUTE_IPO_ON"
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['ok_for_current_sel'] = True
+	dict_['f31027b2b65d4a90b610281ea09f08fb']['ops_context'] = 'EXEC_DEFAULT'
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['display'] = False
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['user_defined'] = False
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['event_manage'] = True
@@ -48,13 +49,14 @@ def get_default_ops_id():
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['events'].append(['SOLO', 'CTRL', True])
 
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86'] = {}
-	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['magic_nb'] = 1
+	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['magic_nb'] = 2
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['name'] = "Toggle Visibility"
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['ops_type'] = 'BOOL'
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['ops_exe'] = "pose.jueg_change_visibility"
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['icon_on'] = "VISIBLE_IPO_ON"
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['icon_off'] = "VISIBLE_IPO_OFF"
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['ok_for_current_sel'] = False
+	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['ops_context'] = 'EXEC_DEFAULT'
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['display'] = False
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['user_defined'] = False
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['event_manage'] = True
@@ -63,13 +65,14 @@ def get_default_ops_id():
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['events'].append(['SOLO', 'CTRL', True])
 
 	dict_['9d5257bf3d6245afacabb452bf7a455e'] = {}
-	dict_['9d5257bf3d6245afacabb452bf7a455e']['magic_nb'] = 1
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['magic_nb'] = 2
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['name'] = "Restrict/Allow Selection"
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['ops_type'] = 'BOOL'
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['ops_exe'] = "pose.jueg_restrict_select"
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['icon_on'] = "RESTRICT_SELECT_OFF"
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['icon_off'] = "RESTRICT_SELECT_ON"
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['ok_for_current_sel'] = True
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['ops_context'] = 'EXEC_DEFAULT'
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['display'] = False
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['user_defined'] = False
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['event_manage'] = True
@@ -78,13 +81,14 @@ def get_default_ops_id():
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['events'].append(['SOLO', 'CTRL', True])
 
 	dict_['8102ad699e6d4af8a8f511e1283b995e'] = {}
-	dict_['8102ad699e6d4af8a8f511e1283b995e']['magic_nb'] = 2
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['magic_nb'] = 3
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['name'] = "Select"
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['ops_type'] = 'EXE'
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['ops_exe'] = "pose.jueg_select"
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['icon_on'] = "HAND"
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['icon_off'] = ""
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['ok_for_current_sel'] = False
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['ops_context'] = 'EXEC_DEFAULT'
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['display'] = False
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['user_defined'] = False
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['event_manage'] = True
@@ -200,6 +204,7 @@ def init_default_ops(armature):
 				ops.icon_on	= ops_src.icon_on
 				ops.icon_off   = ops_src.icon_off
 				ops.ok_for_current_sel = ops_src.ok_for_current_sel
+				ops.ops_context = ops_src.ops_context
 				ops.user_defined = ops_src.user_defined
 				ops.event_manage = ops_src.event_manage
 				ops.magic_nb    = ops_src.magic_nb
@@ -225,6 +230,7 @@ def init_default_ops(armature):
 		ops.icon_on = get_default_ops_id()[id]["icon_on"]
 		ops.icon_off = get_default_ops_id()[id]["icon_off"]
 		ops.ok_for_current_sel = get_default_ops_id()[id]["ok_for_current_sel"]
+		ops.ops_context = get_default_ops_id()[id]["ops_context"]
 		ops.display = get_default_ops_id()[id]["display"]
 		ops.user_defined = get_default_ops_id()[id]["user_defined"]
 		ops.event_manage = get_default_ops_id()[id]["event_manage"]

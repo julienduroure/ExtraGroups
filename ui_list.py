@@ -105,21 +105,26 @@ class POSE_UL_jueg_bonegroup(bpy.types.UIList):
 							icon ="QUESTION" 										#if no icon, set QUESION_ICON
 					if item.current_selection == True and ops.ok_for_current_sel == False:
 						icon = 'BLANK1'												#Display nothing if ops is not enabled for current selection
+						row.operator_context = "EXEC_DEFAULT"
 						op = row.operator("pose.jueg_dummy", text='', emboss=False, icon=icon)
 					else:
 						if solo_somewhere == False:
+							row.operator_context = ops.ops_context
 							op = row.operator(ops.ops_exe, text='', emboss=False, icon=icon)
 							op.ops_id = ops.id
 							op.index	= index
 						else:
 							if solo_me == True:
+								row.operator_context = ops.ops_context
 								op = row.operator(ops.ops_exe, text='', emboss=False, icon=icon)
 								op.ops_id = ops.id
 								op.index	= index
 							else:
+								row.operator_context = "EXEC_DEFAULT"
 								op = row.operator("pose.jueg_dummy_solo", text='', emboss=False, icon=icon)
 				except:
 					icon = 'ERROR' 													#In case of error, display warning error icon
+					row.operator_context = "EXEC_DEFAULT"
 					op = row.operator("pose.jueg_dummy", text='', emboss=False, icon=icon)
 
 		elif self.layout_type in {'GRID'}:

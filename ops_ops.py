@@ -208,6 +208,7 @@ class POSE_OT_jueg_update_to_new_addon_version(bpy.types.Operator):
 						new_ops.icon_on = get_default_ops_id()[id]["icon_on"]
 						new_ops.icon_off = get_default_ops_id()[id]["icon_off"]
 						new_ops.ok_for_current_sel = get_default_ops_id()[id]["ok_for_current_sel"]
+						new_ops.ops_context = get_default_ops_id()[id]["ops_context"]
 						new_ops.display = get_default_ops_id()[id]["display"]
 						new_ops.user_defined = get_default_ops_id()[id]["user_defined"]
 						new_ops.magic_nb          = get_default_ops_id()[ope.id]['magic_nb']
@@ -297,6 +298,7 @@ class POSE_OT_jueg_update_to_new_addon_version(bpy.types.Operator):
 							ope.ops_type           = get_default_ops_id()[ope.id]['ops_type']
 							ope.ops_exe            = get_default_ops_id()[ope.id]['ops_exe']
 							ope.ok_for_current_sel = get_default_ops_id()[ope.id]['ok_for_current_sel']
+							ope.ops_context = get_default_ops_id()[ope.id]['ops_context']
 							ope.event_manage       = get_default_ops_id()[ope.id]['event_manage']
 							ope.events.clear()
 							for ev in get_default_ops_id()[ope.id]['events']:
@@ -455,6 +457,7 @@ class POSE_OT_jueg_reload_linked_data(bpy.types.Operator):
 					dst_ops.icon_on = lib_ops.icon_on
 					dst_ops.icon_off = lib_ops.icon_off
 					dst_ops.ok_for_current_sel = lib_ops.ok_for_current_sel
+					dst_ops.ops_context = lib_ops.ops_context
 					dst_ops.user_defined = lib_ops.user_defined
 					dst_ops.event_manage = lib_ops.event_manage
 					dst_ops.magic_nb    = lib_ops.magic_nb

@@ -66,6 +66,11 @@ jueg_event_modif = [
 	("CTRL_SHIFT_ALT", "Ctrl+Shift+Alt", "", 8),
 ]
 
+jueg_ops_context = [
+	("EXEC_DEFAULT", "Exec Default", "", 1),
+	("INVOKE_DEFAULT", "Invoke Default", "", 2),
+]
+
 class Jueg_OpsDetails_IconProp(bpy.types.PropertyGroup):
 	expand = bpy.props.BoolProperty(name="Expand", description="Expand, to display all icons at once", default=False)
 	search = bpy.props.StringProperty(name="Search", description="Search for icons by name", default="")
@@ -93,6 +98,7 @@ class Jueg_OpsItem(bpy.types.PropertyGroup):
 	icon_on	= bpy.props.StringProperty(name="Icon On")
 	icon_off   = bpy.props.StringProperty(name="Icon Off")
 	ok_for_current_sel = bpy.props.BoolProperty()
+	ops_context = bpy.props.EnumProperty(items=jueg_ops_context, name="Context")
 	user_defined = bpy.props.BoolProperty()
 	event_manage = bpy.props.BoolProperty(default=False)
 	events = bpy.props.CollectionProperty(type=Jueg_EventData)
