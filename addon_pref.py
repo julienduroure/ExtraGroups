@@ -33,8 +33,8 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 	use_keyingset  = bpy.props.BoolProperty(default= False)
 
 	internal_keyingset = bpy.props.StringProperty(default="ExtraGroups KeyingSet")
-	
-	category = bpy.props.StringProperty(name="Category", default="AutoRefSpace", update=update_panel)
+
+	category = bpy.props.StringProperty(name="Category", default="ExtraGroups", update=update_panel)
 
 	tab1 = bpy.props.BoolProperty(default=False)
 	tab2 = bpy.props.BoolProperty(default=False)
