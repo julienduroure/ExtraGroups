@@ -769,6 +769,8 @@ class POSE_OT_jueg_select(Operator):
 			if mode == "ADD":
 				merge_keyingset(bpy.context.scene.keying_sets_all.active.bl_label, armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].keying )
 				bpy.context.scene.keying_sets.active_index = bpy.context.scene.keying_sets.find(addonpref().internal_keyingset)
+			elif mode == "REMOVE":
+				self.report({'ERROR'}, "KeyingSet remove is not implemented yet")
 
 		#delete bones if any
 		if len(to_delete) > 0:
