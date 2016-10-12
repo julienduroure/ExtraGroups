@@ -24,7 +24,7 @@ bl_info = {
 	"name": "Extra Groups",
 	"version": (0, 0, 4),
 	"author": "Julien Duroure",
-	"blender": (2, 77, 0),
+	"blender": (2, 78, 0),
 	"description": "Extra Groups Tools",
 	"location": "Toolshelf > Extra Groups Tab",
 	"wiki_url": "http://blerifa.com/tools/ExtraGroups/",
