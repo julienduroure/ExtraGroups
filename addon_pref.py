@@ -39,6 +39,7 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 	tab1 = bpy.props.BoolProperty(default=False)
 	tab2 = bpy.props.BoolProperty(default=False)
 	tab3 = bpy.props.BoolProperty(default=False)
+	tab4 = bpy.props.BoolProperty(default=False)
 
 	def draw(self, context):
 		armature = context.active_object
@@ -80,8 +81,15 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 			row.prop(self, "use_color", text="Use color")
 
 		row_global = layout.row()
-		row_global.prop(self, "tab3", text="Danger Zone", icon='SOLO_ON')
+		row_global.prop(self, "tab3", text="Import", icon='SOLO_ON')
 		if self.tab3 == True:
+			row_global = layout.row()
+			col = row_global.column()
+			row = col.row()
+			row.operator("jueg.import_from_bone_groups", text="Import from Bone Groups")
+		row_global = layout.row()
+		row_global.prop(self, "tab4", text="Danger Zone", icon='SOLO_ON')
+		if self.tab4 == True:
 			row_global = layout.row()
 			row_global.label("In case addon goes wrong, you can delete all data of this addon")
 			row_global = layout.row()
