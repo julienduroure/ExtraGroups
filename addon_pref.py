@@ -87,6 +87,10 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 			col = row_global.column()
 			row = col.row()
 			row.operator("jueg.import_from_bone_groups", text="Import from Bone Groups")
+			col = row_global.column()
+			row = col.row()
+			row.operator("jueg.import_from_selection_sets", text="Import from Selection Sets")
+
 		row_global = layout.row()
 		row_global.prop(self, "tab4", text="Danger Zone", icon='SOLO_ON')
 		if self.tab4 == True:
