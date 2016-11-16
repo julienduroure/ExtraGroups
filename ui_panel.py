@@ -110,6 +110,9 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 				row = layout.row()
 				row.operator("pose.jueg_bonegroup_add", text="Add Dynamic Selection").dyn_selection = True
 
+			row = layout.row()
+			row.prop(addonpref(), "edit_mode", text="Edit Mode")
+
 			if addonpref().edit_mode == True:
 				if addonpref().use_color == True:
 					row = layout.row()
