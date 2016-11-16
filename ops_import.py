@@ -63,8 +63,9 @@ class POSE_OT_jueg_import_from_bone_groups(bpy.types.Operator):
 				bonegroup = grouptype[gr]
 
 			for bone in creation[gr]:
-				bone_id = bonegroup.bone_ids.add()
-				bone_id.name = bone
+				if not bone in bonegroup.bone_ids.keys():
+				    bone_id = bonegroup.bone_ids.add()
+				    bone_id.name = bone
 
 			#add on / off for each ops
 			on_off   = bonegroup.on_off
