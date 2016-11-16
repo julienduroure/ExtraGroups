@@ -55,9 +55,12 @@ class POSE_OT_jueg_import_from_bone_groups(bpy.types.Operator):
 		grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids
 
 		for gr in creation.keys():
-			bonegroup = grouptype.add()
-			bonegroup.name = gr
-			armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup = len(grouptype) - 1
+			if not gr in grouptype.keys():
+				bonegroup = grouptype.add()
+				bonegroup.name = gr
+				armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup = len(grouptype) - 1
+			else:
+				bonegroup = grouptype[gr]
 
 			for bone in creation[gr]:
 				bone_id = bonegroup.bone_ids.add()
