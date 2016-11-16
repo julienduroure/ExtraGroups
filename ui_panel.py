@@ -106,7 +106,7 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 				if len(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids) == 0:
 					row.enabled = False
 
-			if check_if_current_selection_exists() == False:
+			if check_if_current_selection_exists(bpy.context.object.jueg_active_grouptype) == False:
 				row = layout.row()
 				row.operator("pose.jueg_bonegroup_add", text="Add Dynamic Selection").dyn_selection = True
 
