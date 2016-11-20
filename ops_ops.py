@@ -283,7 +283,7 @@ class POSE_OT_jueg_update_to_new_addon_version(bpy.types.Operator):
 								group.solo.clear()
 								for solo in context.scene.solo_save:
 									if solo.id != ope.id:
-										new_ = groupsolo.add()
+										new_ = group.solo.add()
 										new_.id = solo.id
 										new_.on_off = solo.on_off
 								context.scene.solo_save.clear()
@@ -361,7 +361,7 @@ class POSE_OT_jueg_update_to_new_addon_version(bpy.types.Operator):
 										already_found = False
 										for solo in context.scene.solo_save:
 											if solo.id != ope.id or (solo.id == ope.id and already_found == True):
-												new_ = groupsolo.add()
+												new_ = group.solo.add()
 												new_.id = solo.id
 												new_.on_off = solo.on_off
 											else:
