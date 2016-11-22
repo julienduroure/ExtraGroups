@@ -100,6 +100,13 @@ class POSE_OT_jueg_grouptype_remove(bpy.types.Operator):
 		len_ = len(armature.jueg_grouptypelist)
 		if (armature.jueg_active_grouptype > (len_ - 1) and len_ > 0):
 			armature.jueg_active_grouptype = len(armature.jueg_grouptypelist) - 1
+
+		if len_ == 0:
+			# when delete last grouptype, need to delete ops
+			for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
+				obj.jueg_extragroups_ops.clear()
+				obj.jueg_active_grouptype = -1
+
 		return {'FINISHED'}
 
 def register():
