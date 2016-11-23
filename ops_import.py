@@ -23,6 +23,47 @@
 import bpy
 from .utils import *
 
+def import_creation(creation):
+	armature = bpy.context.object
+
+	# creation
+	if len(armature.jueg_grouptypelist) == 0:
+		grouptype = armature.jueg_grouptypelist.add()
+		grouptype.name = "GroupType.%d" % len(armature.jueg_grouptypelist)
+		armature.jueg_active_grouptype = len(armature.jueg_grouptypelist) - 1
+		init_default_ops(armature)
+
+	grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids
+
+	for gr in creation.keys():
+		if not gr in grouptype.keys():
+			bonegroup = grouptype.add()
+			bonegroup.name = gr
+			armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup = len(grouptype) - 1
+		else:
+			bonegroup = grouptype[gr]
+
+		for bone in creation[gr]:
+			if not bone in bonegroup.bone_ids.keys():
+				bone_id = bonegroup.bone_ids.add()
+				bone_id.name = bone
+
+		#add on / off for each ops
+		on_off   = bonegroup.on_off
+		ops_list = armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display
+		for ops in ops_list:
+			new_ = on_off.add()
+			new_.id = ops.id
+			new_.on_off = True
+
+		#add solo for each ops
+		solo   = bonegroup.solo
+		ops_list = armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display
+		for ops in ops_list:
+			new_ = solo.add()
+			new_.id = ops.id
+			new_.on_off = False
+
 class POSE_OT_jueg_import_from_bone_groups(bpy.types.Operator):
 	"""Import from Bone Groups"""
 	bl_idname = "jueg.import_from_bone_groups"
@@ -45,43 +86,7 @@ class POSE_OT_jueg_import_from_bone_groups(bpy.types.Operator):
 					creation[bone.bone_group.name] = []
 				creation[bone.bone_group.name].append(bone.name)
 
-		# creation
-		if len(armature.jueg_grouptypelist) == 0:
-			grouptype = armature.jueg_grouptypelist.add()
-			grouptype.name = "GroupType.%d" % len(armature.jueg_grouptypelist)
-			armature.jueg_active_grouptype = len(armature.jueg_grouptypelist) - 1
-			init_default_ops(armature)
-
-		grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids
-
-		for gr in creation.keys():
-			if not gr in grouptype.keys():
-				bonegroup = grouptype.add()
-				bonegroup.name = gr
-				armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup = len(grouptype) - 1
-			else:
-				bonegroup = grouptype[gr]
-
-			for bone in creation[gr]:
-				if not bone in bonegroup.bone_ids.keys():
-				    bone_id = bonegroup.bone_ids.add()
-				    bone_id.name = bone
-
-			#add on / off for each ops
-			on_off   = bonegroup.on_off
-			ops_list = armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display
-			for ops in ops_list:
-				new_ = on_off.add()
-				new_.id = ops.id
-				new_.on_off = True
-
-			#add solo for each ops
-			solo   = bonegroup.solo
-			ops_list = armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display
-			for ops in ops_list:
-				new_ = solo.add()
-				new_.id = ops.id
-				new_.on_off = False
+		import_creation(creation)
 
 		return {'FINISHED'}
 
@@ -108,43 +113,7 @@ class POSE_OT_jueg_import_from_selection_sets(bpy.types.Operator):
 			for bone in set_.bone_ids:
 				creation[set_.name].append(bone.name)
 
-		# creation
-		if len(armature.jueg_grouptypelist) == 0:
-			grouptype = armature.jueg_grouptypelist.add()
-			grouptype.name = "GroupType.%d" % len(armature.jueg_grouptypelist)
-			armature.jueg_active_grouptype = len(armature.jueg_grouptypelist) - 1
-			init_default_ops(armature)
-
-		grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids
-
-		for gr in creation.keys():
-			if not gr in grouptype.keys():
-				bonegroup = grouptype.add()
-				bonegroup.name = gr
-				armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup = len(grouptype) - 1
-			else:
-				bonegroup = grouptype[gr]
-
-			for bone in creation[gr]:
-				if not bone in bonegroup.bone_ids.keys():
-				    bone_id = bonegroup.bone_ids.add()
-				    bone_id.name = bone
-
-			#add on / off for each ops
-			on_off   = bonegroup.on_off
-			ops_list = armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display
-			for ops in ops_list:
-				new_ = on_off.add()
-				new_.id = ops.id
-				new_.on_off = True
-
-			#add solo for each ops
-			solo   = bonegroup.solo
-			ops_list = armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display
-			for ops in ops_list:
-				new_ = solo.add()
-				new_.id = ops.id
-				new_.on_off = False
+		import_creation(creation)
 
 		return {'FINISHED'}
 
@@ -171,43 +140,7 @@ class POSE_OT_jueg_import_from_keying_sets(bpy.types.Operator):
 					bone_name = tmp[0][1:-1]
 					creation[set_.bl_label].append(bone_name)
 
-		# creation
-		if len(armature.jueg_grouptypelist) == 0:
-			grouptype = armature.jueg_grouptypelist.add()
-			grouptype.name = "GroupType.%d" % len(armature.jueg_grouptypelist)
-			armature.jueg_active_grouptype = len(armature.jueg_grouptypelist) - 1
-			init_default_ops(armature)
-
-		grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids
-
-		for gr in creation.keys():
-			if not gr in grouptype.keys():
-				bonegroup = grouptype.add()
-				bonegroup.name = gr
-				armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup = len(grouptype) - 1
-			else:
-				bonegroup = grouptype[gr]
-
-			for bone in creation[gr]:
-				if not bone in bonegroup.bone_ids.keys():
-				    bone_id = bonegroup.bone_ids.add()
-				    bone_id.name = bone
-
-			#add on / off for each ops
-			on_off   = bonegroup.on_off
-			ops_list = armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display
-			for ops in ops_list:
-				new_ = on_off.add()
-				new_.id = ops.id
-				new_.on_off = True
-
-			#add solo for each ops
-			solo   = bonegroup.solo
-			ops_list = armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display
-			for ops in ops_list:
-				new_ = solo.add()
-				new_.id = ops.id
-				new_.on_off = False
+		import_creation(creation)
 
 		return {'FINISHED'}
 
