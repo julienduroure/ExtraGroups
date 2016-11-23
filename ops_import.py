@@ -23,13 +23,13 @@
 import bpy
 from .utils import *
 
-def import_creation(creation):
+def import_creation(creation, label):
 	armature = bpy.context.object
 
 	# creation
 	if len(armature.jueg_grouptypelist) == 0:
 		grouptype = armature.jueg_grouptypelist.add()
-		grouptype.name = "GroupType.%d" % len(armature.jueg_grouptypelist)
+		grouptype.name = label
 		armature.jueg_active_grouptype = len(armature.jueg_grouptypelist) - 1
 		init_default_ops(armature)
 
@@ -86,7 +86,7 @@ class POSE_OT_jueg_import_from_bone_groups(bpy.types.Operator):
 					creation[bone.bone_group.name] = []
 				creation[bone.bone_group.name].append(bone.name)
 
-		import_creation(creation)
+		import_creation(creation, "Bone Groups")
 
 		return {'FINISHED'}
 
@@ -113,7 +113,7 @@ class POSE_OT_jueg_import_from_selection_sets(bpy.types.Operator):
 			for bone in set_.bone_ids:
 				creation[set_.name].append(bone.name)
 
-		import_creation(creation)
+		import_creation(creation, "Selection Sets")
 
 		return {'FINISHED'}
 
@@ -140,7 +140,7 @@ class POSE_OT_jueg_import_from_keying_sets(bpy.types.Operator):
 					bone_name = tmp[0][1:-1]
 					creation[set_.bl_label].append(bone_name)
 
-		import_creation(creation)
+		import_creation(creation, "Keying Sets")
 
 		return {'FINISHED'}
 
