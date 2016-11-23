@@ -32,6 +32,8 @@ bl_info = {
 	"category": "Animation"
 }
 
+reload_mode = False
+
 if "bpy" in locals():
 	import imp
 	imp.reload(globs)
@@ -47,6 +49,7 @@ if "bpy" in locals():
 	imp.reload(template_default_ops)
 	imp.reload(text_ops_squel)
 	imp.reload(ops_import)
+	reload_mode = True
 else:
 	from .globs import *
 	from .utils import *
@@ -61,6 +64,7 @@ else:
 	from .template_default_ops import *
 	from .text_ops_squel import *
 	from .ops_import import *
+	reload_mode = False
 
 import bpy
 import bpy.utils.previews
@@ -94,6 +98,9 @@ def register():
 	pcoll.load("bonegroup_assign", os.path.join(my_icons_dir, "bonegroup_assign.png"), 'IMAGE')
 	pcoll.load("bonegroup_remove", os.path.join(my_icons_dir, "bonegroup_remove.png"), 'IMAGE')
 	bpy.extragroups_icons["bonegroup"] = pcoll
+
+	if reload_mode == False:
+		update_panel()
 
 def unregister():
 	del bpy.types.Object.jueg_grouptypelist

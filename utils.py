@@ -273,7 +273,7 @@ def get_filter_icons(search):
 	return icons
 
 from .ui_panel import *
-def update_panel(self, context):
+def update_panel():
 	bpy.utils.unregister_class(POSE_PT_jueg_grouptype)
 	bpy.utils.unregister_class(POSE_PT_jueg_bonegroup)
 	bpy.utils.unregister_class(POSE_PT_jueg_opslist)
@@ -298,3 +298,6 @@ def update_panel(self, context):
 	bpy.utils.register_class(POSE_PT_jueg_reloaddata)
 	bpy.utils.register_class(POSE_PT_jueg_update_addon)
 	bpy.utils.register_class(POSE_PT_jueg_initdata)
+
+def update_panel_cb(self, context):
+	update_panel()
