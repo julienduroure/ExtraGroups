@@ -397,4 +397,4 @@ def unregister():
 	bpy.utils.unregister_class(POSE_PT_jueg_opsdetail)
 	bpy.utils.unregister_class(POSE_PT_jueg_reloaddata)
 	bpy.utils.unregister_class(POSE_PT_jueg_update_addon)
-	bpy.utils.register_class(POSE_PT_jueg_initdata)
+	bpy.utils.unregister_class(POSE_PT_jueg_initdata)
