@@ -144,13 +144,30 @@ class POSE_OT_jueg_import_from_keying_sets(bpy.types.Operator):
 
 		return {'FINISHED'}
 
+class POSE_OT_jueg_init_from_scratch(bpy.types.Operator):
+	"""Init from Scratch"""
+	bl_idname = "jueg.init_from_scratch"
+	bl_label  = "Init from Scratch"
+
+	@classmethod
+	def poll(self, context):
+		return True
+
+	def execute(self, context):
+
+		import_creation({}, "GroupType.001")
+
+		return {'FINISHED'}
+
 
 def register():
 	bpy.utils.register_class(POSE_OT_jueg_import_from_bone_groups)
 	bpy.utils.register_class(POSE_OT_jueg_import_from_selection_sets)
 	bpy.utils.register_class(POSE_OT_jueg_import_from_keying_sets)
+	bpy.utils.register_class(POSE_OT_jueg_init_from_scratch)
 
 def unregister():
 	bpy.utils.unregister_class(POSE_OT_jueg_import_from_bone_groups)
 	bpy.utils.unregister_class(POSE_OT_jueg_import_from_selection_sets)
 	bpy.utils.unregister_class(POSE_OT_jueg_import_from_keying_sets)
+	bpy.utils.unregister_class(POSE_OT_jueg_init_from_scratch)

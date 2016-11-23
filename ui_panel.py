@@ -71,7 +71,8 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 		return (context.object and
 				context.object.type == 'ARMATURE' and
 				context.mode == 'POSE'
-				and check_addon_update_needed() == False)
+				and check_addon_update_needed() == False
+				and len(context.active_object.jueg_grouptypelist) > 0 )
 
 	def draw(self, context):
 		layout = self.layout
@@ -121,16 +122,6 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 				if addonpref().use_keyingset == True and armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup].current_selection == False:
 					row = layout.row()
 					row.prop_search(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup], "keying", bpy.context.scene, "keying_sets", text="")
-
-		else:
-			#Not initialized yet. Display "false" List and + operator to be able to create data
-			row = layout.row()
-			row.template_list("POSE_UL_jueg_grouptype", "", armature, "jueg_grouptypelist", armature, "jueg_active_grouptype")
-
-			col = row.column()
-			row = col.column(align=True)
-			row.operator("pose.jueg_bonegroup_add", icon="ZOOMIN", text="").dyn_selection = False
-
 
 class POSE_PT_jueg_opslist(bpy.types.Panel):
 	bl_label = "Operator List"
@@ -364,6 +355,32 @@ class POSE_PT_jueg_update_addon(bpy.types.Panel):
 		row = layout.row()
 		row.operator("pose.jueg_update_new_addon_version", text="Update data to new addon version")
 
+
+class POSE_PT_jueg_initdata(bpy.types.Panel):
+	bl_label = "Init Data"
+	bl_space_type = 'VIEW_3D'
+	bl_region_type = 'TOOLS'
+	bl_category = "Extra Groups"
+
+	@classmethod
+	def poll(self, context):
+		return (context.object and
+				context.object.type == 'ARMATURE' and
+				context.mode == 'POSE'
+				and check_addon_update_needed() == False
+				and len(context.active_object.jueg_grouptypelist) == 0)
+
+	def draw(self, context):
+		layout = self.layout
+		row = layout.row()
+		row.operator("jueg.init_from_scratch", text="Init from Scratch")
+		row = layout.row()
+		row.operator("jueg.import_from_bone_groups", text="Import from Bone Groups")
+		row = layout.row()
+		row.operator("jueg.import_from_selection_sets", text="Import from Selection Sets")
+		row = layout.row()
+		row.operator("jueg.import_from_keying_sets", text="Import from Keying Sets")
+
 def register():
 	bpy.utils.register_class(POSE_PT_jueg_grouptype)
 	bpy.utils.register_class(POSE_PT_jueg_bonegroup)
@@ -371,6 +388,7 @@ def register():
 	bpy.utils.register_class(POSE_PT_jueg_opsdetail)
 	bpy.utils.register_class(POSE_PT_jueg_reloaddata)
 	bpy.utils.register_class(POSE_PT_jueg_update_addon)
+	bpy.utils.register_class(POSE_PT_jueg_initdata)
 
 def unregister():
 	bpy.utils.unregister_class(POSE_PT_jueg_grouptype)
@@ -379,3 +397,4 @@ def unregister():
 	bpy.utils.unregister_class(POSE_PT_jueg_opsdetail)
 	bpy.utils.unregister_class(POSE_PT_jueg_reloaddata)
 	bpy.utils.unregister_class(POSE_PT_jueg_update_addon)
+	bpy.utils.register_class(POSE_PT_jueg_initdata)
