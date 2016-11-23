@@ -215,27 +215,22 @@ class POSE_OT_jueg_update_to_new_addon_version(bpy.types.Operator):
 
 						#now add display info on each grouptype
 						for grouptype in obj.jueg_grouptypelist:
-							print("\t\t" +grouptype.name)
 							ope = grouptype.ops_display.add()
 							ope.id = new_ops.id
 							ope.display = False
 
 						#now add on/off for each existing bone group of each type
 						for grouptype in obj.jueg_grouptypelist:
-							print("\t\t" +grouptype.name)
 							bonegroups = grouptype.group_ids
 							for group in bonegroups:
-								print("\t\t\t" +group.name)
 								new_ = group.on_off.add()
 								new_.id = new_ops.id
 								new_.on_off = True
 
 						#now add solo for each existing bone group of each type
 						for grouptype in obj.jueg_grouptypelist:
-							print("\t\t" +grouptype.name)
 							bonegroups = grouptype.group_ids
 							for group in bonegroups:
-								print("\t\t\t" +group.name)
 								new_ = group.solo.add()
 								new_.id = new_ops.id
 								new_.on_off = False
@@ -369,7 +364,6 @@ class POSE_OT_jueg_update_to_new_addon_version(bpy.types.Operator):
 										context.scene.solo_save.clear()
 
 								to_delete.append(ope.name)
-								print("delete " + ope.name)
 								del doubles[ope.id]
 
 				for del_ in to_delete:

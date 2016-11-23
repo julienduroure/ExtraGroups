@@ -124,9 +124,7 @@ def merge_keyingset(ks1_, ks2_):
     ks = bpy.context.scene.keying_sets.new("KeyingSet", addonpref().internal_keyingset)
 
     if ks1 != -1:
-        print('ok')
         for path in bpy.context.scene.keying_sets[ks1].paths:
-            print(path.data_path)
             if path.use_entire_array == True:
                 ksp = ks.paths.add(path.id, path.data_path, index=-1)
             else:
