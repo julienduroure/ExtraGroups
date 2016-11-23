@@ -32,6 +32,9 @@ def import_creation(creation, label):
 		grouptype.name = label
 		armature.jueg_active_grouptype = len(armature.jueg_grouptypelist) - 1
 		init_default_ops(armature)
+		bonegroup = grouptype.group_ids.add()
+		bonegroup.current_selection = True
+		bonegroup.name = "Current Selection"
 
 	grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids
 

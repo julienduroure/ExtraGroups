@@ -76,6 +76,9 @@ class POSE_OT_jueg_grouptype_add(bpy.types.Operator):
 
 		if len(armature.jueg_grouptypelist) == 1 and len(armature.jueg_extragroups_ops) == 0: #in case of first initialisation
 			init_default_ops(armature)
+			bonegroup = grouptype.group_ids.add()
+			bonegroup.current_selection = True
+			bonegroup.name = "Current Selection"
 		else:
 			copy_data_ops(armature, armature.jueg_active_grouptype)
 
