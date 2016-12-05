@@ -262,8 +262,6 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 		row_global = layout.row()
 		row_global.prop(ops, "ok_for_current_sel", text="Enabled for 'Dynamic Selection'")
 		row_global.enabled = ops.user_defined
-		row_global = layout.row()
-		row_global.prop(ops, "ops_context", text="ops_context")
 		if ops.user_defined == True:
 			row_global = layout.row()
 			file_ = ops.id + ".py"
