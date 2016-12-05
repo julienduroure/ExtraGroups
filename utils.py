@@ -216,6 +216,17 @@ def check_ops_removed_in_new_addon_version():
 def check_addon_update_needed():
 	return check_new_default_ops_in_new_addon_version() or check_ops_removed_in_new_addon_version() or check_ops_updated_in_new_addon_version() or check_ops_doubles()
 
+def check_multitype_not_display(active_index):
+	armature = bpy.context.object
+	cpt_index = 0
+	for grouptype in armature.jueg_grouptypelist:
+		if cpt_index == active_index:
+			continue
+		if len(grouptype.group_ids) > 0:
+			return True
+		cpt_index = cpt_index + 1
+	return False
+
 def init_default_ops(armature):
 
 	#first check if some objects have already data
