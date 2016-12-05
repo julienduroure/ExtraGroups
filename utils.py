@@ -111,6 +111,20 @@ def get_default_ops_id():
 	dict_['baeadde2d0594c5abfe083808b80d995']['event_manage'] = False
 	dict_['baeadde2d0594c5abfe083808b80d995']['events'] = []
 
+	dict_['118c716214664d2890f1290fa984a6c9'] = {}
+	dict_['118c716214664d2890f1290fa984a6c9']['magic_nb'] = 1
+	dict_['118c716214664d2890f1290fa984a6c9']['name'] = "Lock"
+	dict_['118c716214664d2890f1290fa984a6c9']['ops_type'] = 'BOOL'
+	dict_['118c716214664d2890f1290fa984a6c9']['ops_exe'] = "pose.jueg_bonelock"
+	dict_['118c716214664d2890f1290fa984a6c9']['icon_on'] = "UNLOCKED"
+	dict_['118c716214664d2890f1290fa984a6c9']['icon_off'] = "LOCKED"
+	dict_['118c716214664d2890f1290fa984a6c9']['ok_for_current_sel'] = True
+	dict_['118c716214664d2890f1290fa984a6c9']['ops_context'] = 'INVOKE_DEFAULT'
+	dict_['118c716214664d2890f1290fa984a6c9']['display'] = False
+	dict_['118c716214664d2890f1290fa984a6c9']['user_defined'] = False
+	dict_['118c716214664d2890f1290fa984a6c9']['event_manage'] = False
+	dict_['118c716214664d2890f1290fa984a6c9']['events'] = []
+
 	return dict_
 
 def merge_keyingset(ks1_, ks2_):
