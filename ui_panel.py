@@ -378,6 +378,8 @@ class POSE_PT_jueg_initdata(bpy.types.Panel):
 		row.operator("jueg.import_from_selection_sets", text="Import from Selection Sets")
 		row = layout.row()
 		row.operator("jueg.import_from_keying_sets", text="Import from Keying Sets")
+		row = layout.row()
+		row.operator("jueg.import_from_file", text="Import from File")
 
 def register():
 	bpy.utils.register_class(POSE_PT_jueg_grouptype)

@@ -21,9 +21,11 @@
 #
 ##########################################################################################
 import bpy
+import bpy_extras
+import json
 from .utils import *
 
-def import_creation(creation, label):
+def import_creation(multi_type_mode, creation, label):
 	armature = bpy.context.object
 
 	# creation
@@ -51,15 +53,47 @@ def import_creation(creation, label):
 			new_.id = ops.id
 			new_.on_off = False
 
-	grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids
+	if multi_type_mode == False:
+		grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype]
+	else:
+		if label not in [grouptype_.name for grouptype_ in armature.jueg_grouptypelist]:
+			grouptype = armature.jueg_grouptypelist.add()
+			grouptype.name = label
+			armature.jueg_active_grouptype = len(armature.jueg_grouptypelist) - 1
+			copy_data_ops(armature, armature.jueg_active_grouptype)
+			bonegroup = grouptype.group_ids.add()
+			bonegroup.current_selection = True
+			bonegroup.name = "Current Selection"
+			#add on / off for each ops
+			on_off   = bonegroup.on_off
+			ops_list = armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display
+			for ops in ops_list:
+				new_ = on_off.add()
+				new_.id = ops.id
+				new_.on_off = True
+
+			#add solo for each ops
+			solo   = bonegroup.solo
+			ops_list = armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display
+			for ops in ops_list:
+				new_ = solo.add()
+				new_.id = ops.id
+				new_.on_off = False
+			grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype]
+			print("creation of grouptype " + grouptype.name)
+		else:
+			print("grouptype " + label + " already exists")
+			grouptype = [grouptype_ for grouptype_ in armature.jueg_grouptypelist if grouptype_.name == label][0]
 
 	for gr in creation.keys():
-		if not gr in grouptype.keys():
-			bonegroup = grouptype.add()
+		if not gr in grouptype.group_ids.keys():
+			print("bone group creation " + gr)
+			bonegroup = grouptype.group_ids.add()
 			bonegroup.name = gr
-			armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup = len(grouptype) - 1
+			grouptype.active_bonegroup = len(grouptype.group_ids) - 1
 		else:
-			bonegroup = grouptype[gr]
+			print("bone group " + gr + " already exists")
+			bonegroup = grouptype.group_ids[gr]
 
 		for bone in creation[gr]:
 			if not bone in bonegroup.bone_ids.keys():
@@ -68,7 +102,7 @@ def import_creation(creation, label):
 
 		#add on / off for each ops
 		on_off   = bonegroup.on_off
-		ops_list = armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display
+		ops_list = grouptype.ops_display
 		for ops in ops_list:
 			new_ = on_off.add()
 			new_.id = ops.id
@@ -76,7 +110,7 @@ def import_creation(creation, label):
 
 		#add solo for each ops
 		solo   = bonegroup.solo
-		ops_list = armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display
+		ops_list = grouptype.ops_display
 		for ops in ops_list:
 			new_ = solo.add()
 			new_.id = ops.id
@@ -104,7 +138,38 @@ class POSE_OT_jueg_import_from_bone_groups(bpy.types.Operator):
 					creation[bone.bone_group.name] = []
 				creation[bone.bone_group.name].append(bone.name)
 
-		import_creation(creation, "Bone Groups")
+		import_creation(False, creation, "Bone Groups")
+
+		return {'FINISHED'}
+
+class POSE_OT_jueg_import_from_file(bpy.types.Operator, bpy_extras.io_utils.ImportHelper):
+	"""Import from File"""
+	bl_idname = "jueg.import_from_file"
+	bl_label  = "Import from File"
+
+	@classmethod
+	def poll(self, context):
+		return True
+
+	def execute(self, context):
+
+		creation = {}
+		armature = context.object
+
+		filename_ext = ".txt"
+
+		filter_glob = bpy.props.StringProperty(default="*.txt", options={'HIDDEN'}, maxlen=255,)
+
+		f = open(self.filepath, 'r', encoding='utf-8')
+		data = f.read()
+		creations = json.loads(data)
+		f.close()
+
+		for grouptype in creations["Extragroups"]:
+			creation = {}
+			for group_ in grouptype["groups"]:
+				creation[group_["name"]] = group_["bones"]
+			import_creation(True, creation, grouptype["name"])
 
 		return {'FINISHED'}
 
@@ -131,7 +196,7 @@ class POSE_OT_jueg_import_from_selection_sets(bpy.types.Operator):
 			for bone in set_.bone_ids:
 				creation[set_.name].append(bone.name)
 
-		import_creation(creation, "Selection Sets")
+		import_creation(False, creation, "Selection Sets")
 
 		return {'FINISHED'}
 
@@ -158,7 +223,7 @@ class POSE_OT_jueg_import_from_keying_sets(bpy.types.Operator):
 					bone_name = tmp[0][1:-1]
 					creation[set_.bl_label].append(bone_name)
 
-		import_creation(creation, "Keying Sets")
+		import_creation(False, creation, "Keying Sets")
 
 		return {'FINISHED'}
 
@@ -173,7 +238,7 @@ class POSE_OT_jueg_init_from_scratch(bpy.types.Operator):
 
 	def execute(self, context):
 
-		import_creation({}, "GroupType.001")
+		import_creation(False, {}, "GroupType.001")
 
 		return {'FINISHED'}
 
@@ -183,9 +248,11 @@ def register():
 	bpy.utils.register_class(POSE_OT_jueg_import_from_selection_sets)
 	bpy.utils.register_class(POSE_OT_jueg_import_from_keying_sets)
 	bpy.utils.register_class(POSE_OT_jueg_init_from_scratch)
+	bpy.utils.register_class(POSE_OT_jueg_import_from_file)
 
 def unregister():
 	bpy.utils.unregister_class(POSE_OT_jueg_import_from_bone_groups)
 	bpy.utils.unregister_class(POSE_OT_jueg_import_from_selection_sets)
 	bpy.utils.unregister_class(POSE_OT_jueg_import_from_keying_sets)
 	bpy.utils.unregister_class(POSE_OT_jueg_init_from_scratch)
+	bpy.utils.unregister_class(POSE_OT_jueg_import_from_file)
