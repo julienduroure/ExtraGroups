@@ -49,6 +49,7 @@ if "bpy" in locals():
 	imp.reload(template_default_ops)
 	imp.reload(text_ops_squel)
 	imp.reload(ops_import)
+	imp.reload(ops_export)
 	reload_mode = True
 else:
 	from .globs import *
@@ -64,6 +65,7 @@ else:
 	from .template_default_ops import *
 	from .text_ops_squel import *
 	from .ops_import import *
+	from .ops_export import *
 	reload_mode = False
 
 import bpy
@@ -82,6 +84,7 @@ def register():
 	ui_panel.register()
 	template_default_ops.register()
 	ops_import.register()
+	ops_export.register()
 
 	bpy.types.Object.jueg_grouptypelist = bpy.props.CollectionProperty(type=globs.Jueg_GroupType)
 	bpy.types.Object.jueg_extragroups_ops = bpy.props.CollectionProperty(type=globs.Jueg_OpsItem)
@@ -118,6 +121,7 @@ def unregister():
 	ui_panel.unregister()
 	template_default_ops.unregister()
 	ops_import.unregister()
+	ops_export.unregister()
 
 	for pcoll in bpy.extragroups_icons.values():
 		bpy.utils.previews.remove(pcoll)
