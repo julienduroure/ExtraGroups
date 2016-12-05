@@ -80,19 +80,15 @@ def import_creation(multi_type_mode, creation, label):
 				new_.id = ops.id
 				new_.on_off = False
 			grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype]
-			print("creation of grouptype " + grouptype.name)
 		else:
-			print("grouptype " + label + " already exists")
 			grouptype = [grouptype_ for grouptype_ in armature.jueg_grouptypelist if grouptype_.name == label][0]
 
 	for gr in creation.keys():
 		if not gr in grouptype.group_ids.keys():
-			print("bone group creation " + gr)
 			bonegroup = grouptype.group_ids.add()
 			bonegroup.name = gr
 			grouptype.active_bonegroup = len(grouptype.group_ids) - 1
 		else:
-			print("bone group " + gr + " already exists")
 			bonegroup = grouptype.group_ids[gr]
 
 		for bone in creation[gr]:
