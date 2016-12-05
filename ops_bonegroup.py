@@ -102,6 +102,22 @@ class POSE_OT_jueg_bonegroup_add(bpy.types.Operator):
 			bonegroup = grouptype.group_ids.add()
 			bonegroup.current_selection = True
 			bonegroup.name = "Current Selection"
+			
+			#add on / off for each ops
+			on_off   = bonegroup.on_off
+			ops_list = armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display
+			for ops in ops_list:
+				new_ = on_off.add()
+				new_.id = ops.id
+				new_.on_off = True
+
+			#add solo for each ops
+			solo   = bonegroup.solo
+			ops_list = armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display
+			for ops in ops_list:
+				new_ = solo.add()
+				new_.id = ops.id
+				new_.on_off = False
 
 		grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids
 
