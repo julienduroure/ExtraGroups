@@ -119,7 +119,9 @@ class POSE_OT_jueg_import_from_bone_groups(bpy.types.Operator):
 
 	@classmethod
 	def poll(self, context):
-		return True
+		return (context.object and
+				context.object.type == 'ARMATURE' and
+				context.mode == 'POSE')
 
 	def execute(self, context):
 
@@ -145,7 +147,9 @@ class POSE_OT_jueg_import_from_file(bpy.types.Operator, bpy_extras.io_utils.Impo
 
 	@classmethod
 	def poll(self, context):
-		return True
+		return (context.object and
+				context.object.type == 'ARMATURE' and
+				context.mode == 'POSE')
 
 	def execute(self, context):
 
@@ -176,7 +180,9 @@ class POSE_OT_jueg_import_from_selection_sets(bpy.types.Operator):
 
 	@classmethod
 	def poll(self, context):
-		return True
+		return (context.object and
+				context.object.type == 'ARMATURE' and
+				context.mode == 'POSE')
 
 	def execute(self, context):
 
@@ -203,7 +209,9 @@ class POSE_OT_jueg_import_from_keying_sets(bpy.types.Operator):
 
 	@classmethod
 	def poll(self, context):
-		return True
+		return (context.object and
+				context.object.type == 'ARMATURE' and
+				context.mode == 'POSE')
 
 	def execute(self, context):
 
@@ -230,7 +238,9 @@ class POSE_OT_jueg_init_from_scratch(bpy.types.Operator):
 
 	@classmethod
 	def poll(self, context):
-		return True
+		return (context.object and
+				context.object.type == 'ARMATURE' and
+				context.mode == 'POSE')
 
 	def execute(self, context):
 

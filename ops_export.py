@@ -29,6 +29,12 @@ class POSE_OT_jueg_export_to_file(bpy.types.Operator, bpy_extras.io_utils.Export
     bl_idname = "jueg.export_to_file"
     bl_label = "Export To File"
 
+    @classmethod
+    def poll(self, context):
+        return (context.object and
+            context.object.type == 'ARMATURE' and
+            context.mode == 'POSE')
+
     filename_ext = ".txt"
 
     filter_glob = bpy.props.StringProperty(default="*.txt", options={'HIDDEN'}, maxlen=255,)
