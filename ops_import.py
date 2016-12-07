@@ -244,7 +244,7 @@ class POSE_OT_jueg_init_from_scratch(bpy.types.Operator):
 
 	def execute(self, context):
 
-		import_creation(False, {}, "GroupType.001")
+		import_creation(False, {}, "GroupType.1")
 
 		return {'FINISHED'}
 
