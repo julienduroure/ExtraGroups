@@ -165,7 +165,7 @@ class POSE_OT_jueg_import_from_file(bpy.types.Operator, bpy_extras.io_utils.Impo
 		creations = json.loads(data)
 		f.close()
 
-		for grouptype in creations["Extragroups"]:
+		for grouptype in creations["GroupTypes"]:
 			creation = {}
 			for group_ in grouptype["groups"]:
 				creation[group_["name"]] = group_["bones"]

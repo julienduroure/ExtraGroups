@@ -23,6 +23,8 @@
 import bpy
 import bpy_extras
 import json
+import sys
+import datetime
 
 class POSE_OT_jueg_export_to_file(bpy.types.Operator, bpy_extras.io_utils.ExportHelper):
     """Export to file"""
@@ -43,7 +45,11 @@ class POSE_OT_jueg_export_to_file(bpy.types.Operator, bpy_extras.io_utils.Export
     def execute(self, context):
         armature = context.object
         data = {}
-        data['Extragroups'] = []
+        data['version'] = sys.modules['ExtraGroups'].bl_info['version']
+        data['rig_object'] = armature.name
+        data['rig_armature'] = armature.data.name
+        data['generation_date'] = str(datetime.datetime.now())
+        data['GroupTypes'] = []
         for grouptype in armature.jueg_grouptypelist:
             grouptype_ = {}
             grouptype_["name"] = grouptype.name
@@ -55,7 +61,7 @@ class POSE_OT_jueg_export_to_file(bpy.types.Operator, bpy_extras.io_utils.Export
                 for bone in group.bone_ids:
                     group_["bones"].append(bone.name)
                 grouptype_["groups"].append(group_)
-            data['Extragroups'].append(grouptype_)
+            data['GroupTypes'].append(grouptype_)
 
         f = open(self.filepath, 'w', encoding='utf-8')
         f.write(json.dumps(data))
