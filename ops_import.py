@@ -92,7 +92,7 @@ def import_creation(multi_type_mode, creation, label):
 			bonegroup = grouptype.group_ids[gr]
 
 		for bone in creation[gr]:
-			if not bone in bonegroup.bone_ids.keys():
+			if not bone in bonegroup.bone_ids.keys() and bone in armature.data.bones:
 				bone_id = bonegroup.bone_ids.add()
 				bone_id.name = bone
 
