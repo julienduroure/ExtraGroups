@@ -1040,6 +1040,10 @@ class POSE_OT_jueg_keyframing_after_menu(Operator):
 				if bone.bone.select == True:
 					bones.append(bone)
 
+
+		# store current keyingset if any
+		current_keying_set = context.scene.keying_sets.active_index
+
 		to_delete = []
 		idx = -1
 		for bone in bones:
@@ -1047,9 +1051,32 @@ class POSE_OT_jueg_keyframing_after_menu(Operator):
 			if bone.name not in armature.data.bones: #If bone no more exists
 				to_delete.append(idx)
 				continue
-			#TODO code here
 
+		# Set Keying set
+		bpy.context.scene.keying_sets.active = context.scene.keying_sets_all[self.data]
 
+		# Store current selection
+		current_selection = []
+		for bone in armature.data.bones:
+			if bone.select == True:
+				current_selection.append(bone.name)
+				bone.select = False
+
+		#Select all bones of group
+		for bone in bones:
+			armature.data.bones[bone.name].select = True
+
+		# Insert Keyframe
+		bpy.ops.anim.keyframe_insert(type='__ACTIVE__')
+
+		# Restore keyframe
+		context.scene.keying_sets.active_index = current_keying_set
+
+		#Restore selection
+		for bone in armature.data.bones:
+			bone.select = False
+			if bone.name in current_selection:
+				bone.select = True
 
 		# all "after" that can not be done on regular operator
 		#delete bones if any
@@ -1189,7 +1216,7 @@ class POSE_OT_jueg_keyframing(Operator):
 
 
 		call_menu = False
-		if mode == "MENU_FORCED":
+		if mode == "FORCED_MENU":
 			call_menu = True
 		elif mode == "DEFAULT":
 			#TODO : check if there is KS already set
@@ -1204,12 +1231,14 @@ class POSE_OT_jueg_keyframing(Operator):
 				continue
 			#TODO code here
 
-		# set temp data to menu
-		armature.jueg_menu_temp_data.event  = mode
-		armature.jueg_menu_temp_data.index  = self.index
-		armature.jueg_menu_temp_data.ops_id = self.ops_id
-		armature.jueg_menu_temp_data.solo   = solo
-		bpy.ops.wm.call_menu(name="POSE_MT_keyframing")
+
+		if call_menu == True:
+			# set temp data to menu
+			armature.jueg_menu_temp_data.event  = mode
+			armature.jueg_menu_temp_data.index  = self.index
+			armature.jueg_menu_temp_data.ops_id = self.ops_id
+			armature.jueg_menu_temp_data.solo   = solo
+			bpy.ops.wm.call_menu(name="POSE_MT_keyframing")
 
 
 		# all after, in case menu was not called
