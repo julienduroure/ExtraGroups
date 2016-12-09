@@ -50,6 +50,10 @@ class Jueg_GroupType(bpy.types.PropertyGroup):
 	ops_display = bpy.props.CollectionProperty(type=Jueg_OpsDisplay)
 	active_ops = bpy.props.IntProperty()
 
+class Jueg_menu_temp_data(bpy.types.PropertyGroup):
+	event  = bpy.props.StringProperty(name="Event")
+	index  = bpy.props.IntProperty(name="Index")
+
 jueg_ops_type_items = [
 	("BOOL", "On/Off", "", 1),
 	("EXE", "Exec", "", 2),
@@ -116,6 +120,7 @@ def register():
 	bpy.utils.register_class(Jueg_OpsDetails_DisplayProp)
 	bpy.utils.register_class(Jueg_EventData)
 	bpy.utils.register_class(Jueg_OpsItem)
+	bpy.utils.register_class(Jueg_menu_temp_data)
 
 
 def unregister():
@@ -128,3 +133,4 @@ def unregister():
 	bpy.utils.unregister_class(Jueg_OpsItem)
 	bpy.utils.unregister_class(Jueg_OpsDetails_IconProp)
 	bpy.utils.unregister_class(Jueg_OpsDetails_DisplayProp)
+	bpy.utils.unregister_class(Jueg_menu_temp_data)
