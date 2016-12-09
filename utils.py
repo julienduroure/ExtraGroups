@@ -125,6 +125,22 @@ def get_default_ops_id():
 	dict_['118c716214664d2890f1290fa984a6c9']['event_manage'] = False
 	dict_['118c716214664d2890f1290fa984a6c9']['events'] = []
 
+	dict_['21ecdae49e174a8bb25f404fca0b6608'] = {}
+	dict_['21ecdae49e174a8bb25f404fca0b6608']['magic_nb'] = 1
+	dict_['21ecdae49e174a8bb25f404fca0b6608']['name'] = "Keyframing"
+	dict_['21ecdae49e174a8bb25f404fca0b6608']['ops_type'] = 'EXE'
+	dict_['21ecdae49e174a8bb25f404fca0b6608']['ops_exe'] = "pose.ope_keyframing"
+	dict_['21ecdae49e174a8bb25f404fca0b6608']['icon_on'] = "KEYTYPE_KEYFRAME_VEC"
+	dict_['21ecdae49e174a8bb25f404fca0b6608']['icon_off'] = ""
+	dict_['21ecdae49e174a8bb25f404fca0b6608']['ok_for_current_sel'] = True
+	dict_['21ecdae49e174a8bb25f404fca0b6608']['ops_context'] = 'INVOKE_DEFAULT'
+	dict_['21ecdae49e174a8bb25f404fca0b6608']['display'] = False
+	dict_['21ecdae49e174a8bb25f404fca0b6608']['user_defined'] = False
+	dict_['21ecdae49e174a8bb25f404fca0b6608']['event_manage'] = True
+	dict_['21ecdae49e174a8bb25f404fca0b6608']['events'] = []
+	dict_['21ecdae49e174a8bb25f404fca0b6608']['events'].append(['DEFAULT', 'NONE', False])
+	dict_['21ecdae49e174a8bb25f404fca0b6608']['events'].append(['FORCED_MENU', 'CTRL', False])
+
 	return dict_
 
 def merge_keyingset(ks1_, ks2_):

@@ -53,6 +53,8 @@ class Jueg_GroupType(bpy.types.PropertyGroup):
 class Jueg_menu_temp_data(bpy.types.PropertyGroup):
 	event  = bpy.props.StringProperty(name="Event")
 	index  = bpy.props.IntProperty(name="Index")
+	ops_id = bpy.props.StringProperty(name="Ops ID")
+	solo   = bpy.props.BoolProperty(name="Solo")
 
 jueg_ops_type_items = [
 	("BOOL", "On/Off", "", 1),
