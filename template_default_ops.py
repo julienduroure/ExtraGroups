@@ -1218,9 +1218,44 @@ class POSE_OT_jueg_keyframing(Operator):
 		call_menu = False
 		if mode == "FORCED_MENU":
 			call_menu = True
-		elif mode == "DEFAULT":
-			#TODO : check if there is KS already set
-			pass
+		elif mode == "DEFAULT" or mode == "KEYING_ONLY":
+			#check if there is KS already set assigned to this group
+			if addonpref().use_keyingset == True and armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].keying != "":
+				# We are going to use this KeyingSet
+
+				# store current keyingset if any
+				current_keying_set = context.scene.keying_sets.active_index
+
+				# Set Keying set
+				bpy.context.scene.keying_sets.active = context.scene.keying_sets_all[armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].keying]
+
+				# Store current selection
+				current_selection = []
+				for bone in armature.data.bones:
+					if bone.select == True:
+						current_selection.append(bone.name)
+						bone.select = False
+
+				#Select all bones of group
+				for bone in bones:
+					armature.data.bones[bone.name].select = True
+
+				# Insert Keyframe
+				bpy.ops.anim.keyframe_insert(type='__ACTIVE__')
+
+				# Restore keyframe
+				context.scene.keying_sets.active_index = current_keying_set
+
+				#Restore selection
+				for bone in armature.data.bones:
+					bone.select = False
+					if bone.name in current_selection:
+						bone.select = True
+			else:
+				# No keying set --> call menu if default,
+				# If keying only --> no call
+				if mode == "DEFAULT":
+					call_menu = True
 
 		to_delete = []
 		idx = -1
@@ -1229,7 +1264,10 @@ class POSE_OT_jueg_keyframing(Operator):
 			if bone.name not in armature.data.bones: #If bone no more exists
 				to_delete.append(idx)
 				continue
-			#TODO code here
+			# Nothing to do here :
+				# If call_menu == True : things will be done on other ops after popup
+				# If call_menu == False : keyingSet is already done
+			# But we have to keep this loop to delete unkown bones
 
 
 		if call_menu == True:

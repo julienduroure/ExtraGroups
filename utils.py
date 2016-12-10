@@ -140,6 +140,7 @@ def get_default_ops_id():
 	dict_['21ecdae49e174a8bb25f404fca0b6608']['events'] = []
 	dict_['21ecdae49e174a8bb25f404fca0b6608']['events'].append(['DEFAULT', 'NONE', False])
 	dict_['21ecdae49e174a8bb25f404fca0b6608']['events'].append(['FORCED_MENU', 'CTRL', False])
+	dict_['21ecdae49e174a8bb25f404fca0b6608']['events'].append(['KEYING_ONLY', 'SHIFT', False])
 
 	return dict_
 
