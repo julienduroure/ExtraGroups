@@ -322,13 +322,16 @@ def get_filter_icons(search):
 
 from .ui_panel import *
 def update_panel():
-	bpy.utils.unregister_class(POSE_PT_jueg_grouptype)
-	bpy.utils.unregister_class(POSE_PT_jueg_bonegroup)
-	bpy.utils.unregister_class(POSE_PT_jueg_opslist)
-	bpy.utils.unregister_class(POSE_PT_jueg_opsdetail)
-	bpy.utils.unregister_class(POSE_PT_jueg_reloaddata)
-	bpy.utils.unregister_class(POSE_PT_jueg_update_addon)
-	bpy.utils.unregister_class(POSE_PT_jueg_initdata)
+	try:
+		bpy.utils.unregister_class(POSE_PT_jueg_grouptype)
+		bpy.utils.unregister_class(POSE_PT_jueg_bonegroup)
+		bpy.utils.unregister_class(POSE_PT_jueg_opslist)
+		bpy.utils.unregister_class(POSE_PT_jueg_opsdetail)
+		bpy.utils.unregister_class(POSE_PT_jueg_reloaddata)
+		bpy.utils.unregister_class(POSE_PT_jueg_update_addon)
+		bpy.utils.unregister_class(POSE_PT_jueg_initdata)
+	except:
+		pass
 
 
 	POSE_PT_jueg_grouptype.bl_category = addonpref().category

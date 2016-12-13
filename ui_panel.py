@@ -390,6 +390,15 @@ class POSE_PT_jueg_initdata(bpy.types.Panel):
 		row.operator("jueg.import_from_file", text="Import from File")
 
 def register():
+
+	POSE_PT_jueg_grouptype.bl_category = addonpref().category
+	POSE_PT_jueg_bonegroup.bl_category = addonpref().category
+	POSE_PT_jueg_opslist.bl_category = addonpref().category
+	POSE_PT_jueg_opsdetail.bl_category = addonpref().category
+	POSE_PT_jueg_reloaddata.bl_category = addonpref().category
+	POSE_PT_jueg_update_addon.bl_category = addonpref().category
+	POSE_PT_jueg_initdata.bl_category = addonpref().category
+
 	bpy.utils.register_class(POSE_PT_jueg_grouptype)
 	bpy.utils.register_class(POSE_PT_jueg_bonegroup)
 	bpy.utils.register_class(POSE_PT_jueg_opslist)
