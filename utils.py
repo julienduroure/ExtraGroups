@@ -244,6 +244,14 @@ def check_multitype_not_display(active_index):
 		cpt_index = cpt_index + 1
 	return False
 
+def check_duplicate_event(ops_index):
+	events = []
+	for event in bpy.context.object.jueg_extragroups_ops[ops_index].events:
+		if event.event in events:
+			return True
+		events.append(event.event)
+	return False
+
 def init_default_ops(armature):
 
 	#first check if some objects have already data

@@ -303,6 +303,9 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 				row = box.row()
 				row.prop(ops.events[ops.active_event], "solo")
 				row.enabled = ops.user_defined
+			if check_duplicate_event(jueg_active_grouptype.active_ops) == True:
+				row = box.row()
+				row.label("Error: Same event assigned to more than one mode", icon="ERROR")
 
 
 class POSE_PT_jueg_reloaddata(bpy.types.Panel):
