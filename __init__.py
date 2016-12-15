@@ -22,7 +22,7 @@
 ##########################################################################################
 bl_info = {
 	"name": "Extra Groups",
-	"version": (0, 0, 4),
+	"version": (0, 0, 5),
 	"author": "Julien Duroure",
 	"blender": (2, 78, 0),
 	"description": "Extra Groups Tools",
