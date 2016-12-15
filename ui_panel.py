@@ -389,8 +389,16 @@ class POSE_PT_jueg_initdata(bpy.types.Panel):
 		row = layout.row()
 		row.operator("jueg.import_from_file", text="Import from File")
 
-def register():
+def unregister_class_panels():
+	bpy.utils.unregister_class(POSE_PT_jueg_grouptype)
+	bpy.utils.unregister_class(POSE_PT_jueg_bonegroup)
+	bpy.utils.unregister_class(POSE_PT_jueg_opslist)
+	bpy.utils.unregister_class(POSE_PT_jueg_opsdetail)
+	bpy.utils.unregister_class(POSE_PT_jueg_reloaddata)
+	bpy.utils.unregister_class(POSE_PT_jueg_update_addon)
+	bpy.utils.unregister_class(POSE_PT_jueg_initdata)
 
+def change_panel_tab():
 	POSE_PT_jueg_grouptype.bl_category = addonpref().category
 	POSE_PT_jueg_bonegroup.bl_category = addonpref().category
 	POSE_PT_jueg_opslist.bl_category = addonpref().category
@@ -399,6 +407,7 @@ def register():
 	POSE_PT_jueg_update_addon.bl_category = addonpref().category
 	POSE_PT_jueg_initdata.bl_category = addonpref().category
 
+def register_panels():
 	bpy.utils.register_class(POSE_PT_jueg_grouptype)
 	bpy.utils.register_class(POSE_PT_jueg_bonegroup)
 	bpy.utils.register_class(POSE_PT_jueg_opslist)
@@ -407,11 +416,10 @@ def register():
 	bpy.utils.register_class(POSE_PT_jueg_update_addon)
 	bpy.utils.register_class(POSE_PT_jueg_initdata)
 
+def register():
+
+	change_panel_tab()
+	register_panels()
+
 def unregister():
-	bpy.utils.unregister_class(POSE_PT_jueg_grouptype)
-	bpy.utils.unregister_class(POSE_PT_jueg_bonegroup)
-	bpy.utils.unregister_class(POSE_PT_jueg_opslist)
-	bpy.utils.unregister_class(POSE_PT_jueg_opsdetail)
-	bpy.utils.unregister_class(POSE_PT_jueg_reloaddata)
-	bpy.utils.unregister_class(POSE_PT_jueg_update_addon)
-	bpy.utils.unregister_class(POSE_PT_jueg_initdata)
+	unregister_class_panels()

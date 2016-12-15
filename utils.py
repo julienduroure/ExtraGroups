@@ -322,33 +322,9 @@ def get_filter_icons(search):
 
 from .ui_panel import *
 def update_panel():
-	try:
-		bpy.utils.unregister_class(POSE_PT_jueg_grouptype)
-		bpy.utils.unregister_class(POSE_PT_jueg_bonegroup)
-		bpy.utils.unregister_class(POSE_PT_jueg_opslist)
-		bpy.utils.unregister_class(POSE_PT_jueg_opsdetail)
-		bpy.utils.unregister_class(POSE_PT_jueg_reloaddata)
-		bpy.utils.unregister_class(POSE_PT_jueg_update_addon)
-		bpy.utils.unregister_class(POSE_PT_jueg_initdata)
-	except:
-		pass
-
-
-	POSE_PT_jueg_grouptype.bl_category = addonpref().category
-	POSE_PT_jueg_bonegroup.bl_category = addonpref().category
-	POSE_PT_jueg_opslist.bl_category = addonpref().category
-	POSE_PT_jueg_opsdetail.bl_category = addonpref().category
-	POSE_PT_jueg_reloaddata.bl_category = addonpref().category
-	POSE_PT_jueg_update_addon.bl_category = addonpref().category
-	POSE_PT_jueg_initdata.bl_category = addonpref().category
-
-	bpy.utils.register_class(POSE_PT_jueg_grouptype)
-	bpy.utils.register_class(POSE_PT_jueg_bonegroup)
-	bpy.utils.register_class(POSE_PT_jueg_opslist)
-	bpy.utils.register_class(POSE_PT_jueg_opsdetail)
-	bpy.utils.register_class(POSE_PT_jueg_reloaddata)
-	bpy.utils.register_class(POSE_PT_jueg_update_addon)
-	bpy.utils.register_class(POSE_PT_jueg_initdata)
+	unregister_class_panels()
+	change_panel_tab()
+	register_panels()
 
 def update_panel_cb(self, context):
 	update_panel()
