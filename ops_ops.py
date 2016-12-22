@@ -511,6 +511,10 @@ class POSE_OT_jueg_erase_data(bpy.types.Operator):
 			obj.jueg_grouptypelist.clear()
 			obj.jueg_extragroups_ops.clear()
 			obj.jueg_active_grouptype = 0
+			obj.jueg_menu_temp_data.event  = ""
+			obj.jueg_menu_temp_data.index  = 0
+			obj.jueg_menu_temp_data.ops_id = ""
+			obj.jueg_menu_temp_data.solo   = False
 
 		return {'FINISHED'}
 
