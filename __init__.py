@@ -44,10 +44,12 @@ if "bpy" in locals():
 	imp.reload(ops_event)
 	imp.reload(ui_list)
 	imp.reload(ui_panel)
+	imp.reload(ui_popup)
 	imp.reload(template_default_ops)
 	imp.reload(text_ops_squel)
 	imp.reload(ops_import)
 	imp.reload(ops_export)
+	imp.reload(keymap)
 else:
 	from .globs import *
 	from .utils import *
@@ -59,10 +61,12 @@ else:
 	from .ops_event import *
 	from .ui_list import *
 	from .ui_panel import *
+	from .ui_popup import *
 	from .template_default_ops import *
 	from .text_ops_squel import *
 	from .ops_import import *
 	from .ops_export import *
+	from .keymap import *
 
 import bpy
 import bpy.utils.previews
@@ -78,9 +82,11 @@ def register():
 	ops_event.register()
 	ui_list.register()
 	ui_panel.register()
+	ui_popup.register()
 	template_default_ops.register()
 	ops_import.register()
 	ops_export.register()
+	keymap.register()
 
 	bpy.types.Object.jueg_grouptypelist = bpy.props.CollectionProperty(type=globs.Jueg_GroupType)
 	bpy.types.Object.jueg_extragroups_ops = bpy.props.CollectionProperty(type=globs.Jueg_OpsItem)
@@ -114,9 +120,11 @@ def unregister():
 	ops_event.unregister()
 	ui_list.unregister()
 	ui_panel.unregister()
+	ui_popup.unregister()
 	template_default_ops.unregister()
 	ops_import.unregister()
 	ops_export.unregister()
+	keymap.unregister()
 
 	for pcoll in bpy.extragroups_icons.values():
 		bpy.utils.previews.remove(pcoll)
