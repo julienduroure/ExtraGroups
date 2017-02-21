@@ -48,7 +48,8 @@ class POSE_OT_jueg_popup(bpy.types.Operator):
 
     @classmethod
     def poll(self, context):
-        return True
+        armature = context.object
+        return len(armature.jueg_grouptypelist) > 0 and len(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids) > 0
 
 
 def register():
