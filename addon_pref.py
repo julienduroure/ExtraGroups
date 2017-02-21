@@ -36,6 +36,8 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 
 	category = bpy.props.StringProperty(name="Category", default="ExtraGroups", update=update_panel_cb)
 
+	xx_popup_display_multitype = bpy.props.BoolProperty(default=False)
+
 	tab1 = bpy.props.BoolProperty(default=False)
 	tab2 = bpy.props.BoolProperty(default=False)
 	tab3 = bpy.props.BoolProperty(default=False)

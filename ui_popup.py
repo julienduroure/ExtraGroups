@@ -38,7 +38,18 @@ class POSE_OT_jueg_popup(bpy.types.Operator):
         armature = context.object
 
         jueg_active_grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype]
-        layout.template_list("POSE_UL_jueg_bonegroup", "", jueg_active_grouptype, "group_ids", jueg_active_grouptype, "active_bonegroup", rows=6)
+
+        if addonpref().multitype ==  True and len(armature.jueg_grouptypelist) > 1:
+            row = layout.row()
+            if addonpref().xx_popup_display_multitype == False:
+                row.operator("extragroups.popup_toggle_multitype", text='', icon='TRIA_RIGHT')
+            else:
+                row.operator("extragroups.popup_toggle_multitype", text='', icon='TRIA_DOWN')
+                row = layout.row()
+                row.template_list("POSE_UL_jueg_grouptype", "", armature, "jueg_grouptypelist", armature, "jueg_active_grouptype")
+
+        row = layout.row()
+        row.template_list("POSE_UL_jueg_bonegroup", "", jueg_active_grouptype, "group_ids", jueg_active_grouptype, "active_bonegroup", rows=6)
 
     def execute(self, context):
         return {'FINISHED'}
@@ -51,9 +62,19 @@ class POSE_OT_jueg_popup(bpy.types.Operator):
         armature = context.object
         return len(armature.jueg_grouptypelist) > 0 and len(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids) > 0
 
+class POSE_OT_jueg_popup_toggle_multitype(bpy.types.Operator):
+    bl_idname = "extragroups.popup_toggle_multitype"
+    bl_label  = 'Toggle Multitype display in popup'
+
+    def execute(self, context):
+        addonpref().xx_popup_display_multitype = not addonpref().xx_popup_display_multitype
+        return {'FINISHED'}
+
 
 def register():
+    bpy.utils.register_class(POSE_OT_jueg_popup_toggle_multitype)
     bpy.utils.register_class(POSE_OT_jueg_popup)
 
 def unregister():
     bpy.utils.unregister_class(POSE_OT_jueg_popup)
+    bpy.utils.unregister_class(POSE_OT_jueg_popup_toggle_multitype)
