@@ -32,9 +32,8 @@ def register():
 	wm = bpy.context.window_manager
 	km = wm.keyconfigs.active.keymaps['Pose']
 
-	kmi = km.keymap_items.new("wm.call_menu", 'Q', 'PRESS', shift=True)
-	kmi.properties.name = "extragroups.popup"
-
+	kmi = km.keymap_items.new(POSE_OT_jueg_popup.bl_idname, 'Q', 'PRESS', shift=True)
+	KEYMAPS.append((km, kmi))
 
 def unregister():
 	for km, kmi in KEYMAPS:
