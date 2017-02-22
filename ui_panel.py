@@ -90,6 +90,7 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 			row = col.column(align=True)
 			row.operator("pose.jueg_bonegroup_add", icon="ZOOMIN", text="").dyn_selection = False
 			row.operator("pose.bonegroup_remove", icon="ZOOMOUT", text="")
+			row.menu("POSE_MT_jueg_group_specials", icon='DOWNARROW_HLT', text="")
 
 			row = col.column(align=True)
 			row.separator()
@@ -127,6 +128,17 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 				if addonpref().use_keyingset == True and armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup].current_selection == False:
 					row = layout.row()
 					row.prop_search(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup], "keying", bpy.context.scene, "keying_sets", text="")
+
+class POSE_MT_jueg_group_specials(bpy.types.Menu):
+	bl_label = "Groups Specials"
+
+	def draw(self, context):
+		layout = self.layout
+
+		op = layout.operator("pose.jueg_group_copy", icon='COPY_ID', text="Copy Group")
+		op.mirror = False
+		op = layout.operator("pose.jueg_group_copy", icon='ARROW_LEFTRIGHT', text="Mirror Copy Group")
+		op.mirror = True
 
 class POSE_PT_jueg_opslist(bpy.types.Panel):
 	bl_label = "Operator List"
@@ -397,6 +409,9 @@ def unregister_class_panels():
 	bpy.utils.unregister_class(POSE_PT_jueg_reloaddata)
 	bpy.utils.unregister_class(POSE_PT_jueg_update_addon)
 	bpy.utils.unregister_class(POSE_PT_jueg_initdata)
+	bpy.utils.unregister_class(POSE_MT_jueg_group_specials)
+
+
 
 def change_panel_tab():
 	POSE_PT_jueg_grouptype.bl_category = addonpref().category
@@ -415,6 +430,7 @@ def register_panels():
 	bpy.utils.register_class(POSE_PT_jueg_reloaddata)
 	bpy.utils.register_class(POSE_PT_jueg_update_addon)
 	bpy.utils.register_class(POSE_PT_jueg_initdata)
+	bpy.utils.register_class(POSE_MT_jueg_group_specials)
 
 def register():
 

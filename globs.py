@@ -95,6 +95,7 @@ class Jueg_EventData(bpy.types.PropertyGroup):
 #Any new data needs update in
 	# init_default_ops ( 2 times )
 	# POSE_OT_jueg_reload_linked_data
+	# copy group / copy group mirror
 
 class Jueg_OpsItem(bpy.types.PropertyGroup):
 	id   = bpy.props.StringProperty(name="Unique id")
@@ -112,6 +113,10 @@ class Jueg_OpsItem(bpy.types.PropertyGroup):
 	icons = bpy.props.PointerProperty(type=Jueg_OpsDetails_DisplayProp)
 	magic_nb = bpy.props.IntProperty(default=0)
 
+class Jueg_SideItem(bpy.types.PropertyGroup):
+	name_R = bpy.props.StringProperty(name="Side name R")
+	name_L = bpy.props.StringProperty(name="Side name L")
+
 def register():
 	bpy.utils.register_class(Jueg_OnOffEntry)
 	bpy.utils.register_class(Jueg_BoneEntry)
@@ -123,6 +128,7 @@ def register():
 	bpy.utils.register_class(Jueg_EventData)
 	bpy.utils.register_class(Jueg_OpsItem)
 	bpy.utils.register_class(Jueg_menu_temp_data)
+	bpy.utils.register_class(Jueg_SideItem)
 
 
 def unregister():
@@ -136,3 +142,4 @@ def unregister():
 	bpy.utils.unregister_class(Jueg_OpsDetails_IconProp)
 	bpy.utils.unregister_class(Jueg_OpsDetails_DisplayProp)
 	bpy.utils.unregister_class(Jueg_menu_temp_data)
+	bpy.utils.unregister_class(Jueg_SideItem)

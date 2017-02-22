@@ -102,7 +102,7 @@ class POSE_OT_jueg_bonegroup_add(bpy.types.Operator):
 			bonegroup = grouptype.group_ids.add()
 			bonegroup.current_selection = True
 			bonegroup.name = "Current Selection"
-			
+
 			#add on / off for each ops
 			on_off   = bonegroup.on_off
 			ops_list = armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display
@@ -156,6 +156,61 @@ class POSE_OT_jueg_bonegroup_add(bpy.types.Operator):
 			if (armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup > (len_ - 1) and len_ > 0):
 				armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup = len(grouptype) - 1
 			return {'CANCELLED'}
+
+		return {'FINISHED'}
+
+
+class POSE_OT_jueg_group_copy(bpy.types.Operator):
+	"""Copy active group, with mirror option"""
+	bl_idname = "pose.jueg_group_copy"
+	bl_label = "Copy Limb"
+	bl_options = {'REGISTER'}
+
+	mirror = bpy.props.BoolProperty(name="Mirror", default=False)
+
+	@classmethod
+	def poll(self, context):
+		return (context.active_object
+			and context.active_object.type == "ARMATURE"
+			and len(context.active_object.jueg_grouptypelist[context.active_object.jueg_active_grouptype].group_ids) > 0
+			and context.active_object.jueg_grouptypelist[context.active_object.jueg_active_grouptype].group_ids[context.active_object.jueg_grouptypelist[context.active_object.jueg_active_grouptype].active_bonegroup].current_selection == False)
+
+	def execute(self, context):
+
+		if self.mirror == True:
+			fct = get_symm_name
+		else:
+			fct = get_name
+
+		if len(addonpref().xx_sides) == 0:
+			init_sides(context)
+
+		armature = context.object
+		grouptype     = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids
+		current_group = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup]
+
+		bonegroup = grouptype.add()
+		bonegroup.name = fct(current_group.name)
+		armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup = len(grouptype) - 1
+		for bone in current_group.bone_ids:
+			bone_id = bonegroup.bone_ids.add()
+			bone_id.name = fct(bone.name)
+
+		#add on / off for each ops
+		on_off   = bonegroup.on_off
+		ops_list = armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display
+		for ops in ops_list:
+			new_ = on_off.add()
+			new_.id = ops.id
+			new_.on_off = True
+
+		#add solo for each ops
+		solo   = bonegroup.solo
+		ops_list = armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display
+		for ops in ops_list:
+			new_ = solo.add()
+			new_.id = ops.id
+			new_.on_off = False
 
 		return {'FINISHED'}
 
@@ -217,6 +272,7 @@ def register():
 	bpy.utils.register_class(POSE_OT_jueg_bonegroup_move)
 	bpy.utils.register_class(POSE_OT_jueg_bonegroup_assign)
 	bpy.utils.register_class(POSE_OT_jueg_bonegroup_bone_remove)
+	bpy.utils.register_class(POSE_OT_jueg_group_copy)
 
 def unregister():
 	bpy.utils.unregister_class(POSE_OT_jueg_bonegroup_add)
@@ -224,3 +280,4 @@ def unregister():
 	bpy.utils.unregister_class(POSE_OT_jueg_bonegroup_move)
 	bpy.utils.unregister_class(POSE_OT_jueg_bonegroup_assign)
 	bpy.utils.unregister_class(POSE_OT_jueg_bonegroup_bone_remove)
+	bpy.utils.unregister_class(POSE_OT_jueg_group_copy)
