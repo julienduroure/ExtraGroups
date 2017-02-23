@@ -145,9 +145,11 @@ class POSE_OT_jueg_ops_remove(bpy.types.Operator):
 
 	@classmethod
 	def poll(self, context):
+		armature = context.object
 		return (context.object and
 				context.object.type == 'ARMATURE' and
-				context.mode == 'POSE')
+				context.mode == 'POSE' and
+				[e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_ops].id][0].user_defined == True)
 
 	def execute(self, context):
 		armature = context.object
