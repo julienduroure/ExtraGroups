@@ -38,6 +38,7 @@ class Jueg_BoneGroup(bpy.types.PropertyGroup):
 	current_selection = bpy.props.BoolProperty()
 	color             = bpy.props.FloatVectorProperty(name="Color", subtype='COLOR', default=[0.0,0.0,0.0], min=0.0, max=1.0)
 	keying            = bpy.props.StringProperty(name="Keying Set")
+	manipulator		  = bpy.props.BoolVectorProperty(name="Manipulator", default=(True, False, False), size=3)
 
 class Jueg_OpsDisplay(bpy.types.PropertyGroup):
 	id   = bpy.props.StringProperty(name="Unique id")

@@ -979,6 +979,18 @@ class POSE_OT_jueg_select(Operator):
 							armature.data.bones[bone.name].hide = True
 					cpt_index = cpt_index + 1
 
+		# Gizmo Management
+		if addonpref().use_manipulator:
+			manip = []
+			if armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].manipulator[0] == True:
+				manip.append('TRANSLATE')
+			if armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].manipulator[1] == True:
+				manip.append('ROTATE')
+			if armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].manipulator[2] == True:
+				manip.append('SCALE')
+			if mode == "REPLACE" or mode == "SELECT_HIDE_OTHER":
+				bpy.context.space_data.transform_manipulators = set(manip)
+
 		#delete bones if any
 		if len(to_delete) > 0:
 			for i in to_delete:

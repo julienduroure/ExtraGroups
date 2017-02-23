@@ -26,11 +26,12 @@ from .globs import *
 class jueg_AddonPreferences(bpy.types.AddonPreferences):
 	bl_idname = __package__
 
-	multitype      = bpy.props.BoolProperty(default= False)
-	textremove     = bpy.props.BoolProperty(default= True)
-	edit_mode      = bpy.props.BoolProperty(default= False)
-	use_color      = bpy.props.BoolProperty(default= False)
-	use_keyingset  = bpy.props.BoolProperty(default= False)
+	multitype       = bpy.props.BoolProperty(default= False)
+	textremove      = bpy.props.BoolProperty(default= True )
+	edit_mode       = bpy.props.BoolProperty(default= False)
+	use_color       = bpy.props.BoolProperty(default= False)
+	use_keyingset   = bpy.props.BoolProperty(default= False)
+	use_manipulator = bpy.props.BoolProperty(default= False)
 
 	internal_keyingset = bpy.props.StringProperty(default="ExtraGroups KeyingSet")
 
@@ -70,6 +71,8 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 			row_global.prop(self, "multitype", text="Use Multitype")
 			row_global = layout.row()
 			row_global.prop(self, "use_keyingset", text="KeyingSet Management")
+			row_global = layout.row()
+			row_global.prop(self, "use_manipulator", text="Transformation Gizmo Management")
 			row_global = layout.row()
 			row_global.prop(self, "textremove", text="Remove text when delete Operator")
 
