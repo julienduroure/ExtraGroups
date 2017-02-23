@@ -42,7 +42,7 @@ class POSE_UL_jueg_events(bpy.types.UIList):
 
 		if self.layout_type in {'DEFAULT', 'COMPACT'}:
 			if user_defined == False:
-				layout.label(item.mode, translate=False)
+				layout.label(item.label, translate=False)
 			else:
 				layout.prop(item, "mode", text="", emboss=False)
 

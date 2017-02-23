@@ -301,8 +301,9 @@ class POSE_OT_jueg_update_to_new_addon_version(bpy.types.Operator):
 							for ev in get_default_ops_id()[ope.id]['events']:
 								new_ = ope.events.add()
 								new_.mode  = ev[0]
-								new_.event = ev[1]
-								new_.solo  = ev[2]
+								new_.label = ev[1]
+								new_.event = ev[2]
+								new_.solo  = ev[3]
 
 				for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
 					if len(obj.jueg_extragroups_ops) > 0:
