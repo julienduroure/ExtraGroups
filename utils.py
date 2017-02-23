@@ -81,7 +81,7 @@ def get_default_ops_id():
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['events'].append(['SOLO', 'CTRL', True])
 
 	dict_['8102ad699e6d4af8a8f511e1283b995e'] = {}
-	dict_['8102ad699e6d4af8a8f511e1283b995e']['magic_nb'] = 3
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['magic_nb'] = 4
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['name'] = "Select"
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['ops_type'] = 'EXE'
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['ops_exe'] = "pose.jueg_select"
@@ -96,6 +96,7 @@ def get_default_ops_id():
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['REPLACE', 'NONE', False])
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['ADD', 'SHIFT', False])
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['REMOVE', 'ALT', False])
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['SELECT_HIDE_OTHER', 'CTRL', False])
 
 	dict_['baeadde2d0594c5abfe083808b80d995'] = {}
 	dict_['baeadde2d0594c5abfe083808b80d995']['magic_nb'] = 1

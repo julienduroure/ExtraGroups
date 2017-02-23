@@ -908,7 +908,24 @@ class POSE_OT_jueg_select(Operator):
 					bones.append(bone)
 
 ########################### Before ##############################
-		if mode == "REPLACE":
+		if mode == "SELECT_HIDE_OTHER":
+			# Check if solo mode is enabled on visibility ops
+			solo_somewhere = False
+			for grouptype in armature.jueg_grouptypelist:
+				index_group = 0
+				for other_groups in grouptype.group_ids:
+					for solo_other in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[index_group].solo:
+						if solo_other.id == 'b9eac1a0a2fd4dcd94140d05a6a3af86': #visibility
+							if solo_other.on_off == True:
+								solo_somewhere = True
+								break
+					index_group = index_group + 1
+			if solo_somewhere == True:
+				self.report({'ERROR'}, "visibility is on solo mode")
+				return {'CANCELLED'}
+
+
+		if mode == "REPLACE" or mode == "SELECT_HIDE_OTHER":
 			for bone in armature.pose.bones:
 				bone.bone.select = False
 ########################### End Before ##########################
@@ -920,10 +937,13 @@ class POSE_OT_jueg_select(Operator):
 				to_delete.append(idx)
 				continue
 ################################################################################
-			if mode == "REPLACE" or mode == "ADD":
+			if mode == "REPLACE" or mode == "ADD" or "SELECT_HIDE_OTHER":
 				armature.data.bones[bone.name].select = True
 			elif mode == "REMOVE":
 				armature.data.bones[bone.name].select = False
+
+			if mode == 'SELECT_HIDE_OTHER':
+				armature.data.bones[bone.name].hide = False
 
 ################################################################################
 		#after
@@ -939,6 +959,25 @@ class POSE_OT_jueg_select(Operator):
 				bpy.context.scene.keying_sets.active_index = bpy.context.scene.keying_sets.find(addonpref().internal_keyingset)
 			elif mode == "REMOVE":
 				self.report({'ERROR'}, "KeyingSet remove is not implemented yet")
+
+		# Select and hide other
+		if mode == "SELECT_HIDE_OTHER":
+			# Toggle visibility of all other groups
+			for grouptype in armature.jueg_grouptypelist:
+				cpt_index = 0
+				for group in grouptype.group_ids:
+					# toogle on_off
+					for ops in group.on_off:
+						if ops.id == 'b9eac1a0a2fd4dcd94140d05a6a3af86': #visibility
+							if cpt_index == self.index and grouptype == armature.jueg_grouptypelist[armature.jueg_active_grouptype]:
+								ops.on_off = True
+							else:
+								ops.on_off = False
+					# toogle visibility
+					for bone in armature.pose.bones:
+						if bone.name not in [bone.name for bone in bones]: # check for bones that are in multiple groups
+							armature.data.bones[bone.name].hide = True
+					cpt_index = cpt_index + 1
 
 		#delete bones if any
 		if len(to_delete) > 0:
