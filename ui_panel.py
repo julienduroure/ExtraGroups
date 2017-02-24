@@ -133,6 +133,7 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 					row.prop(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup], "manipulator", icon_only=True, icon='MAN_TRANS', index=0)
 					row.prop(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup], "manipulator", icon_only=True, icon='MAN_ROT', index=1)
 					row.prop(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup], "manipulator", icon_only=True, icon='MAN_SCALE', index=2)
+					row.prop(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup], "orientation", text='')
 
 class POSE_MT_jueg_group_specials(bpy.types.Menu):
 	bl_label = "Groups Specials"

@@ -30,6 +30,14 @@ class Jueg_OnOffEntry(bpy.types.PropertyGroup):
 	id      = bpy.props.StringProperty(name="Id of Ops")
 	on_off  = bpy.props.BoolProperty(name="On_Off")
 
+jueg_orientation_items = [
+	("GLOBAL", "Global", "", 1),
+	("LOCAL", "Local", "", 2),
+	("NORMAL", "Normal", "", 3),
+	("GIMBAL", "Gimbal", "", 4),
+	("VIEW", "View", "", 5),
+	]
+
 class Jueg_BoneGroup(bpy.types.PropertyGroup):
 	name              = bpy.props.StringProperty(name="Group Name")
 	bone_ids          = bpy.props.CollectionProperty(type=Jueg_BoneEntry)
@@ -39,6 +47,7 @@ class Jueg_BoneGroup(bpy.types.PropertyGroup):
 	color             = bpy.props.FloatVectorProperty(name="Color", subtype='COLOR', default=[0.0,0.0,0.0], min=0.0, max=1.0)
 	keying            = bpy.props.StringProperty(name="Keying Set")
 	manipulator		  = bpy.props.BoolVectorProperty(name="Manipulator", default=(True, False, False), size=3)
+	orientation       = bpy.props.EnumProperty(items=jueg_orientation_items, name="Orientation")
 
 class Jueg_OpsDisplay(bpy.types.PropertyGroup):
 	id   = bpy.props.StringProperty(name="Unique id")

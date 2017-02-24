@@ -990,6 +990,8 @@ class POSE_OT_jueg_select(Operator):
 				manip.append('SCALE')
 			if mode == "REPLACE" or mode == "SELECT_HIDE_OTHER":
 				bpy.context.space_data.transform_manipulators = set(manip)
+			bpy.context.space_data.transform_orientation = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].orientation
+
 
 		#delete bones if any
 		if len(to_delete) > 0:
