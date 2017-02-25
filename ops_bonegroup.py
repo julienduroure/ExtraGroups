@@ -125,6 +125,8 @@ class POSE_OT_jueg_bonegroup_add(bpy.types.Operator):
 		bonegroup.name = "Group.%d" % len(grouptype)
 		armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup = len(grouptype) - 1
 		if self.dyn_selection == False:
+			if context.active_pose_bone in context.selected_pose_bones:
+				bonegroup.active_bone = context.active_pose_bone.name
 			for bone in context.selected_pose_bones:
 				bone_id = bonegroup.bone_ids.add()
 				bone_id.name = bone.name

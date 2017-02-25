@@ -122,6 +122,9 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 			row.prop(addonpref(), "edit_mode", text="Edit Mode")
 
 			if addonpref().edit_mode == True:
+				row = layout.row(align=True)
+				row.prop_search(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup], "active_bone", armature.data, "bones", text="Main Bone")
+
 				if addonpref().use_color == True:
 					row = layout.row(align=True)
 					row.prop(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup], "color", text='Color')

@@ -38,6 +38,13 @@ jueg_orientation_items = [
 	("VIEW", "View", "", 5),
 	]
 
+#Dev note :
+#Any new data needs update in
+	# copy / copy mirror
+	# Import from file
+	# Export from file
+	# reload linked data
+
 class Jueg_BoneGroup(bpy.types.PropertyGroup):
 	name              = bpy.props.StringProperty(name="Group Name")
 	bone_ids          = bpy.props.CollectionProperty(type=Jueg_BoneEntry)
@@ -48,6 +55,7 @@ class Jueg_BoneGroup(bpy.types.PropertyGroup):
 	keying            = bpy.props.StringProperty(name="Keying Set")
 	manipulator		  = bpy.props.BoolVectorProperty(name="Manipulator", default=(True, False, False), size=3)
 	orientation       = bpy.props.EnumProperty(items=jueg_orientation_items, name="Orientation")
+	active_bone       = bpy.props.StringProperty(name="Bone Name")
 
 class Jueg_OpsDisplay(bpy.types.PropertyGroup):
 	id   = bpy.props.StringProperty(name="Unique id")
@@ -106,7 +114,6 @@ class Jueg_EventData(bpy.types.PropertyGroup):
 #Any new data needs update in
 	# init_default_ops ( 2 times )
 	# POSE_OT_jueg_reload_linked_data
-	# copy group / copy group mirror
 
 class Jueg_OpsItem(bpy.types.PropertyGroup):
 	id   = bpy.props.StringProperty(name="Unique id")
