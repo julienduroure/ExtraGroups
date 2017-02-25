@@ -184,7 +184,7 @@ class POSE_PT_jueg_opslist(bpy.types.Panel):
 		row.separator()
 		row.operator("pose.jueg_operator_move", icon='TRIA_UP', text="").direction = 'UP'
 		row.operator("pose.jueg_operator_move", icon='TRIA_DOWN', text="").direction = 'DOWN'
-		
+
 
 class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 	bl_label = "Operator Detail"
@@ -319,8 +319,12 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 			if len(ops.events) > 0:
 				row.prop(ops.events[ops.active_event], "event")
 				row = box.row()
+				row.prop(ops.events[ops.active_event], "mode")
+				row.enabled = ops.user_defined
+				row = box.row()
 				row.prop(ops.events[ops.active_event], "solo")
 				row.enabled = ops.user_defined
+
 			if check_duplicate_event(jueg_active_grouptype.active_ops) == True:
 				row = box.row()
 				row.label("Error: Same event assigned to more than one mode", icon="ERROR")

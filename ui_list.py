@@ -44,7 +44,7 @@ class POSE_UL_jueg_events(bpy.types.UIList):
 			if user_defined == False:
 				layout.label(item.label, translate=False)
 			else:
-				layout.prop(item, "mode", text="", emboss=False)
+				layout.prop(item, "label", text="", emboss=False)
 
 		elif self.layout_type in {'GRID'}:
 			layout.alignment = 'CENTER'
