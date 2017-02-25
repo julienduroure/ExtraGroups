@@ -123,13 +123,14 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 
 			if addonpref().edit_mode == True:
 				if addonpref().use_color == True:
-					row = layout.row()
-					row.prop(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup], "color", text='')
+					row = layout.row(align=True)
+					row.prop(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup], "color", text='Color')
 				if addonpref().use_keyingset == True and armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup].current_selection == False:
-					row = layout.row()
-					row.prop_search(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup], "keying", bpy.context.scene, "keying_sets", text="")
+					row = layout.row(align=True)
+					row.prop_search(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup], "keying", bpy.context.scene, "keying_sets", text="KeyingSet")
 				if addonpref().use_manipulator == True:
 					row = layout.row(align=True)
+					row.label("transformation")
 					row.prop(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup], "manipulator", icon_only=True, icon='MAN_TRANS', index=0)
 					row.prop(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup], "manipulator", icon_only=True, icon='MAN_ROT', index=1)
 					row.prop(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup], "manipulator", icon_only=True, icon='MAN_SCALE', index=2)
