@@ -937,7 +937,7 @@ class POSE_OT_jueg_select(Operator):
 				to_delete.append(idx)
 				continue
 ################################################################################
-			if mode == "REPLACE" or mode == "ADD" or "SELECT_HIDE_OTHER":
+			if mode == "REPLACE" or mode == "ADD" or mode == "SELECT_HIDE_OTHER":
 				armature.data.bones[bone.name].select = True
 			elif mode == "REMOVE":
 				armature.data.bones[bone.name].select = False
@@ -947,6 +947,11 @@ class POSE_OT_jueg_select(Operator):
 
 ################################################################################
 		#after
+
+		# Set active bone
+		if mode == "REPLACE" or mode == "ADD" or mode == "SELECT_HIDE_OTHER":
+			armature.data.bones.active = armature.data.bones[armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].active_bone]
+
 		# KeyingSet
 		if addonpref().use_keyingset == True:
 			if mode == "REPLACE":
