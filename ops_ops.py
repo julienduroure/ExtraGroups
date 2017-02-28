@@ -424,6 +424,12 @@ class POSE_OT_jueg_reload_linked_data(bpy.types.Operator):
 							dst_bone = dst_bonegroup.bone_ids.add()
 							dst_bone.name = lib_bone.name
 
+						dst_bonegroup.keying      = lib_bonegroup.keying
+						dst_bonegroup.manipulator = lib_bonegroup.manipulator
+						dst_bonegroup.orientation = lib_bonegroup.orientation
+						dst_bonegroup.active_bone = lib_bonegroup.active_bone
+						dst_bonegroup.color       = lib_bonegroup.color
+
 						for lib_on_off in lib_bonegroup.on_off:
 							dst_on_off = dst_bonegroup.on_off.add()
 							dst_on_off.id = lib_on_off.id
