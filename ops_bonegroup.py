@@ -198,6 +198,12 @@ class POSE_OT_jueg_group_copy(bpy.types.Operator):
 			bone_id = bonegroup.bone_ids.add()
 			bone_id.name = fct(bone.name)
 
+		bonegroup.keying      = current_group.keying
+		bonegroup.manipulator = current_group.manipulator
+		bonegroup.orientation = current_group.orientation
+		bonegroup.active_bone = fct(current_group.active_bone)
+		bonegroup.color       = current_group.color
+
 		#add on / off for each ops
 		on_off   = bonegroup.on_off
 		ops_list = armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display
