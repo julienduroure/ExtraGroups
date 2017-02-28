@@ -60,7 +60,7 @@ class POSE_OT_jueg_export_to_file(bpy.types.Operator, bpy_extras.io_utils.Export
                 group_["bones"] = []
                 for bone in group.bone_ids:
                     group_["bones"].append(bone.name)
-                group_["color"] = "Color((" + str(group.color[0]) + "," + str(group.color[1]) + "," + str(group.color[2]) + "))"
+                group_["color"] = str(group.color[0]) + "/" + str(group.color[1]) + "/" + str(group.color[2])
                 group_["keying"] = group.keying
                 group_["active_bone"] = group.active_bone
                 group_["orientation"] = group.orientation
@@ -68,25 +68,23 @@ class POSE_OT_jueg_export_to_file(bpy.types.Operator, bpy_extras.io_utils.Export
                 first = True
                 gizmo = ""
                 if group.manipulator[0] == True:
-                    gizmo = gizmo + "{'TRANSLATE'"
+                    gizmo = "TRANSLATE"
                     first = False
                 if group.manipulator[1] == True:
                     if first == True:
-                        gizmo = gizmo + "{'ROTATE'"
+                        gizmo = "ROTATE"
                         first = False
                     else:
-                        gizmo = gizmo + ",'ROTATE'"
+                        gizmo = gizmo + "/ROTATE"
                 if group.manipulator[2] == True:
                     if first == True:
-                        gizmo = gizmo + "{'SCALE'"
+                        gizmo = "SCALE"
                         first = False
                     else:
-                        gizmo = gizmo + ",'SCALE'"
+                        gizmo = gizmo + "/SCALE"
                 if first == True:
                 # Should not happened, but by default, set it to Translate ?
-                    gizmo = "{'TRANSLATE'}"
-                else:
-                    gizmo = gizmo + "}"
+                    gizmo = "TRANSLATE"
                 group_["manipulator"] = gizmo
                 grouptype_["groups"].append(group_)
             data['GroupTypes'].append(grouptype_)
