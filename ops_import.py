@@ -24,8 +24,9 @@ import bpy
 import bpy_extras
 import json
 from .utils import *
+import mathutils
 
-def import_creation(multi_type_mode, creation, label):
+def import_creation(multi_type_mode, creation, label, extra):
 	armature = bpy.context.object
 
 	# creation
@@ -96,6 +97,14 @@ def import_creation(multi_type_mode, creation, label):
 				bone_id = bonegroup.bone_ids.add()
 				bone_id.name = bone
 
+		bonegroup.keying      		= extra[gr]["keying"]
+		bonegroup.active_bone 		= extra[gr]["active_bone"]
+		bonegroup.orientation 		= extra[gr]["orientation"]
+		bonegroup.manipulator[0] 	= 'TRANSLATE' in extra[gr]["manipulator"].split('/')
+		bonegroup.manipulator[1] 	= 'ROTATE'    in extra[gr]["manipulator"].split('/')
+		bonegroup.manipulator[2] 	= 'SCALE'     in extra[gr]["manipulator"].split('/')
+		bonegroup.color				= mathutils.Color((float(extra[gr]["color"].split('/')[0]),float(extra[gr]["color"].split('/')[1]),float(extra[gr]["color"].split('/')[2])))
+
 		#add on / off for each ops
 		on_off   = bonegroup.on_off
 		ops_list = grouptype.ops_display
@@ -136,7 +145,7 @@ class POSE_OT_jueg_import_from_bone_groups(bpy.types.Operator):
 					creation[bone.bone_group.name] = []
 				creation[bone.bone_group.name].append(bone.name)
 
-		import_creation(False, creation, "Bone Groups")
+		import_creation(False, creation, "Bone Groups", {})
 
 		return {'FINISHED'}
 
@@ -167,9 +176,16 @@ class POSE_OT_jueg_import_from_file(bpy.types.Operator, bpy_extras.io_utils.Impo
 
 		for grouptype in creations["GroupTypes"]:
 			creation = {}
+			extra    = {}
 			for group_ in grouptype["groups"]:
 				creation[group_["name"]] = group_["bones"]
-			import_creation(True, creation, grouptype["name"])
+				extra[group_["name"]] = {}
+				extra[group_["name"]]["orientation"] = group_["orientation"]
+				extra[group_["name"]]["manipulator"] = group_["manipulator"]
+				extra[group_["name"]]["active_bone"] = group_["active_bone"]
+				extra[group_["name"]]["color"]       = group_["color"]
+				extra[group_["name"]]["keying"]       = group_["keying"]
+			import_creation(True, creation, grouptype["name"], extra)
 
 		return {'FINISHED'}
 
@@ -198,7 +214,7 @@ class POSE_OT_jueg_import_from_selection_sets(bpy.types.Operator):
 			for bone in set_.bone_ids:
 				creation[set_.name].append(bone.name)
 
-		import_creation(False, creation, "Selection Sets")
+		import_creation(False, creation, "Selection Sets", {})
 
 		return {'FINISHED'}
 
@@ -227,7 +243,7 @@ class POSE_OT_jueg_import_from_keying_sets(bpy.types.Operator):
 					bone_name = tmp[0][1:-1]
 					creation[set_.bl_label].append(bone_name)
 
-		import_creation(False, creation, "Keying Sets")
+		import_creation(False, creation, "Keying Sets", {})
 
 		return {'FINISHED'}
 
@@ -244,7 +260,7 @@ class POSE_OT_jueg_init_from_scratch(bpy.types.Operator):
 
 	def execute(self, context):
 
-		import_creation(False, {}, "GroupType.1")
+		import_creation(False, {}, "GroupType.1", {})
 
 		return {'FINISHED'}
 
