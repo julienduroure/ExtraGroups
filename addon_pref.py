@@ -29,6 +29,7 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 	multitype       = bpy.props.BoolProperty(default= False)
 	textremove      = bpy.props.BoolProperty(default= True )
 	edit_mode       = bpy.props.BoolProperty(default= False)
+	import_export 	= bpy.props.BoolProperty(default= False)
 	use_color       = bpy.props.BoolProperty(default= False)
 	use_keyingset   = bpy.props.BoolProperty(default= False)
 	use_manipulator = bpy.props.BoolProperty(default= False)
@@ -44,7 +45,6 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 	tab1 = bpy.props.BoolProperty(default=False)
 	tab2 = bpy.props.BoolProperty(default=False)
 	tab3 = bpy.props.BoolProperty(default=False)
-	tab4 = bpy.props.BoolProperty(default=False)
 
 	def draw(self, context):
 		armature = context.active_object
@@ -88,29 +88,8 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 			row.prop(self, "use_color", text="Use color")
 
 		row_global = layout.row()
-		row_global.prop(self, "tab3", text="Import/Export", icon='SOLO_ON')
+		row_global.prop(self, "tab3", text="Danger Zone", icon='SOLO_ON')
 		if self.tab3 == True:
-			row_global = layout.row()
-			col = row_global.column()
-			row = col.row()
-			row.operator("jueg.import_from_bone_groups", text="Import from Bone Groups")
-			col = row_global.column()
-			row = col.row()
-			row.operator("jueg.import_from_selection_sets", text="Import from Selection Sets")
-			col = row_global.column()
-			row = col.row()
-			row.operator("jueg.import_from_keying_sets", text="Import from Keying Sets")
-			col = row_global.column()
-			row = col.row()
-			row.operator("jueg.import_from_file", text="Import from File")
-			row_global = layout.row()
-			col = row_global.column()
-			row = col.row()
-			row.operator("jueg.export_to_file", text="Export to File")
-
-		row_global = layout.row()
-		row_global.prop(self, "tab4", text="Danger Zone", icon='SOLO_ON')
-		if self.tab4 == True:
 			row_global = layout.row()
 			row_global.label("In case addon goes wrong, you can delete all data of this addon")
 			row_global = layout.row()

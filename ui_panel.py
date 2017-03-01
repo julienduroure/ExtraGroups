@@ -120,6 +120,7 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 
 			row = layout.row()
 			row.prop(addonpref(), "edit_mode", text="Edit Mode")
+			row.prop(addonpref(), "import_export", text="Import/Export")
 
 			if addonpref().edit_mode == True:
 				if armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup].current_selection == False:
@@ -389,7 +390,7 @@ class POSE_PT_jueg_update_addon(bpy.types.Panel):
 
 
 class POSE_PT_jueg_initdata(bpy.types.Panel):
-	bl_label = "Init Data"
+	bl_label = "Import / Export"
 	bl_space_type = 'VIEW_3D'
 	bl_region_type = 'TOOLS'
 	bl_category = "Extra Groups"
@@ -400,12 +401,14 @@ class POSE_PT_jueg_initdata(bpy.types.Panel):
 				context.object.type == 'ARMATURE' and
 				context.mode == 'POSE'
 				and check_addon_update_needed() == False
-				and len(context.active_object.jueg_grouptypelist) == 0)
+				and ( len(context.active_object.jueg_grouptypelist) == 0)
+					or addonpref().import_export == True)
 
 	def draw(self, context):
 		layout = self.layout
-		row = layout.row()
-		row.operator("jueg.init_from_scratch", text="Init from Scratch")
+		if len(context.active_object.jueg_grouptypelist) == 0:
+			row = layout.row()
+			row.operator("jueg.init_from_scratch", text="Init from Scratch")
 		row = layout.row()
 		row.operator("jueg.import_from_bone_groups", text="Import from Bone Groups")
 		row = layout.row()
@@ -414,6 +417,10 @@ class POSE_PT_jueg_initdata(bpy.types.Panel):
 		row.operator("jueg.import_from_keying_sets", text="Import from Keying Sets")
 		row = layout.row()
 		row.operator("jueg.import_from_file", text="Import from File")
+		if addonpref().import_export == True:
+			row = layout.row()
+			row = layout.row()
+			row.operator("jueg.export_to_file", text="Export to File")
 
 def unregister_class_panels():
 	bpy.utils.unregister_class(POSE_PT_jueg_grouptype)
