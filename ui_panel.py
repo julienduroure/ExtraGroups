@@ -120,6 +120,7 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 
 			row = layout.row()
 			row.prop(addonpref(), "edit_mode", text="Edit Mode")
+			row.prop(addonpref(), "options", text="Options")
 			row.prop(addonpref(), "import_export", text="Import/Export")
 
 			if addonpref().edit_mode == True:
@@ -190,6 +191,35 @@ class POSE_PT_jueg_opslist(bpy.types.Panel):
 		row.operator("pose.jueg_operator_move", icon='TRIA_UP', text="").direction = 'UP'
 		row.operator("pose.jueg_operator_move", icon='TRIA_DOWN', text="").direction = 'DOWN'
 
+class POSE_PT_jueg_options(bpy.types.Panel):
+	bl_label = "Options"
+	bl_space_type = 'VIEW_3D'
+	bl_region_type = 'TOOLS'
+	bl_category = "Extra Groups"
+
+	@classmethod
+	def poll(self, context):
+		armature = context.object
+		return (context.object and
+				context.object.type == 'ARMATURE' and
+				context.mode == 'POSE'
+				and len(context.active_object.jueg_grouptypelist) > 0
+				and len(armature.jueg_extragroups_ops) != 0
+				and addonpref().options == True
+				and check_addon_update_needed() == False)
+
+	def draw(self, context):
+		layout = self.layout
+		armature = context.object
+
+		row = layout.row()
+		row.prop(addonpref(), "use_keyingset", text="KeyingSet Management")
+		row = layout.row()
+		row.prop(addonpref(), "use_manipulator", text="Transformation Gizmo Management")
+		row = layout.row()
+		row.prop(addonpref(), "use_color", text="Use color label")
+		row = layout.row()
+		row.prop(addonpref(), "multitype", text="Multitype")
 
 class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 	bl_label = "Operator Detail"
@@ -431,6 +461,7 @@ def unregister_class_panels():
 	bpy.utils.unregister_class(POSE_PT_jueg_update_addon)
 	bpy.utils.unregister_class(POSE_PT_jueg_initdata)
 	bpy.utils.unregister_class(POSE_MT_jueg_group_specials)
+	bpy.utils.unregister_class(POSE_PT_jueg_options)
 
 
 
@@ -442,6 +473,7 @@ def change_panel_tab():
 	POSE_PT_jueg_reloaddata.bl_category = addonpref().category
 	POSE_PT_jueg_update_addon.bl_category = addonpref().category
 	POSE_PT_jueg_initdata.bl_category = addonpref().category
+	POSE_PT_jueg_options.bl_category = addonpref().category
 
 def register_panels():
 	bpy.utils.register_class(POSE_PT_jueg_grouptype)
@@ -452,6 +484,7 @@ def register_panels():
 	bpy.utils.register_class(POSE_PT_jueg_update_addon)
 	bpy.utils.register_class(POSE_PT_jueg_initdata)
 	bpy.utils.register_class(POSE_MT_jueg_group_specials)
+	bpy.utils.register_class(POSE_PT_jueg_options)
 
 def register():
 

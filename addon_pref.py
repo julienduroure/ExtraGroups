@@ -30,6 +30,7 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 	textremove      = bpy.props.BoolProperty(default= True )
 	edit_mode       = bpy.props.BoolProperty(default= False)
 	import_export 	= bpy.props.BoolProperty(default= False)
+	options			= bpy.props.BoolProperty(default= False)
 	use_color       = bpy.props.BoolProperty(default= False)
 	use_keyingset   = bpy.props.BoolProperty(default= False)
 	use_manipulator = bpy.props.BoolProperty(default= False)
@@ -66,12 +67,6 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 		row_global.prop(self, "tab1", text="Options", icon='SOLO_ON')
 		if self.tab1 == True:
 			row_global = layout.row()
-			row_global.prop(self, "multitype", text="Use Multitype")
-			row_global = layout.row()
-			row_global.prop(self, "use_keyingset", text="KeyingSet Management")
-			row_global = layout.row()
-			row_global.prop(self, "use_manipulator", text="Transformation Gizmo Management")
-			row_global = layout.row()
 			row_global.prop(self, "textremove", text="Remove text when delete Operator")
 
 
@@ -82,8 +77,6 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 			col = row_global.column()
 			row = col.row()
 			row.prop(self, "category", text="Addon tab")
-			row = col.row()
-			row.prop(self, "use_color", text="Use color")
 
 		row_global = layout.row()
 		row_global.prop(self, "tab3", text="Danger Zone", icon='SOLO_ON')
