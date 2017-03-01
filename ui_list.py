@@ -59,7 +59,9 @@ class POSE_UL_jueg_bonegroup(bpy.types.UIList):
 				row.prop(item, "name", text="", emboss=False)
 			else:
 				row = layout.row()
-				row.prop(item, "color", text="")
+				sub = row.row()
+				sub.prop(item, "color", text="")
+				sub.enabled = addonpref().edit_mode
 				row.prop(item, "name", text="", emboss=False)
 
 			#loop on ops from this group type
