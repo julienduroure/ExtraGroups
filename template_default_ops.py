@@ -950,7 +950,8 @@ class POSE_OT_jueg_select(Operator):
 
 		# Set active bone
 		if mode == "REPLACE" or mode == "ADD" or mode == "SELECT_HIDE_OTHER":
-			armature.data.bones.active = armature.data.bones[armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].active_bone]
+			if armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].active_bone != "":
+				armature.data.bones.active = armature.data.bones[armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].active_bone]
 
 		# KeyingSet
 		if addonpref().use_keyingset == True:
