@@ -63,8 +63,6 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 			row_global.label("Be sure to update your library file first", icon="ERROR")
 
 		row_global = layout.row()
-		row_global.prop(self, "edit_mode", text="Edit Mode")
-		row_global = layout.row()
 		row_global.prop(self, "tab1", text="Options", icon='SOLO_ON')
 		if self.tab1 == True:
 			row_global = layout.row()
