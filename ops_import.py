@@ -26,7 +26,7 @@ import json
 from .utils import *
 import mathutils
 
-def import_creation(multi_type_mode, creation, label, extra):
+def import_creation(multi_type_mode, creation, label, extra, current_selection_creation=False, current_selection_color="0.0/0.0/0.0"):
 	armature = bpy.context.object
 
 	# creation
@@ -38,6 +38,7 @@ def import_creation(multi_type_mode, creation, label, extra):
 		bonegroup = grouptype.group_ids.add()
 		bonegroup.current_selection = True
 		bonegroup.name = "Current Selection"
+		bonegroup.color = mathutils.Color((float(current_selection_color.split('/')[0]),float(current_selection_color.split('/')[1]),float(current_selection_color.split('/')[2])))
 		#add on / off for each ops
 		on_off   = bonegroup.on_off
 		ops_list = armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display
@@ -65,6 +66,7 @@ def import_creation(multi_type_mode, creation, label, extra):
 			bonegroup = grouptype.group_ids.add()
 			bonegroup.current_selection = True
 			bonegroup.name = "Current Selection"
+			bonegroup.color = mathutils.Color((float(current_selection_color.split('/')[0]),float(current_selection_color.split('/')[1]),float(current_selection_color.split('/')[2])))
 			#add on / off for each ops
 			on_off   = bonegroup.on_off
 			ops_list = armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display
@@ -104,6 +106,16 @@ def import_creation(multi_type_mode, creation, label, extra):
 		bonegroup.manipulator[1] 	= 'ROTATE'    in extra[gr]["manipulator"].split('/')
 		bonegroup.manipulator[2] 	= 'SCALE'     in extra[gr]["manipulator"].split('/')
 		bonegroup.color				= mathutils.Color((float(extra[gr]["color"].split('/')[0]),float(extra[gr]["color"].split('/')[1]),float(extra[gr]["color"].split('/')[2])))
+
+	if current_selection_creation == True:
+		if check_if_current_selection_exists_in_group(grouptype) == False:
+			bonegroup = grouptype.group_ids.add()
+			bonegroup.current_selection = True
+			bonegroup.name = "Current Selection"
+			bonegroup.color = mathutils.Color((float(current_selection_color.split('/')[0]),float(current_selection_color.split('/')[1]),float(current_selection_color.split('/')[2])))
+		else:
+			bonegroup = [group for group in grouptype.group_ids if group.current_selection == True][0]
+			bonegroup.color = mathutils.Color((float(current_selection_color.split('/')[0]),float(current_selection_color.split('/')[1]),float(current_selection_color.split('/')[2])))
 
 		#add on / off for each ops
 		on_off   = bonegroup.on_off
@@ -185,7 +197,7 @@ class POSE_OT_jueg_import_from_file(bpy.types.Operator, bpy_extras.io_utils.Impo
 				extra[group_["name"]]["active_bone"] = group_["active_bone"]
 				extra[group_["name"]]["color"]       = group_["color"]
 				extra[group_["name"]]["keying"]       = group_["keying"]
-			import_creation(True, creation, grouptype["name"], extra)
+			import_creation(True, creation, grouptype["name"], extra, current_selection_creation=grouptype["current_selection"]["exists"], current_selection_color=grouptype["current_selection"]["color"])
 
 		return {'FINISHED'}
 

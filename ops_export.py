@@ -25,6 +25,7 @@ import bpy_extras
 import json
 import sys
 import datetime
+from .utils import *
 
 class POSE_OT_jueg_export_to_file(bpy.types.Operator, bpy_extras.io_utils.ExportHelper):
     """Export to file"""
@@ -50,44 +51,52 @@ class POSE_OT_jueg_export_to_file(bpy.types.Operator, bpy_extras.io_utils.Export
         data['rig_armature'] = armature.data.name
         data['generation_date'] = str(datetime.datetime.now())
         data['GroupTypes'] = []
+        cpt_index = 0
         for grouptype in armature.jueg_grouptypelist:
             grouptype_ = {}
             grouptype_["name"] = grouptype.name
             grouptype_["groups"] = []
-            for group in [group_it for group_it in grouptype.group_ids if group_it.current_selection == False]:
-                group_ = {}
-                group_["name"] = group.name
-                group_["bones"] = []
-                for bone in group.bone_ids:
-                    group_["bones"].append(bone.name)
-                group_["color"] = str(group.color[0]) + "/" + str(group.color[1]) + "/" + str(group.color[2])
-                group_["keying"] = group.keying
-                group_["active_bone"] = group.active_bone
-                group_["orientation"] = group.orientation
-                # Gizmo
-                first = True
-                gizmo = ""
-                if group.manipulator[0] == True:
-                    gizmo = "TRANSLATE"
-                    first = False
-                if group.manipulator[1] == True:
-                    if first == True:
-                        gizmo = "ROTATE"
+            grouptype_["current_selection"] = {}
+            grouptype_["current_selection"]["exists"] = check_if_current_selection_exists(cpt_index)
+            grouptype_["current_selection"]["color"] = "0.0/0.0/0.0"
+            for group in grouptype.group_ids:
+            	if group.current_selection == True:
+                    grouptype_["current_selection"]["color"] = str(group.color[0]) + "/" + str(group.color[1]) + "/" + str(group.color[2])
+            	else:
+                    group_ = {}
+                    group_["name"] = group.name
+                    group_["bones"] = []
+                    for bone in group.bone_ids:
+                        group_["bones"].append(bone.name)
+                    group_["color"] = str(group.color[0]) + "/" + str(group.color[1]) + "/" + str(group.color[2])
+                    group_["keying"] = group.keying
+                    group_["active_bone"] = group.active_bone
+                    group_["orientation"] = group.orientation
+                    # Gizmo
+                    first = True
+                    gizmo = ""
+                    if group.manipulator[0] == True:
+                        gizmo = "TRANSLATE"
                         first = False
-                    else:
-                        gizmo = gizmo + "/ROTATE"
-                if group.manipulator[2] == True:
+                    if group.manipulator[1] == True:
+                        if first == True:
+                            gizmo = "ROTATE"
+                            first = False
+                        else:
+                            gizmo = gizmo + "/ROTATE"
+                    if group.manipulator[2] == True:
+                        if first == True:
+                            gizmo = "SCALE"
+                            first = False
+                        else:
+                            gizmo = gizmo + "/SCALE"
                     if first == True:
-                        gizmo = "SCALE"
-                        first = False
-                    else:
-                        gizmo = gizmo + "/SCALE"
-                if first == True:
-                # Should not happened, but by default, set it to Translate ?
-                    gizmo = "TRANSLATE"
-                group_["manipulator"] = gizmo
-                grouptype_["groups"].append(group_)
+                    # Should not happened, but by default, set it to Translate ?
+                        gizmo = "TRANSLATE"
+                    group_["manipulator"] = gizmo
+                    grouptype_["groups"].append(group_)
             data['GroupTypes'].append(grouptype_)
+            cpt_index = cpt_index + 1
 
         f = open(self.filepath, 'w', encoding='utf-8')
         f.write(json.dumps(data))

@@ -176,11 +176,14 @@ def copy_data_ops(armature,index_grouptype):
 			new.id = ops.id
 			new.display = False
 
-def check_if_current_selection_exists(grouptype_id):
-	for group in bpy.context.object.jueg_grouptypelist[grouptype_id].group_ids:
+def check_if_current_selection_exists_in_group(grouptype):
+	for group in grouptype.group_ids:
 		if group.current_selection == True:
 			return True
 	return False
+
+def check_if_current_selection_exists(grouptype_id):
+	return check_if_current_selection_exists_in_group(bpy.context.object.jueg_grouptypelist[grouptype_id])
 
 def lib_proxy_armature():
 	if bpy.context.active_object != None and bpy.context.active_object.data.library == None:
