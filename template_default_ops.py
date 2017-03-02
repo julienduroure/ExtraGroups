@@ -978,6 +978,12 @@ class POSE_OT_jueg_select(Operator):
 
 ################################################################################
 		#after
+		if mode == "SELECT_OPPOSITE":
+			for bone in armature.pose.bones:
+				if bone.name in [b.name for b in bones]:
+					armature.data.bones[bone.name].select = False
+				else:
+					armature.data.bones[bone.name].select = True
 
 		# Set active bone
 		if mode == "REPLACE" or mode == "ADD" or mode == "SELECT_HIDE_OTHER":
