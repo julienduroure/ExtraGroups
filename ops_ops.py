@@ -300,10 +300,11 @@ class POSE_OT_jueg_update_to_new_addon_version(bpy.types.Operator):
 							ope.events.clear()
 							for ev in get_default_ops_id()[ope.id]['events']:
 								new_ = ope.events.add()
-								new_.mode  = ev[0]
-								new_.label = ev[1]
-								new_.event = ev[2]
-								new_.solo  = ev[3]
+								new_.mode   = ev[0]
+								new_.label  = ev[1]
+								new_.event  = ev[2]
+								new_.active = ev[3]
+								new_.solo   = ev[4]
 
 				for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
 					if len(obj.jueg_extragroups_ops) > 0:
@@ -467,9 +468,11 @@ class POSE_OT_jueg_reload_linked_data(bpy.types.Operator):
 
 					for ev in lib_ops.events:
 						dst_ev = dst_ops.events.add()
-						dst_ev.mode  = ev.mode
-						dst_ev.event = ev.event
-						dst_ev.solo  = ev.solo
+						dst_ev.mode   = ev.mode
+						dst_ev.event  = ev.event
+						dst_ev.active = ev.active
+						dst_ev.solo   = ev.solo
+						dst_ev.label  = ev.label
 
 				break
 		return {'FINISHED'}

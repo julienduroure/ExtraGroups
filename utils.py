@@ -33,7 +33,7 @@ def get_default_ops_id():
 	dict_ = {}
 
 	dict_['f31027b2b65d4a90b610281ea09f08fb'] = {}
-	dict_['f31027b2b65d4a90b610281ea09f08fb']['magic_nb'] = 3
+	dict_['f31027b2b65d4a90b610281ea09f08fb']['magic_nb'] = 4
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['name'] = "Mute"
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['ops_type'] = 'BOOL'
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['ops_exe'] = "pose.jueg_bonemute"
@@ -45,11 +45,11 @@ def get_default_ops_id():
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['user_defined'] = False
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['event_manage'] = True
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['events'] = []
-	dict_['f31027b2b65d4a90b610281ea09f08fb']['events'].append(['MUTE', 'Mute', 'NONE', False])
-	dict_['f31027b2b65d4a90b610281ea09f08fb']['events'].append(['SOLO', 'Solo', 'CTRL', True])
+	dict_['f31027b2b65d4a90b610281ea09f08fb']['events'].append(['MUTE', 'Mute', 'NONE', True, False])
+	dict_['f31027b2b65d4a90b610281ea09f08fb']['events'].append(['SOLO', 'Solo', 'CTRL', True, True])
 
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86'] = {}
-	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['magic_nb'] = 3
+	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['magic_nb'] = 4
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['name'] = "Toggle Visibility"
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['ops_type'] = 'BOOL'
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['ops_exe'] = "pose.jueg_change_visibility"
@@ -61,11 +61,11 @@ def get_default_ops_id():
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['user_defined'] = False
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['event_manage'] = True
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['events'] = []
-	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['events'].append(['TOGGLE', 'Toggle', 'NONE', False])
-	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['events'].append(['SOLO', 'Solo', 'CTRL', True])
+	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['events'].append(['TOGGLE', 'Toggle', 'NONE', True, False])
+	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['events'].append(['SOLO', 'Solo', 'CTRL', True, True])
 
 	dict_['9d5257bf3d6245afacabb452bf7a455e'] = {}
-	dict_['9d5257bf3d6245afacabb452bf7a455e']['magic_nb'] = 3
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['magic_nb'] = 4
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['name'] = "Restrict/Allow Selection"
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['ops_type'] = 'BOOL'
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['ops_exe'] = "pose.jueg_restrict_select"
@@ -77,11 +77,11 @@ def get_default_ops_id():
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['user_defined'] = False
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['event_manage'] = True
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['events'] = []
-	dict_['9d5257bf3d6245afacabb452bf7a455e']['events'].append(['TOGGLE', 'Toggle', 'NONE', False])
-	dict_['9d5257bf3d6245afacabb452bf7a455e']['events'].append(['SOLO', 'Solo', 'CTRL', True])
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['events'].append(['TOGGLE', 'Toggle', 'NONE', True, False])
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['events'].append(['SOLO', 'Solo', 'CTRL', True, True])
 
 	dict_['8102ad699e6d4af8a8f511e1283b995e'] = {}
-	dict_['8102ad699e6d4af8a8f511e1283b995e']['magic_nb'] = 5
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['magic_nb'] = 6
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['name'] = "Select"
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['ops_type'] = 'EXE'
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['ops_exe'] = "pose.jueg_select"
@@ -93,10 +93,10 @@ def get_default_ops_id():
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['user_defined'] = False
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['event_manage'] = True
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'] = []
-	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['REPLACE', 'Select only', 'NONE', False])
-	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['ADD', 'Add to Selection', 'SHIFT', False])
-	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['REMOVE', 'Remove from Selection', 'ALT', False])
-	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['SELECT_HIDE_OTHER', 'Select only and hide others', 'CTRL', False])
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['REPLACE', 'Select only', 'NONE', True, False])
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['ADD', 'Add to Selection', 'SHIFT', True, False])
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['REMOVE', 'Remove from Selection', 'ALT', True, False])
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['SELECT_HIDE_OTHER', 'Select only and hide others', 'CTRL', True, False])
 
 	dict_['baeadde2d0594c5abfe083808b80d995'] = {}
 	dict_['baeadde2d0594c5abfe083808b80d995']['magic_nb'] = 1
@@ -127,7 +127,7 @@ def get_default_ops_id():
 	dict_['118c716214664d2890f1290fa984a6c9']['events'] = []
 
 	dict_['21ecdae49e174a8bb25f404fca0b6608'] = {}
-	dict_['21ecdae49e174a8bb25f404fca0b6608']['magic_nb'] = 2
+	dict_['21ecdae49e174a8bb25f404fca0b6608']['magic_nb'] = 3
 	dict_['21ecdae49e174a8bb25f404fca0b6608']['name'] = "Keyframing"
 	dict_['21ecdae49e174a8bb25f404fca0b6608']['ops_type'] = 'EXE'
 	dict_['21ecdae49e174a8bb25f404fca0b6608']['ops_exe'] = "pose.ope_keyframing"
@@ -139,9 +139,9 @@ def get_default_ops_id():
 	dict_['21ecdae49e174a8bb25f404fca0b6608']['user_defined'] = False
 	dict_['21ecdae49e174a8bb25f404fca0b6608']['event_manage'] = True
 	dict_['21ecdae49e174a8bb25f404fca0b6608']['events'] = []
-	dict_['21ecdae49e174a8bb25f404fca0b6608']['events'].append(['DEFAULT', 'Default', 'NONE', False])
-	dict_['21ecdae49e174a8bb25f404fca0b6608']['events'].append(['FORCED_MENU', 'Menu forced', 'CTRL', False])
-	dict_['21ecdae49e174a8bb25f404fca0b6608']['events'].append(['KEYING_ONLY', 'Keying Only', 'SHIFT', False])
+	dict_['21ecdae49e174a8bb25f404fca0b6608']['events'].append(['DEFAULT', 'Default', 'NONE', True, False])
+	dict_['21ecdae49e174a8bb25f404fca0b6608']['events'].append(['FORCED_MENU', 'Menu forced', 'CTRL', True, False])
+	dict_['21ecdae49e174a8bb25f404fca0b6608']['events'].append(['KEYING_ONLY', 'Keying Only', 'SHIFT', True, False])
 
 	return dict_
 
@@ -250,7 +250,7 @@ def check_multitype_not_display(active_index):
 
 def check_duplicate_event(ops_index):
 	events = []
-	for event in bpy.context.object.jueg_extragroups_ops[ops_index].events:
+	for event in [ev for ev in bpy.context.object.jueg_extragroups_ops[ops_index].events if ev.active == True]:
 		if event.event in events:
 			return True
 		events.append(event.event)
@@ -277,9 +277,11 @@ def init_default_ops(armature):
 
 				for src_ev in ops_src.events:
 					dst_ev = ops.events.add()
-					dst_ev.mode  = src_ev.mode
-					dst_ev.event = src_ev.event
-					dst_ev.solo  = src_ev.solo
+					dst_ev.mode   = src_ev.mode
+					dst_ev.event  = src_ev.event
+					dst_ev.label  = src_ev.label
+					dst_ev.active = src_ev.active
+					dst_ev.solo   = src_ev.solo
 
 			copy_data_ops(armature, 0)
 			armature.jueg_grouptypelist[0].active_ops = len(armature.jueg_extragroups_ops) - 1
@@ -303,10 +305,11 @@ def init_default_ops(armature):
 
 		for src_ev in get_default_ops_id()[id]["events"]:
 			dst_ev = ops.events.add()
-			dst_ev.mode  = src_ev[0]
-			dst_ev.label = src_ev[1]
-			dst_ev.event = src_ev[2]
-			dst_ev.solo  = src_ev[3]
+			dst_ev.mode   = src_ev[0]
+			dst_ev.label  = src_ev[1]
+			dst_ev.event  = src_ev[2]
+			dts_ev.active = str_ev[3]
+			dst_ev.solo   = src_ev[4]
 
 	copy_data_ops(armature,0)
 	armature.jueg_grouptypelist[0].active_ops = len(armature.jueg_extragroups_ops) - 1

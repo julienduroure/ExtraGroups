@@ -76,7 +76,7 @@ class POSE_OT_jueg_changevisibility(Operator):
 		use_event = False
 		for ops in armature.jueg_extragroups_ops:
 			if ops.id == self.ops_id:
-				events = ops.events
+				events = [ev for ev in ops.events if ev.active == True]
 				use_event = ops.event_manage
 				found = True
 
@@ -281,7 +281,7 @@ class POSE_OT_jueg_bonemute(Operator):
 		use_event = False
 		for ops in armature.jueg_extragroups_ops:
 			if ops.id == self.ops_id:
-				events = ops.events
+				events = [ev for ev in ops.events if ev.active == True]
 				use_event = ops.event_manage
 				found = True
 
@@ -442,7 +442,7 @@ class POSE_OT_jueg_bonelock(Operator):
 		use_event = False
 		for ops in armature.jueg_extragroups_ops:
 			if ops.id == self.ops_id:
-				events = ops.events
+				events = [ev for ev in ops.events if ev.active == True]
 				use_event = ops.event_manage
 				found = True
 				break
@@ -610,7 +610,7 @@ class POSE_OT_jueg_restrict_select(Operator):
 		use_event = False
 		for ops in armature.jueg_extragroups_ops:
 			if ops.id == self.ops_id:
-				events = ops.events
+				events = [ev for ev in ops.events if ev.active == True]
 				use_event = ops.event_manage
 				found = True
 
@@ -839,7 +839,7 @@ class POSE_OT_jueg_select(Operator):
 		use_event = False
 		for ops in armature.jueg_extragroups_ops:
 			if ops.id == self.ops_id:
-				events = ops.events
+				events = [ev for ev in ops.events if ev.active == True]
 				use_event = ops.event_manage
 				found = True
 
@@ -1234,7 +1234,7 @@ class POSE_OT_jueg_keyframing(Operator):
 		use_event = False
 		for ops in armature.jueg_extragroups_ops:
 			if ops.id == self.ops_id:
-				events = ops.events
+				events = [ev for ev in ops.events if ev.active == True]
 				use_event = ops.event_manage
 				found = True
 				break

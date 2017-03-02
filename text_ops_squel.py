@@ -118,7 +118,7 @@ class POSE_OT_###opsclass###(Operator):
 		use_event = False
 		for ops in armature.jueg_extragroups_ops:
 			if ops.id == self.ops_id:
-				events = ops.events
+				events = [ev for ev in ops.events if ev.active == True]
 				use_event = ops.event_manage
 				found = True
 				break

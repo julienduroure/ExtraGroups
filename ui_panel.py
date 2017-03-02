@@ -352,6 +352,8 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 				row.enabled = False
 			row = box.row()
 			if len(ops.events) > 0:
+				row.prop(ops.events[ops.active_event], "active")
+				row = box.row()
 				row.prop(ops.events[ops.active_event], "event")
 				row = box.row()
 				row.prop(ops.events[ops.active_event], "mode")
