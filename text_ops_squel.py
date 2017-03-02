@@ -82,7 +82,8 @@ class POSE_OT_###opsclass###(Operator):
 
 
 	ops_id		 = StringProperty()
-	index			= IntProperty()
+	index		 = IntProperty()
+	reset_solo   = BoolProperty()
 
 	@classmethod
 	def poll(self, context):
