@@ -308,7 +308,7 @@ def init_default_ops(armature):
 			dst_ev.mode   = src_ev[0]
 			dst_ev.label  = src_ev[1]
 			dst_ev.event  = src_ev[2]
-			dts_ev.active = src_ev[3]
+			dst_ev.active = src_ev[3]
 			dst_ev.solo   = src_ev[4]
 
 	copy_data_ops(armature,0)
