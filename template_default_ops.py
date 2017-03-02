@@ -407,22 +407,48 @@ class POSE_OT_jueg_bonemute(Operator):
 
 		if solo == True:
 
-			#Toggle solo info
-			for ops in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].solo:
-				if ops.id == self.ops_id:
-					ops.on_off = not ops.on_off
+			#Toggle solo info or reset
+			if self.reset_solo == False:
+				for ops in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].solo:
+					if ops.id == self.ops_id:
+						ops.on_off = not ops.on_off
+			else:# move from one solo to another
+				index = 0
+				for bonegroup in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids:
+					if index != self.index:
+						for ops in bonegroup.solo:
+							if ops.id == self.ops_id:
+								ops.on_off = False
+					else:
+						for ops in bonegroup.solo:
+							if ops.id == self.ops_id:
+								ops.on_off = True
+
+					index = index + 1
 
 			#Toggle on_off info for other groups
-			index = 0
-			for bonegroup in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids:
-				if index != self.index:
-					for ops in bonegroup.on_off:
-						if ops.id == self.ops_id:
-							if solo_already == False:
-								ops.on_off = False # Inversed solo ?
-							else:
-								ops.on_off = True # Inversed solo ?
-				index = index + 1
+			if self.reset_solo == False:
+				index = 0
+				for bonegroup in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids:
+					if index != self.index:
+						for ops in bonegroup.on_off:
+							if ops.id == self.ops_id:
+								if solo_already == False:
+									ops.on_off = False
+								else:
+									ops.on_off = True
+					index = index + 1
+
+		else:
+			if self.reset_solo == True:
+				index = 0
+				for bonegroup in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids:
+					if index != self.index:
+						for ops in bonegroup.solo:
+							if ops.id == self.ops_id:
+									ops.on_off = False
+					index = index + 1
+
 
 		return {'FINISHED'}
 
@@ -576,22 +602,48 @@ class POSE_OT_jueg_bonelock(Operator):
 
 		if solo == True:
 
-			#Toggle solo info
-			for ops in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].solo:
-				if ops.id == self.ops_id:
-					ops.on_off = not ops.on_off
+			#Toggle solo info or reset
+			if self.reset_solo == False:
+				for ops in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].solo:
+					if ops.id == self.ops_id:
+						ops.on_off = not ops.on_off
+			else:# move from one solo to another
+				index = 0
+				for bonegroup in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids:
+					if index != self.index:
+						for ops in bonegroup.solo:
+							if ops.id == self.ops_id:
+								ops.on_off = False
+					else:
+						for ops in bonegroup.solo:
+							if ops.id == self.ops_id:
+								ops.on_off = True
+
+					index = index + 1
 
 			#Toggle on_off info for other groups
-			index = 0
-			for bonegroup in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids:
-				if index != self.index:
-					for ops in bonegroup.on_off:
-						if ops.id == self.ops_id:
-							if solo_already == False:
-								ops.on_off = False # Inversed solo ?
-							else:
-								ops.on_off = True # Inversed solo ?
-				index = index + 1
+			if self.reset_solo == False:
+				index = 0
+				for bonegroup in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids:
+					if index != self.index:
+						for ops in bonegroup.on_off:
+							if ops.id == self.ops_id:
+								if solo_already == False:
+									ops.on_off = False
+								else:
+									ops.on_off = True
+					index = index + 1
+
+		else:
+			if self.reset_solo == True:
+				index = 0
+				for bonegroup in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids:
+					if index != self.index:
+						for ops in bonegroup.solo:
+							if ops.id == self.ops_id:
+									ops.on_off = False
+					index = index + 1
+
 
 		return {'FINISHED'}
 
@@ -745,22 +797,48 @@ class POSE_OT_jueg_restrict_select(Operator):
 
 		if solo == True:
 
-			#Toggle solo info
-			for ops in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].solo:
-				if ops.id == self.ops_id:
-					ops.on_off = not ops.on_off
+			#Toggle solo info or reset
+			if self.reset_solo == False:
+				for ops in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].solo:
+					if ops.id == self.ops_id:
+						ops.on_off = not ops.on_off
+			else:# move from one solo to another
+				index = 0
+				for bonegroup in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids:
+					if index != self.index:
+						for ops in bonegroup.solo:
+							if ops.id == self.ops_id:
+								ops.on_off = False
+					else:
+						for ops in bonegroup.solo:
+							if ops.id == self.ops_id:
+								ops.on_off = True
+
+					index = index + 1
 
 			#Toggle on_off info for other groups
-			index = 0
-			for bonegroup in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids:
-				if index != self.index:
-					for ops in bonegroup.on_off:
-						if ops.id == self.ops_id:
-							if solo_already == False:
-								ops.on_off = False # Inversed solo ?
-							else:
-								ops.on_off = True # Inversed solo ?
-				index = index + 1
+			if self.reset_solo == False:
+				index = 0
+				for bonegroup in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids:
+					if index != self.index:
+						for ops in bonegroup.on_off:
+							if ops.id == self.ops_id:
+								if solo_already == False:
+									ops.on_off = False
+								else:
+									ops.on_off = True
+					index = index + 1
+
+		else:
+			if self.reset_solo == True:
+				index = 0
+				for bonegroup in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids:
+					if index != self.index:
+						for ops in bonegroup.solo:
+							if ops.id == self.ops_id:
+									ops.on_off = False
+					index = index + 1
+
 
 		return {'FINISHED'}
 
@@ -1051,22 +1129,48 @@ class POSE_OT_jueg_select(Operator):
 
 		if solo == True:
 
-			#Toggle solo info
-			for ops in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].solo:
-				if ops.id == self.ops_id:
-					ops.on_off = not ops.on_off
+			#Toggle solo info or reset
+			if self.reset_solo == False:
+				for ops in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].solo:
+					if ops.id == self.ops_id:
+						ops.on_off = not ops.on_off
+			else:# move from one solo to another
+				index = 0
+				for bonegroup in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids:
+					if index != self.index:
+						for ops in bonegroup.solo:
+							if ops.id == self.ops_id:
+								ops.on_off = False
+					else:
+						for ops in bonegroup.solo:
+							if ops.id == self.ops_id:
+								ops.on_off = True
+
+					index = index + 1
 
 			#Toggle on_off info for other groups
-			index = 0
-			for bonegroup in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids:
-				if index != self.index:
-					for ops in bonegroup.on_off:
-						if ops.id == self.ops_id:
-							if solo_already == False:
-								ops.on_off = False # Inversed solo ?
-							else:
-								ops.on_off = True # Inversed solo ?
-				index = index + 1
+			if self.reset_solo == False:
+				index = 0
+				for bonegroup in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids:
+					if index != self.index:
+						for ops in bonegroup.on_off:
+							if ops.id == self.ops_id:
+								if solo_already == False:
+									ops.on_off = False
+								else:
+									ops.on_off = True
+					index = index + 1
+
+		else:
+			if self.reset_solo == True:
+				index = 0
+				for bonegroup in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids:
+					if index != self.index:
+						for ops in bonegroup.solo:
+							if ops.id == self.ops_id:
+									ops.on_off = False
+					index = index + 1
+
 
 		return {'FINISHED'}
 
@@ -1192,22 +1296,48 @@ class POSE_OT_jueg_keyframing_after_menu(Operator):
 
 		if solo == True:
 
-			#Toggle solo info
-			for ops in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].solo:
-				if ops.id == self.ops_id:
-					ops.on_off = not ops.on_off
+			#Toggle solo info or reset
+			if self.reset_solo == False:
+				for ops in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].solo:
+					if ops.id == self.ops_id:
+						ops.on_off = not ops.on_off
+			else:# move from one solo to another
+				index = 0
+				for bonegroup in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids:
+					if index != self.index:
+						for ops in bonegroup.solo:
+							if ops.id == self.ops_id:
+								ops.on_off = False
+					else:
+						for ops in bonegroup.solo:
+							if ops.id == self.ops_id:
+								ops.on_off = True
+
+					index = index + 1
 
 			#Toggle on_off info for other groups
-			index = 0
-			for bonegroup in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids:
-				if index != self.index:
-					for ops in bonegroup.on_off:
-						if ops.id == self.ops_id:
-							if solo_already == False:
-								ops.on_off = False # Inversed solo ?
-							else:
-								ops.on_off = True # Inversed solo ?
-				index = index + 1
+			if self.reset_solo == False:
+				index = 0
+				for bonegroup in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids:
+					if index != self.index:
+						for ops in bonegroup.on_off:
+							if ops.id == self.ops_id:
+								if solo_already == False:
+									ops.on_off = False
+								else:
+									ops.on_off = True
+					index = index + 1
+
+		else:
+			if self.reset_solo == True:
+				index = 0
+				for bonegroup in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids:
+					if index != self.index:
+						for ops in bonegroup.solo:
+							if ops.id == self.ops_id:
+									ops.on_off = False
+					index = index + 1
+
 
 		return {'FINISHED'}
 
@@ -1398,22 +1528,48 @@ class POSE_OT_jueg_keyframing(Operator):
 
 		if solo == True:
 
-			#Toggle solo info
-			for ops in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].solo:
-				if ops.id == self.ops_id:
-					ops.on_off = not ops.on_off
+			#Toggle solo info or reset
+			if self.reset_solo == False:
+				for ops in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].solo:
+					if ops.id == self.ops_id:
+						ops.on_off = not ops.on_off
+			else:# move from one solo to another
+				index = 0
+				for bonegroup in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids:
+					if index != self.index:
+						for ops in bonegroup.solo:
+							if ops.id == self.ops_id:
+								ops.on_off = False
+					else:
+						for ops in bonegroup.solo:
+							if ops.id == self.ops_id:
+								ops.on_off = True
+
+					index = index + 1
 
 			#Toggle on_off info for other groups
-			index = 0
-			for bonegroup in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids:
-				if index != self.index:
-					for ops in bonegroup.on_off:
-						if ops.id == self.ops_id:
-							if solo_already == False:
-								ops.on_off = False # Inversed solo ?
-							else:
-								ops.on_off = True # Inversed solo ?
-				index = index + 1
+			if self.reset_solo == False:
+				index = 0
+				for bonegroup in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids:
+					if index != self.index:
+						for ops in bonegroup.on_off:
+							if ops.id == self.ops_id:
+								if solo_already == False:
+									ops.on_off = False
+								else:
+									ops.on_off = True
+					index = index + 1
+
+		else:
+			if self.reset_solo == True:
+				index = 0
+				for bonegroup in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids:
+					if index != self.index:
+						for ops in bonegroup.solo:
+							if ops.id == self.ops_id:
+									ops.on_off = False
+					index = index + 1
+
 
 		return {'FINISHED'}
 
