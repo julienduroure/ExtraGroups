@@ -26,96 +26,53 @@ import json
 from .utils import *
 import mathutils
 
-def import_creation(multi_type_mode, creation, label, extra, current_selection_creation=False, current_selection_color="0.0/0.0/0.0"):
+def import_creation(multi_type_mode, grptype_):
 	armature = bpy.context.object
 
 	# creation
 	if len(armature.jueg_grouptypelist) == 0:
 		grouptype = armature.jueg_grouptypelist.add()
-		grouptype.name = label
+		grouptype.name = grptype_["name"]
 		armature.jueg_active_grouptype = len(armature.jueg_grouptypelist) - 1
 		init_default_ops(armature)
-		bonegroup = grouptype.group_ids.add()
-		bonegroup.current_selection = True
-		bonegroup.name = "Current Selection"
-		bonegroup.color = mathutils.Color((float(current_selection_color.split('/')[0]),float(current_selection_color.split('/')[1]),float(current_selection_color.split('/')[2])))
-		#add on / off for each ops
-		on_off   = bonegroup.on_off
-		ops_list = armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display
-		for ops in ops_list:
-			new_ = on_off.add()
-			new_.id = ops.id
-			new_.on_off = True
-
-		#add solo for each ops
-		solo   = bonegroup.solo
-		ops_list = armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display
-		for ops in ops_list:
-			new_ = solo.add()
-			new_.id = ops.id
-			new_.on_off = False
 
 	if multi_type_mode == False:
 		grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype]
 	else:
-		if label not in [grouptype_.name for grouptype_ in armature.jueg_grouptypelist]:
+		if grptype_["name"] not in [grouptype_.name for grouptype_ in armature.jueg_grouptypelist]:
 			grouptype = armature.jueg_grouptypelist.add()
-			grouptype.name = label
+			grouptype.name = grptype_["name"]
 			armature.jueg_active_grouptype = len(armature.jueg_grouptypelist) - 1
 			copy_data_ops(armature, armature.jueg_active_grouptype)
-			bonegroup = grouptype.group_ids.add()
-			bonegroup.current_selection = True
-			bonegroup.name = "Current Selection"
-			bonegroup.color = mathutils.Color((float(current_selection_color.split('/')[0]),float(current_selection_color.split('/')[1]),float(current_selection_color.split('/')[2])))
-			#add on / off for each ops
-			on_off   = bonegroup.on_off
-			ops_list = armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display
-			for ops in ops_list:
-				new_ = on_off.add()
-				new_.id = ops.id
-				new_.on_off = True
 
-			#add solo for each ops
-			solo   = bonegroup.solo
-			ops_list = armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display
-			for ops in ops_list:
-				new_ = solo.add()
-				new_.id = ops.id
-				new_.on_off = False
 			grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype]
 		else:
-			grouptype = [grouptype_ for grouptype_ in armature.jueg_grouptypelist if grouptype_.name == label][0]
+			grouptype = [grouptype_ for grouptype_ in armature.jueg_grouptypelist if grouptype_.name == grptype_["name"]][0]
 
-	for gr in creation.keys():
-		if not gr in grouptype.group_ids.keys():
+	for gr in grptype_["groups"]:
+		if not gr["name"] in grouptype.group_ids.keys():
 			bonegroup = grouptype.group_ids.add()
-			bonegroup.name = gr
+			bonegroup.name = gr["name"]
 			grouptype.active_bonegroup = len(grouptype.group_ids) - 1
+			if gr["current_selection"] == True:
+				bonegroup.current_selection = True
 		else:
-			bonegroup = grouptype.group_ids[gr]
+			bonegroup = grouptype.group_ids[gr["name"]]
 
-		for bone in creation[gr]:
-			if not bone in bonegroup.bone_ids.keys() and bone in armature.data.bones:
-				bone_id = bonegroup.bone_ids.add()
-				bone_id.name = bone
+		if gr["current_selection"] == False:
+			for bone in gr["bones"]:
+				if not bone in bonegroup.bone_ids.keys() and bone in armature.data.bones:
+					bone_id = bonegroup.bone_ids.add()
+					bone_id.name = bone
 
-		bonegroup.keying      		= extra[gr]["keying"]
-		bonegroup.active_bone 		= extra[gr]["active_bone"]
-		bonegroup.orientation 		= extra[gr]["orientation"]
-		bonegroup.manipulator[0] 	= 'TRANSLATE' in extra[gr]["manipulator"].split('/')
-		bonegroup.manipulator[1] 	= 'ROTATE'    in extra[gr]["manipulator"].split('/')
-		bonegroup.manipulator[2] 	= 'SCALE'     in extra[gr]["manipulator"].split('/')
-		bonegroup.color				= mathutils.Color((float(extra[gr]["color"].split('/')[0]),float(extra[gr]["color"].split('/')[1]),float(extra[gr]["color"].split('/')[2])))
+			bonegroup.keying      		= gr["keying"]
+			bonegroup.active_bone 		= gr["active_bone"]
+			bonegroup.orientation 		= gr["orientation"]
+			bonegroup.manipulator[0] 	= 'TRANSLATE' in gr["manipulator"].split('/')
+			bonegroup.manipulator[1] 	= 'ROTATE'    in gr["manipulator"].split('/')
+			bonegroup.manipulator[2] 	= 'SCALE'     in gr["manipulator"].split('/')
 
-	if current_selection_creation == True:
-		if check_if_current_selection_exists_in_group(grouptype) == False:
-			bonegroup = grouptype.group_ids.add()
-			bonegroup.current_selection = True
-			bonegroup.name = "Current Selection"
-			bonegroup.color = mathutils.Color((float(current_selection_color.split('/')[0]),float(current_selection_color.split('/')[1]),float(current_selection_color.split('/')[2])))
-		else:
-			bonegroup = [group for group in grouptype.group_ids if group.current_selection == True][0]
-			bonegroup.color = mathutils.Color((float(current_selection_color.split('/')[0]),float(current_selection_color.split('/')[1]),float(current_selection_color.split('/')[2])))
+		bonegroup.color				= mathutils.Color((float(gr["color"].split('/')[0]),float(gr["color"].split('/')[1]),float(gr["color"].split('/')[2])))
 
 		#add on / off for each ops
 		on_off   = bonegroup.on_off
@@ -150,14 +107,25 @@ class POSE_OT_jueg_import_from_bone_groups(bpy.types.Operator):
 		armature = context.object
 
 
+		creation["name"] = "Bone Groups"
+		creation["groups"] = []
 		# retrieve all bone group / bones
 		for bone in armature.pose.bones:
 			if bone.bone_group:
-				if not bone.bone_group.name in creation.keys():
-					creation[bone.bone_group.name] = []
-				creation[bone.bone_group.name].append(bone.name)
+				if not bone.bone_group.name in [gr["name"] for gr in creation["groups"]]:
+					tmp = {}
+					tmp["name"] = bone.bone_group.name
+					tmp["current_selection"] = False
+					tmp["keying"] = ""
+					tmp["color"] = "0.0/0.0/0.0"
+					tmp["orientation"] = "GLOBAL"
+					tmp["manipulator"] = "TRANSLATE"
+					tmp["active_bone"] = bone.name
+					tmp["bones"] = []
+					creation["groups"].append(tmp)
+				[gr["bones"] for gr in creation["groups"] if gr["name"] == bone.bone_group.name][0].append(bone.name)
 
-		import_creation(False, creation, "Bone Groups", {})
+		import_creation(False, creation)
 
 		return {'FINISHED'}
 
@@ -187,17 +155,7 @@ class POSE_OT_jueg_import_from_file(bpy.types.Operator, bpy_extras.io_utils.Impo
 		f.close()
 
 		for grouptype in creations["GroupTypes"]:
-			creation = {}
-			extra    = {}
-			for group_ in grouptype["groups"]:
-				creation[group_["name"]] = group_["bones"]
-				extra[group_["name"]] = {}
-				extra[group_["name"]]["orientation"] = group_["orientation"]
-				extra[group_["name"]]["manipulator"] = group_["manipulator"]
-				extra[group_["name"]]["active_bone"] = group_["active_bone"]
-				extra[group_["name"]]["color"]       = group_["color"]
-				extra[group_["name"]]["keying"]       = group_["keying"]
-			import_creation(True, creation, grouptype["name"], extra, current_selection_creation=grouptype["current_selection"]["exists"], current_selection_color=grouptype["current_selection"]["color"])
+			import_creation(True, grouptype)
 
 		return {'FINISHED'}
 
@@ -220,13 +178,25 @@ class POSE_OT_jueg_import_from_selection_sets(bpy.types.Operator):
 		if not armature.get("selection_sets"):
 			return {"CANCELLED"}
 
+		creation["name"] = "Selection Sets"
+		creation["groups"] = []
 		# retrieve all bone group / bones
 		for set_ in armature.selection_sets:
-			creation[set_.name] = []
-			for bone in set_.bone_ids:
-				creation[set_.name].append(bone.name)
+			tmp = {}
+			tmp["name"] = set_.name
+			tmp["current_selection"] = False
+			tmp["keying"] = ""
+			tmp["color"] = "0.0/0.0/0.0"
+			tmp["orientation"] = "GLOBAL"
+			tmp["manipulator"] = "TRANSLATE"
+			tmp["bones"] = []
 
-		import_creation(False, creation, "Selection Sets", {})
+			for bone in set_.bone_ids:
+				tmp["bones"].append(bone.name)
+				tmp["active_bone"] = bone.name
+			creation["groups"].append(tmp)
+
+		import_creation(False, creation)
 
 		return {'FINISHED'}
 
@@ -246,16 +216,28 @@ class POSE_OT_jueg_import_from_keying_sets(bpy.types.Operator):
 		creation = {}
 		armature = context.object
 
+		creation["name"] = "Keying Sets"
+		creation["groups"] = []
 		# retrieve all bone group / bones
 		for set_ in bpy.context.scene.keying_sets:
-			creation[set_.bl_label] = []
+			tmp = {}
+			tmp["name"] = set_.bl_label
+			tmp["current_selection"] = False
+			tmp["keying"] = ""
+			tmp["color"] = "0.0/0.0/0.0"
+			tmp["orientation"] = "GLOBAL"
+			tmp["manipulator"] = "TRANSLATE"
+			tmp["bones"] = []
 			for path in set_.paths:
 				if path.data_path.startswith("pose.bones"):
-					tmp = path.data_path.split("[", maxsplit=1)[1].split("]", maxsplit=1)
-					bone_name = tmp[0][1:-1]
-					creation[set_.bl_label].append(bone_name)
+					tmp_ = path.data_path.split("[", maxsplit=1)[1].split("]", maxsplit=1)
+					bone_name = tmp_[0][1:-1]
+					print(bone_name)
+					tmp["bones"].append(bone_name)
+					tmp["active_bone"] = bone_name
+			creation["groups"].append(tmp)
 
-		import_creation(False, creation, "Keying Sets", {})
+		import_creation(False, creation)
 
 		return {'FINISHED'}
 
