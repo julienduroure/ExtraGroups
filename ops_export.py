@@ -90,6 +90,16 @@ class POSE_OT_jueg_export_to_file(bpy.types.Operator, bpy_extras.io_utils.Export
                             gizmo = gizmo + "/SCALE"
                     group_["manipulator"] = gizmo
                 grouptype_["groups"].append(group_)
+
+            grouptype_["ops"] = []
+            for ops_d in armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display:
+                ops = [e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == ops_d.id][0]
+                tmp = {}
+                tmp["ops"] = ops.id
+                tmp["label"] = ops.name
+                tmp["active"] = ops_d.display
+                grouptype_["ops"].append(tmp)
+
             data['GroupTypes'].append(grouptype_)
             cpt_index = cpt_index + 1
 
