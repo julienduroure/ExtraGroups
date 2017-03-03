@@ -56,19 +56,17 @@ class POSE_OT_jueg_export_to_file(bpy.types.Operator, bpy_extras.io_utils.Export
             grouptype_ = {}
             grouptype_["name"] = grouptype.name
             grouptype_["groups"] = []
-            grouptype_["current_selection"] = {}
-            grouptype_["current_selection"]["exists"] = check_if_current_selection_exists(cpt_index)
-            grouptype_["current_selection"]["color"] = "0.0/0.0/0.0"
             for group in grouptype.group_ids:
-            	if group.current_selection == True:
-                    grouptype_["current_selection"]["color"] = str(group.color[0]) + "/" + str(group.color[1]) + "/" + str(group.color[2])
-            	else:
-                    group_ = {}
-                    group_["name"] = group.name
+                group_ = {}
+                group_["name"] = group.name
+                group_["color"] = str(group.color[0]) + "/" + str(group.color[1]) + "/" + str(group.color[2])
+                if group.current_selection == True:
+                    group_["current_selection"] = True
+                else:
+                    group_["current_selection"] = False
                     group_["bones"] = []
                     for bone in group.bone_ids:
                         group_["bones"].append(bone.name)
-                    group_["color"] = str(group.color[0]) + "/" + str(group.color[1]) + "/" + str(group.color[2])
                     group_["keying"] = group.keying
                     group_["active_bone"] = group.active_bone
                     group_["orientation"] = group.orientation
@@ -90,11 +88,8 @@ class POSE_OT_jueg_export_to_file(bpy.types.Operator, bpy_extras.io_utils.Export
                             first = False
                         else:
                             gizmo = gizmo + "/SCALE"
-                    if first == True:
-                    # Should not happened, but by default, set it to Translate ?
-                        gizmo = "TRANSLATE"
                     group_["manipulator"] = gizmo
-                    grouptype_["groups"].append(group_)
+                grouptype_["groups"].append(group_)
             data['GroupTypes'].append(grouptype_)
             cpt_index = cpt_index + 1
 
