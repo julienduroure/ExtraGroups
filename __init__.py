@@ -48,7 +48,7 @@ if "bpy" in locals():
 	imp.reload(ui_list)
 	imp.reload(ui_panel)
 	imp.reload(ui_popup)
-	imp.reload(template_default_ops)
+	imp.reload(ops)
 	imp.reload(text_ops_squel)
 	imp.reload(ops_import)
 	imp.reload(ops_export)
@@ -65,7 +65,7 @@ else:
 	from .ui_list import *
 	from .ui_panel import *
 	from .ui_popup import *
-	from .template_default_ops import *
+	from .ops import *
 	from .text_ops_squel import *
 	from .ops_import import *
 	from .ops_export import *
@@ -86,7 +86,7 @@ def register():
 	ui_list.register()
 	ui_panel.register()
 	ui_popup.register()
-	template_default_ops.register()
+	ops.register()
 	ops_import.register()
 	ops_export.register()
 	keymap.register_keymap()
@@ -124,7 +124,7 @@ def unregister():
 	ui_list.unregister()
 	ui_panel.unregister()
 	ui_popup.unregister()
-	template_default_ops.unregister()
+	ops.unregister()
 	ops_import.unregister()
 	ops_export.unregister()
 	keymap.unregister()
