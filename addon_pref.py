@@ -35,6 +35,7 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 	use_keyingset   = bpy.props.BoolProperty(default= False)
 	use_manipulator = bpy.props.BoolProperty(default= False)
 
+	dev_mode		= bpy.props.BoolProperty(default= False)
 	enable_popup    = bpy.props.BoolProperty(default= True, update=update_enable_popup_cb)
 	textremove      = bpy.props.BoolProperty(default= True )
 
@@ -75,7 +76,9 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 		row_global.prop(self, "tab1", text="Options", icon='SOLO_ON')
 		if self.tab1 == True:
 			row_global = layout.row()
-			row_global.prop(self, "textremove", text="Remove text when delete Operator")
+			row_global.prop(self, "dev_mode", text="Developer mode")
+			if self.dev_mode == True:
+				row_global.prop(self, "textremove", text="Remove text when delete Operator")
 
 
 		row_global = layout.row()

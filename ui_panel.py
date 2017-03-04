@@ -183,9 +183,10 @@ class POSE_PT_jueg_opslist(bpy.types.Panel):
 		row = col.column(align=True)
 		sub = row.row(align=True)
 		sub.operator("pose.jueg_ops_add", icon="ZOOMIN", text="")
+		sub.enabled = addonpref().dev_mode
 		sub = row.row(align=True)
 		sub.operator("pose.jueg_ops_remove", icon="ZOOMOUT", text="")
-		sub.enabled = [e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_ops].id][0].user_defined
+		sub.enabled = addonpref().dev_mode and [e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_ops].id][0].user_defined
 		row = col.column(align=True)
 		row.separator()
 		row.operator("pose.jueg_operator_move", icon='TRIA_UP', text="").direction = 'UP'
