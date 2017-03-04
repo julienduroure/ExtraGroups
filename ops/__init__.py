@@ -23,15 +23,30 @@
 #	Copyright 2016-2017 Julien Duroure (contact@julienduroure.com)
 #
 ##########################################################################################
+
+if "bpy" in locals():
+	import imp
+	imp.reload(ops_bonelock)
+	imp.reload(ops_bonemute)
+	imp.reload(ops_changevisibility)
+	imp.reload(ops_keyframing)
+	imp.reload(ops_motionpath)
+	imp.reload(ops_props_change)
+	imp.reload(ops_restrict_select)
+	imp.reload(ops_select)
+else:
+	from .ops_bonelock import *
+	from .ops_bonemute import *
+	from .ops_changevisibility import *
+	from .ops_keyframing import *
+	from .ops_motionpath import *
+	from .ops_props_change import *
+	from .ops_restrict_select import *
+	from .ops_select import *
+
+
 import bpy
-from .ops_bonelock import *
-from .ops_bonemute import *
-from .ops_changevisibility import *
-from .ops_keyframing import *
-from .ops_motionpath import *
-from .ops_props_change import *
-from .ops_restrict_select import *
-from .ops_select import *
+
 
 def register():
 	bpy.utils.register_class(POSE_OT_jueg_changevisibility)

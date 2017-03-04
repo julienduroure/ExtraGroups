@@ -134,4 +134,4 @@ def unregister():
 	bpy.extragroups_icons.clear()
 
 if __name__ == "__main__":
-    register()
+	register()
