@@ -90,6 +90,27 @@ def import_creation(multi_type_mode, grptype_):
 			new_.id = ops.id
 			new_.on_off = False
 
+	# change order of ops, and what is displayed or not
+	current_idx = -1
+	for ops in grptype_["ops"]:
+		current_idx = current_idx + 1
+		# retrieve current index of this ops
+		old_idx  = -1
+		find_idx = -1
+		display = False
+		for ops_ in grouptype.ops_display:
+			find_idx = find_idx + 1
+			if ops_.id == ops["ops"]:
+				old_idx = find_idx
+				display = ops["active"]
+				label   = ops["label"]
+				break
+		if old_idx != -1:
+			grouptype.ops_display[old_idx].display = display
+			grouptype.ops_display.move(old_idx, current_idx)
+			[e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == ops["ops"]][0].name = label
+
+
 class POSE_OT_jueg_import_from_bone_groups(bpy.types.Operator):
 	"""Import from Bone Groups"""
 	bl_idname = "jueg.import_from_bone_groups"
@@ -108,6 +129,7 @@ class POSE_OT_jueg_import_from_bone_groups(bpy.types.Operator):
 
 
 		creation["name"] = "Bone Groups"
+		creation["ops"] = []
 		creation["groups"] = []
 		# retrieve all bone group / bones
 		for bone in armature.pose.bones:
@@ -179,6 +201,7 @@ class POSE_OT_jueg_import_from_selection_sets(bpy.types.Operator):
 			return {"CANCELLED"}
 
 		creation["name"] = "Selection Sets"
+		creation["ops"] = []
 		creation["groups"] = []
 		# retrieve all bone group / bones
 		for set_ in armature.selection_sets:
@@ -217,6 +240,7 @@ class POSE_OT_jueg_import_from_keying_sets(bpy.types.Operator):
 		armature = context.object
 
 		creation["name"] = "Keying Sets"
+		creation["ops"] = []
 		creation["groups"] = []
 		# retrieve all bone group / bones
 		for set_ in bpy.context.scene.keying_sets:
