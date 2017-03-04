@@ -144,6 +144,22 @@ def get_default_ops_id():
 	dict_['21ecdae49e174a8bb25f404fca0b6608']['events'].append(['FORCED_MENU', 'Menu forced', 'CTRL', True, False])
 	dict_['21ecdae49e174a8bb25f404fca0b6608']['events'].append(['KEYING_ONLY', 'Keying Only', 'SHIFT', True, False])
 
+	dict_['999736381f5641a78df884e4683fbddd'] = {}
+	dict_['999736381f5641a78df884e4683fbddd']['magic_nb'] = 1
+	dict_['999736381f5641a78df884e4683fbddd']['name'] = "Motion Path"
+	dict_['999736381f5641a78df884e4683fbddd']['ops_type'] = 'BOOL'
+	dict_['999736381f5641a78df884e4683fbddd']['ops_exe'] = "pose.jueg_motionpath"
+	dict_['999736381f5641a78df884e4683fbddd']['icon_on'] = "BONE_DATA"
+	dict_['999736381f5641a78df884e4683fbddd']['icon_off'] = "PANEL_CLOSE"
+	dict_['999736381f5641a78df884e4683fbddd']['ok_for_current_sel'] = True
+	dict_['999736381f5641a78df884e4683fbddd']['ops_context'] = 'INVOKE_DEFAULT'
+	dict_['999736381f5641a78df884e4683fbddd']['display'] = False
+	dict_['999736381f5641a78df884e4683fbddd']['user_defined'] = False
+	dict_['999736381f5641a78df884e4683fbddd']['event_manage'] = True
+	dict_['999736381f5641a78df884e4683fbddd']['events'] = []
+	dict_['999736381f5641a78df884e4683fbddd']['events'].append(['ADD', 'Add/Remove Motion Path', 'NONE', True, False])
+	dict_['999736381f5641a78df884e4683fbddd']['events'].append(['UPDATE', 'Update Motion Path', 'CTRL', True, False])
+
 	return dict_
 
 def merge_keyingset(ks1_, ks2_):
