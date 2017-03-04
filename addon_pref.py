@@ -26,14 +26,21 @@ from .globs import *
 class jueg_AddonPreferences(bpy.types.AddonPreferences):
 	bl_idname = __package__
 
-	multitype       = bpy.props.BoolProperty(default= False)
-	textremove      = bpy.props.BoolProperty(default= True )
 	edit_mode       = bpy.props.BoolProperty(default= False)
-	import_export 	= bpy.props.BoolProperty(default= False)
 	options			= bpy.props.BoolProperty(default= False)
+	import_export 	= bpy.props.BoolProperty(default= False)
+
+	multitype       = bpy.props.BoolProperty(default= False)
 	use_color       = bpy.props.BoolProperty(default= False)
 	use_keyingset   = bpy.props.BoolProperty(default= False)
 	use_manipulator = bpy.props.BoolProperty(default= False)
+
+	textremove      = bpy.props.BoolProperty(default= True )
+
+	keymap_key		= bpy.props.StringProperty(default='Q', update=update_keymap_cb)
+	keymap_shift	= bpy.props.BoolProperty(default=False, update=update_keymap_cb)
+	keymap_ctrl		= bpy.props.BoolProperty(default=False, update=update_keymap_cb)
+	keymap_alt		= bpy.props.BoolProperty(default=False, update=update_keymap_cb)
 
 	internal_keyingset = bpy.props.StringProperty(default="ExtraGroups KeyingSet")
 
@@ -77,6 +84,11 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 			col = row_global.column()
 			row = col.row()
 			row.prop(self, "category", text="Addon tab")
+			row_global = layout.row()
+			row_global.prop(self, "keymap_key", text="Key")
+			row_global.prop(self, "keymap_shift", text="Shift")
+			row_global.prop(self, "keymap_ctrl", text="Ctrl")
+			row_global.prop(self, "keymap_alt", text="Alt")
 
 		row_global = layout.row()
 		row_global.prop(self, "tab3", text="Danger Zone", icon='SOLO_ON')

@@ -398,3 +398,8 @@ def update_panel():
 
 def update_panel_cb(self, context):
 	update_panel()
+
+from .keymap import *
+def update_keymap_cb(self, context):
+	unregister_keymap()
+	register_keymap()

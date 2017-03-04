@@ -86,7 +86,7 @@ def register():
 	template_default_ops.register()
 	ops_import.register()
 	ops_export.register()
-	keymap.register()
+	keymap.register_keymap()
 
 	bpy.types.Object.jueg_grouptypelist = bpy.props.CollectionProperty(type=globs.Jueg_GroupType)
 	bpy.types.Object.jueg_extragroups_ops = bpy.props.CollectionProperty(type=globs.Jueg_OpsItem)
