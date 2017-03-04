@@ -214,6 +214,16 @@ class POSE_OT_jueg_update_to_new_addon_version(bpy.types.Operator):
 						new_ops.display = get_default_ops_id()[id]["display"]
 						new_ops.user_defined = get_default_ops_id()[id]["user_defined"]
 						new_ops.magic_nb          = get_default_ops_id()[id]['magic_nb']
+						new_ops.event_manage       = get_default_ops_id()[id]['event_manage']
+						new_ops.events.clear()
+						for ev in get_default_ops_id()[id]['events']:
+							new_ = new_ops.events.add()
+							new_.mode   = ev[0]
+							new_.label  = ev[1]
+							new_.event  = ev[2]
+							new_.active = ev[3]
+							new_.solo   = ev[4]
+
 
 						#now add display info on each grouptype
 						for grouptype in obj.jueg_grouptypelist:
