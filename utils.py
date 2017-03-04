@@ -389,6 +389,12 @@ def get_symm_name(bone):
 			return bone[:end_pos-side_l] + side_len[side_l][[name[0] for name in side_len[side_l]].index(bone[end_pos-side_l:end_pos])][1] + end_name
 	return bone
 
+def update_enable_popup_cb(self, context):
+	if addonpref().enable_popup == True:
+		register_keymap()
+	else:
+		unregister_keymap()
+
 
 from .ui_panel import *
 def update_panel():

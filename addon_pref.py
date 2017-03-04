@@ -35,6 +35,7 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 	use_keyingset   = bpy.props.BoolProperty(default= False)
 	use_manipulator = bpy.props.BoolProperty(default= False)
 
+	enable_popup    = bpy.props.BoolProperty(default= True, update=update_enable_popup_cb)
 	textremove      = bpy.props.BoolProperty(default= True )
 
 	keymap_key		= bpy.props.StringProperty(default='Q', update=update_keymap_cb)
@@ -85,10 +86,12 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 			row = col.row()
 			row.prop(self, "category", text="Addon tab")
 			row_global = layout.row()
-			row_global.prop(self, "keymap_key", text="Key")
-			row_global.prop(self, "keymap_shift", text="Shift")
-			row_global.prop(self, "keymap_ctrl", text="Ctrl")
-			row_global.prop(self, "keymap_alt", text="Alt")
+			row_global.prop(self, "enable_popup", text="Enable Popup")
+			if self.enable_popup == True:
+				row_global.prop(self, "keymap_key", text="Key")
+				row_global.prop(self, "keymap_shift", text="Shift")
+				row_global.prop(self, "keymap_ctrl", text="Ctrl")
+				row_global.prop(self, "keymap_alt", text="Alt")
 
 		row_global = layout.row()
 		row_global.prop(self, "tab3", text="Danger Zone", icon='SOLO_ON')

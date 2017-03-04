@@ -60,7 +60,7 @@ class POSE_OT_jueg_popup(bpy.types.Operator):
     @classmethod
     def poll(self, context):
         armature = context.object
-        return len(armature.jueg_grouptypelist) > 0 and len(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids) > 0
+        return addonpref().enable_popup == True and len(armature.jueg_grouptypelist) > 0 and len(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids) > 0
 
 class POSE_OT_jueg_popup_toggle_multitype(bpy.types.Operator):
     bl_idname = "extragroups.popup_toggle_multitype"
