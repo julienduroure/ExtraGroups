@@ -127,7 +127,7 @@ def unregister():
 	ops.unregister()
 	ops_import.unregister()
 	ops_export.unregister()
-	keymap.unregister()
+	keymap.unregister_keymap()
 
 	for pcoll in bpy.extragroups_icons.values():
 		bpy.utils.previews.remove(pcoll)
