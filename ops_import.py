@@ -278,7 +278,21 @@ class POSE_OT_jueg_init_from_scratch(bpy.types.Operator):
 
 	def execute(self, context):
 
-		import_creation(False, {}, "GroupType.1", {})
+		creation = {}
+		creation["name"] = "GroupType.1"
+		creation["groups"] = []
+		creation["ops"] = []
+		tmp = {}
+		tmp["name"] = "Current Selection"
+		tmp["current_selection"] = True
+		tmp["keying"] = ""
+		tmp["color"] = "0.0/0.0/0.0"
+		tmp["orientation"] = "GLOBAL"
+		tmp["manipulator"] = "TRANSLATE"
+		tmp["bones"] = []
+		creation["groups"].append(tmp)
+
+		import_creation(False, creation)
 
 		return {'FINISHED'}
 
