@@ -72,29 +72,39 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 			row_global = layout.row()
 			row_global.label("Be sure to update your library file first", icon="ERROR")
 
+
+
+
 		row_global = layout.row()
-		row_global.prop(self, "tab1", text="Options", icon='SOLO_ON')
+		row_global.prop(self, "tab1", text="Display", icon='SOLO_ON')
 		if self.tab1 == True:
+			row_global = layout.row()
+			col = row_global.column()
+			box = col.box()
+			row = box.row()
+			row.prop(self, "enable_popup", text="Enable Popup")
+			if self.enable_popup == True:
+				row = box.row()
+				row.prop(self, "keymap_key", text="Key")
+				row = box.row()
+				row.prop(self, "keymap_shift", text="Shift")
+				row = box.row()
+				row.prop(self, "keymap_ctrl", text="Ctrl")
+				row = box.row()
+				row.prop(self, "keymap_alt", text="Alt")
+			col = row_global.column()
+			box = col.box()
+			row = box.row()
+			row.prop(self, "category", text="Addon tab")
+
+
+		row_global = layout.row()
+		row_global.prop(self, "tab2", text="Options", icon='SOLO_ON')
+		if self.tab2 == True:
 			row_global = layout.row()
 			row_global.prop(self, "dev_mode", text="Developer mode")
 			if self.dev_mode == True:
 				row_global.prop(self, "textremove", text="Remove text when delete Operator")
-
-
-		row_global = layout.row()
-		row_global.prop(self, "tab2", text="Display", icon='SOLO_ON')
-		if self.tab2 == True:
-			row_global = layout.row()
-			col = row_global.column()
-			row = col.row()
-			row.prop(self, "category", text="Addon tab")
-			row_global = layout.row()
-			row_global.prop(self, "enable_popup", text="Enable Popup")
-			if self.enable_popup == True:
-				row_global.prop(self, "keymap_key", text="Key")
-				row_global.prop(self, "keymap_shift", text="Shift")
-				row_global.prop(self, "keymap_ctrl", text="Ctrl")
-				row_global.prop(self, "keymap_alt", text="Alt")
 
 		row_global = layout.row()
 		row_global.prop(self, "tab3", text="Danger Zone", icon='SOLO_ON')
