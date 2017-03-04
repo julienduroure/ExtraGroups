@@ -1,3 +1,6 @@
+#
+# ExtraGroups is part of BleRiFa. http://BleRiFa.com
+#
 ##########################################################################################
 #	GPL LICENSE:
 #-------------------------
@@ -17,7 +20,7 @@
 #    along with ExtraGroups.  If not, see <http://www.gnu.org/licenses/>.
 ##########################################################################################
 #
-#	Copyright 2016 Julien Duroure (contact@julienduroure.com)
+#	Copyright 2016-2017 Julien Duroure (contact@julienduroure.com)
 #
 ##########################################################################################
 import bpy
