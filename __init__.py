@@ -54,6 +54,7 @@ if "bpy" in locals():
 	imp.reload(text_ops_squel)
 	imp.reload(ops_import)
 	imp.reload(ops_export)
+	imp.reload(ops_addon_update)
 	imp.reload(keymap)
 else:
 	from .globs import *
@@ -73,6 +74,7 @@ else:
 	from .text_ops_squel import *
 	from .ops_import import *
 	from .ops_export import *
+	from .ops_addon_update import *
 	from .keymap import *
 
 import bpy
@@ -95,6 +97,7 @@ def register():
 	ops.register()
 	ops_import.register()
 	ops_export.register()
+	ops_addon_update.register()
 	keymap.register_keymap()
 
 	bpy.types.Object.jueg_grouptypelist = bpy.props.CollectionProperty(type=globs.Jueg_GroupType)
@@ -135,6 +138,7 @@ def unregister():
 	ops.unregister()
 	ops_import.unregister()
 	ops_export.unregister()
+	ops_addon_update.unregister()
 	keymap.unregister_keymap()
 
 	for pcoll in bpy.extragroups_icons.values():
