@@ -40,7 +40,7 @@ if "bpy" in locals():
 	imp.reload(globs)
 	imp.reload(utils)
 	imp.reload(addon_pref)
-	imp.reload(ops_grouptype)
+
 	imp.reload(ops_bonegroup)
 	imp.reload(ops_ops)
 	imp.reload(ops_text)
@@ -49,6 +49,7 @@ if "bpy" in locals():
 	imp.reload(ui_panel)
 	imp.reload(ui_popup)
 	imp.reload(ui_ops_ops)
+	imp.reload(ui_ops_grouptype)
 	imp.reload(ops)
 	imp.reload(text_ops_squel)
 	imp.reload(ops_import)
