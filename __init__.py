@@ -43,13 +43,13 @@ if "bpy" in locals():
 	imp.reload(ops_bonegroup)
 	imp.reload(ops_ops)
 	imp.reload(ops_text)
-	imp.reload(ops_event)
 	imp.reload(ui_list)
 	imp.reload(ui_panel)
 	imp.reload(ui_popup)
 	imp.reload(ui_ops_ops)
 	imp.reload(ui_ops_grouptype)
 	imp.reload(ui_ops_bonegroup)
+	imp.reload(ui_ops_event)
 	imp.reload(ops)
 	imp.reload(text_ops_squel)
 	imp.reload(ops_import)
@@ -62,13 +62,13 @@ else:
 	from .ops_bonegroup import *
 	from .ops_ops import *
 	from .ops_text import *
-	from .ops_event import *
 	from .ui_list import *
 	from .ui_panel import *
 	from .ui_popup import *
 	from .ui_ops_ops import *
 	from .ui_ops_grouptype import *
 	from .ui_ops_bonegroup import *
+	from .ui_ops_event import *
 	from .ops import *
 	from .text_ops_squel import *
 	from .ops_import import *
@@ -85,13 +85,13 @@ def register():
 	ops_bonegroup.register()
 	ops_ops.register()
 	ops_text.register()
-	ops_event.register()
 	ui_list.register()
 	ui_panel.register()
 	ui_popup.register()
 	ui_ops_ops.register()
 	ui_ops_grouptype.register()
 	ui_ops_bonegroup.register()
+	ui_ops_event.register()
 	ops.register()
 	ops_import.register()
 	ops_export.register()
@@ -125,13 +125,13 @@ def unregister():
 	ops_bonegroup.unregister()
 	ops_ops.unregister()
 	ops_text.unregister()
-	ops_event.unregister()
 	ui_list.unregister()
 	ui_panel.unregister()
 	ui_popup.unregister()
 	ui_ops_ops.unregister()
 	ui_ops_grouptype.unregister()
 	ui_ops_bonegroup.unregister()
+	ui_ops_event.unregister()
 	ops.unregister()
 	ops_import.unregister()
 	ops_export.unregister()
