@@ -40,7 +40,6 @@ if "bpy" in locals():
 	imp.reload(globs)
 	imp.reload(utils)
 	imp.reload(addon_pref)
-
 	imp.reload(ops_bonegroup)
 	imp.reload(ops_ops)
 	imp.reload(ops_text)
@@ -50,6 +49,7 @@ if "bpy" in locals():
 	imp.reload(ui_popup)
 	imp.reload(ui_ops_ops)
 	imp.reload(ui_ops_grouptype)
+	imp.reload(ui_ops_bonegroup)
 	imp.reload(ops)
 	imp.reload(text_ops_squel)
 	imp.reload(ops_import)
@@ -68,6 +68,7 @@ else:
 	from .ui_popup import *
 	from .ui_ops_ops import *
 	from .ui_ops_grouptype import *
+	from .ui_ops_bonegroup import *
 	from .ops import *
 	from .text_ops_squel import *
 	from .ops_import import *
@@ -90,6 +91,7 @@ def register():
 	ui_popup.register()
 	ui_ops_ops.register()
 	ui_ops_grouptype.register()
+	ui_ops_bonegroup.register()
 	ops.register()
 	ops_import.register()
 	ops_export.register()
@@ -129,6 +131,7 @@ def unregister():
 	ui_popup.unregister()
 	ui_ops_ops.unregister()
 	ui_ops_grouptype.unregister()
+	ui_ops_bonegroup.unregister()
 	ops.unregister()
 	ops_import.unregister()
 	ops_export.unregister()
