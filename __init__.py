@@ -58,7 +58,6 @@ else:
 	from .globs import *
 	from .utils import *
 	from .addon_pref import *
-	from .ops_grouptype import *
 	from .ops_bonegroup import *
 	from .ops_ops import *
 	from .ops_text import *
@@ -67,6 +66,7 @@ else:
 	from .ui_panel import *
 	from .ui_popup import *
 	from .ui_ops_ops import *
+	from .ui_ops_grouptype import *
 	from .ops import *
 	from .text_ops_squel import *
 	from .ops_import import *
@@ -80,7 +80,6 @@ import os
 def register():
 	globs.register()
 	addon_pref.register()
-	ops_grouptype.register()
 	ops_bonegroup.register()
 	ops_ops.register()
 	ops_text.register()
@@ -89,6 +88,7 @@ def register():
 	ui_panel.register()
 	ui_popup.register()
 	ui_ops_ops.register()
+	ui_ops_grouptype.register()
 	ops.register()
 	ops_import.register()
 	ops_export.register()
@@ -119,7 +119,6 @@ def unregister():
 
 	globs.unregister()
 	addon_pref.unregister()
-	ops_grouptype.unregister()
 	ops_bonegroup.unregister()
 	ops_ops.unregister()
 	ops_text.unregister()
@@ -128,6 +127,7 @@ def unregister():
 	ui_panel.unregister()
 	ui_popup.unregister()
 	ui_ops_ops.unregister()
+	ui_ops_grouptype.unregister()
 	ops.unregister()
 	ops_import.unregister()
 	ops_export.unregister()
