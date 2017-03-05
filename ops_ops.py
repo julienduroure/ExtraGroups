@@ -403,26 +403,8 @@ class POSE_OT_jueg_dummy(bpy.types.Operator):
 
 		return {'FINISHED'}
 
-class POSE_OT_jueg_dummy_solo(bpy.types.Operator):
-	bl_idname = "pose.jueg_dummy_solo"
-	bl_label = "Dummy Solo"
-	bl_options = {'REGISTER'}
-
-	@classmethod
-	def poll(self, context):
-		return (context.object and
-				context.object.type == 'ARMATURE' and
-				context.mode == 'POSE')
-
-	def execute(self, context):
-
-		self.report({'ERROR'}, "Solo mode is enabled in another Group")
-
-		return {'FINISHED'}
-
 def register():
 	bpy.utils.register_class(POSE_OT_jueg_dummy)
-	bpy.utils.register_class(POSE_OT_jueg_dummy_solo)
 	bpy.utils.register_class(POSE_OT_jueg_reload_linked_data)
 	bpy.utils.register_class(POSE_OT_jueg_update_to_new_addon_version)
 	bpy.utils.register_class(POSE_OT_jueg_select_icon)
@@ -430,7 +412,6 @@ def register():
 
 def unregister():
 	bpy.utils.unregister_class(POSE_OT_jueg_dummy)
-	bpy.utils.unregister_class(POSE_OT_jueg_dummy_solo)
 	bpy.utils.unregister_class(POSE_OT_jueg_reload_linked_data)
 	bpy.utils.unregister_class(POSE_OT_jueg_update_to_new_addon_version)
 	bpy.utils.unregister_class(POSE_OT_jueg_select_icon)
