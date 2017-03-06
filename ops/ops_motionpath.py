@@ -204,9 +204,40 @@ class POSE_OT_jueg_motionpath(Operator):
 
 			#special for motion path
 			if on_off == False:
+				idx = 0
+				need_to_deselect = True
 				for bonegroup in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids:
 					for ops in bonegroup.on_off:
-							ops.on_off = True
+						if ops.id == self.ops_id:
+							if ops.on_off == False:
+								# All motion path are disabled by ops, need to reactivate all already active one.
+								if idx != self.index:
+									if ops.on_off == False:
+										# deselect current
+										if need_to_deselect == True:
+											need_to_deselect = False
+											for bone in armature.data.bones:
+												if bone.select == True:
+													bone.select = False
+
+										# select bone from group
+										for bone in bonegroup.bone_ids:
+											armature.data.bones[bone.name].select = True
+
+										# apply ops
+										bpy.ops.pose.paths_calculate()
+
+										# deselect
+										for bone in bones:
+											armature.data.bones[bone.name].select = False
+					idx = idx + 1
+
+				if need_to_deselect == False:
+					# Some groups were re-activate : need to reselect right bones
+					for bone in armature.data.bones:
+						bone.select = False
+						if bone.name in current_selection:
+							bone.select = True
 
 
 		return {'FINISHED'}
