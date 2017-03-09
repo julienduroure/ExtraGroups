@@ -87,7 +87,13 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 			jueg_active_grouptype = armature.jueg_grouptypelist[armature.jueg_active_grouptype]
 
 			row = layout.row()
-			row.template_list("POSE_UL_jueg_bonegroup", "", jueg_active_grouptype, "group_ids", jueg_active_grouptype, "active_bonegroup", rows=6)
+			col = row.column()
+			row_ = col.row()
+			row_.template_list("POSE_UL_jueg_bonegroup", "", jueg_active_grouptype, "group_ids", jueg_active_grouptype, "active_bonegroup", rows=6)
+
+			if check_if_current_selection_exists(bpy.context.object.jueg_active_grouptype) == False:
+				row_ = col.row()
+				row_.operator("pose.jueg_bonegroup_add", text="Add Dynamic Selection").dyn_selection = True
 
 			col = row.column()
 			row = col.column(align=True)
@@ -116,10 +122,6 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 				if check_multitype_not_display(armature.jueg_active_grouptype):
 					row = layout.row()
 					row.label("You have MultiType not displayed", icon="ERROR")
-
-			if check_if_current_selection_exists(bpy.context.object.jueg_active_grouptype) == False:
-				row = layout.row()
-				row.operator("pose.jueg_bonegroup_add", text="Add Dynamic Selection").dyn_selection = True
 
 			row = layout.row()
 			row.prop(addonpref(), "edit_mode", text="Edit Mode")
