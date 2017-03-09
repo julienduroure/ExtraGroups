@@ -135,7 +135,7 @@ def get_default_ops_id():
 	dict_['21ecdae49e174a8bb25f404fca0b6608']['name'] = "Keyframing"
 	dict_['21ecdae49e174a8bb25f404fca0b6608']['ops_type'] = 'EXE'
 	dict_['21ecdae49e174a8bb25f404fca0b6608']['ops_exe'] = "pose.ope_keyframing"
-	dict_['21ecdae49e174a8bb25f404fca0b6608']['icon_on'] = "KEYTYPE_KEYFRAME_VEC"
+	dict_['21ecdae49e174a8bb25f404fca0b6608']['icon_on'] = "REC"
 	dict_['21ecdae49e174a8bb25f404fca0b6608']['icon_off'] = ""
 	dict_['21ecdae49e174a8bb25f404fca0b6608']['ok_for_current_sel'] = True
 	dict_['21ecdae49e174a8bb25f404fca0b6608']['ops_context'] = 'INVOKE_DEFAULT'
