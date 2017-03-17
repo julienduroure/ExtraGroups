@@ -113,6 +113,37 @@ def import_creation(multi_type_mode, grptype_):
 			grouptype.ops_display.move(old_idx, current_idx)
 			[e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == ops["ops"]][0].name = label
 
+		# change data related to event
+		current_idx_event = -1
+		for event in ops["events"]:
+			current_idx_event = current_idx_event + 1
+			# retrieve current index of this event
+			old_idx_event = -1
+			find_idx_event = -1
+			#default values
+			active = True
+			solo   = False
+			label  = ""
+			mode   = ""
+			event_  = ""
+			for ev in [e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == ops["ops"]][0].events:
+				find_idx_event = find_idx_event + 1
+				if ev.mode == event["mode"]:
+					old_idx_event = find_idx_event
+					active        = event["active"]
+					label         = event["label"]
+					solo 		  = event["solo"]
+					mode		  = event["mode"]
+					event_        = event["event"]
+					break
+			if old_idx_event != -1:
+				[e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == ops["ops"]][0].events[old_idx_event].active = active
+				[e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == ops["ops"]][0].events[old_idx_event].label = label
+				[e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == ops["ops"]][0].events[old_idx_event].solo = solo
+				[e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == ops["ops"]][0].events[old_idx_event].mode = mode
+				[e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == ops["ops"]][0].events[old_idx_event].event = event_
+				[e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == ops["ops"]][0].events.move(old_idx_event, current_idx_event)
+
 
 class POSE_OT_jueg_import_from_bone_groups(bpy.types.Operator):
 	"""Import from Bone Groups"""
