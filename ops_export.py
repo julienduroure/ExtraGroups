@@ -101,6 +101,17 @@ class POSE_OT_jueg_export_to_file(bpy.types.Operator, bpy_extras.io_utils.Export
                 tmp["ops"] = ops.id
                 tmp["label"] = ops.name
                 tmp["active"] = ops_d.display
+                # Event management
+                tmp["events"] = []
+                if ops.event_manage == True:
+                    ev = {}
+                    for event in ops.events:
+                        ev["label"] = event.label
+                        ev["mode"] = event.mode
+                        ev["event"] = event.event
+                        ev["solo"] = event.solo
+                        ev["active"] = event.active
+                        tmp["events"].append(ev)
                 grouptype_["ops"].append(tmp)
 
             data['GroupTypes'].append(grouptype_)
