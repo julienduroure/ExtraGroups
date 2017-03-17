@@ -26,6 +26,25 @@
 import bpy
 from .utils import *
 
+def clickable_ops_items(self, context):
+	items = []
+	armature = context.object
+
+	for ops in armature.jueg_extragroups_ops:
+		items.append((ops.id, ops.name, ""))
+
+	return items
+
+def clickable_mode_items(self, context):
+	items = []
+	armature = context.object
+	ops = [ops for ops in armature.jueg_extragroups_ops if ops.id == addonpref().clickable_ops][0]
+
+	for ev in ops.events:
+		items.append((ev.mode, ev.label, ""))
+
+	return items
+
 class Jueg_BoneEntry(bpy.types.PropertyGroup):
 	name = bpy.props.StringProperty(name="Bone Name")
 

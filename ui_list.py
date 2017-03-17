@@ -59,12 +59,24 @@ class POSE_UL_jueg_bonegroup(bpy.types.UIList):
 		if self.layout_type in {'DEFAULT', 'COMPACT'}:
 			if addonpref().use_color == False:
 				row = layout.row()
-				row.prop(item, "name", text="", emboss=False)
 			else:
 				row = layout.row()
 				sub = row.row()
 				sub.prop(item, "color", text="")
 				sub.enabled = addonpref().edit_mode
+
+			if addonpref().edit_mode == False and addonpref().name_clickable == True:
+				# ops to addonpref + select mode + if ops is avalaible for name clicking ?
+				# check if ops is available for current selection
+
+				row.operator_context = [ops_ for ops_ in armature.jueg_extragroups_ops if ops_.id == addonpref().clickable_ops][0].ops_context
+				op = row.operator([ops_ for ops_ in armature.jueg_extragroups_ops if ops_.id == addonpref().clickable_ops][0].ops_exe, item.name, emboss=False)
+				op.index = index
+				op.ops_id = addonpref().clickable_ops
+				if [ops_ for ops_ in armature.jueg_extragroups_ops if ops_.id == addonpref().clickable_ops][0].event_manage == True:
+					op.force_mode = addonpref().clickable_mode
+				op.reset_solo = False
+			else:
 				row.prop(item, "name", text="", emboss=False)
 
 			#loop on ops from this group type
@@ -121,6 +133,7 @@ class POSE_UL_jueg_bonegroup(bpy.types.UIList):
 							op.reset_solo = False
 						else:
 							op.reset_solo = True
+						op.force_mode = ''
 
 				except:
 					icon = 'ERROR' 													#In case of error, display warning error icon

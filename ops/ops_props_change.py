@@ -45,6 +45,7 @@ class POSE_OT_jueg_props_change(Operator):
 	ops_id		 = StringProperty()
 	index		 = IntProperty()
 	reset_solo   = BoolProperty()
+	force_mode   = StringProperty(default="")
 
 	@classmethod
 	def poll(self, context):

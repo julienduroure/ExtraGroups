@@ -45,6 +45,7 @@ class POSE_OT_jueg_motionpath(Operator):
 	ops_id		 = StringProperty()
 	index		 = IntProperty()
 	reset_solo   = BoolProperty()
+	force_mode   = StringProperty()
 
 	@classmethod
 	def poll(self, context):
@@ -55,56 +56,66 @@ class POSE_OT_jueg_motionpath(Operator):
 	def invoke(self, context, event):
 		armature = context.object
 
-		#retrieve event
-		internal_event = ""
-		if not event.shift and not event.alt and not event.ctrl:
-			internal_event = "NONE"
-		if event.shift and not event.alt and not event.ctrl:
-			internal_event = "SHIFT"
-		if not event.shift and event.alt and not event.ctrl:
-			internal_event = "ALT"
-		if not event.shift and not event.alt and event.ctrl:
-			internal_event = "CTRL"
-		if event.shift and event.alt and not event.ctrl:
-			internal_event = "SHIFT_ALT"
-		if event.shift and not event.alt and event.ctrl:
-			internal_event = "SHIFT_CTRL"
-		if not event.shift and event.alt and event.ctrl:
-			internal_event = "CTRL_ALT"
-		if event.shift and event.alt and event.ctrl:
-			internal_event = "CTRL_SHIFT_ALT"
+		if self.force_mode == '':
+			#retrieve event
+			internal_event = ""
+			if not event.shift and not event.alt and not event.ctrl:
+				internal_event = "NONE"
+			if event.shift and not event.alt and not event.ctrl:
+				internal_event = "SHIFT"
+			if not event.shift and event.alt and not event.ctrl:
+				internal_event = "ALT"
+			if not event.shift and not event.alt and event.ctrl:
+				internal_event = "CTRL"
+			if event.shift and event.alt and not event.ctrl:
+				internal_event = "SHIFT_ALT"
+			if event.shift and not event.alt and event.ctrl:
+				internal_event = "SHIFT_CTRL"
+			if not event.shift and event.alt and event.ctrl:
+				internal_event = "CTRL_ALT"
+			if event.shift and event.alt and event.ctrl:
+				internal_event = "CTRL_SHIFT_ALT"
 
-		#retrieve events
-		found = False
-		events = []
-		use_event = False
-		for ops in armature.jueg_extragroups_ops:
-			if ops.id == self.ops_id:
-				events = [ev for ev in ops.events if ev.active == True]
-				use_event = ops.event_manage
-				found = True
+			#retrieve events
+			found = False
+			events = []
+			use_event = False
+			for ops in armature.jueg_extragroups_ops:
+				if ops.id == self.ops_id:
+					events = [ev for ev in ops.events if ev.active == True]
+					use_event = ops.event_manage
+					found = True
 
-		if found == False:
-			self.report({'ERROR'}, "Error retrieving events")
-			return {'CANCELLED'}
+			if found == False:
+				self.report({'ERROR'}, "Error retrieving events")
+				return {'CANCELLED'}
 
-		#retrieve mode used
-		mode = ""
-		solo = False
-		if use_event == True:
-			for ev in events:
-				if ev.event == internal_event:
-					mode = ev.mode
-					solo = ev.solo
-		else:
-			mode = "JUEG_DUMMY"
-
-		if mode == "":
-			self.report({'ERROR'}, "No event assigned")
-			return {'CANCELLED'}
-
-		if mode == "JUEG_DUMMY":
+			#retrieve mode used
 			mode = ""
+			solo = False
+			if use_event == True:
+				for ev in events:
+					if ev.event == internal_event:
+						mode = ev.mode
+						solo = ev.solo
+			else:
+				mode = "JUEG_DUMMY"
+
+			if mode == "":
+				self.report({'ERROR'}, "No event assigned")
+				return {'CANCELLED'}
+
+			if mode == "JUEG_DUMMY":
+				mode = ""
+		else:
+			mode = self.force_mode
+			for ops in armature.jueg_extragroups_ops:
+				if ops.id == self.ops_id:
+					events = [ev for ev in ops.events if ev.active == True]
+					break
+			for ev in events:
+				if ev.mode == mode:
+					solo = ev.solo
 
 		#retrieve on_off
 		on_off = False

@@ -55,6 +55,10 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 	xx_sides = bpy.props.CollectionProperty(type=Jueg_SideItem)
 	xx_active_side = bpy.props.IntProperty()
 
+	name_clickable = bpy.props.BoolProperty(default=False)
+	clickable_ops  = bpy.props.EnumProperty(items=clickable_ops_items)
+	clickable_mode = bpy.props.EnumProperty(items=clickable_mode_items)
+
 	tab1 = bpy.props.BoolProperty(default=False)
 	tab2 = bpy.props.BoolProperty(default=False)
 	tab3 = bpy.props.BoolProperty(default=False)
@@ -95,6 +99,15 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 				row.prop(self, "keymap_ctrl", text="Ctrl")
 				row = box.row()
 				row.prop(self, "keymap_alt", text="Alt")
+			box = col.box()
+			row = box.row()
+			row.prop(self, "name_clickable", text="Name clickable")
+			if self.name_clickable == True:
+				row = box.row()
+				row.prop(self, "clickable_ops", text="Operator")
+				if [ops for ops in armature.jueg_extragroups_ops if ops.id == self.clickable_ops][0].event_manage == True:
+					row = box.row()
+					row.prop(self, "clickable_mode", text="Mode")
 			col = row_global.column()
 			box = col.box()
 			row = box.row()
