@@ -104,8 +104,8 @@ class POSE_OT_jueg_export_to_file(bpy.types.Operator, bpy_extras.io_utils.Export
                 # Event management
                 tmp["events"] = []
                 if ops.event_manage == True:
-                    ev = {}
                     for event in ops.events:
+                        ev = {}
                         ev["label"] = event.label
                         ev["mode"] = event.mode
                         ev["event"] = event.event
