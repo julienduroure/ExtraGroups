@@ -194,7 +194,11 @@ def copy_data_ops(armature,index_grouptype):
 		if ops.id not in [display.id for display in armature.jueg_grouptypelist[index_grouptype].ops_display]:
 			new = armature.jueg_grouptypelist[index_grouptype].ops_display.add()
 			new.id = ops.id
-			new.display = False
+			if ops.id in  [	"b9eac1a0a2fd4dcd94140d05a6a3af86", # Visibility
+				"8102ad699e6d4af8a8f511e1283b995e" ]: # select
+				new.display = True
+			else:
+				new.display = False
 
 def check_if_current_selection_exists_in_group(grouptype):
 	for group in grouptype.group_ids:
