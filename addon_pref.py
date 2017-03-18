@@ -99,15 +99,6 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 				row.prop(self, "keymap_ctrl", text="Ctrl")
 				row = box.row()
 				row.prop(self, "keymap_alt", text="Alt")
-			box = col.box()
-			row = box.row()
-			row.prop(self, "name_clickable", text="Name clickable")
-			if self.name_clickable == True:
-				row = box.row()
-				row.prop(self, "clickable_ops", text="Operator")
-				if [ops for ops in armature.jueg_extragroups_ops if ops.id == self.clickable_ops][0].event_manage == True:
-					row = box.row()
-					row.prop(self, "clickable_mode", text="Mode")
 			col = row_global.column()
 			box = col.box()
 			row = box.row()

@@ -226,6 +226,14 @@ class POSE_PT_jueg_options(bpy.types.Panel):
 		row.prop(addonpref(), "use_color", text="Use color label")
 		row = layout.row()
 		row.prop(addonpref(), "multitype", text="Multitype")
+		row = layout.row()
+		row.prop(addonpref(), "name_clickable", text="Name clickable")
+		if addonpref().name_clickable == True:
+			row = layout.row()
+			row.prop(addonpref(), "clickable_ops", text="Operator")
+			if [ops for ops in armature.jueg_extragroups_ops if ops.id == addonpref().clickable_ops][0].event_manage == True:
+				row = layout.row()
+				row.prop(addonpref(), "clickable_mode", text="Mode")
 
 class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 	bl_label = "Operator Detail"
