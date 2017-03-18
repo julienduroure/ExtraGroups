@@ -52,8 +52,8 @@ def get_default_ops_id():
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['events'].append(['SOLO', 'Solo', 'CTRL', True, True])
 
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86'] = {}
-	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['magic_nb'] = 4
-	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['name'] = "Toggle Visibility"
+	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['magic_nb'] = 5
+	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['name'] = "Visibility"
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['ops_type'] = 'BOOL'
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['ops_exe'] = "pose.jueg_change_visibility"
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['icon_on'] = "VISIBLE_IPO_ON"
@@ -68,8 +68,8 @@ def get_default_ops_id():
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['events'].append(['SOLO', 'Solo', 'CTRL', True, True])
 
 	dict_['9d5257bf3d6245afacabb452bf7a455e'] = {}
-	dict_['9d5257bf3d6245afacabb452bf7a455e']['magic_nb'] = 4
-	dict_['9d5257bf3d6245afacabb452bf7a455e']['name'] = "Restrict/Allow Selection"
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['magic_nb'] = 5
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['name'] = "Restrict Selection"
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['ops_type'] = 'BOOL'
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['ops_exe'] = "pose.jueg_restrict_select"
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['icon_on'] = "RESTRICT_SELECT_OFF"
