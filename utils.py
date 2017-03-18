@@ -38,6 +38,7 @@ def get_default_ops_id():
 	dict_['f31027b2b65d4a90b610281ea09f08fb'] = {}
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['magic_nb'] = 4
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['name'] = "Mute"
+	dict_['f31027b2b65d4a90b610281ea09f08fb']['sort_order'] = 3
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['ops_type'] = 'BOOL'
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['ops_exe'] = "pose.jueg_bonemute"
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['icon_on'] = "MUTE_IPO_OFF"
@@ -54,6 +55,7 @@ def get_default_ops_id():
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86'] = {}
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['magic_nb'] = 5
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['name'] = "Visibility"
+	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['sort_order'] = 2
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['ops_type'] = 'BOOL'
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['ops_exe'] = "pose.jueg_change_visibility"
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['icon_on'] = "VISIBLE_IPO_ON"
@@ -70,6 +72,7 @@ def get_default_ops_id():
 	dict_['9d5257bf3d6245afacabb452bf7a455e'] = {}
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['magic_nb'] = 5
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['name'] = "Restrict Selection"
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['sort_order'] = 7
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['ops_type'] = 'BOOL'
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['ops_exe'] = "pose.jueg_restrict_select"
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['icon_on'] = "RESTRICT_SELECT_OFF"
@@ -86,6 +89,7 @@ def get_default_ops_id():
 	dict_['8102ad699e6d4af8a8f511e1283b995e'] = {}
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['magic_nb'] = 7
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['name'] = "Select"
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['sort_order'] = 1
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['ops_type'] = 'EXE'
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['ops_exe'] = "pose.jueg_select"
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['icon_on'] = "HAND"
@@ -105,6 +109,7 @@ def get_default_ops_id():
 	dict_['baeadde2d0594c5abfe083808b80d995'] = {}
 	dict_['baeadde2d0594c5abfe083808b80d995']['magic_nb'] = 1
 	dict_['baeadde2d0594c5abfe083808b80d995']['name'] = "Props"
+	dict_['baeadde2d0594c5abfe083808b80d995']['sort_order'] = 6
 	dict_['baeadde2d0594c5abfe083808b80d995']['ops_type'] = 'EXE'
 	dict_['baeadde2d0594c5abfe083808b80d995']['ops_exe'] = "pose.jueg_props_change"
 	dict_['baeadde2d0594c5abfe083808b80d995']['icon_on'] = "ANIM"
@@ -119,6 +124,7 @@ def get_default_ops_id():
 	dict_['118c716214664d2890f1290fa984a6c9'] = {}
 	dict_['118c716214664d2890f1290fa984a6c9']['magic_nb'] = 1
 	dict_['118c716214664d2890f1290fa984a6c9']['name'] = "Lock"
+	dict_['118c716214664d2890f1290fa984a6c9']['sort_order'] = 8
 	dict_['118c716214664d2890f1290fa984a6c9']['ops_type'] = 'BOOL'
 	dict_['118c716214664d2890f1290fa984a6c9']['ops_exe'] = "pose.jueg_bonelock"
 	dict_['118c716214664d2890f1290fa984a6c9']['icon_on'] = "UNLOCKED"
@@ -133,6 +139,7 @@ def get_default_ops_id():
 	dict_['21ecdae49e174a8bb25f404fca0b6608'] = {}
 	dict_['21ecdae49e174a8bb25f404fca0b6608']['magic_nb'] = 3
 	dict_['21ecdae49e174a8bb25f404fca0b6608']['name'] = "Keyframing"
+	dict_['21ecdae49e174a8bb25f404fca0b6608']['sort_order'] = 5
 	dict_['21ecdae49e174a8bb25f404fca0b6608']['ops_type'] = 'EXE'
 	dict_['21ecdae49e174a8bb25f404fca0b6608']['ops_exe'] = "pose.ope_keyframing"
 	dict_['21ecdae49e174a8bb25f404fca0b6608']['icon_on'] = "REC"
@@ -150,6 +157,7 @@ def get_default_ops_id():
 	dict_['999736381f5641a78df884e4683fbddd'] = {}
 	dict_['999736381f5641a78df884e4683fbddd']['magic_nb'] = 1
 	dict_['999736381f5641a78df884e4683fbddd']['name'] = "Motion Path"
+	dict_['999736381f5641a78df884e4683fbddd']['sort_order'] = 4
 	dict_['999736381f5641a78df884e4683fbddd']['ops_type'] = 'BOOL'
 	dict_['999736381f5641a78df884e4683fbddd']['ops_exe'] = "pose.jueg_motionpath"
 	dict_['999736381f5641a78df884e4683fbddd']['icon_on'] = "BONE_DATA"
@@ -312,7 +320,7 @@ def init_default_ops(armature):
 			return True
 
 	#if no data found, init with default ops
-	for id in get_default_ops_id().keys():
+	for id in sorted(get_default_ops_id(), key= lambda name: get_default_ops_id()[name]["sort_order"]):
 		ops = armature.jueg_extragroups_ops.add()
 		ops.name     = get_default_ops_id()[id]["name"]
 		ops.id       = id
@@ -336,7 +344,7 @@ def init_default_ops(armature):
 			dst_ev.solo   = src_ev[4]
 
 	copy_data_ops(armature,0)
-	armature.jueg_grouptypelist[0].active_ops = len(armature.jueg_extragroups_ops) - 1
+	armature.jueg_grouptypelist[0].active_ops = 0
 
 def get_all_icons():
 	icons = bpy.types.UILayout.bl_rna.functions['prop'].parameters['icon'].enum_items.keys()

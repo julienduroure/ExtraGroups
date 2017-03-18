@@ -46,7 +46,7 @@ class POSE_OT_jueg_update_to_new_addon_version(bpy.types.Operator):
 	def execute(self, context):
 		for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
 			if len(obj.jueg_extragroups_ops) > 0:
-				for id in get_default_ops_id().keys():
+				for id in sorted(get_default_ops_id(), key= lambda name: get_default_ops_id()[name]["sort_order"]):
 					if id not in [ops.id for ops in obj.jueg_extragroups_ops if ops.user_defined == False]:
 						#A new operator is available, create it
 						new_ops = obj.jueg_extragroups_ops.add()
@@ -239,4 +239,4 @@ def register():
 	bpy.utils.register_class(POSE_OT_jueg_update_to_new_addon_version)
 
 def unregister():
-	bpy.utils.unregister_class(POSE_OT_jueg_update_to_new_addon_version)	
+	bpy.utils.unregister_class(POSE_OT_jueg_update_to_new_addon_version)
