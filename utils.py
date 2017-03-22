@@ -104,7 +104,7 @@ def get_default_ops_id():
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['ADD', 'Add to Selection', 'SHIFT', True, False, False])
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['REMOVE', 'Remove from Selection', 'ALT', True, False, False])
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['SELECT_HIDE_OTHER', 'Select only and hide others', 'CTRL', True, False, False])
-	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['SELECT_OPPOSITE', 'Select Opposite', 'SHIFT_CTRL', True, False, False])
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['SELECT_INVERSE', 'Select Inversed', 'SHIFT_CTRL', True, False, False])
 
 	dict_['baeadde2d0594c5abfe083808b80d995'] = {}
 	dict_['baeadde2d0594c5abfe083808b80d995']['magic_nb'] = 1

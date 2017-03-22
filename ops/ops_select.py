@@ -199,7 +199,7 @@ class POSE_OT_jueg_select(Operator):
 
 ################################################################################
 		#after
-		if mode == "SELECT_OPPOSITE":
+		if mode == "SELECT_INVERSE":
 			for bone in armature.pose.bones:
 				if bone.name in [b.name for b in bones]:
 					armature.data.bones[bone.name].select = False
