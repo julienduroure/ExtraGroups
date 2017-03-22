@@ -87,7 +87,7 @@ def get_default_ops_id():
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['events'].append(['SOLO', 'Solo', 'CTRL', True, True, False])
 
 	dict_['8102ad699e6d4af8a8f511e1283b995e'] = {}
-	dict_['8102ad699e6d4af8a8f511e1283b995e']['magic_nb'] = 7
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['magic_nb'] = 8
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['name'] = "Select"
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['sort_order'] = 1
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['ops_type'] = 'EXE'
@@ -105,7 +105,12 @@ def get_default_ops_id():
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['REMOVE', 'Remove from Selection', 'ALT', True, False, False])
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['SELECT_HIDE_OTHER', 'Select only and hide others', 'CTRL', True, False, False])
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['SELECT_INVERSE', 'Select Inversed', 'SHIFT_CTRL', True, False, False])
-	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['REPLACE_MIRROR', 'Select Only (mirror)', 'SHIFT_ALT', True, False, True])
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['REPLACE_MIRROR', 'Select Only (mirror)', 'NONE', False, False, True])
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['ADD_MIRROR', 'Add to Selection (mirror)', 'NONE', False, False, True])
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['REMOVE_MIRROR', 'Remove from Selection (mirror)', 'NONE', False, False, True])
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['SELECT_HIDE_OTHER_MIRROR', 'Select only and hide others (mirror)', 'NONE', False, False, True])
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['events'].append(['SELECT_INVERSE_MIRROR', 'Select Inversed (mirror)', 'NONE', False, False, True])
+
 
 	dict_['baeadde2d0594c5abfe083808b80d995'] = {}
 	dict_['baeadde2d0594c5abfe083808b80d995']['magic_nb'] = 1

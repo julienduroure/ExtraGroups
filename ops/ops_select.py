@@ -98,6 +98,7 @@ class POSE_OT_jueg_select(Operator):
 					if ev.event == internal_event:
 						mode = ev.mode
 						solo = ev.solo
+						mirror = ev.mirror
 			else:
 				mode = "JUEG_DUMMY"
 
@@ -147,6 +148,9 @@ class POSE_OT_jueg_select(Operator):
 			self.report({'ERROR'}, "Error retrieving data Solo")
 			return {'CANCELLED'}
 
+		if mirror == True and len(addonpref().xx_sides) == 0:
+			init_sides(context)
+
 		#check if this is a classic group or current selection
 		current_selection = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].current_selection
 		if current_selection == False:
@@ -159,8 +163,11 @@ class POSE_OT_jueg_select(Operator):
 				if bone.bone.select == True:
 					bones.append(bone)
 
+		if mirror == True:
+			bones = [armature.pose.bones[get_symm_name(bone.name)] for bone in bones ]
+
 ########################### Before ##############################
-		if mode == "SELECT_HIDE_OTHER":
+		if mode == "SELECT_HIDE_OTHER" or mode == "SELECT_HIDE_OTHER_MIRROR"
 			# Check if solo mode is enabled on visibility ops
 			solo_somewhere = False
 			for grouptype in armature.jueg_grouptypelist:
@@ -177,7 +184,10 @@ class POSE_OT_jueg_select(Operator):
 				return {'CANCELLED'}
 
 
-		if mode == "REPLACE" or mode == "SELECT_HIDE_OTHER":
+		if mode in ["REPLACE",
+					"REPLACE_MIRROR",
+					"SELECT_HIDE_OTHER",
+					"SELECT_HIDE_OTHER_MIRROR"]:
 			for bone in armature.pose.bones:
 				bone.bone.select = False
 ########################### End Before ##########################
@@ -189,17 +199,24 @@ class POSE_OT_jueg_select(Operator):
 				to_delete.append(idx)
 				continue
 ################################################################################
-			if mode == "REPLACE" or mode == "ADD" or mode == "SELECT_HIDE_OTHER":
+			if mode in ["REPLACE",
+			 			"REPLACE_MIRROR",
+						"ADD",
+						"ADD_MIRROR",
+						"SELECT_HIDE_OTHER",
+						"SELECT_HIDE_OTHER_MIRROR"]:
 				armature.data.bones[bone.name].select = True
-			elif mode == "REMOVE":
+			elif mode in ["REMOVE", "REMOVE_MIRROR"]:
 				armature.data.bones[bone.name].select = False
 
-			if mode == 'SELECT_HIDE_OTHER':
+			if mode in ['SELECT_HIDE_OTHER',
+						'SELECT_HIDE_OTHER_MIRROR']:
 				armature.data.bones[bone.name].hide = False
 
 ################################################################################
 		#after
-		if mode == "SELECT_INVERSE":
+		if mode in ["SELECT_INVERSE",
+					"SELECT_INVERSE_MIRROR"]:
 			for bone in armature.pose.bones:
 				if bone.name in [b.name for b in bones]:
 					armature.data.bones[bone.name].select = False
@@ -210,9 +227,15 @@ class POSE_OT_jueg_select(Operator):
 		if mode == "REPLACE" or mode == "ADD" or mode == "SELECT_HIDE_OTHER":
 			if armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].active_bone != "":
 				armature.data.bones.active = armature.data.bones[armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].active_bone]
+		# Set active bone for mirror events
+		if mode == "REPLACE_MIRROR" or mode == "ADD_MIRROR" or mode == "SELECT_HIDE_OTHER_MIRROR":
+			if armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].active_bone != "":
+				armature.data.bones.active = armature.data.bones[get_symm_name(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].active_bone)]
 
 		# KeyingSet
 		if addonpref().use_keyingset == True:
+			if mirror == True:
+				self.report({'ERROR'}, "KeyingSet mirror is not implemented yet")
 			if mode == "REPLACE":
 				if armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].keying != "":
 					bpy.context.scene.keying_sets.active_index = bpy.context.scene.keying_sets.find(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].keying)
@@ -226,7 +249,7 @@ class POSE_OT_jueg_select(Operator):
 				self.report({'ERROR'}, "KeyingSet remove is not implemented yet")
 
 		# Select and hide other
-		if mode == "SELECT_HIDE_OTHER":
+		if mode == "SELECT_HIDE_OTHER" or mode == "SELECT_HIDE_OTHER_MIRROR":
 			# Toggle visibility of all other groups
 			for grouptype in armature.jueg_grouptypelist:
 				cpt_index = 0
@@ -253,7 +276,7 @@ class POSE_OT_jueg_select(Operator):
 				manip.append('ROTATE')
 			if armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].manipulator[2] == True:
 				manip.append('SCALE')
-			if mode == "REPLACE" or mode == "SELECT_HIDE_OTHER":
+			if mode == "REPLACE" or mode == "REPLACE_MIRROR" or mode == "SELECT_HIDE_OTHER" or mode == "SELECT_HIDE_OTHER_MIRROR":
 				bpy.context.space_data.transform_manipulators = set(manip)
 			bpy.context.space_data.transform_orientation = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].orientation
 
