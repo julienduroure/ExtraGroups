@@ -79,6 +79,7 @@ class POSE_OT_jueg_event_add(bpy.types.Operator):
 		event.mode = 'NONE'
 		event.label = 'Default'
 		event.active = True
+		event.mirror = False
 		[e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_ops].id][0].active_event = len([e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_ops].id][0].events) - 1
 
 		return {'FINISHED'}

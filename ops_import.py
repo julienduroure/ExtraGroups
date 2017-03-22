@@ -135,6 +135,7 @@ def import_creation(multi_type_mode, grptype_):
 					solo 		  = event["solo"]
 					mode		  = event["mode"]
 					event_        = event["event"]
+					mirror        = event["mirror"]
 					break
 			if old_idx_event != -1:
 				[e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == ops["ops"]][0].events[old_idx_event].active = active
@@ -142,6 +143,7 @@ def import_creation(multi_type_mode, grptype_):
 				[e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == ops["ops"]][0].events[old_idx_event].solo = solo
 				[e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == ops["ops"]][0].events[old_idx_event].mode = mode
 				[e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == ops["ops"]][0].events[old_idx_event].event = event_
+				[e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == ops["ops"]][0].events[old_idx_event].mirror = mirror
 				[e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == ops["ops"]][0].events.move(old_idx_event, current_idx_event)
 
 

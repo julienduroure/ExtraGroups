@@ -111,6 +111,7 @@ class POSE_OT_jueg_export_to_file(bpy.types.Operator, bpy_extras.io_utils.Export
                         ev["event"] = event.event
                         ev["solo"] = event.solo
                         ev["active"] = event.active
+                        ev["mirror"] = event.mirror
                         tmp["events"].append(ev)
                 grouptype_["ops"].append(tmp)
 

@@ -132,6 +132,7 @@ class Jueg_EventData(bpy.types.PropertyGroup):
 	event  = bpy.props.EnumProperty(items=jueg_event_modif)
 	solo   = bpy.props.BoolProperty()
 	active = bpy.props.BoolProperty(default=True, name="Active")
+	mirror = bpy.props.BoolProperty(default=False, name="Mirror")
 
 #Dev note :
 #Any new data needs update in

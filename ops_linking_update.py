@@ -125,6 +125,7 @@ class POSE_OT_jueg_reload_linked_data(bpy.types.Operator):
 						dst_ev.active = ev.active
 						dst_ev.solo   = ev.solo
 						dst_ev.label  = ev.label
+						dts_ev.mirror = ev.mirror
 
 				break
 		return {'FINISHED'}
@@ -133,4 +134,4 @@ def register():
 	bpy.utils.register_class(POSE_OT_jueg_reload_linked_data)
 
 def unregister():
-	bpy.utils.unregister_class(POSE_OT_jueg_reload_linked_data)	
+	bpy.utils.unregister_class(POSE_OT_jueg_reload_linked_data)

@@ -374,6 +374,7 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 				row.enabled = ops.user_defined
 				row = box.row()
 				row.prop(ops.events[ops.active_event], "solo")
+				row.prop(ops.events[ops.active_event], "mirror")
 				row.enabled = ops.user_defined
 
 			if check_duplicate_event(jueg_active_grouptype.active_ops) == True:

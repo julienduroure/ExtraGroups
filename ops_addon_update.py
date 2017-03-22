@@ -70,6 +70,7 @@ class POSE_OT_jueg_update_to_new_addon_version(bpy.types.Operator):
 							new_.event  = ev[2]
 							new_.active = ev[3]
 							new_.solo   = ev[4]
+							new_.mirror = ev[5]
 
 
 						#now add display info on each grouptype
@@ -162,6 +163,7 @@ class POSE_OT_jueg_update_to_new_addon_version(bpy.types.Operator):
 								new_.event  = ev[2]
 								new_.active = ev[3]
 								new_.solo   = ev[4]
+								new_.mirror = ev[5]
 
 				for obj in [j for i,j in enumerate(bpy.data.objects) if j.type == 'ARMATURE']:
 					if len(obj.jueg_extragroups_ops) > 0:
