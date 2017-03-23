@@ -98,6 +98,7 @@ class POSE_OT_jueg_motionpath(Operator):
 					if ev.event == internal_event:
 						mode = ev.mode
 						solo = ev.solo
+						mirror = ev.mirror
 			else:
 				mode = "JUEG_DUMMY"
 
@@ -107,6 +108,7 @@ class POSE_OT_jueg_motionpath(Operator):
 
 			if mode == "JUEG_DUMMY":
 				mode = ""
+				mirror = False
 		else:
 			mode = self.force_mode
 			for ops in armature.jueg_extragroups_ops:
@@ -116,6 +118,7 @@ class POSE_OT_jueg_motionpath(Operator):
 			for ev in events:
 				if ev.mode == mode:
 					solo = ev.solo
+					mirror = ev.mirror
 
 		#retrieve on_off
 		on_off = False
@@ -148,6 +151,9 @@ class POSE_OT_jueg_motionpath(Operator):
 			self.report({'ERROR'}, "Error retrieving data Solo")
 			return {'CANCELLED'}
 
+		if mirror == True and len(addonpref().xx_sides) == 0:
+			init_sides(context)
+
 		current_selection = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].current_selection
 		if current_selection == False:
 			bones = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].bone_ids
@@ -156,6 +162,9 @@ class POSE_OT_jueg_motionpath(Operator):
 			for bone in armature.pose.bones:
 				if bone.bone.select == True:
 					bones.append(bone)
+
+		if mirror == True:
+			bones = [armature.pose.bones[get_symm_name(bone.name)] for bone in bones ]
 
 		#No Before
 
@@ -180,15 +189,15 @@ class POSE_OT_jueg_motionpath(Operator):
 		#Select all bones of group
 		for bone in bones:
 			armature.data.bones[bone.name].select = True
-			if mode == "UPDATE":
+			if mode == "UPDATE" or mode == "UPDATE_MIRROR":
 				# Set active bone --> One (random) of group
 				armature.data.bones.active = armature.data.bones[bone.name]
 ###################################################################################
-		if mode == "ADD" and on_off == True:
+		if (mode == "ADD" or mode == "ADD_MIRROR") and on_off == True:
 			bpy.ops.pose.paths_calculate()
-		if mode == "ADD" and on_off == False:
+		if (mode == "ADD" or mode == "ADD_MIRROR") and on_off == False:
 			bpy.ops.pose.paths_clear()
-		if mode == "UPDATE" and on_off == False:
+		if (mode == "UPDATE" or mode == "UPDATE_MIRROR") and on_off == False:
 			bpy.ops.pose.paths_update()
 ###################################################################################
 		#Restore selection
@@ -205,7 +214,7 @@ class POSE_OT_jueg_motionpath(Operator):
 			for i in to_deleted:
 				armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].bone_ids.remove(i)
 
-		if mode == "ADD":
+		if mode == "ADD" or mode == "ADD_MIRROR":
 			for ops in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].on_off:
 				if ops.id == self.ops_id:
 					if solo == False:

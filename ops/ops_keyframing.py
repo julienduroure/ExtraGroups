@@ -48,6 +48,7 @@ class POSE_OT_jueg_keyframing_after_menu(Operator):
 	ops_id       = StringProperty()
 	solo         = BoolProperty()
 	reset_solo   = BoolProperty()
+	mirror       = BoolProperty()
 
 	@classmethod
 	def poll(self, context):
@@ -91,6 +92,9 @@ class POSE_OT_jueg_keyframing_after_menu(Operator):
 			self.report({'ERROR'}, "Error retrieving data Solo")
 			return {'CANCELLED'}
 
+		if self.mirror == True and len(addonpref().xx_sides) == 0:
+			init_sides(context)
+
 		#check if this is a classic group or current selection
 		current_selection = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].current_selection
 		if current_selection == False:
@@ -102,6 +106,9 @@ class POSE_OT_jueg_keyframing_after_menu(Operator):
 			for bone in armature.pose.bones:
 				if bone.bone.select == True:
 					bones.append(bone)
+
+		if self.mirror == True:
+			bones = [armature.pose.bones[get_symm_name(bone.name)] for bone in bones ]
 
 
 		# store current keyingset if any
@@ -218,6 +225,7 @@ class POSE_MT_keyframing(bpy.types.Menu):
 			op.index  = bpy.context.object.jueg_menu_temp_data.index
 			op.ops_id = bpy.context.object.jueg_menu_temp_data.ops_id
 			op.solo   = bpy.context.object.jueg_menu_temp_data.solo
+			op.mirror = bpy.context.object.jueg_menu_temp_data.mirror
 
 
 class POSE_OT_jueg_keyframing(Operator):
@@ -283,6 +291,7 @@ class POSE_OT_jueg_keyframing(Operator):
 					if ev.event == internal_event:
 						mode = ev.mode
 						solo = ev.solo
+						mirror = ev.mirror
 			else:
 				mode = "JUEG_DUMMY"
 
@@ -292,6 +301,7 @@ class POSE_OT_jueg_keyframing(Operator):
 
 			if mode == "JUEG_DUMMY":
 				mode = ""
+				mirror = False
 		else:
 			mode = self.force_mode
 			for ops in armature.jueg_extragroups_ops:
@@ -301,7 +311,10 @@ class POSE_OT_jueg_keyframing(Operator):
 			for ev in events:
 				if ev.mode == mode:
 					solo = ev.solo
+					mirror = ev.mirror
 
+		if mirror == True and len(addonpref().xx_sides) == 0:
+			init_sides(context)
 
 		#check if this is a classic group or current selection
 		current_selection = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].current_selection
@@ -315,11 +328,15 @@ class POSE_OT_jueg_keyframing(Operator):
 				if bone.bone.select == True:
 					bones.append(bone)
 
+		if mirror == True:
+			bones = [armature.pose.bones[get_symm_name(bone.name)] for bone in bones ]
+
 
 		call_menu = False
-		if mode == "FORCED_MENU":
+		if mode == "FORCED_MENU" or mode == "FORCED_MENU_MIRROR":
 			call_menu = True
-		elif mode == "DEFAULT" or mode == "KEYING_ONLY":
+		elif mode in ["DEFAULT",
+					"KEYING_ONLY"]:
 			#check if there is KS already set assigned to this group
 			if addonpref().use_keyingset == True and armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].keying != "":
 				# We are going to use this KeyingSet
@@ -357,6 +374,9 @@ class POSE_OT_jueg_keyframing(Operator):
 				# If keying only --> no call
 				if mode == "DEFAULT":
 					call_menu = True
+		elif mode in ["DEFAULT_MIRROR",
+					"KEYING_ONLY_MIRROR"]:
+			self.report({'ERROR'}, "KeyingSet mirror is not implemented yet")
 
 		to_delete = []
 		idx = -1
@@ -377,6 +397,7 @@ class POSE_OT_jueg_keyframing(Operator):
 			armature.jueg_menu_temp_data.index  = self.index
 			armature.jueg_menu_temp_data.ops_id = self.ops_id
 			armature.jueg_menu_temp_data.solo   = solo
+			armature.jueg_menu_temp_data.mirror = mirror
 			bpy.ops.wm.call_menu(name="POSE_MT_keyframing")
 
 

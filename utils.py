@@ -36,7 +36,7 @@ def get_default_ops_id():
 	dict_ = {}
 
 	dict_['f31027b2b65d4a90b610281ea09f08fb'] = {}
-	dict_['f31027b2b65d4a90b610281ea09f08fb']['magic_nb'] = 4
+	dict_['f31027b2b65d4a90b610281ea09f08fb']['magic_nb'] = 5
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['name'] = "Mute"
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['sort_order'] = 3
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['ops_type'] = 'BOOL'
@@ -51,9 +51,11 @@ def get_default_ops_id():
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['events'] = []
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['events'].append(['MUTE', 'Mute', 'NONE', True, False, False])
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['events'].append(['SOLO', 'Solo', 'CTRL', True, True, False])
+	dict_['f31027b2b65d4a90b610281ea09f08fb']['events'].append(['MUTE_MIRROR', 'Mute (mirror)', 'NONE', False, False, True])
+	dict_['f31027b2b65d4a90b610281ea09f08fb']['events'].append(['SOLO_MIRROR', 'Solo (mirror)', 'CTRL', False, True, True])
 
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86'] = {}
-	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['magic_nb'] = 5
+	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['magic_nb'] = 6
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['name'] = "Visibility"
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['sort_order'] = 2
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['ops_type'] = 'BOOL'
@@ -68,9 +70,11 @@ def get_default_ops_id():
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['events'] = []
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['events'].append(['TOGGLE', 'Toggle', 'NONE', True, False, False])
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['events'].append(['SOLO', 'Solo', 'CTRL', True, True, False])
+	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['events'].append(['TOGGLE_MIRROR', 'Toggle (mirror)', 'NONE', False, False, True])
+	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['events'].append(['SOLO_MIRROR', 'Solo (mirror)', 'CTRL', False, True, True])
 
 	dict_['9d5257bf3d6245afacabb452bf7a455e'] = {}
-	dict_['9d5257bf3d6245afacabb452bf7a455e']['magic_nb'] = 5
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['magic_nb'] = 6
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['name'] = "Restrict Selection"
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['sort_order'] = 7
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['ops_type'] = 'BOOL'
@@ -85,6 +89,8 @@ def get_default_ops_id():
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['events'] = []
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['events'].append(['TOGGLE', 'Toggle', 'NONE', True, False, False])
 	dict_['9d5257bf3d6245afacabb452bf7a455e']['events'].append(['SOLO', 'Solo', 'CTRL', True, True, False])
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['events'].append(['TOGGLE', 'Toggle (mirror)', 'NONE', False, False, True])
+	dict_['9d5257bf3d6245afacabb452bf7a455e']['events'].append(['SOLO', 'Solo (mirror)', 'CTRL', False, True, True])
 
 	dict_['8102ad699e6d4af8a8f511e1283b995e'] = {}
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['magic_nb'] = 8
@@ -128,7 +134,7 @@ def get_default_ops_id():
 	dict_['baeadde2d0594c5abfe083808b80d995']['events'] = []
 
 	dict_['118c716214664d2890f1290fa984a6c9'] = {}
-	dict_['118c716214664d2890f1290fa984a6c9']['magic_nb'] = 1
+	dict_['118c716214664d2890f1290fa984a6c9']['magic_nb'] = 2
 	dict_['118c716214664d2890f1290fa984a6c9']['name'] = "Lock"
 	dict_['118c716214664d2890f1290fa984a6c9']['sort_order'] = 8
 	dict_['118c716214664d2890f1290fa984a6c9']['ops_type'] = 'BOOL'
@@ -139,11 +145,13 @@ def get_default_ops_id():
 	dict_['118c716214664d2890f1290fa984a6c9']['ops_context'] = 'INVOKE_DEFAULT'
 	dict_['118c716214664d2890f1290fa984a6c9']['display'] = False
 	dict_['118c716214664d2890f1290fa984a6c9']['user_defined'] = False
-	dict_['118c716214664d2890f1290fa984a6c9']['event_manage'] = False
+	dict_['118c716214664d2890f1290fa984a6c9']['event_manage'] = True
 	dict_['118c716214664d2890f1290fa984a6c9']['events'] = []
+	dict_['118c716214664d2890f1290fa984a6c9']['events'].append(['LOCK', 'Lock', 'NONE', True, False, False])
+	dict_['118c716214664d2890f1290fa984a6c9']['events'].append(['LOCK_MIRROR', 'Lock (mirror)', 'CTRL', True, False, True])
 
 	dict_['21ecdae49e174a8bb25f404fca0b6608'] = {}
-	dict_['21ecdae49e174a8bb25f404fca0b6608']['magic_nb'] = 3
+	dict_['21ecdae49e174a8bb25f404fca0b6608']['magic_nb'] = 4
 	dict_['21ecdae49e174a8bb25f404fca0b6608']['name'] = "Keyframing"
 	dict_['21ecdae49e174a8bb25f404fca0b6608']['sort_order'] = 5
 	dict_['21ecdae49e174a8bb25f404fca0b6608']['ops_type'] = 'EXE'
@@ -159,9 +167,12 @@ def get_default_ops_id():
 	dict_['21ecdae49e174a8bb25f404fca0b6608']['events'].append(['DEFAULT', 'Default', 'NONE', True, False, False])
 	dict_['21ecdae49e174a8bb25f404fca0b6608']['events'].append(['FORCED_MENU', 'Menu forced', 'CTRL', True, False, False])
 	dict_['21ecdae49e174a8bb25f404fca0b6608']['events'].append(['KEYING_ONLY', 'Keying Only', 'SHIFT', True, False, False])
+	dict_['21ecdae49e174a8bb25f404fca0b6608']['events'].append(['DEFAULT_MIRROR', 'Defaul (mirror)', 'NONE', False, False, True])
+	dict_['21ecdae49e174a8bb25f404fca0b6608']['events'].append(['FORCED_MENU_MIRROR', 'Menu forced (mirror)', 'NONE', False, False, True])
+	dict_['21ecdae49e174a8bb25f404fca0b6608']['events'].append(['KEYING_ONLY_MIRROR', 'Keying Only (mirror)', 'NONE', False, False, True])
 
 	dict_['999736381f5641a78df884e4683fbddd'] = {}
-	dict_['999736381f5641a78df884e4683fbddd']['magic_nb'] = 1
+	dict_['999736381f5641a78df884e4683fbddd']['magic_nb'] = 2
 	dict_['999736381f5641a78df884e4683fbddd']['name'] = "Motion Path"
 	dict_['999736381f5641a78df884e4683fbddd']['sort_order'] = 4
 	dict_['999736381f5641a78df884e4683fbddd']['ops_type'] = 'BOOL'
@@ -176,6 +187,8 @@ def get_default_ops_id():
 	dict_['999736381f5641a78df884e4683fbddd']['events'] = []
 	dict_['999736381f5641a78df884e4683fbddd']['events'].append(['ADD', 'Add/Remove Motion Path', 'NONE', True, False, False])
 	dict_['999736381f5641a78df884e4683fbddd']['events'].append(['UPDATE', 'Update Motion Path', 'CTRL', True, False, False])
+	dict_['999736381f5641a78df884e4683fbddd']['events'].append(['ADD_MIRROR', 'Add/Remove Motion Path (mirror)', 'NONE', False, False, True])
+	dict_['999736381f5641a78df884e4683fbddd']['events'].append(['UPDATE_MIRROR', 'Update Motion Path (mirror)', 'CTRL', False, False, True])
 
 	return dict_
 

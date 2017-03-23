@@ -98,6 +98,7 @@ class POSE_OT_jueg_restrict_select(Operator):
 					if ev.event == internal_event:
 						mode = ev.mode
 						solo = ev.solo
+						mirror = ev.mirror
 			else:
 				mode = "JUEG_DUMMY"
 
@@ -107,6 +108,7 @@ class POSE_OT_jueg_restrict_select(Operator):
 
 			if mode == "JUEG_DUMMY":
 				mode = ""
+				mirror = False
 		else:
 			mode = self.force_mode
 			for ops in armature.jueg_extragroups_ops:
@@ -116,6 +118,7 @@ class POSE_OT_jueg_restrict_select(Operator):
 			for ev in events:
 				if ev.mode == mode:
 					solo = ev.solo
+					mirror = ev.mirror
 
 		#retrieve on_off
 		on_off = False
@@ -147,6 +150,9 @@ class POSE_OT_jueg_restrict_select(Operator):
 			self.report({'ERROR'}, "Error retrieving data Solo")
 			return {'CANCELLED'}
 
+		if mirror == True and len(addonpref().xx_sides) == 0:
+			init_sides(context)
+
 		#check if this is a classic group or current selection
 		current_selection = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].current_selection
 		if current_selection == False:
@@ -158,6 +164,9 @@ class POSE_OT_jueg_restrict_select(Operator):
 			for bone in armature.pose.bones:
 				if bone.bone.select == True:
 					bones.append(bone)
+
+		if mirror == True:
+			bones = [armature.pose.bones[get_symm_name(bone.name)] for bone in bones ]
 
 		#No before
 

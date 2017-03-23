@@ -95,6 +95,7 @@ class Jueg_menu_temp_data(bpy.types.PropertyGroup):
 	index  = bpy.props.IntProperty(name="Index")
 	ops_id = bpy.props.StringProperty(name="Ops ID")
 	solo   = bpy.props.BoolProperty(name="Solo")
+	mirror = bpy.props.BoolProperty(name="Mirror")
 
 jueg_ops_type_items = [
 	("BOOL", "On/Off", "", 1),
