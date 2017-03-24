@@ -127,14 +127,17 @@ class POSE_OT_jueg_keyframing_after_menu(Operator):
 
 		# Store current selection
 		current_selection = []
+		current_hide = {}
 		for bone in armature.data.bones:
 			if bone.select == True:
 				current_selection.append(bone.name)
 				bone.select = False
 
-		#Select all bones of group
+		#Select all bones of group / display bones
 		for bone in bones:
 			armature.data.bones[bone.name].select = True
+			current_hide[bone.name] = armature.data.bones[bone.name].hide
+			armature.data.bones[bone.name].hide = False
 
 		# Insert Keyframe
 		bpy.ops.anim.keyframe_insert(type='__ACTIVE__')
@@ -147,6 +150,9 @@ class POSE_OT_jueg_keyframing_after_menu(Operator):
 			bone.select = False
 			if bone.name in current_selection:
 				bone.select = True
+			#Restore hide/displayed
+			if bone.name in current_hide.keys():
+				bone.hide = current_hide[bone.name]
 
 		# all "after" that can not be done on regular operator
 		#delete bones if any
