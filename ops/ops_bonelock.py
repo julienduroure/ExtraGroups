@@ -53,6 +53,41 @@ class POSE_OT_jueg_bonelock(Operator):
 				context.object.type == 'ARMATURE' and
 				context.mode == 'POSE')
 
+	def lock(self, bone, on_off, solo, solo_already):
+		armature = bpy.context.object
+		if solo == False:
+			locking = on_off
+		else:
+			if solo_already == False:
+				locking = False
+			else:
+				locking = False
+
+		if on_off == True:
+			if armature.animation_data and bone.name in armature.animation_data.action.groups:
+				for channel in armature.animation_data.action.groups[bone.name].channels:
+					channel.lock = locking
+			if armature.animation_data:
+				for fc in armature.animation_data.action.fcurves:
+					if not fc.group:
+						if fc.data_path.startswith("pose.bones"):
+							tmp = fc.data_path.split("[", maxsplit=1)[1].split("]", maxsplit=1)
+							bone_name = tmp[0][1:-1]
+							if bone.name == bone_name:
+								fc.lock = locking
+		else:
+			if armature.animation_data and bone.name in armature.animation_data.action.groups:
+				for channel in armature.animation_data.action.groups[bone.name].channels:
+					channel.lock = locking
+			if armature.animation_data:
+				for fc in armature.animation_data.action.fcurves:
+					if not fc.group:
+						if fc.data_path.startswith("pose.bones"):
+							tmp = fc.data_path.split("[", maxsplit=1)[1].split("]", maxsplit=1)
+							bone_name = tmp[0][1:-1]
+							if bone.name == bone_name:
+								fc.lock = locking
+
 	def invoke(self, context, event):
 		armature = context.object
 
@@ -180,17 +215,16 @@ class POSE_OT_jueg_bonelock(Operator):
 				to_delete.append(idx)
 				continue
 			###################################################
-			if armature.animation_data and bone.name in armature.animation_data.action.groups:
-				for channel in armature.animation_data.action.groups[bone.name].channels:
-					channel.lock = on_off
-			if armature.animation_data:
-				for fc in armature.animation_data.action.fcurves:
-					if not fc.group:
-						if fc.data_path.startswith("pose.bones"):
-							tmp = fc.data_path.split("[", maxsplit=1)[1].split("]", maxsplit=1)
-							bone_name = tmp[0][1:-1]
-							if bone.name == bone_name:
-								fc.lock = on_off
+			self.lock(bone, on_off, solo, solo_already)
+			###################################################
+# After
+		if solo == True:
+			for bone in armature.pose.bones:
+				if bone.name not in [b.name for b in bones]:
+					if solo_already == True:
+						self.lock(bone, False, False, False)
+					else:
+						self.lock(bone, True, False, False)
 			###################################################
 
 		#delete bones if any

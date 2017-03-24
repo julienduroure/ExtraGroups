@@ -134,7 +134,7 @@ def get_default_ops_id():
 	dict_['baeadde2d0594c5abfe083808b80d995']['events'] = []
 
 	dict_['118c716214664d2890f1290fa984a6c9'] = {}
-	dict_['118c716214664d2890f1290fa984a6c9']['magic_nb'] = 2
+	dict_['118c716214664d2890f1290fa984a6c9']['magic_nb'] = 3
 	dict_['118c716214664d2890f1290fa984a6c9']['name'] = "Lock"
 	dict_['118c716214664d2890f1290fa984a6c9']['sort_order'] = 8
 	dict_['118c716214664d2890f1290fa984a6c9']['ops_type'] = 'BOOL'
@@ -148,7 +148,9 @@ def get_default_ops_id():
 	dict_['118c716214664d2890f1290fa984a6c9']['event_manage'] = True
 	dict_['118c716214664d2890f1290fa984a6c9']['events'] = []
 	dict_['118c716214664d2890f1290fa984a6c9']['events'].append(['LOCK', 'Lock', 'NONE', True, False, False])
-	dict_['118c716214664d2890f1290fa984a6c9']['events'].append(['LOCK_MIRROR', 'Lock (mirror)', 'CTRL', True, False, True])
+	dict_['118c716214664d2890f1290fa984a6c9']['events'].append(['SOLO', 'Solo Lock', 'CTRL', True, True, False])
+	dict_['118c716214664d2890f1290fa984a6c9']['events'].append(['LOCK_MIRROR', 'Lock (mirror)', 'NONE', False, False, True])
+	dict_['118c716214664d2890f1290fa984a6c9']['events'].append(['SOLO_MIRROR', 'Solo Lock (mirror)', 'CTRL', False, True, True])
 
 	dict_['21ecdae49e174a8bb25f404fca0b6608'] = {}
 	dict_['21ecdae49e174a8bb25f404fca0b6608']['magic_nb'] = 4
