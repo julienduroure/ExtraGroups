@@ -119,7 +119,7 @@ def get_default_ops_id():
 
 
 	dict_['baeadde2d0594c5abfe083808b80d995'] = {}
-	dict_['baeadde2d0594c5abfe083808b80d995']['magic_nb'] = 1
+	dict_['baeadde2d0594c5abfe083808b80d995']['magic_nb'] = 2
 	dict_['baeadde2d0594c5abfe083808b80d995']['name'] = "Props"
 	dict_['baeadde2d0594c5abfe083808b80d995']['sort_order'] = 6
 	dict_['baeadde2d0594c5abfe083808b80d995']['ops_type'] = 'EXE'
@@ -130,8 +130,10 @@ def get_default_ops_id():
 	dict_['baeadde2d0594c5abfe083808b80d995']['ops_context'] = 'INVOKE_DEFAULT'
 	dict_['baeadde2d0594c5abfe083808b80d995']['display'] = False
 	dict_['baeadde2d0594c5abfe083808b80d995']['user_defined'] = False
-	dict_['baeadde2d0594c5abfe083808b80d995']['event_manage'] = False
+	dict_['baeadde2d0594c5abfe083808b80d995']['event_manage'] = True
 	dict_['baeadde2d0594c5abfe083808b80d995']['events'] = []
+	dict_['baeadde2d0594c5abfe083808b80d995']['events'].append(['PROPS', 'Properties', 'NONE', True, False, False])
+	dict_['baeadde2d0594c5abfe083808b80d995']['events'].append(['PROPS_MIRROR', 'Properties (mirror)', 'CTRL', True, False, True])
 
 	dict_['118c716214664d2890f1290fa984a6c9'] = {}
 	dict_['118c716214664d2890f1290fa984a6c9']['magic_nb'] = 3
