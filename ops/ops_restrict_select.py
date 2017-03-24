@@ -217,6 +217,11 @@ class POSE_OT_jueg_restrict_select(Operator):
 					if index != self.index:
 						for ops in bonegroup.solo:
 							if ops.id == self.ops_id:
+								if ops.on_off == True:
+									# group that was solo before must be turn off
+									for ops_ in bonegroup.on_off:
+										if ops_.id == self.ops_id:
+											ops_.on_off = False
 								ops.on_off = False
 					else:
 						for ops in bonegroup.solo:
