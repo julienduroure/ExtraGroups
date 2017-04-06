@@ -125,7 +125,7 @@ class POSE_OT_jueg_reload_linked_data(bpy.types.Operator):
 						dst_ev.active = ev.active
 						dst_ev.solo   = ev.solo
 						dst_ev.label  = ev.label
-						dts_ev.mirror = ev.mirror
+						dst_ev.mirror = ev.mirror
 
 				break
 		return {'FINISHED'}
