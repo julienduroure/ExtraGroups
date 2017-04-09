@@ -66,16 +66,41 @@ class POSE_UL_jueg_bonegroup(bpy.types.UIList):
 				sub.enabled = addonpref().edit_mode
 
 			if addonpref().edit_mode == False and addonpref().name_clickable == True:
-				# ops to addonpref + select mode + if ops is avalaible for name clicking ?
 				# check if ops is available for current selection
 
 				row.operator_context = [ops_ for ops_ in armature.jueg_extragroups_ops if ops_.id == addonpref().clickable_ops][0].ops_context
 				op = row.operator([ops_ for ops_ in armature.jueg_extragroups_ops if ops_.id == addonpref().clickable_ops][0].ops_exe, item.name, emboss=False)
 				op.index = index
 				op.ops_id = addonpref().clickable_ops
-				if [ops_ for ops_ in armature.jueg_extragroups_ops if ops_.id == addonpref().clickable_ops][0].event_manage == True:
-					op.force_mode = addonpref().clickable_mode
-				op.reset_solo = False
+				if addonpref().clickable_events_on == False:
+					if [ops_ for ops_ in armature.jueg_extragroups_ops if ops_.id == addonpref().clickable_ops][0].event_manage == True:
+						op.force_mode = addonpref().clickable_mode
+					op.reset_solo = False
+				else:
+					ops = [e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == addonpref().clickable_ops][0]
+
+					#retrieve if solo mode exist
+					solo_somewhere  = False
+					solo_me         = False
+					for solo_item in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[index].solo:
+						if solo_item.id == ops.id:
+							solo_me  = solo_item.on_off
+
+					index_group = 0
+					for other_groups in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids:
+						if index_group != index:
+							for solo_other in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[index_group].solo:
+								if solo_other.id == ops.id:
+									if solo_other.on_off == True:
+										solo_somewhere = True
+						index_group = index_group + 1
+
+					if solo_somewhere == False or (solo_somewhere == True and solo_me == True):
+						op.reset_solo = False
+					else:
+						op.reset_solo = True
+					op.force_mode = ''
+
 			else:
 				row.prop(item, "name", text="", emboss=False)
 
