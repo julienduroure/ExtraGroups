@@ -55,11 +55,6 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 	xx_sides = bpy.props.CollectionProperty(type=Jueg_SideItem)
 	xx_active_side = bpy.props.IntProperty()
 
-	name_clickable = bpy.props.BoolProperty(default=False)
-	clickable_ops  = bpy.props.EnumProperty(items=clickable_ops_items)
-	clickable_mode = bpy.props.EnumProperty(items=clickable_mode_items)
-	clickable_events_on = bpy.props.BoolProperty(default=False)
-
 	tab1 = bpy.props.BoolProperty(default=False)
 	tab2 = bpy.props.BoolProperty(default=False)
 	tab3 = bpy.props.BoolProperty(default=False)

@@ -65,19 +65,19 @@ class POSE_UL_jueg_bonegroup(bpy.types.UIList):
 				sub.prop(item, "color", text="")
 				sub.enabled = addonpref().edit_mode
 
-			if addonpref().edit_mode == False and addonpref().name_clickable == True:
+			if addonpref().edit_mode == False and armature.jueg_clickable_name_data.name_clickable == True:
 				# check if ops is available for current selection
 
-				row.operator_context = [ops_ for ops_ in armature.jueg_extragroups_ops if ops_.id == addonpref().clickable_ops][0].ops_context
-				op = row.operator([ops_ for ops_ in armature.jueg_extragroups_ops if ops_.id == addonpref().clickable_ops][0].ops_exe, item.name, emboss=False)
+				row.operator_context = [ops_ for ops_ in armature.jueg_extragroups_ops if ops_.id == armature.jueg_clickable_name_data.clickable_ops][0].ops_context
+				op = row.operator([ops_ for ops_ in armature.jueg_extragroups_ops if ops_.id == armature.jueg_clickable_name_data.clickable_ops][0].ops_exe, item.name, emboss=False)
 				op.index = index
-				op.ops_id = addonpref().clickable_ops
-				if addonpref().clickable_events_on == False:
-					if [ops_ for ops_ in armature.jueg_extragroups_ops if ops_.id == addonpref().clickable_ops][0].event_manage == True:
-						op.force_mode = addonpref().clickable_mode
+				op.ops_id = armature.jueg_clickable_name_data.clickable_ops
+				if armature.jueg_clickable_name_data.clickable_events_on == False:
+					if [ops_ for ops_ in armature.jueg_extragroups_ops if ops_.id == armature.jueg_clickable_name_data.clickable_ops][0].event_manage == True:
+						op.force_mode = armature.jueg_clickable_name_data.clickable_mode
 					op.reset_solo = False
 				else:
-					ops = [e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == addonpref().clickable_ops][0]
+					ops = [e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == armature.jueg_clickable_name_data.clickable_ops][0]
 
 					#retrieve if solo mode exist
 					solo_somewhere  = False

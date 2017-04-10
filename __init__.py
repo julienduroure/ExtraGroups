@@ -107,6 +107,7 @@ def register():
 	bpy.types.Object.jueg_extragroups_ops = bpy.props.CollectionProperty(type=globs.Jueg_OpsItem)
 	bpy.types.Object.jueg_active_grouptype = bpy.props.IntProperty()
 	bpy.types.Object.jueg_menu_temp_data = bpy.props.PointerProperty(type=globs.Jueg_menu_temp_data)
+	bpy.types.Object.jueg_clickable_name_data = bpy.props.PointerProperty(type=globs.Jueg_Clickable_Name)
 
 	bpy.types.Scene.on_off_save = bpy.props.CollectionProperty(type=globs.Jueg_OnOffEntry)  #used only temp for update addon
 	bpy.types.Scene.solo_save = bpy.props.CollectionProperty(type=globs.Jueg_OnOffEntry)    #used only temp for update addon

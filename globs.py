@@ -38,7 +38,7 @@ def clickable_ops_items(self, context):
 def clickable_mode_items(self, context):
 	items = []
 	armature = context.object
-	ops = [ops for ops in armature.jueg_extragroups_ops if ops.id == addonpref().clickable_ops][0]
+	ops = [ops for ops in armature.jueg_extragroups_ops if ops.id == armature.jueg_clickable_name_data.clickable_ops][0]
 
 	for ev in ops.events:
 		items.append((ev.mode, ev.label, ""))
@@ -160,6 +160,12 @@ class Jueg_SideItem(bpy.types.PropertyGroup):
 	name_R = bpy.props.StringProperty(name="Side name R")
 	name_L = bpy.props.StringProperty(name="Side name L")
 
+class Jueg_Clickable_Name(bpy.types.PropertyGroup):
+	name_clickable = bpy.props.BoolProperty(default=False)
+	clickable_ops  = bpy.props.EnumProperty(items=clickable_ops_items)
+	clickable_mode = bpy.props.EnumProperty(items=clickable_mode_items)
+	clickable_events_on = bpy.props.BoolProperty(default=False)
+
 def register():
 	bpy.utils.register_class(Jueg_OnOffEntry)
 	bpy.utils.register_class(Jueg_BoneEntry)
@@ -172,6 +178,7 @@ def register():
 	bpy.utils.register_class(Jueg_OpsItem)
 	bpy.utils.register_class(Jueg_menu_temp_data)
 	bpy.utils.register_class(Jueg_SideItem)
+	bpy.utils.register_class(Jueg_Clickable_Name)
 
 
 def unregister():
@@ -186,3 +193,4 @@ def unregister():
 	bpy.utils.unregister_class(Jueg_OpsDetails_DisplayProp)
 	bpy.utils.unregister_class(Jueg_menu_temp_data)
 	bpy.utils.unregister_class(Jueg_SideItem)
+	bpy.utils.unregister_class(Jueg_Clickable_Name)

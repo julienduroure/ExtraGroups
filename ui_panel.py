@@ -227,16 +227,16 @@ class POSE_PT_jueg_options(bpy.types.Panel):
 		row = layout.row()
 		row.prop(addonpref(), "multitype", text="Multitype")
 		row = layout.row()
-		row.prop(addonpref(), "name_clickable", text="Name clickable")
-		if addonpref().name_clickable == True:
+		row.prop(armature.jueg_clickable_name_data, "name_clickable", text="Name clickable")
+		if armature.jueg_clickable_name_data.name_clickable == True:
 			row = layout.row()
-			row.prop(addonpref(), "clickable_ops", text="Operator")
-			if addonpref().clickable_events_on == False:
-				if [ops for ops in armature.jueg_extragroups_ops if ops.id == addonpref().clickable_ops][0].event_manage == True:
+			row.prop(armature.jueg_clickable_name_data, "clickable_ops", text="Operator")
+			if armature.jueg_clickable_name_data.clickable_events_on == False:
+				if [ops for ops in armature.jueg_extragroups_ops if ops.id == armature.jueg_clickable_name_data.clickable_ops][0].event_manage == True:
 					row = layout.row()
-					row.prop(addonpref(), "clickable_mode", text="Mode")
+					row.prop(armature.jueg_clickable_name_data, "clickable_mode", text="Mode")
 			row = layout.row()
-			row.prop(addonpref(), "clickable_events_on", text="Use same event than icon operator")
+			row.prop(armature.jueg_clickable_name_data, "clickable_events_on", text="Use same event than icon operator")
 
 class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 	bl_label = "Operator Detail"
