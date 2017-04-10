@@ -237,6 +237,9 @@ class POSE_PT_jueg_options(bpy.types.Panel):
 					row.prop(armature.jueg_clickable_name_data, "clickable_mode", text="Mode")
 			row = layout.row()
 			row.prop(armature.jueg_clickable_name_data, "clickable_events_on", text="Use same event than icon operator")
+		row = layout.row()
+		row.prop(armature, "jueg_popup_lines_nb", text="Default line nb for popup")
+		row.enabled = addonpref().enable_popup
 
 class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 	bl_label = "Operator Detail"

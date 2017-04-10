@@ -52,7 +52,7 @@ class POSE_OT_jueg_popup(bpy.types.Operator):
                 row.template_list("POSE_UL_jueg_grouptype", "", armature, "jueg_grouptypelist", armature, "jueg_active_grouptype")
 
         row = layout.row()
-        row.template_list("POSE_UL_jueg_bonegroup", "", jueg_active_grouptype, "group_ids", jueg_active_grouptype, "active_bonegroup", rows=6)
+        row.template_list("POSE_UL_jueg_bonegroup", "", jueg_active_grouptype, "group_ids", jueg_active_grouptype, "active_bonegroup", rows=armature.jueg_popup_lines_nb)
 
     def execute(self, context):
         return {'FINISHED'}
