@@ -95,28 +95,29 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 				row_ = col.row()
 				row_.operator("pose.jueg_bonegroup_add", text="Add Dynamic Selection").dyn_selection = True
 
-			col = row.column()
-			row = col.column(align=True)
-			row.operator("pose.jueg_bonegroup_add", icon="ZOOMIN", text="").dyn_selection = False
-			row.operator("pose.bonegroup_remove", icon="ZOOMOUT", text="")
-			row.menu("POSE_MT_jueg_group_specials", icon='DOWNARROW_HLT', text="")
+			if addonpref().edit_mode == True:
+				col = row.column()
+				row = col.column(align=True)
+				row.operator("pose.jueg_bonegroup_add", icon="ZOOMIN", text="").dyn_selection = False
+				row.operator("pose.bonegroup_remove", icon="ZOOMOUT", text="")
+				row.menu("POSE_MT_jueg_group_specials", icon='DOWNARROW_HLT', text="")
 
-			row = col.column(align=True)
-			row.separator()
-			row.operator("pose.jueg_bonegroup_move", icon='TRIA_UP', text="").direction = 'UP'
-			row.operator("pose.jueg_bonegroup_move", icon='TRIA_DOWN', text="").direction = 'DOWN'
-			if len(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids) == 0:
-				row.enabled = False
+				row = col.column(align=True)
+				row.separator()
+				row.operator("pose.jueg_bonegroup_move", icon='TRIA_UP', text="").direction = 'UP'
+				row.operator("pose.jueg_bonegroup_move", icon='TRIA_DOWN', text="").direction = 'DOWN'
+				if len(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids) == 0:
+					row.enabled = False
 
-			if len(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids) > 0: #In case user delete all groups, but grouptype still exists
-				if armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup].current_selection == False:
-					row = col.column(align=True)
-					row.separator()
-					row.operator("pose.jueg_bonegroup_assign", icon_value=pcoll["bonegroup_assign"].icon_id, text="")
-					row.operator("pose.jueg_bonegroup_bone_remove", icon_value=pcoll["bonegroup_remove"].icon_id, text="")
+				if len(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids) > 0: #In case user delete all groups, but grouptype still exists
+					if armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup].current_selection == False:
+						row = col.column(align=True)
+						row.separator()
+						row.operator("pose.jueg_bonegroup_assign", icon_value=pcoll["bonegroup_assign"].icon_id, text="")
+						row.operator("pose.jueg_bonegroup_bone_remove", icon_value=pcoll["bonegroup_remove"].icon_id, text="")
 
-					if len(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids) == 0:
-						row.enabled = False
+						if len(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids) == 0:
+							row.enabled = False
 
 			if addonpref().multitype == False:
 				if check_multitype_not_display(armature.jueg_active_grouptype):
