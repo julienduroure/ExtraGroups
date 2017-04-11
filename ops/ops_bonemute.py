@@ -91,6 +91,9 @@ class POSE_OT_jueg_bonemute(Operator):
 	def invoke(self, context, event):
 		armature = context.object
 
+		# change highlight in UIList
+		armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup = self.index
+
 		if self.force_mode == '':
 			#retrieve event
 			internal_event = ""
