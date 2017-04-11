@@ -53,6 +53,12 @@ class POSE_OT_jueg_export_to_file(bpy.types.Operator, bpy_extras.io_utils.Export
         data['rig_object'] = armature.name
         data['rig_armature'] = armature.data.name
         data['generation_date'] = str(datetime.datetime.now())
+        data['options'] = {}
+        data['options']['popup_line_nb'] = armature.jueg_popup_lines_nb
+        data['options']['name_clickable'] = armature.jueg_clickable_name_data.name_clickable
+        data['options']['clickable_name_ops'] = armature.jueg_clickable_name_data.clickable_ops
+        data['options']['clickable_name_mode'] = armature.jueg_clickable_name_data.clickable_mode
+        data['options']['clickable_name_events_on'] = armature.jueg_clickable_name_data.clickable_events_on
         data['GroupTypes'] = []
         cpt_index = 0
         for grouptype in armature.jueg_grouptypelist:

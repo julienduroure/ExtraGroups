@@ -215,6 +215,13 @@ class POSE_OT_jueg_import_from_file(bpy.types.Operator, bpy_extras.io_utils.Impo
 		for grouptype in creations["GroupTypes"]:
 			import_creation(True, grouptype)
 
+		if "options" in creations.keys():
+			armature.jueg_popup_lines_nb = int(creations['options']['popup_line_nb'])
+			armature.jueg_clickable_name_data.name_clickable = creations['options']['name_clickable']
+			armature.jueg_clickable_name_data.clickable_ops = creations['options']['clickable_name_ops']
+			armature.jueg_clickable_name_data.clickable_mode = creations['options']['clickable_name_mode']
+			armature.jueg_clickable_name_data.clickable_events_on = creations['options']['clickable_name_events_on']
+
 		return {'FINISHED'}
 
 class POSE_OT_jueg_import_from_selection_sets(bpy.types.Operator):
