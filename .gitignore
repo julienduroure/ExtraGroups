@@ -5,3 +5,4 @@ old/
 TODO.txt
 __pycache__/*
 ops/__pycache__/*
+doc/*
