@@ -30,7 +30,7 @@ bl_info = {
 	"blender": (2, 78, 0),
 	"description": "Extra Groups Tools",
 	"location": "Toolshelf > Extra Groups Tab",
-	"wiki_url": "http://blerifa.com/tools/ExtraGroups/",
+	"wiki_url": "http://blerifa.com/en/tools/ExtraGroups/",
 	"tracker_url": "https://github.com/julienduroure/BleRiFa/issues/",
 	"category": "Animation"
 }
