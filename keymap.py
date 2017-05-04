@@ -27,8 +27,6 @@ import bpy
 
 from .ui_popup import *
 
-KEYMAPS = []
-
 def register_keymap():
 	# register keymaps
 
@@ -36,9 +34,6 @@ def register_keymap():
 	km = wm.keyconfigs.active.keymaps['Pose']
 
 	kmi = km.keymap_items.new(POSE_OT_jueg_popup.bl_idname, addonpref().keymap_key, 'PRESS', alt=addonpref().keymap_alt , ctrl=addonpref().keymap_ctrl, shift=addonpref().keymap_shift)
-	KEYMAPS.append((km, kmi))
 
 def unregister_keymap():
-	for km, kmi in KEYMAPS:
-		km.keymap_items.remove(kmi)
-	KEYMAPS.clear()
+	km.keymap_items.remove(km.keymap_items[POSE_OT_jueg_popup.bl_idname])
