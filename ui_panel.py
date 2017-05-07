@@ -271,19 +271,6 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 		row_global = layout.row()
 		box = row_global.box()
 		row = box.row()
-		row.prop(ops, "name", text="Name")
-		row = box.row()
-		row.prop(ops, "ops_type", text="Type")
-		row.enabled = ops.user_defined
-		row = box.row()
-		row.prop(ops, "ops_exe", text="Operator")
-		row.enabled = ops.user_defined
-		row = box.row()
-		row.prop(ops, "ops_context", text="Operator")
-		row.enabled = ops.user_defined
-		row_global = layout.row()
-		box = row_global.box()
-		row = box.row()
 		col = row.column()
 		row_ = col.row()
 		if ops.icons.icon_on.expand == False:
@@ -339,16 +326,6 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 					for i in range(ops.icons.amount - len(get_filter_icons(ops.icons.icon_off.search)) % ops.icons.amount):
 						row_.label("")
 		row_global = layout.row()
-		row_global.prop(ops, "ok_for_current_sel", text="Enabled for 'Dynamic Selection'")
-		row_global.enabled = ops.user_defined
-		if ops.user_defined == True:
-			row_global = layout.row()
-			file_ = ops.id + ".py"
-			if file_ in bpy.data.texts:
-				row_global.operator("pose.jueg_text_display", text="Edit Source").text_id = file_
-			else:
-				row_global.label("Warning : Text doesn't exist anymore", icon="ERROR")
-		row_global = layout.row()
 		row_global.prop(ops, "event_manage", text="Event Manage")
 		row_global.enabled = ops.user_defined
 		if ops.event_manage == True:
@@ -388,6 +365,30 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 				row = box.row()
 				row.label("Error: Same event assigned to more than one mode", icon="ERROR")
 
+		if addonpref().dev_mode == True:
+			row_global = layout.row()
+			box = row_global.box()
+			row = box.row()
+			row.prop(ops, "name", text="Name")
+			row = box.row()
+			row.prop(ops, "ops_type", text="Type")
+			row.enabled = ops.user_defined
+			row = box.row()
+			row.prop(ops, "ops_exe", text="Operator")
+			row.enabled = ops.user_defined
+			row = box.row()
+			row.prop(ops, "ops_context", text="Operator")
+			row.enabled = ops.user_defined
+		row_global = layout.row()
+		row_global.prop(ops, "ok_for_current_sel", text="Enabled for 'Dynamic Selection'")
+		row_global.enabled = ops.user_defined
+		if ops.user_defined == True:
+			row_global = layout.row()
+			file_ = ops.id + ".py"
+			if file_ in bpy.data.texts:
+				row_global.operator("pose.jueg_text_display", text="Edit Source").text_id = file_
+			else:
+				row_global.label("Warning : Text doesn't exist anymore", icon="ERROR")
 
 class POSE_PT_jueg_reloaddata(bpy.types.Panel):
 	bl_label = "Reload Data"
