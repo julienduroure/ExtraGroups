@@ -353,9 +353,10 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 				row.prop(ops.events[ops.active_event], "active")
 				row = box.row()
 				row.prop(ops.events[ops.active_event], "event")
-				row = box.row()
-				row.prop(ops.events[ops.active_event], "mode")
-				row.enabled = ops.user_defined
+				if addonpref().dev_mode == True:
+					row = box.row()
+					row.prop(ops.events[ops.active_event], "mode")
+					row.enabled = ops.user_defined
 				row = box.row()
 				row.prop(ops.events[ops.active_event], "solo")
 				row.prop(ops.events[ops.active_event], "mirror")
