@@ -24,12 +24,12 @@
 #
 ##########################################################################################
 bl_info = {
-	"name": "Extra Groups",
+	"name": "ExtraGroups",
 	"version": (1, 0, 0),
 	"author": "Julien Duroure",
 	"blender": (2, 78, 0),
-	"description": "Extra Groups Tools",
-	"location": "Toolshelf > Extra Groups Tab",
+	"description": "ExtraGroups Tools",
+	"location": "3D View > Toolshelf > ExtraGroups Tab, popup in 3D View",
 	"wiki_url": "http://blerifa.com/en/tools/ExtraGroups/",
 	"tracker_url": "https://github.com/julienduroure/BleRiFa/issues/",
 	"category": "Animation"
