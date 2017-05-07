@@ -36,4 +36,6 @@ def register_keymap():
 	kmi = km.keymap_items.new(POSE_OT_jueg_popup.bl_idname, addonpref().keymap_key, 'PRESS', alt=addonpref().keymap_alt , ctrl=addonpref().keymap_ctrl, shift=addonpref().keymap_shift)
 
 def unregister_keymap():
+	wm = bpy.context.window_manager
+	km = wm.keyconfigs.active.keymaps['Pose']	
 	km.keymap_items.remove(km.keymap_items[POSE_OT_jueg_popup.bl_idname])
