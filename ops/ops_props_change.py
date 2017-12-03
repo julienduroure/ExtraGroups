@@ -164,7 +164,7 @@ class POSE_OT_jueg_props_change(Operator):
 		if current_selection == False:
 			self.bones = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].bone_ids
 		else:
-			bones = []
+			self.bones = []
 			for bone in armature.pose.bones:
 				if bone.bone.select == True:
 					self.bones.append(bone)
