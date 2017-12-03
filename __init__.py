@@ -25,9 +25,9 @@
 ##########################################################################################
 bl_info = {
 	"name": "ExtraGroups",
-	"version": (1, 0, 0),
+	"version": (1, 0, 1),
 	"author": "Julien Duroure",
-	"blender": (2, 78, 0),
+	"blender": (2, 79, 0),
 	"description": "ExtraGroups Tools",
 	"location": "3D View > Toolshelf > ExtraGroups Tab, popup in 3D View",
 	"wiki_url": "http://blerifa.com/en/tools/ExtraGroups/",
