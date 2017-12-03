@@ -64,10 +64,10 @@ class POSE_OT_jueg_bonemute(Operator):
 				muting = False
 
 		if on_off == True:
-			if armature.animation_data and bone.name in armature.animation_data.action.groups:
+			if armature.animation_data and armature.animation_data.action and bone.name in armature.animation_data.action.groups:
 				for channel in armature.animation_data.action.groups[bone.name].channels:
 					channel.mute = muting
-			if armature.animation_data:
+			if armature.animation_data and armature.animation_data.action:
 				for fc in armature.animation_data.action.fcurves:
 					if not fc.group:
 						if fc.data_path.startswith("pose.bones"):
@@ -76,10 +76,10 @@ class POSE_OT_jueg_bonemute(Operator):
 							if bone.name == bone_name:
 								fc.mute = muting
 		else:
-			if armature.animation_data and bone.name in armature.animation_data.action.groups:
+			if armature.animation_data and armature.animation_data.action and bone.name in armature.animation_data.action.groups:
 				for channel in armature.animation_data.action.groups[bone.name].channels:
 					channel.mute = muting
-			if armature.animation_data:
+			if armature.animation_data and armature.animation_data.action:
 				for fc in armature.animation_data.action.fcurves:
 					if not fc.group:
 						if fc.data_path.startswith("pose.bones"):
