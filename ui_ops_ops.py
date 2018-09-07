@@ -89,7 +89,7 @@ class POSE_OT_jueg_ops_add(bpy.types.Operator):
 			# now that id is generated, generate a new file
 			textname = ops.id + ".py"
 			if textname in bpy.data.texts:
-				script = bpy.data.textx[textname]
+				script = bpy.data.texts[textname]
 				script.clear()
 			else:
 				script = bpy.data.texts.new(textname)
