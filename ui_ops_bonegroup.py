@@ -33,7 +33,7 @@ class POSE_OT_jueg_bonegroup_add(bpy.types.Operator):
 	bl_label = "Add Bone Group"
 	bl_options = {'REGISTER'}
 
-	dyn_selection = bpy.props.BoolProperty()
+	dyn_selection : bpy.props.BoolProperty()
 
 	@classmethod
 	def poll(self, context):
@@ -120,7 +120,7 @@ class POSE_OT_jueg_group_copy(bpy.types.Operator):
 	bl_label = "Copy Limb"
 	bl_options = {'REGISTER'}
 
-	mirror = bpy.props.BoolProperty(name="Mirror", default=False)
+	mirror : bpy.props.BoolProperty(name="Mirror", default=False)
 
 	@classmethod
 	def poll(self, context):
@@ -180,7 +180,7 @@ class POSE_OT_jueg_bonegroup_move(bpy.types.Operator):
 	bl_label = "Move Bone Group"
 	bl_options = {'REGISTER'}
 
-	direction = bpy.props.StringProperty()
+	direction : bpy.props.StringProperty()
 
 	@classmethod
 	def poll(self, context):

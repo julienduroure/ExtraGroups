@@ -42,10 +42,10 @@ class POSE_OT_jueg_props_change(Operator):
 	bl_label = "Props"
 
 
-	ops_id		 = StringProperty()
-	index		 = IntProperty()
-	reset_solo   = BoolProperty()
-	force_mode   = StringProperty(default="")
+	ops_id		 : StringProperty()
+	index		 : IntProperty()
+	reset_solo   : BoolProperty()
+	force_mode   : StringProperty(default="")
 
 	@classmethod
 	def poll(self, context):
@@ -191,13 +191,13 @@ class POSE_OT_jueg_props_change(Operator):
 				row_ = layout.row()
 				box = row_.box()
 				row = box.row()
-				row.label(bone.name)
+				row.label(text=bone.name)
 				for prop in armature.pose.bones[bone.name].keys():
 					if prop != "_RNA_UI":
 						row = box.row()
 						row.prop(armature.pose.bones[bone.name], '["' + prop + '"]')
 		if global_found == False:
-			layout.label("No custom properties")
+			layout.label(text="No custom properties")
 
 	def execute(self, context):
 		return {'FINISHED'}

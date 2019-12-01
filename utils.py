@@ -28,7 +28,7 @@ from .globs import *
 
 #shortcut to prefs
 def addonpref():
-	user_preferences = bpy.context.user_preferences
+	user_preferences = bpy.context.preferences
 	return user_preferences.addons[__package__].preferences
 
 def get_default_ops_id():

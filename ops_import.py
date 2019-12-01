@@ -205,7 +205,7 @@ class POSE_OT_jueg_import_from_file(bpy.types.Operator, bpy_extras.io_utils.Impo
 
 		filename_ext = ".txt"
 
-		filter_glob = bpy.props.StringProperty(default="*.txt", options={'HIDDEN'}, maxlen=255,)
+		filter_glob : bpy.props.StringProperty(default="*.txt", options={'HIDDEN'}, maxlen=255,)
 
 		f = open(self.filepath, 'r', encoding='utf-8')
 		data = f.read()

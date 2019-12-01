@@ -33,7 +33,7 @@ class POSE_OT_jueg_grouptype_move(bpy.types.Operator):
 	bl_label = "Move Group Type"
 	bl_options = {'REGISTER'}
 
-	direction = bpy.props.StringProperty()
+	direction : bpy.props.StringProperty()
 
 	@classmethod
 	def poll(self, context):

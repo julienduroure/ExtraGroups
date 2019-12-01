@@ -32,7 +32,7 @@ class POSE_OT_jueg_text_display(bpy.types.Operator):
 	bl_label = "Display Text"
 	bl_options = {'REGISTER'}
 
-	text_id = bpy.props.StringProperty()
+	text_id : bpy.props.StringProperty()
 
 	@classmethod
 	def poll(self, context):
@@ -64,7 +64,7 @@ class TEXT_OT_jueg_text_remove(bpy.types.Operator):
 	bl_label = "Remove Text"
 	bl_options = {'REGISTER'}
 
-	text_id = bpy.props.StringProperty()
+	text_id : bpy.props.StringProperty()
 
 	@classmethod
 	def poll(self, context):

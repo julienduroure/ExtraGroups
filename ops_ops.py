@@ -36,8 +36,8 @@ class POSE_OT_jueg_select_icon(bpy.types.Operator):
 	bl_idname = "jueg.select_icon"
 	bl_label  = "Select Icon"
 
-	icon_type = bpy.props.StringProperty(name="icon on or off")
-	icon      = bpy.props.StringProperty(name="icon")
+	icon_type : bpy.props.StringProperty(name="icon on or off")
+	icon      : bpy.props.StringProperty(name="icon")
 
 	@classmethod
 	def poll(self, context):

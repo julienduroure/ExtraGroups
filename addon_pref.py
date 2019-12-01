@@ -29,35 +29,35 @@ from .globs import *
 class jueg_AddonPreferences(bpy.types.AddonPreferences):
 	bl_idname = __package__
 
-	edit_mode       = bpy.props.BoolProperty(default= False)
-	options			= bpy.props.BoolProperty(default= False)
-	import_export 	= bpy.props.BoolProperty(default= False)
+	edit_mode       : bpy.props.BoolProperty(default= False)
+	options			: bpy.props.BoolProperty(default= False)
+	import_export 	: bpy.props.BoolProperty(default= False)
 
-	multitype       = bpy.props.BoolProperty(default= False)
-	use_color       = bpy.props.BoolProperty(default= False)
-	use_keyingset   = bpy.props.BoolProperty(default= False)
-	use_manipulator = bpy.props.BoolProperty(default= False)
+	multitype       : bpy.props.BoolProperty(default= False)
+	use_color       : bpy.props.BoolProperty(default= False)
+	use_keyingset   : bpy.props.BoolProperty(default= False)
+	use_manipulator : bpy.props.BoolProperty(default= False)
 
-	dev_mode		= bpy.props.BoolProperty(default= False)
-	enable_popup    = bpy.props.BoolProperty(default= True, update=update_enable_popup_cb)
-	textremove      = bpy.props.BoolProperty(default= True )
+	dev_mode		: bpy.props.BoolProperty(default= False)
+	enable_popup    : bpy.props.BoolProperty(default= True, update=update_enable_popup_cb)
+	textremove      : bpy.props.BoolProperty(default= True )
 
-	keymap_key		= bpy.props.StringProperty(default='Q', update=update_keymap_cb)
-	keymap_shift	= bpy.props.BoolProperty(default=False, update=update_keymap_cb)
-	keymap_ctrl		= bpy.props.BoolProperty(default=False, update=update_keymap_cb)
-	keymap_alt		= bpy.props.BoolProperty(default=False, update=update_keymap_cb)
+	keymap_key		: bpy.props.StringProperty(default='Q', update=update_keymap_cb)
+	keymap_shift	: bpy.props.BoolProperty(default=False, update=update_keymap_cb)
+	keymap_ctrl		: bpy.props.BoolProperty(default=False, update=update_keymap_cb)
+	keymap_alt		: bpy.props.BoolProperty(default=False, update=update_keymap_cb)
 
-	internal_keyingset = bpy.props.StringProperty(default="ExtraGroups KeyingSet")
+	internal_keyingset : bpy.props.StringProperty(default="ExtraGroups KeyingSet")
 
-	category = bpy.props.StringProperty(name="Category", default="ExtraGroups", update=update_panel_cb)
+	category : bpy.props.StringProperty(name="Category", default="ExtraGroups", update=update_panel_cb)
 
-	xx_popup_display_multitype = bpy.props.BoolProperty(default=False)
-	xx_sides = bpy.props.CollectionProperty(type=Jueg_SideItem)
-	xx_active_side = bpy.props.IntProperty()
+	xx_popup_display_multitype : bpy.props.BoolProperty(default=False)
+	xx_sides : bpy.props.CollectionProperty(type=Jueg_SideItem)
+	xx_active_side : bpy.props.IntProperty()
 
-	tab1 = bpy.props.BoolProperty(default=False)
-	tab2 = bpy.props.BoolProperty(default=False)
-	tab3 = bpy.props.BoolProperty(default=False)
+	tab1 : bpy.props.BoolProperty(default=False)
+	tab2 : bpy.props.BoolProperty(default=False)
+	tab3 : bpy.props.BoolProperty(default=False)
 
 	def draw(self, context):
 		armature = context.active_object
@@ -73,7 +73,7 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 		elif check_addon_update_needed() == True and linked == True:
 			row_global.operator("pose.jueg_reload_linked_data", text="Reload data from library")
 			row_global = layout.row()
-			row_global.label("Be sure to update your library file first", icon="ERROR")
+			row_global.label(text="Be sure to update your library file first", icon="ERROR")
 
 
 
@@ -113,9 +113,9 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 		row_global.prop(self, "tab3", text="Danger Zone", icon='SOLO_ON')
 		if self.tab3 == True:
 			row_global = layout.row()
-			row_global.label("In case addon goes wrong, you can delete all data of this addon")
+			row_global.label(text="In case addon goes wrong, you can delete all data of this addon")
 			row_global = layout.row()
-			row_global.label("I repeat : THIS WILL ERASE ALL THIS ADDON DATA")
+			row_global.label(text="I repeat : THIS WILL ERASE ALL THIS ADDON DATA")
 			row_global = layout.row()
 			row_global.operator("pose.jueg_erase_data", text="ERASE ALL", icon="ERROR")
 

@@ -42,10 +42,10 @@ class POSE_OT_jueg_motionpath(Operator):
 	bl_label = "Motion Path"
 
 
-	ops_id		 = StringProperty()
-	index		 = IntProperty()
-	reset_solo   = BoolProperty()
-	force_mode   = StringProperty()
+	ops_id		 : StringProperty()
+	index		 : IntProperty()
+	reset_solo   : BoolProperty()
+	force_mode   : StringProperty()
 
 	@classmethod
 	def poll(self, context):

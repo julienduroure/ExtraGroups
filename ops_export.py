@@ -43,7 +43,7 @@ class POSE_OT_jueg_export_to_file(bpy.types.Operator, bpy_extras.io_utils.Export
 
     filename_ext = ".txt"
 
-    filter_glob = bpy.props.StringProperty(default="*.txt", options={'HIDDEN'}, maxlen=255,)
+    filter_glob : bpy.props.StringProperty(default="*.txt", options={'HIDDEN'}, maxlen=255,)
 
 
     def execute(self, context):

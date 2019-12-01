@@ -31,7 +31,7 @@ from .utils import *
 class POSE_PT_jueg_grouptype(bpy.types.Panel):
 	bl_label = "Group Type"
 	bl_space_type = 'VIEW_3D'
-	bl_region_type = 'TOOLS'
+	bl_region_type = 'UI'
 	bl_category = "Extra Groups"
 
 	@classmethod
@@ -53,8 +53,8 @@ class POSE_PT_jueg_grouptype(bpy.types.Panel):
 
 		col = row.column()
 		row = col.column(align=True)
-		row.operator("pose.jueg_grouptype_add", icon="ZOOMIN", text="")
-		row.operator("pose.jueg_grouptype_remove", icon="ZOOMOUT", text="")
+		row.operator("pose.jueg_grouptype_add", icon="ADD", text="")
+		row.operator("pose.jueg_grouptype_remove", icon="REMOVE", text="")
 		row = col.column(align=True)
 		row.separator()
 		row.operator("pose.jueg_grouptype_move", icon='TRIA_UP', text="").direction = 'UP'
@@ -66,7 +66,7 @@ class POSE_PT_jueg_grouptype(bpy.types.Panel):
 class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 	bl_label = "Bone Group"
 	bl_space_type = 'VIEW_3D'
-	bl_region_type = 'TOOLS'
+	bl_region_type = 'UI'
 	bl_category = "Extra Groups"
 
 	@classmethod
@@ -98,8 +98,8 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 			if addonpref().edit_mode == True:
 				col = row.column()
 				row = col.column(align=True)
-				row.operator("pose.jueg_bonegroup_add", icon="ZOOMIN", text="").dyn_selection = False
-				row.operator("pose.bonegroup_remove", icon="ZOOMOUT", text="")
+				row.operator("pose.jueg_bonegroup_add", icon="ADD", text="").dyn_selection = False
+				row.operator("pose.bonegroup_remove", icon="REMOVE", text="")
 				row.menu("POSE_MT_jueg_group_specials", icon='DOWNARROW_HLT', text="")
 
 				row = col.column(align=True)
@@ -122,7 +122,7 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 			if addonpref().multitype == False:
 				if check_multitype_not_display(armature.jueg_active_grouptype):
 					row = layout.row()
-					row.label("You have MultiType not displayed", icon="ERROR")
+					row.label(text="You have MultiType not displayed", icon="ERROR")
 
 			row = layout.row()
 			row.prop(addonpref(), "edit_mode", text="Edit Mode")
@@ -135,14 +135,14 @@ class POSE_PT_jueg_bonegroup(bpy.types.Panel):
 					row.prop_search(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup], "active_bone", armature.data, "bones", text="Main Bone")
 					if armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup].active_bone != "" and armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup].active_bone not in [bone.name for bone in armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup].bone_ids]:
 						row = layout.row(align=True)
-						row.label("Active bone is not in group!", icon='ERROR')
+						row.label(text="Active bone is not in group!", icon='ERROR')
 
 					if addonpref().use_keyingset == True and armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup].current_selection == False:
 						row = layout.row(align=True)
 						row.prop_search(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup], "keying", bpy.context.scene, "keying_sets", text="KeyingSet")
 					if addonpref().use_manipulator == True:
 						row = layout.row(align=True)
-						row.label("transformation")
+						row.label(text="transformation")
 						row.prop(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup], "manipulator", icon_only=True, icon='MAN_TRANS', index=0)
 						row.prop(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup], "manipulator", icon_only=True, icon='MAN_ROT', index=1)
 						row.prop(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_bonegroup], "manipulator", icon_only=True, icon='MAN_SCALE', index=2)
@@ -162,7 +162,7 @@ class POSE_MT_jueg_group_specials(bpy.types.Menu):
 class POSE_PT_jueg_opslist(bpy.types.Panel):
 	bl_label = "Operator List"
 	bl_space_type = 'VIEW_3D'
-	bl_region_type = 'TOOLS'
+	bl_region_type = 'UI'
 	bl_category = "Extra Groups"
 
 	@classmethod
@@ -188,10 +188,10 @@ class POSE_PT_jueg_opslist(bpy.types.Panel):
 		col = row.column()
 		row = col.column(align=True)
 		sub = row.row(align=True)
-		sub.operator("pose.jueg_ops_add", icon="ZOOMIN", text="")
+		sub.operator("pose.jueg_ops_add", icon="ADD", text="")
 		sub.enabled = addonpref().dev_mode
 		sub = row.row(align=True)
-		sub.operator("pose.jueg_ops_remove", icon="ZOOMOUT", text="")
+		sub.operator("pose.jueg_ops_remove", icon="REMOVE", text="")
 		sub.enabled = addonpref().dev_mode and [e for i,e in enumerate(armature.jueg_extragroups_ops) if e.id == armature.jueg_grouptypelist[armature.jueg_active_grouptype].ops_display[armature.jueg_grouptypelist[armature.jueg_active_grouptype].active_ops].id][0].user_defined
 		row = col.column(align=True)
 		row.separator()
@@ -201,7 +201,7 @@ class POSE_PT_jueg_opslist(bpy.types.Panel):
 class POSE_PT_jueg_options(bpy.types.Panel):
 	bl_label = "Options"
 	bl_space_type = 'VIEW_3D'
-	bl_region_type = 'TOOLS'
+	bl_region_type = 'UI'
 	bl_category = "Extra Groups"
 
 	@classmethod
@@ -245,7 +245,7 @@ class POSE_PT_jueg_options(bpy.types.Panel):
 class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 	bl_label = "Operator Detail"
 	bl_space_type = 'VIEW_3D'
-	bl_region_type = 'TOOLS'
+	bl_region_type = 'UI'
 	bl_category = "Extra Groups"
 
 	@classmethod
@@ -287,7 +287,7 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 			row_.prop(ops.icons.icon_on, "search", icon="VIEWZOOM", text="")
 			row_ = col.row()
 			if len(get_filter_icons(ops.icons.icon_on.search)) == 0:
-				row_.label("No icons found")
+				row_.label(text="No icons found")
 			else:
 				for i, icon in enumerate(get_filter_icons(ops.icons.icon_on.search)):
 					if i % ops.icons.amount == 0:
@@ -296,7 +296,7 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 					op.icon_type = "icon_on"
 					op.icon = icon
 				for i in range(ops.icons.amount - len(get_filter_icons(ops.icons.icon_on.search)) % ops.icons.amount):
-					row_.label("")
+					row_.label(text="")
 		if ops.ops_type == "BOOL":
 			row = box.row()
 			col = row.column()
@@ -315,7 +315,7 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 				row_.prop(ops.icons.icon_off, "search", icon="VIEWZOOM", text="")
 				row_ = col.row()
 				if len(get_filter_icons(ops.icons.icon_off.search)) == 0:
-					row_.label("No icons found")
+					row_.label(text="No icons found")
 				else:
 					for i, icon in enumerate(get_filter_icons(ops.icons.icon_off.search)):
 						if i % ops.icons.amount == 0:
@@ -324,7 +324,7 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 						op.icon_type = "icon_off"
 						op.icon = icon
 					for i in range(ops.icons.amount - len(get_filter_icons(ops.icons.icon_off.search)) % ops.icons.amount):
-						row_.label("")
+						row_.label(text="")
 		row_global = layout.row()
 		row_global.prop(ops, "event_manage", text="Event Manage")
 		row_global.enabled = ops.user_defined
@@ -337,10 +337,10 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 			col = row.column()
 			row = col.column(align=True)
 			sub = row.row(align=True)
-			sub.operator("pose.jueg_event_add", icon="ZOOMIN", text="")
+			sub.operator("pose.jueg_event_add", icon="ADD", text="")
 			sub.enabled = ops.user_defined
 			sub = row.row(align=True)
-			sub.operator("pose.jueg_event_remove", icon="ZOOMOUT", text="")
+			sub.operator("pose.jueg_event_remove", icon="REMOVE", text="")
 			sub.enabled = ops.user_defined
 			row = col.column(align=True)
 			row.separator()
@@ -364,7 +364,7 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 
 			if check_duplicate_event(jueg_active_grouptype.active_ops) == True:
 				row = box.row()
-				row.label("Error: Same event assigned to more than one mode", icon="ERROR")
+				row.label(text="Error: Same event assigned to more than one mode", icon="ERROR")
 
 		if addonpref().dev_mode == True:
 			row_global = layout.row()
@@ -389,12 +389,12 @@ class POSE_PT_jueg_opsdetail(bpy.types.Panel):
 			if file_ in bpy.data.texts:
 				row_global.operator("pose.jueg_text_display", text="Edit Source").text_id = file_
 			else:
-				row_global.label("Warning : Text doesn't exist anymore", icon="ERROR")
+				row_global.label(text="Warning : Text doesn't exist anymore", icon="ERROR")
 
 class POSE_PT_jueg_reloaddata(bpy.types.Panel):
 	bl_label = "Reload Data"
 	bl_space_type = 'VIEW_3D'
-	bl_region_type = 'TOOLS'
+	bl_region_type = 'UI'
 	bl_category = "Extra Groups"
 
 	@classmethod
@@ -417,12 +417,12 @@ class POSE_PT_jueg_reloaddata(bpy.types.Panel):
 		row.operator("pose.jueg_reload_linked_data", text="Reload data from library")
 		if check_addon_update_needed() == True:
 			row = layout.row()
-			row.label("Be sure to update your library file first", icon="ERROR")
+			row.label(text="Be sure to update your library file first", icon="ERROR")
 
 class POSE_PT_jueg_update_addon(bpy.types.Panel):
 	bl_label = "Update Data"
 	bl_space_type = 'VIEW_3D'
-	bl_region_type = 'TOOLS'
+	bl_region_type = 'UI'
 	bl_category = "Extra Groups"
 
 	@classmethod
@@ -448,7 +448,7 @@ class POSE_PT_jueg_update_addon(bpy.types.Panel):
 class POSE_PT_jueg_initdata(bpy.types.Panel):
 	bl_label = "Import / Export"
 	bl_space_type = 'VIEW_3D'
-	bl_region_type = 'TOOLS'
+	bl_region_type = 'UI'
 	bl_category = "Extra Groups"
 
 	@classmethod

@@ -46,11 +46,11 @@ def clickable_mode_items(self, context):
 	return items
 
 class Jueg_BoneEntry(bpy.types.PropertyGroup):
-	name = bpy.props.StringProperty(name="Bone Name")
+	name: bpy.props.StringProperty(name="Bone Name")
 
 class Jueg_OnOffEntry(bpy.types.PropertyGroup):
-	id      = bpy.props.StringProperty(name="Id of Ops")
-	on_off  = bpy.props.BoolProperty(name="On_Off")
+	id      : bpy.props.StringProperty(name="Id of Ops")
+	on_off  : bpy.props.BoolProperty(name="On_Off")
 
 jueg_orientation_items = [
 	("GLOBAL", "Global", "", 1),
@@ -68,34 +68,34 @@ jueg_orientation_items = [
 	# reload linked data
 
 class Jueg_BoneGroup(bpy.types.PropertyGroup):
-	name              = bpy.props.StringProperty(name="Group Name")
-	bone_ids          = bpy.props.CollectionProperty(type=Jueg_BoneEntry)
-	on_off            = bpy.props.CollectionProperty(type=Jueg_OnOffEntry)
-	solo              = bpy.props.CollectionProperty(type=Jueg_OnOffEntry)
-	current_selection = bpy.props.BoolProperty()
-	color             = bpy.props.FloatVectorProperty(name="Color", subtype='COLOR', default=[0.0,0.0,0.0], min=0.0, max=1.0)
-	keying            = bpy.props.StringProperty(name="Keying Set")
-	manipulator		  = bpy.props.BoolVectorProperty(name="Manipulator", default=(True, False, False), size=3)
-	orientation       = bpy.props.EnumProperty(items=jueg_orientation_items, name="Orientation")
-	active_bone       = bpy.props.StringProperty(name="Bone Name")
+	name              : bpy.props.StringProperty(name="Group Name")
+	bone_ids          : bpy.props.CollectionProperty(type=Jueg_BoneEntry)
+	on_off            : bpy.props.CollectionProperty(type=Jueg_OnOffEntry)
+	solo              : bpy.props.CollectionProperty(type=Jueg_OnOffEntry)
+	current_selection : bpy.props.BoolProperty()
+	color             : bpy.props.FloatVectorProperty(name="Color", subtype='COLOR', default=[0.0,0.0,0.0], min=0.0, max=1.0)
+	keying            : bpy.props.StringProperty(name="Keying Set")
+	manipulator		  : bpy.props.BoolVectorProperty(name="Manipulator", default=(True, False, False), size=3)
+	orientation       : bpy.props.EnumProperty(items=jueg_orientation_items, name="Orientation")
+	active_bone       : bpy.props.StringProperty(name="Bone Name")
 
 class Jueg_OpsDisplay(bpy.types.PropertyGroup):
-	id   = bpy.props.StringProperty(name="Unique id")
-	display = bpy.props.BoolProperty()
+	id   : bpy.props.StringProperty(name="Unique id")
+	display : bpy.props.BoolProperty()
 
 class Jueg_GroupType(bpy.types.PropertyGroup):
-	name = bpy.props.StringProperty(name="Group Type Name")
-	group_ids = bpy.props.CollectionProperty(type=Jueg_BoneGroup)
-	active_bonegroup = bpy.props.IntProperty()
-	ops_display = bpy.props.CollectionProperty(type=Jueg_OpsDisplay)
-	active_ops = bpy.props.IntProperty()
+	name : bpy.props.StringProperty(name="Group Type Name")
+	group_ids : bpy.props.CollectionProperty(type=Jueg_BoneGroup)
+	active_bonegroup : bpy.props.IntProperty()
+	ops_display : bpy.props.CollectionProperty(type=Jueg_OpsDisplay)
+	active_ops : bpy.props.IntProperty()
 
 class Jueg_menu_temp_data(bpy.types.PropertyGroup):
-	event  = bpy.props.StringProperty(name="Event")
-	index  = bpy.props.IntProperty(name="Index")
-	ops_id = bpy.props.StringProperty(name="Ops ID")
-	solo   = bpy.props.BoolProperty(name="Solo")
-	mirror = bpy.props.BoolProperty(name="Mirror")
+	event  : bpy.props.StringProperty(name="Event")
+	index  : bpy.props.IntProperty(name="Index")
+	ops_id : bpy.props.StringProperty(name="Ops ID")
+	solo   : bpy.props.BoolProperty(name="Solo")
+	mirror : bpy.props.BoolProperty(name="Mirror")
 
 jueg_ops_type_items = [
 	("BOOL", "On/Off", "", 1),
@@ -119,21 +119,21 @@ jueg_ops_context = [
 ]
 
 class Jueg_OpsDetails_IconProp(bpy.types.PropertyGroup):
-	expand = bpy.props.BoolProperty(name="Expand", description="Expand, to display all icons at once", default=False)
-	search = bpy.props.StringProperty(name="Search", description="Search for icons by name", default="")
+	expand : bpy.props.BoolProperty(name="Expand", description="Expand, to display all icons at once", default=False)
+	search : bpy.props.StringProperty(name="Search", description="Search for icons by name", default="")
 
 class Jueg_OpsDetails_DisplayProp(bpy.types.PropertyGroup):
-	icon_on  = bpy.props.PointerProperty(type=Jueg_OpsDetails_IconProp)
-	icon_off = bpy.props.PointerProperty(type=Jueg_OpsDetails_IconProp)
-	amount   = bpy.props.IntProperty(default=10)
+	icon_on  : bpy.props.PointerProperty(type=Jueg_OpsDetails_IconProp)
+	icon_off : bpy.props.PointerProperty(type=Jueg_OpsDetails_IconProp)
+	amount   : bpy.props.IntProperty(default=10)
 
 class Jueg_EventData(bpy.types.PropertyGroup):
-	label  = bpy.props.StringProperty(name="label")
-	mode   = bpy.props.StringProperty(name="mode")
-	event  = bpy.props.EnumProperty(items=jueg_event_modif)
-	solo   = bpy.props.BoolProperty()
-	active = bpy.props.BoolProperty(default=True, name="Active")
-	mirror = bpy.props.BoolProperty(default=False, name="Mirror")
+	label  : bpy.props.StringProperty(name="label")
+	mode   : bpy.props.StringProperty(name="mode")
+	event  : bpy.props.EnumProperty(items=jueg_event_modif)
+	solo   : bpy.props.BoolProperty()
+	active : bpy.props.BoolProperty(default=True, name="Active")
+	mirror : bpy.props.BoolProperty(default=False, name="Mirror")
 
 #Dev note :
 #Any new data needs update in
@@ -141,30 +141,30 @@ class Jueg_EventData(bpy.types.PropertyGroup):
 	# POSE_OT_jueg_reload_linked_data
 
 class Jueg_OpsItem(bpy.types.PropertyGroup):
-	id   = bpy.props.StringProperty(name="Unique id")
-	name = bpy.props.StringProperty(name="Ops Name")
-	ops_exe = bpy.props.StringProperty(name="Ops Exe")
-	ops_type = bpy.props.EnumProperty(items=jueg_ops_type_items)
-	icon_on	= bpy.props.StringProperty(name="Icon On")
-	icon_off   = bpy.props.StringProperty(name="Icon Off")
-	ok_for_current_sel = bpy.props.BoolProperty()
-	ops_context = bpy.props.EnumProperty(items=jueg_ops_context, name="Context")
-	user_defined = bpy.props.BoolProperty()
-	event_manage = bpy.props.BoolProperty(default=False)
-	events = bpy.props.CollectionProperty(type=Jueg_EventData)
-	active_event = bpy.props.IntProperty(default=0)
-	icons = bpy.props.PointerProperty(type=Jueg_OpsDetails_DisplayProp)
-	magic_nb = bpy.props.IntProperty(default=0)
+	id   : bpy.props.StringProperty(name="Unique id")
+	name : bpy.props.StringProperty(name="Ops Name")
+	ops_exe : bpy.props.StringProperty(name="Ops Exe")
+	ops_type : bpy.props.EnumProperty(items=jueg_ops_type_items)
+	icon_on	: bpy.props.StringProperty(name="Icon On")
+	icon_off   : bpy.props.StringProperty(name="Icon Off")
+	ok_for_current_sel : bpy.props.BoolProperty()
+	ops_context : bpy.props.EnumProperty(items=jueg_ops_context, name="Context")
+	user_defined : bpy.props.BoolProperty()
+	event_manage : bpy.props.BoolProperty(default=False)
+	events : bpy.props.CollectionProperty(type=Jueg_EventData)
+	active_event : bpy.props.IntProperty(default=0)
+	icons : bpy.props.PointerProperty(type=Jueg_OpsDetails_DisplayProp)
+	magic_nb : bpy.props.IntProperty(default=0)
 
 class Jueg_SideItem(bpy.types.PropertyGroup):
-	name_R = bpy.props.StringProperty(name="Side name R")
-	name_L = bpy.props.StringProperty(name="Side name L")
+	name_R : bpy.props.StringProperty(name="Side name R")
+	name_L : bpy.props.StringProperty(name="Side name L")
 
 class Jueg_Clickable_Name(bpy.types.PropertyGroup):
-	name_clickable = bpy.props.BoolProperty(default=False)
-	clickable_ops  = bpy.props.EnumProperty(items=clickable_ops_items)
-	clickable_mode = bpy.props.EnumProperty(items=clickable_mode_items)
-	clickable_events_on = bpy.props.BoolProperty(default=False)
+	name_clickable : bpy.props.BoolProperty(default=False)
+	clickable_ops  : bpy.props.EnumProperty(items=clickable_ops_items)
+	clickable_mode : bpy.props.EnumProperty(items=clickable_mode_items)
+	clickable_events_on : bpy.props.BoolProperty(default=False)
 
 def register():
 	bpy.utils.register_class(Jueg_OnOffEntry)

@@ -84,10 +84,10 @@ class POSE_OT_###opsclass###(Operator):
 	bl_label = "###opsclass###"
 
 
-	ops_id		 = StringProperty()
-	index		 = IntProperty()
-	reset_solo   = BoolProperty()
-	force_mode   = StringProperty()
+	ops_id		 : StringProperty()
+	index		 : IntProperty()
+	reset_solo   : BoolProperty()
+	force_mode   : StringProperty()
 
 	@classmethod
 	def poll(self, context):

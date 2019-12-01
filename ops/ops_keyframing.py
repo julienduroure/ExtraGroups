@@ -42,13 +42,13 @@ class POSE_OT_jueg_keyframing_after_menu(Operator):
 	bl_label = "keyframing"
 
 
-	index   	 = IntProperty()
-	data		 = StringProperty()
-	event   	 = StringProperty()
-	ops_id       = StringProperty()
-	solo         = BoolProperty()
-	reset_solo   = BoolProperty()
-	mirror       = BoolProperty()
+	index   	 : IntProperty()
+	data		 : StringProperty()
+	event   	 : StringProperty()
+	ops_id       : StringProperty()
+	solo         : BoolProperty()
+	reset_solo   : BoolProperty()
+	mirror       : BoolProperty()
 
 	@classmethod
 	def poll(self, context):
@@ -240,10 +240,10 @@ class POSE_OT_jueg_keyframing(Operator):
 	bl_label = "keyframing"
 
 
-	ops_id		 = StringProperty()
-	index		 = IntProperty()
-	reset_solo   = BoolProperty()
-	force_mode   = StringProperty()
+	ops_id		 : StringProperty()
+	index		 : IntProperty()
+	reset_solo   : BoolProperty()
+	force_mode   : StringProperty()
 
 	@classmethod
 	def poll(self, context):
