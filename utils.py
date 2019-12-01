@@ -60,8 +60,8 @@ def get_default_ops_id():
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['sort_order'] = 2
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['ops_type'] = 'BOOL'
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['ops_exe'] = "pose.jueg_change_visibility"
-	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['icon_on'] = "VISIBLE_IPO_ON"
-	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['icon_off'] = "VISIBLE_IPO_OFF"
+	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['icon_on'] = "HIDE_OFF"
+	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['icon_off'] = "HIDE_ON"
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['ok_for_current_sel'] = False
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['ops_context'] = 'INVOKE_DEFAULT'
 	dict_['b9eac1a0a2fd4dcd94140d05a6a3af86']['display'] = False
@@ -98,7 +98,7 @@ def get_default_ops_id():
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['sort_order'] = 1
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['ops_type'] = 'EXE'
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['ops_exe'] = "pose.jueg_select"
-	dict_['8102ad699e6d4af8a8f511e1283b995e']['icon_on'] = "HAND"
+	dict_['8102ad699e6d4af8a8f511e1283b995e']['icon_on'] = "VIEW_PAN"
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['icon_off'] = ""
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['ok_for_current_sel'] = False
 	dict_['8102ad699e6d4af8a8f511e1283b995e']['ops_context'] = 'INVOKE_DEFAULT'
