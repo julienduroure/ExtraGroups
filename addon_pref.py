@@ -42,7 +42,7 @@ class jueg_AddonPreferences(bpy.types.AddonPreferences):
 	enable_popup    : bpy.props.BoolProperty(default= True, update=update_enable_popup_cb)
 	textremove      : bpy.props.BoolProperty(default= True )
 
-	keymap_key		: bpy.props.StringProperty(default='Q', update=update_keymap_cb)
+	keymap_key		: bpy.props.StringProperty(default='Y', update=update_keymap_cb)
 	keymap_shift	: bpy.props.BoolProperty(default=False, update=update_keymap_cb)
 	keymap_ctrl		: bpy.props.BoolProperty(default=False, update=update_keymap_cb)
 	keymap_alt		: bpy.props.BoolProperty(default=False, update=update_keymap_cb)
