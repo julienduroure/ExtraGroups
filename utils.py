@@ -41,8 +41,8 @@ def get_default_ops_id():
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['sort_order'] = 3
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['ops_type'] = 'BOOL'
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['ops_exe'] = "pose.jueg_bonemute"
-	dict_['f31027b2b65d4a90b610281ea09f08fb']['icon_on'] = "MUTE_IPO_OFF"
-	dict_['f31027b2b65d4a90b610281ea09f08fb']['icon_off'] = "MUTE_IPO_ON"
+	dict_['f31027b2b65d4a90b610281ea09f08fb']['icon_on'] = "MUTE_IPO_ON"
+	dict_['f31027b2b65d4a90b610281ea09f08fb']['icon_off'] = "MUTE_IPO_OFF"
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['ok_for_current_sel'] = True
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['ops_context'] = 'INVOKE_DEFAULT'
 	dict_['f31027b2b65d4a90b610281ea09f08fb']['display'] = False
