@@ -69,7 +69,7 @@ class POSE_UL_jueg_bonegroup(bpy.types.UIList):
 				# check if ops is available for current selection
 
 				row.operator_context = [ops_ for ops_ in armature.jueg_extragroups_ops if ops_.id == armature.jueg_clickable_name_data.clickable_ops][0].ops_context
-				op = row.operator([ops_ for ops_ in armature.jueg_extragroups_ops if ops_.id == armature.jueg_clickable_name_data.clickable_ops][0].ops_exe, item.name, emboss=False)
+				op = row.operator([ops_ for ops_ in armature.jueg_extragroups_ops if ops_.id == armature.jueg_clickable_name_data.clickable_ops][0].ops_exe, text=item.name, emboss=False)
 				op.index = index
 				op.ops_id = armature.jueg_clickable_name_data.clickable_ops
 				if armature.jueg_clickable_name_data.clickable_events_on == False:
