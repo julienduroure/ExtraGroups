@@ -274,16 +274,17 @@ class POSE_OT_jueg_select(Operator):
 
 		# Gizmo Management
 		if addonpref().use_manipulator:
-			manip = []
+			manip = "builtin.move"
 			if armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].manipulator[0] == True:
-				manip.append('TRANSLATE')
-			if armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].manipulator[1] == True:
-				manip.append('ROTATE')
-			if armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].manipulator[2] == True:
-				manip.append('SCALE')
+				manip = "builtin.move"
+			elif armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].manipulator[1] == True:
+				manip = "builtin.rotate"
+			elif armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].manipulator[2] == True:
+				manip = "builtin.scale"
 			if mode == "REPLACE" or mode == "REPLACE_MIRROR" or mode == "SELECT_HIDE_OTHER" or mode == "SELECT_HIDE_OTHER_MIRROR":
-				bpy.context.space_data.transform_manipulators = set(manip)
-			bpy.context.space_data.transform_orientation = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].orientation
+				bpy.ops.wm.tool_set_by_id(name=manip, space_type="VIEW_3D")
+			bpy.context.scene.transform_orientation_slots[0].type = armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].orientation
+			print(armature.jueg_grouptypelist[armature.jueg_active_grouptype].group_ids[self.index].orientation)
 
 
 		#delete bones if any
