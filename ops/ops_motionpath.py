@@ -197,7 +197,7 @@ class POSE_OT_jueg_motionpath(Operator):
 				armature.data.bones.active = armature.data.bones[bone.name]
 ###################################################################################
 		if (mode == "ADD" or mode == "ADD_MIRROR") and on_off == True:
-			bpy.ops.pose.paths_calculate()
+			bpy.ops.pose.paths_calculate(start_frame=bpy.context.scene.frame_start, end_frame=bpy.context.scene.frame_end, bake_location='HEADS')
 		if (mode == "ADD" or mode == "ADD_MIRROR") and on_off == False:
 			bpy.ops.pose.paths_clear()
 		if (mode == "UPDATE" or mode == "UPDATE_MIRROR") and on_off == False:
@@ -248,7 +248,7 @@ class POSE_OT_jueg_motionpath(Operator):
 											armature.data.bones[bone.name].select = True
 
 										# apply ops
-										bpy.ops.pose.paths_calculate()
+										bpy.ops.pose.paths_calculate(start_frame=bpy.context.scene.frame_start, end_frame=bpy.context.scene.frame_end, bake_location='HEADS')
 
 										# deselect
 										for bone in bones:
