@@ -20,7 +20,7 @@
 #    along with ExtraGroups.  If not, see <http://www.gnu.org/licenses/>.
 ##########################################################################################
 #
-#	Copyright 2016-2017 Julien Duroure (contact@julienduroure.com)
+#	Copyright 2016-2021 Julien Duroure (contact@julienduroure.com)
 #
 ##########################################################################################
 bl_info = {
