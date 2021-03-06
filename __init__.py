@@ -25,9 +25,9 @@
 ##########################################################################################
 bl_info = {
 	"name": "ExtraGroups",
-	"version": (1, 1, 0),
+	"version": (1, 1, 1),
 	"author": "Julien Duroure",
-	"blender": (2, 80, 0),
+	"blender": (2, 92, 0),
 	"description": "ExtraGroups Tools",
 	"location": "3D View > Properties > ExtraGroups Tab, popup in 3D View",
 	"wiki_url": "http://blerifa.com/en/tools/ExtraGroups/",
@@ -103,16 +103,16 @@ def register():
 	ops_linking_update.register()
 	keymap.register_keymap()
 
-	bpy.types.Object.jueg_grouptypelist = bpy.props.CollectionProperty(type=globs.Jueg_GroupType)
-	bpy.types.Object.jueg_extragroups_ops = bpy.props.CollectionProperty(type=globs.Jueg_OpsItem)
-	bpy.types.Object.jueg_active_grouptype = bpy.props.IntProperty()
-	bpy.types.Object.jueg_menu_temp_data = bpy.props.PointerProperty(type=globs.Jueg_menu_temp_data)
-	bpy.types.Object.jueg_clickable_name_data = bpy.props.PointerProperty(type=globs.Jueg_Clickable_Name)
-	bpy.types.Object.jueg_popup_lines_nb      = bpy.props.IntProperty(default=5)
+	bpy.types.Object.jueg_grouptypelist = bpy.props.CollectionProperty(type=globs.Jueg_GroupType, override={"LIBRARY_OVERRIDABLE", 'USE_INSERTION'})
+	bpy.types.Object.jueg_extragroups_ops = bpy.props.CollectionProperty(type=globs.Jueg_OpsItem, override={"LIBRARY_OVERRIDABLE", 'USE_INSERTION'})
+	bpy.types.Object.jueg_active_grouptype = bpy.props.IntProperty(override={"LIBRARY_OVERRIDABLE"})
+	bpy.types.Object.jueg_menu_temp_data = bpy.props.PointerProperty(type=globs.Jueg_menu_temp_data, override={"LIBRARY_OVERRIDABLE"})
+	bpy.types.Object.jueg_clickable_name_data = bpy.props.PointerProperty(type=globs.Jueg_Clickable_Name, override={"LIBRARY_OVERRIDABLE"})
+	bpy.types.Object.jueg_popup_lines_nb      = bpy.props.IntProperty(default=5, override={"LIBRARY_OVERRIDABLE"})
 
-	bpy.types.Scene.on_off_save = bpy.props.CollectionProperty(type=globs.Jueg_OnOffEntry)  #used only temp for update addon
-	bpy.types.Scene.solo_save = bpy.props.CollectionProperty(type=globs.Jueg_OnOffEntry)    #used only temp for update addon
-	bpy.types.Scene.display_save = bpy.props.CollectionProperty(type=globs.Jueg_OpsDisplay) #used only temp for update addon
+	bpy.types.Scene.on_off_save = bpy.props.CollectionProperty(type=globs.Jueg_OnOffEntry, override={"LIBRARY_OVERRIDABLE", 'USE_INSERTION'})  #used only temp for update addon
+	bpy.types.Scene.solo_save = bpy.props.CollectionProperty(type=globs.Jueg_OnOffEntry, override={"LIBRARY_OVERRIDABLE", 'USE_INSERTION'})    #used only temp for update addon
+	bpy.types.Scene.display_save = bpy.props.CollectionProperty(type=globs.Jueg_OpsDisplay, override={"LIBRARY_OVERRIDABLE", 'USE_INSERTION'}) #used only temp for update addon
 
 	bpy.extragroups_icons = {}
 
